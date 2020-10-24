@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <zj>
+    <tsNo>43040121</tsNo>
+    <testLineNo>4304012105</testLineNo>
+    <jcrq>20200812</jcrq>
+    <jckssj>20200812161918</jckssj>
+    <gxsxswc>0.54</gxsxswc>
+    <xysj>305</xysj>
+    <yqwdszwc></yqwdszwc>
+    <jcjg>1</jcjg>
+    <bhgsm></bhgsm>
+    <jcry>GXCZ3</jcry>
+  </zj>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+  <head>
+
+    <code>1</code>
+
+    <message>上传设备自检数据成功!</message>
+
+    <rownum>0</rownum>
+
+  </head>
+
+  <body>
+
+  </body>
+
+</root>

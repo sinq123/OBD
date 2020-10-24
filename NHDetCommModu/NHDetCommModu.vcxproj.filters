@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="导出文件">
+      <UniqueIdentifier>{125e4c9d-6432-41bb-9aee-a2c7e91c543c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHAppDataINI">
+      <UniqueIdentifier>{6acef0ef-1d1f-443d-8eca-240a9108af5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHDef">
+      <UniqueIdentifier>{6cfb621b-6a5d-4e44-a4d1-7ef5c6a0d720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ReportNumberGenerator">
+      <UniqueIdentifier>{a598537e-43ea-4811-976a-eef075f62217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHJudge">
+      <UniqueIdentifier>{909a0651-086e-4d7b-8c09-c837a30afd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ManualDet">
+      <UniqueIdentifier>{4c03ea74-0a10-45ac-8e18-740aeffc545d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHCommFunc">
+      <UniqueIdentifier>{169f2ca9-fef9-40c2-b2bc-00c400b66380}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHDetCommModu.h">
+      <Filter>导出文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHAppDataINI.h">
+      <Filter>NHAppDataINI</Filter>
+    </ClInclude>
+    <ClInclude Include="NHConfigINI.h">
+      <Filter>NHAppDataINI</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleIni.h">
+      <Filter>NHAppDataINI</Filter>
+    </ClInclude>
+    <ClInclude Include="FuncSwitch.h">
+      <Filter>NHDef</Filter>
+    </ClInclude>
+    <ClInclude Include="NHDef.h">
+      <Filter>NHDef</Filter>
+    </ClInclude>
+    <ClInclude Include="NHEngPro.h">
+      <Filter>NHDef</Filter>
+    </ClInclude>
+    <ClInclude Include="NHStructDef.h">
+      <Filter>NHDef</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportNumberGenerator.h">
+      <Filter>ReportNumberGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="NHJudge.h">
+      <Filter>NHJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualDetDataHelper.h">
+      <Filter>ManualDet</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCommFunc.h">
+      <Filter>NHCommFunc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHAppDataINI.cpp">
+      <Filter>NHAppDataINI</Filter>
+    </ClCompile>
+    <ClCompile Include="NHConfigINI.cpp">
+      <Filter>NHAppDataINI</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportNumberGenerator.cpp">
+      <Filter>ReportNumberGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="NHJudge.cpp">
+      <Filter>NHJudge</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualDetDataHelper.cpp">
+      <Filter>ManualDet</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCommFunc.cpp">
+      <Filter>NHCommFunc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NHDetCommModu.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

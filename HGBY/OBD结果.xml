@@ -1,0 +1,36 @@
+
+
+<Params>
+  <szToken>82d21559-7f4a-4e96-a99a-7fc4a241fc2b</szToken>
+  <szDeviceSN>JD0102</szDeviceSN>
+  <lDetectID>5498878</lDetectID>
+  <szVIN>LGBK22E55CY861062</szVIN>
+  <nMILOK>1</nMILOK>
+  <nFaultIndicatorOK>1</nFaultIndicatorOK>
+  <nFaultMsgExist>0</nFaultMsgExist>
+  <nConnect_OK>1</nConnect_OK>
+  <nConnectKOREASON>0</nConnectKOREASON>
+  <nODOAfterMIL>0</nODOAfterMIL>
+  <nNotReadyItemExist>0</nNotReadyItemExist>
+  <szNotReadyItems></szNotReadyItems>
+  <szENGCALID>1CJ07CA2X998</szENGCALID>
+  <szENGCVN>00000000</szENGCVN>
+  <szPSTPRCSCALID></szPSTPRCSCALID>
+  <szPSTPRCSCVN></szPSTPRCSCVN>
+  <szOTHERCALID></szOTHERCALID>
+  <szOTHERCVN></szOTHERCVN>
+  <szOBD_Checker>周永乐</szOBD_Checker>
+  <szCheckResult>1</szCheckResult>
+  <szOBD_CheckRemark></szOBD_CheckRemark>
+  <szFaultCodeAndMsg></szFaultCodeAndMsg>
+</Params>
+
+
+<response>
+  <head>
+    <code>0</code>
+    <message>数据保存成功</message>
+  </head>
+  <body></body>
+</response>
+

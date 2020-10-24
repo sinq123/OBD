@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="设备准备">
+      <UniqueIdentifier>{0d35416b-1741-4b6c-9eab-1b46226a719d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBD">
+      <UniqueIdentifier>{4e6dbc99-f5d6-4d7c-8688-39358ad9e0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson">
+      <UniqueIdentifier>{61713e6a-aaf8-4dac-958c-87714ffeb144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\error">
+      <UniqueIdentifier>{1b40642e-fb7a-4f3a-812a-e4b11916940c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\internal">
+      <UniqueIdentifier>{bf884637-0e8c-457d-a0b2-1f20b81e57f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\msinttypes">
+      <UniqueIdentifier>{ae5900dd-141a-4c5a-a772-3f8c1a977676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{7b7e4df9-3c24-4d81-85c5-94546630d4b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="登录">
+      <UniqueIdentifier>{62adc7ee-1436-4989-b9b4-6c91114d0b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="接口xml">
+      <UniqueIdentifier>{d57581f2-9235-4717-b576-01bc7341a3a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="第三类">
+      <UniqueIdentifier>{553871df-971a-4e06-bb64-bdccbc398884}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\AT.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\AT.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="待检列表.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="开始检测.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="结束检测.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="完成检测.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="取消检测.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="OBD结果.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="车牌请求检测作业.xml">
+      <Filter>接口xml</Filter>
+    </None>
+    <None Include="HGWebServiceLibAPI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ATDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DieselVehicleEquipmentPrepareDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="GasolineVehicleEquipmentPrepareDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="GasolineVehicleEquipmentPrepareNDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDTestDlg.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\allocators.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\cursorstreamwrapper.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\document.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodedstream.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodings.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filereadstream.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filewritestream.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\fwd.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\istreamwrapper.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorybuffer.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorystream.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\ostreamwrapper.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\pointer.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\prettywriter.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\reader.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\schema.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stream.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stringbuffer.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\writer.h">
+      <Filter>rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\error\en.h">
+      <Filter>rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\error\error.h">
+      <Filter>rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\biginteger.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\clzll.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\diyfp.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\dtoa.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\ieee754.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\itoa.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\meta.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\pow10.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\regex.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\stack.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\strfunc.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\strtod.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\swap.h">
+      <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\msinttypes\inttypes.h">
+      <Filter>rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\msinttypes\stdint.h">
+      <Filter>rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
+      <Filter>登录</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+    <ClInclude Include="CStdioFileExAAndUn.h">
+      <Filter>第三类</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AT.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ATDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DieselVehicleEquipmentPrepareDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="GasolineVehicleEquipmentPrepareDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="GasolineVehicleEquipmentPrepareNDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDTestDlg.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>登录</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="CStdioFileExAAndUn.cpp">
+      <Filter>第三类</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AT.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

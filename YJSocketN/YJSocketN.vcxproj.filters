@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="登录">
+      <UniqueIdentifier>{c7777e7a-110c-479c-b8ea-ef7175452f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{7bbc05fa-85d8-4b48-a9ca-9c3d0e9c7299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="json">
+      <UniqueIdentifier>{36c53083-2bc7-430a-9a68-46013acc301a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib_json">
+      <UniqueIdentifier>{ed997fcc-9088-4f43-a9d7-9c866e91b53c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{86cd2426-cf4b-4f7f-bf07-95f5bf280bf9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\YJSocketN.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\YJSocketN.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib_json\json_internalarray.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\json_internalmap.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\json_valueiterator.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\sconscript">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="q.xml">
+      <Filter>头文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="YJSocketN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="YJSocketNDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="json\autolink.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\config.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\features.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\forwards.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\reader.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\value.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\writer.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="lib_json\json_batchallocator.h">
+      <Filter>lib_json</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
+      <Filter>登录</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="YJSocketN.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="YJSocketNDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_reader.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_value.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_writer.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>登录</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="YJSocketN.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

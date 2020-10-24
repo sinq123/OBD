@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{d7757e50-519a-4b6d-abf3-0c556cde4a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="登录">
+      <UniqueIdentifier>{6b4d26e0-8b8d-4e08-817b-1005f259a7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="软件认证">
+      <UniqueIdentifier>{eec4c2be-906b-4fd4-87bf-c23defde42a5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\HNSYDLG.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\HNSYDLG.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+    <None Include="1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HNSYDLG.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HNSYDLGDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
+      <Filter>登录</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>软件认证</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HNSYDLG.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HNSYDLGDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>登录</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>软件认证</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HNSYDLG.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

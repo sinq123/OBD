@@ -1,0 +1,1790 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://iface.server.webservice.zkyt.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="DeviceSwapIfaceImplService" targetNamespace="http://iface.server.webservice.zkyt.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://iface.server.webservice.zkyt.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://iface.server.webservice.zkyt.com/">
+  <xs:element name="argChang" type="tns:argChang"/>
+  <xs:element name="argChangResponse" type="tns:argChangResponse"/>
+  <xs:element name="bgAirHC" type="tns:bgAirHC"/>
+  <xs:element name="bgAirHCResponse" type="tns:bgAirHCResponse"/>
+  <xs:element name="cgjALPSelfcheck" type="tns:cgjALPSelfcheck"/>
+  <xs:element name="cgjALPSelfcheckResponse" type="tns:cgjALPSelfcheckResponse"/>
+  <xs:element name="cgjLASelfcheck" type="tns:cgjLASelfcheck"/>
+  <xs:element name="cgjLASelfcheckResponse" type="tns:cgjLASelfcheckResponse"/>
+  <xs:element name="cgjLSPSelfcheck" type="tns:cgjLSPSelfcheck"/>
+  <xs:element name="cgjLSPSelfcheckResponse" type="tns:cgjLSPSelfcheckResponse"/>
+  <xs:element name="cgjPLHPSelfcheck" type="tns:cgjPLHPSelfcheck"/>
+  <xs:element name="cgjPLHPSelfcheckResponse" type="tns:cgjPLHPSelfcheckResponse"/>
+  <xs:element name="cgjSelfcheck" type="tns:cgjSelfcheck"/>
+  <xs:element name="cgjSelfcheckResponse" type="tns:cgjSelfcheckResponse"/>
+  <xs:element name="cycdyhwAdjust" type="tns:cycdyhwAdjust"/>
+  <xs:element name="cycdyhwAdjustResponse" type="tns:cycdyhwAdjustResponse"/>
+  <xs:element name="doubleIdleData" type="tns:doubleIdleData"/>
+  <xs:element name="doubleIdleDataResponse" type="tns:doubleIdleDataResponse"/>
+  <xs:element name="doubleIdleData_FC" type="tns:doubleIdleData_FC"/>
+  <xs:element name="doubleIdleLog" type="tns:doubleIdleLog"/>
+  <xs:element name="doubleIdleLogResponse" type="tns:doubleIdleLogResponse"/>
+  <xs:element name="doubleIdleLog_FC" type="tns:doubleIdleLog_FC"/>
+  <xs:element name="getCarInfo" type="tns:getCarInfo"/>
+  <xs:element name="getCarInfoResponse" type="tns:getCarInfoResponse"/>
+  <xs:element name="getCarInfo_FC" type="tns:getCarInfo_FC"/>
+  <xs:element name="getSatate" type="tns:getSatate"/>
+  <xs:element name="getSatateResponse" type="tns:getSatateResponse"/>
+  <xs:element name="hjcsgyqSelfcheck" type="tns:hjcsgyqSelfcheck"/>
+  <xs:element name="hjcsgyqSelfcheckResponse" type="tns:hjcsgyqSelfcheckResponse"/>
+  <xs:element name="lightproofSmokeData" type="tns:lightproofSmokeData"/>
+  <xs:element name="lightproofSmokeDataLog_FC" type="tns:lightproofSmokeDataLog_FC"/>
+  <xs:element name="lightproofSmokeDataLog_FCResponse" type="tns:lightproofSmokeDataLog_FCResponse"/>
+  <xs:element name="lightproofSmokeDataResponse" type="tns:lightproofSmokeDataResponse"/>
+  <xs:element name="lightproofSmokeData_FC" type="tns:lightproofSmokeData_FC"/>
+  <xs:element name="lightproofSmokeLog" type="tns:lightproofSmokeLog"/>
+  <xs:element name="lljSelfcheck" type="tns:lljSelfcheck"/>
+  <xs:element name="lljSelfcheckResponse" type="tns:lljSelfcheckResponse"/>
+  <xs:element name="loadDownData" type="tns:loadDownData"/>
+  <xs:element name="loadDownDataResponse" type="tns:loadDownDataResponse"/>
+  <xs:element name="loadDownLog" type="tns:loadDownLog"/>
+  <xs:element name="loadDownLogResponse" type="tns:loadDownLogResponse"/>
+  <xs:element name="motoDbIdleData" type="tns:motoDbIdleData"/>
+  <xs:element name="motoDbIdleDataResponse" type="tns:motoDbIdleDataResponse"/>
+  <xs:element name="obdResult" type="tns:obdResult"/>
+  <xs:element name="obdResultLog" type="tns:obdResultLog"/>
+  <xs:element name="obdResultLogResponse" type="tns:obdResultLogResponse"/>
+  <xs:element name="obdResultResponse" type="tns:obdResultResponse"/>
+  <xs:element name="pqfxySelfcheck" type="tns:pqfxySelfcheck"/>
+  <xs:element name="pqfxySelfcheckResponse" type="tns:pqfxySelfcheckResponse"/>
+  <xs:element name="qyfxSelfcheck" type="tns:qyfxSelfcheck"/>
+  <xs:element name="qyfxSelfcheckResponse" type="tns:qyfxSelfcheckResponse"/>
+  <xs:element name="sdsqtfxySelfcheck" type="tns:sdsqtfxySelfcheck"/>
+  <xs:element name="sdsqtfxySelfcheckResponse" type="tns:sdsqtfxySelfcheckResponse"/>
+  <xs:element name="sendMessage" type="tns:sendMessage"/>
+  <xs:element name="sendMessageResponse" type="tns:sendMessageResponse"/>
+  <xs:element name="sendMessage_FC" type="tns:sendMessage_FC"/>
+  <xs:element name="vmasData" type="tns:vmasData"/>
+  <xs:element name="vmasDataResponse" type="tns:vmasDataResponse"/>
+  <xs:element name="vmasLog" type="tns:vmasLog"/>
+  <xs:element name="vmasLogResponse" type="tns:vmasLogResponse"/>
+  <xs:element name="wqfxyAdjust" type="tns:wqfxyAdjust"/>
+  <xs:element name="wqfxyAdjustResponse" type="tns:wqfxyAdjustResponse"/>
+  <xs:element name="wqfxySelfcheck" type="tns:wqfxySelfcheck"/>
+  <xs:element name="wqfxySelfcheckResponse" type="tns:wqfxySelfcheckResponse"/>
+  <xs:element name="ydjSelfcheck" type="tns:ydjSelfcheck"/>
+  <xs:element name="ydjSelfcheckResponse" type="tns:ydjSelfcheckResponse"/>
+  <xs:complexType name="argChang">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="argName" type="xs:string"/>
+      <xs:element minOccurs="0" name="oldValue" type="xs:string"/>
+      <xs:element minOccurs="0" name="newValue" type="xs:string"/>
+      <xs:element minOccurs="0" name="changeTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="argChangResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="logTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+      <xs:element name="inspectNum" type="xs:int"/>
+      <xs:element name="smokeValue" type="xs:double"/>
+      <xs:element name="zs" type="xs:int"/>
+      <xs:element name="ydjjcswd" type="xs:double"/>
+      <xs:element name="ydjjcsqy" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeLogResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCarInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCarInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:carInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="carInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="carCardNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="airInflow" type="xs:string"/>
+      <xs:element minOccurs="0" name="fuelType" type="xs:string"/>
+      <xs:element minOccurs="0" name="isSYJHQ" type="xs:string"/>
+      <xs:element name="maxWeight" type="xs:double"/>
+      <xs:element name="motorPower" type="xs:double"/>
+      <xs:element name="motorRate" type="xs:double"/>
+      <xs:element minOccurs="0" name="oilSupply" type="xs:string"/>
+      <xs:element minOccurs="0" name="speedChanger" type="xs:string"/>
+      <xs:element name="standardWeight" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sendMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="code" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sendMessageResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bgAirHC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="bgCO" type="xs:double"/>
+      <xs:element name="bgNO" type="xs:double"/>
+      <xs:element name="bgHC" type="xs:double"/>
+      <xs:element name="canliuHC" type="xs:double"/>
+      <xs:element minOccurs="0" name="lFlowResult" type="xs:string"/>
+      <xs:element name="o2Avg" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bgAirHCResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleData_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="lrotateSpeed" type="xs:double"/>
+      <xs:element name="hrotateSpeed" type="xs:double"/>
+      <xs:element name="coLowValue" type="xs:double"/>
+      <xs:element name="hcLowValue" type="xs:double"/>
+      <xs:element name="coHighValue" type="xs:double"/>
+      <xs:element name="hcHighValue" type="xs:double"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleDataResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjLASelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="AvitualTime" type="xs:double"/>
+      <xs:element name="ArealTime" type="xs:double"/>
+      <xs:element name="BvitualTime" type="xs:double"/>
+      <xs:element name="BrealTime" type="xs:double"/>
+      <xs:element name="CvitualTime" type="xs:double"/>
+      <xs:element name="CrealTime" type="xs:double"/>
+      <xs:element name="DvitualTime" type="xs:double"/>
+      <xs:element name="DrealTime" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjLASelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="HVitualTime" type="xs:double"/>
+      <xs:element name="HrealTime" type="xs:double"/>
+      <xs:element name="LvitualTime" type="xs:double"/>
+      <xs:element name="LrealTime" type="xs:double"/>
+      <xs:element name="Hpower" type="xs:double"/>
+      <xs:element name="Lpower" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obdResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="result" type="xs:string"/>
+      <xs:element minOccurs="0" name="checktime" type="xs:string"/>
+      <xs:element minOccurs="0" name="obdgzzsq" type="xs:string"/>
+      <xs:element minOccurs="0" name="objgztx" type="xs:string"/>
+      <xs:element minOccurs="0" name="objgztxyy" type="xs:string"/>
+      <xs:element minOccurs="0" name="objgzzsdsfbj" type="xs:string"/>
+      <xs:element minOccurs="0" name="gzdm" type="xs:string"/>
+      <xs:element minOccurs="0" name="gzxx" type="xs:string"/>
+      <xs:element minOccurs="0" name="jxztsfwc" type="xs:string"/>
+      <xs:element minOccurs="0" name="jxztwwcyy" type="xs:string"/>
+      <xs:element minOccurs="0" name="qtxsgl" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidfdjkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidhclkddy" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidqtkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnfdjkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnhclkddy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnqtkzdy" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obdResultResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleLog_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="inspectNum" type="xs:int"/>
+      <xs:element name="flowHC" type="xs:double"/>
+      <xs:element name="flowCO" type="xs:double"/>
+      <xs:element name="flowCO2" type="xs:double"/>
+      <xs:element name="analyserO2" type="xs:double"/>
+      <xs:element name="oilTemperature" type="xs:double"/>
+      <xs:element minOccurs="0" name="rotateSpeed" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleLogResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vmasLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="inspectNum" type="xs:int"/>
+      <xs:element name="flowHC" type="xs:double"/>
+      <xs:element name="flowCO" type="xs:double"/>
+      <xs:element name="flowCO2" type="xs:double"/>
+      <xs:element name="flowNO" type="xs:double"/>
+      <xs:element name="analyserO2" type="xs:double"/>
+      <xs:element name="flowmeterO2" type="xs:double"/>
+      <xs:element name="envO2" type="xs:double"/>
+      <xs:element name="actFlow" type="xs:double"/>
+      <xs:element name="stdFlow" type="xs:double"/>
+      <xs:element name="tailFlow" type="xs:double"/>
+      <xs:element name="weightHC" type="xs:double"/>
+      <xs:element name="weightCO" type="xs:double"/>
+      <xs:element name="weightNO" type="xs:double"/>
+      <xs:element name="lineSpeed" type="xs:double"/>
+      <xs:element name="totalPower" type="xs:double"/>
+      <xs:element name="parasPower" type="xs:double"/>
+      <xs:element name="indicPower" type="xs:double"/>
+      <xs:element name="flowAirPressure" type="xs:double"/>
+      <xs:element name="flowTemperature" type="xs:double"/>
+      <xs:element name="envirTemperature" type="xs:double"/>
+      <xs:element name="envirAirPressure" type="xs:double"/>
+      <xs:element name="envirHumidity" type="xs:double"/>
+      <xs:element name="diluteCorrect" type="xs:double"/>
+      <xs:element name="humidityCorrect" type="xs:double"/>
+      <xs:element name="diluteRatio" type="xs:double"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="qtfxyjcswd" type="xs:double"/>
+      <xs:element name="zhlwd" type="xs:double"/>
+      <xs:element name="weightNO1" type="xs:double"/>
+      <xs:element name="weightNO2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vmasLogResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ydjSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="zeroResult" type="xs:string"/>
+      <xs:element name="labelValueN30" type="xs:double"/>
+      <xs:element name="labelValueN50" type="xs:double"/>
+      <xs:element name="N30" type="xs:double"/>
+      <xs:element name="N50" type="xs:double"/>
+      <xs:element name="error30" type="xs:double"/>
+      <xs:element name="error50" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ydjSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dyhwSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dyhwSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loadDownLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="inspectNum" type="xs:int"/>
+      <xs:element name="calVelMaxHp" type="xs:double"/>
+      <xs:element name="actVelMaxHp" type="xs:double"/>
+      <xs:element name="powerPerSec" type="xs:double"/>
+      <xs:element name="speedPerSec" type="xs:double"/>
+      <xs:element name="actMaxPower" type="xs:double"/>
+      <xs:element name="rotateSpeed" type="xs:double"/>
+      <xs:element name="envirTemperature" type="xs:double"/>
+      <xs:element name="envirAirPressure" type="xs:double"/>
+      <xs:element name="envirHumidity" type="xs:double"/>
+      <xs:element name="powerCorrect" type="xs:double"/>
+      <xs:element name="corMaxPower" type="xs:double"/>
+      <xs:element name="smokeK100" type="xs:double"/>
+      <xs:element name="smokeK90" type="xs:double"/>
+      <xs:element name="smokeK80" type="xs:double"/>
+      <xs:element name="speedK100" type="xs:double"/>
+      <xs:element name="speedK90" type="xs:double"/>
+      <xs:element name="speedK80" type="xs:double"/>
+      <xs:element name="NO80" type="xs:double"/>
+      <xs:element name="NO280" type="xs:double"/>
+      <xs:element name="CO280" type="xs:double"/>
+      <xs:element name="NOX80" type="xs:double"/>
+      <xs:element name="ydjjcswd" type="xs:double"/>
+      <xs:element name="qtfxyjcswd" type="xs:double"/>
+      <xs:element name="zhlwd" type="xs:double"/>
+      <xs:element name="ydjjcsqy" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loadDownLogResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dyhwAdjust">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="gasType" type="xs:string"/>
+      <xs:element name="labelValueNO" type="xs:double"/>
+      <xs:element name="detectValueNO" type="xs:double"/>
+      <xs:element name="labelValueNO2" type="xs:double"/>
+      <xs:element name="detectValueNO2" type="xs:double"/>
+      <xs:element minOccurs="0" name="adjustResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dyhwAdjustResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obdResultLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidfdjkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidhclkddy" type="xs:string"/>
+      <xs:element minOccurs="0" name="calidqtkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnfdjkzdy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnhclkddy" type="xs:string"/>
+      <xs:element minOccurs="0" name="cvnqtkzdy" type="xs:string"/>
+      <xs:element name="jqmjdkd" type="xs:double"/>
+      <xs:element name="fhz" type="xs:double"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="ymkd" type="xs:double"/>
+      <xs:element name="fdjscgl" type="xs:double"/>
+      <xs:element name="zyyl" type="xs:double"/>
+      <xs:element name="hyl" type="xs:double"/>
+      <xs:element name="noxcgqnd" type="xs:double"/>
+      <xs:element name="Nspsl" type="xs:double"/>
+      <xs:element name="pqwd" type="xs:double"/>
+      <xs:element name="Klpjqyc" type="xs:double"/>
+      <xs:element name="Egrkd" type="xs:double"/>
+      <xs:element name="rypsyl" type="xs:double"/>
+      <xs:element name="cs" type="xs:double"/>
+      <xs:element name="zs" type="xs:double"/>
+      <xs:element name="jqyl" type="xs:double"/>
+      <xs:element minOccurs="0" name="fuelType" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obdResultLogResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCarInfo_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cycdyhwAdjust">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="gasType" type="xs:string"/>
+      <xs:element name="labelValueNO" type="xs:double"/>
+      <xs:element name="detectValueNO" type="xs:double"/>
+      <xs:element name="labelValueNO2" type="xs:double"/>
+      <xs:element name="detectValueNO2" type="xs:double"/>
+      <xs:element name="labelValueCO2" type="xs:double"/>
+      <xs:element name="detectValueCO2" type="xs:double"/>
+      <xs:element minOccurs="0" name="adjustResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cycdyhwAdjustResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hjcsgyqSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="actualTemperature" type="xs:double"/>
+      <xs:element name="temperature" type="xs:double"/>
+      <xs:element name="actualHumidity" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="actualAirPressure" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hjcsgyqSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pqfxySelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="noxRTime1" type="xs:double"/>
+      <xs:element minOccurs="0" name="noxRTime1Start" type="xs:string"/>
+      <xs:element minOccurs="0" name="noxRTime1End" type="xs:string"/>
+      <xs:element name="noxRTime2" type="xs:double"/>
+      <xs:element minOccurs="0" name="noxRTime2Start" type="xs:string"/>
+      <xs:element minOccurs="0" name="noxRTime2End" type="xs:string"/>
+      <xs:element name="co2RTime1" type="xs:double"/>
+      <xs:element minOccurs="0" name="co2RTime1Start" type="xs:string"/>
+      <xs:element minOccurs="0" name="co2RTime1End" type="xs:string"/>
+      <xs:element name="co2RTime2" type="xs:double"/>
+      <xs:element minOccurs="0" name="co2RTime2Start" type="xs:string"/>
+      <xs:element minOccurs="0" name="co2RTime2End" type="xs:string"/>
+      <xs:element name="CEconverte" type="xs:double"/>
+      <xs:element minOccurs="0" name="CETimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="CETimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pqfxySelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeDataLog_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="cytimestart" type="xs:string"/>
+      <xs:element name="labelvalue" type="xs:double"/>
+      <xs:element name="zs" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeDataLog_FCResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loadDownData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="smokeK100" type="xs:double"/>
+      <xs:element name="smokeK90" type="xs:double"/>
+      <xs:element name="smokeK80" type="xs:double"/>
+      <xs:element name="power" type="xs:double"/>
+      <xs:element name="speed" type="xs:double"/>
+      <xs:element name="mortorSpeed" type="xs:double"/>
+      <xs:element name="idleRotateSpeed" type="xs:double"/>
+      <xs:element name="valueNO" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loadDownDataResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vmasData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="valueCO" type="xs:double"/>
+      <xs:element name="valueHC" type="xs:double"/>
+      <xs:element name="valueNO" type="xs:double"/>
+      <xs:element name="testSetPower" type="xs:double"/>
+      <xs:element name="totalDistance" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="valueNO1" type="xs:double"/>
+      <xs:element name="valueNO2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vmasDataResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="motoDbIdleData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="hHC" type="xs:double"/>
+      <xs:element name="hCO" type="xs:double"/>
+      <xs:element name="hCO2" type="xs:double"/>
+      <xs:element name="hIdleSpeed" type="xs:double"/>
+      <xs:element name="HC" type="xs:double"/>
+      <xs:element name="CO" type="xs:double"/>
+      <xs:element name="CO2" type="xs:double"/>
+      <xs:element name="idleSpeed" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="motoDbIdleDataResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getSatate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getSatateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stateInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="methodId" type="xs:string"/>
+      <xs:element minOccurs="0" name="state" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="lrotateSpeed" type="xs:double"/>
+      <xs:element name="hrotateSpeed" type="xs:double"/>
+      <xs:element name="coLowValue" type="xs:double"/>
+      <xs:element name="hcLowValue" type="xs:double"/>
+      <xs:element name="coHighValue" type="xs:double"/>
+      <xs:element name="hcHighValue" type="xs:double"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doubleIdleLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="inspectNum" type="xs:int"/>
+      <xs:element name="flowHC" type="xs:double"/>
+      <xs:element name="flowCO" type="xs:double"/>
+      <xs:element name="flowCO2" type="xs:double"/>
+      <xs:element name="analyserO2" type="xs:double"/>
+      <xs:element name="oilTemperature" type="xs:double"/>
+      <xs:element minOccurs="0" name="rotateSpeed" type="xs:string"/>
+      <xs:element name="lambdaValue" type="xs:double"/>
+      <xs:element name="qtfxyjcswd" type="xs:double"/>
+      <xs:element name="zhlwd" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjPLHPSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="speedQJ1" type="xs:string"/>
+      <xs:element name="nameSpeed1" type="xs:double"/>
+      <xs:element name="PLHP1" type="xs:double"/>
+      <xs:element minOccurs="0" name="speedQJ2" type="xs:string"/>
+      <xs:element name="nameSpeed2" type="xs:double"/>
+      <xs:element name="PLHP2" type="xs:double"/>
+      <xs:element minOccurs="0" name="speedQJ3" type="xs:string"/>
+      <xs:element name="nameSpeed3" type="xs:double"/>
+      <xs:element name="PLHP3" type="xs:double"/>
+      <xs:element minOccurs="0" name="speedQJ4" type="xs:string"/>
+      <xs:element name="nameSpeed4" type="xs:double"/>
+      <xs:element name="PLHP4" type="xs:double"/>
+      <xs:element name="maxSpeed" type="xs:double"/>
+      <xs:element name="ALpower1" type="xs:double"/>
+      <xs:element name="ALpower2" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjPLHPSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="wqfxyAdjust">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="gasType" type="xs:string"/>
+      <xs:element name="labelValueCO2" type="xs:double"/>
+      <xs:element name="detectValueCO2" type="xs:double"/>
+      <xs:element name="labelValueCO" type="xs:double"/>
+      <xs:element name="detectValueCO" type="xs:double"/>
+      <xs:element name="labelValueNO" type="xs:double"/>
+      <xs:element name="detectValueNO" type="xs:double"/>
+      <xs:element name="labelValueNO2" type="xs:double"/>
+      <xs:element name="detectValueNO2" type="xs:double"/>
+      <xs:element name="labelValueHC" type="xs:double"/>
+      <xs:element name="detectValueHC" type="xs:double"/>
+      <xs:element name="labelValueO2" type="xs:double"/>
+      <xs:element name="detectValueO2" type="xs:double"/>
+      <xs:element name="labelValuePEF" type="xs:double"/>
+      <xs:element name="labelValueC3H8" type="xs:double"/>
+      <xs:element minOccurs="0" name="adjustResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="adjustTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="wqfxyAdjustResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeData_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="smokeValue1" type="xs:double"/>
+      <xs:element name="smokeValue2" type="xs:double"/>
+      <xs:element name="smokeValue3" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+      <xs:element name="zs1" type="xs:int"/>
+      <xs:element name="zs2" type="xs:int"/>
+      <xs:element name="zs3" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeDataResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lightproofSmokeData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="smokeValue1" type="xs:double"/>
+      <xs:element name="smokeValue2" type="xs:double"/>
+      <xs:element name="smokeValue3" type="xs:double"/>
+      <xs:element name="tempreture" type="xs:double"/>
+      <xs:element name="humidity" type="xs:double"/>
+      <xs:element name="airPressure" type="xs:double"/>
+      <xs:element minOccurs="0" name="timeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeEnd" type="xs:string"/>
+      <xs:element name="zs1" type="xs:int"/>
+      <xs:element name="zs2" type="xs:int"/>
+      <xs:element name="zs3" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="qyfxSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="carryTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="carryTimeEnd" type="xs:string"/>
+      <xs:element name="carryTimenumber" type="xs:double"/>
+      <xs:element minOccurs="0" name="respondTimeStartHC_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndHC_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartCO_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndCO_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartCO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndCO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartNO_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndNO_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartNO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndNO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndO2_1" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartHC_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndHC_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartCO_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndCO_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartCO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndCO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartNO_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndNO_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartNO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndNO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeStartO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="respondTimeEndO2_2" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="qyfxSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sdsqtfxySelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="tightnessResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="lFlowResult" type="xs:string"/>
+      <xs:element name="canliuHC" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sdsqtfxySelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sendMessage_FC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="businessId" type="xs:string"/>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="code" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="wqfxySelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="tightnessResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="wqfxySelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjALPSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="AvitualTime" type="xs:double"/>
+      <xs:element name="ArealTime" type="xs:double"/>
+      <xs:element name="BvitualTime" type="xs:double"/>
+      <xs:element name="BrealTime" type="xs:double"/>
+      <xs:element name="CvitualTime" type="xs:double"/>
+      <xs:element name="CrealTime" type="xs:double"/>
+      <xs:element name="ALpower1" type="xs:double"/>
+      <xs:element name="ALpower2" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjALPSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lljSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="avgFlow" type="xs:double"/>
+      <xs:element name="O2Avg" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lljSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjLSPSelfcheck">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="registCode" type="xs:string"/>
+      <xs:element name="AvitualTime" type="xs:double"/>
+      <xs:element name="ArealTime" type="xs:double"/>
+      <xs:element name="BvitualTime" type="xs:double"/>
+      <xs:element name="BrealTime" type="xs:double"/>
+      <xs:element name="CvitualTime" type="xs:double"/>
+      <xs:element name="CrealTime" type="xs:double"/>
+      <xs:element name="DvitualTime" type="xs:double"/>
+      <xs:element name="DrealTime" type="xs:double"/>
+      <xs:element name="ALSpower" type="xs:double"/>
+      <xs:element name="BLSpower" type="xs:double"/>
+      <xs:element name="CLSpower" type="xs:double"/>
+      <xs:element name="DLSpower" type="xs:double"/>
+      <xs:element minOccurs="0" name="checkResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeStart" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkTimeEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="remark" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cgjLSPSelfcheckResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="lightproofSmokeLogResponse" nillable="true" type="tns:lightproofSmokeLogResponse"/>
+  <xs:element name="doubleIdleData_FCResponse" nillable="true" type="tns:doubleIdleDataResponse"/>
+  <xs:element name="doubleIdleLog_FCResponse" nillable="true" type="tns:doubleIdleLogResponse"/>
+  <xs:element name="dyhwSelfcheck" nillable="true" type="tns:dyhwSelfcheck"/>
+  <xs:element name="dyhwSelfcheckResponse" nillable="true" type="tns:dyhwSelfcheckResponse"/>
+  <xs:element name="dyhwAdjust" nillable="true" type="tns:dyhwAdjust"/>
+  <xs:element name="dyhwAdjustResponse" nillable="true" type="tns:dyhwAdjustResponse"/>
+  <xs:element name="getCarInfo_FCResponse" nillable="true" type="tns:getCarInfoResponse"/>
+  <xs:element name="lightproofSmokeData_FCResponse" nillable="true" type="tns:lightproofSmokeDataResponse"/>
+  <xs:element name="sendMessage_FCResponse" nillable="true" type="tns:sendMessageResponse"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="lightproofSmokeLog">
+    <wsdl:part element="tns:lightproofSmokeLog" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCarInfo">
+    <wsdl:part element="tns:getCarInfo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bgAirHC">
+    <wsdl:part element="tns:bgAirHC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjSelfcheck">
+    <wsdl:part element="tns:cgjSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleData_FCResponse">
+    <wsdl:part element="tns:doubleIdleData_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ydjSelfcheck">
+    <wsdl:part element="tns:ydjSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dyhwSelfcheck">
+    <wsdl:part element="tns:dyhwSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dyhwAdjust">
+    <wsdl:part element="tns:dyhwAdjust" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdResultLogResponse">
+    <wsdl:part element="tns:obdResultLogResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bgAirHCResponse">
+    <wsdl:part element="tns:bgAirHCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdResultLog">
+    <wsdl:part element="tns:obdResultLog" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsqtfxySelfcheckResponse">
+    <wsdl:part element="tns:sdsqtfxySelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ydjSelfcheckResponse">
+    <wsdl:part element="tns:ydjSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendMessage_FCResponse">
+    <wsdl:part element="tns:sendMessage_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="qyfxSelfcheckResponse">
+    <wsdl:part element="tns:qyfxSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cycdyhwAdjust">
+    <wsdl:part element="tns:cycdyhwAdjust" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="hjcsgyqSelfcheck">
+    <wsdl:part element="tns:hjcsgyqSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeDataLog_FC">
+    <wsdl:part element="tns:lightproofSmokeDataLog_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendMessageResponse">
+    <wsdl:part element="tns:sendMessageResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="vmasData">
+    <wsdl:part element="tns:vmasData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeDataLog_FCResponse">
+    <wsdl:part element="tns:lightproofSmokeDataLog_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="motoDbIdleData">
+    <wsdl:part element="tns:motoDbIdleData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSatate">
+    <wsdl:part element="tns:getSatate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjPLHPSelfcheck">
+    <wsdl:part element="tns:cgjPLHPSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjSelfcheckResponse">
+    <wsdl:part element="tns:cgjSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleDataResponse">
+    <wsdl:part element="tns:doubleIdleDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lljSelfcheckResponse">
+    <wsdl:part element="tns:lljSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendMessage_FC">
+    <wsdl:part element="tns:sendMessage_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxySelfcheck">
+    <wsdl:part element="tns:wqfxySelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjALPSelfcheck">
+    <wsdl:part element="tns:cgjALPSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdResultResponse">
+    <wsdl:part element="tns:obdResultResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSatateResponse">
+    <wsdl:part element="tns:getSatateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxyAdjustResponse">
+    <wsdl:part element="tns:wqfxyAdjustResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjLSPSelfcheck">
+    <wsdl:part element="tns:cgjLSPSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjLSPSelfcheckResponse">
+    <wsdl:part element="tns:cgjLSPSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dyhwSelfcheckResponse">
+    <wsdl:part element="tns:dyhwSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleLogResponse">
+    <wsdl:part element="tns:doubleIdleLogResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="argChang">
+    <wsdl:part element="tns:argChang" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="vmasLogResponse">
+    <wsdl:part element="tns:vmasLogResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendMessage">
+    <wsdl:part element="tns:sendMessage" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleData_FC">
+    <wsdl:part element="tns:doubleIdleData_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjLASelfcheck">
+    <wsdl:part element="tns:cgjLASelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdResult">
+    <wsdl:part element="tns:obdResult" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleLog_FC">
+    <wsdl:part element="tns:doubleIdleLog_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="vmasLog">
+    <wsdl:part element="tns:vmasLog" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pqfxySelfcheckResponse">
+    <wsdl:part element="tns:pqfxySelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjLASelfcheckResponse">
+    <wsdl:part element="tns:cgjLASelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loadDownLog">
+    <wsdl:part element="tns:loadDownLog" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="motoDbIdleDataResponse">
+    <wsdl:part element="tns:motoDbIdleDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleLog_FCResponse">
+    <wsdl:part element="tns:doubleIdleLog_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCarInfo_FC">
+    <wsdl:part element="tns:getCarInfo_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="vmasDataResponse">
+    <wsdl:part element="tns:vmasDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeLogResponse">
+    <wsdl:part element="tns:lightproofSmokeLogResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="argChangResponse">
+    <wsdl:part element="tns:argChangResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pqfxySelfcheck">
+    <wsdl:part element="tns:pqfxySelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loadDownDataResponse">
+    <wsdl:part element="tns:loadDownDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxySelfcheckResponse">
+    <wsdl:part element="tns:wqfxySelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loadDownData">
+    <wsdl:part element="tns:loadDownData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleData">
+    <wsdl:part element="tns:doubleIdleData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="hjcsgyqSelfcheckResponse">
+    <wsdl:part element="tns:hjcsgyqSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doubleIdleLog">
+    <wsdl:part element="tns:doubleIdleLog" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCarInfoResponse">
+    <wsdl:part element="tns:getCarInfoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxyAdjust">
+    <wsdl:part element="tns:wqfxyAdjust" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjPLHPSelfcheckResponse">
+    <wsdl:part element="tns:cgjPLHPSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeDataResponse">
+    <wsdl:part element="tns:lightproofSmokeDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCarInfo_FCResponse">
+    <wsdl:part element="tns:getCarInfo_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeData_FC">
+    <wsdl:part element="tns:lightproofSmokeData_FC" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeData">
+    <wsdl:part element="tns:lightproofSmokeData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="qyfxSelfcheck">
+    <wsdl:part element="tns:qyfxSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsqtfxySelfcheck">
+    <wsdl:part element="tns:sdsqtfxySelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lightproofSmokeData_FCResponse">
+    <wsdl:part element="tns:lightproofSmokeData_FCResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cycdyhwAdjustResponse">
+    <wsdl:part element="tns:cycdyhwAdjustResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjALPSelfcheckResponse">
+    <wsdl:part element="tns:cgjALPSelfcheckResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loadDownLogResponse">
+    <wsdl:part element="tns:loadDownLogResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lljSelfcheck">
+    <wsdl:part element="tns:lljSelfcheck" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dyhwAdjustResponse">
+    <wsdl:part element="tns:dyhwAdjustResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeviceSwapIface">
+    <wsdl:operation name="argChang">
+      <wsdl:input message="tns:argChang" name="argChang">
+    </wsdl:input>
+      <wsdl:output message="tns:argChangResponse" name="argChangResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeLog">
+      <wsdl:input message="tns:lightproofSmokeLog" name="lightproofSmokeLog">
+    </wsdl:input>
+      <wsdl:output message="tns:lightproofSmokeLogResponse" name="lightproofSmokeLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCarInfo">
+      <wsdl:input message="tns:getCarInfo" name="getCarInfo">
+    </wsdl:input>
+      <wsdl:output message="tns:getCarInfoResponse" name="getCarInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <wsdl:input message="tns:sendMessage" name="sendMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:sendMessageResponse" name="sendMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bgAirHC">
+      <wsdl:input message="tns:bgAirHC" name="bgAirHC">
+    </wsdl:input>
+      <wsdl:output message="tns:bgAirHCResponse" name="bgAirHCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleData_FC">
+      <wsdl:input message="tns:doubleIdleData_FC" name="doubleIdleData_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:doubleIdleData_FCResponse" name="doubleIdleData_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjLASelfcheck">
+      <wsdl:input message="tns:cgjLASelfcheck" name="cgjLASelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjLASelfcheckResponse" name="cgjLASelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjSelfcheck">
+      <wsdl:input message="tns:cgjSelfcheck" name="cgjSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjSelfcheckResponse" name="cgjSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdResult">
+      <wsdl:input message="tns:obdResult" name="obdResult">
+    </wsdl:input>
+      <wsdl:output message="tns:obdResultResponse" name="obdResultResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleLog_FC">
+      <wsdl:input message="tns:doubleIdleLog_FC" name="doubleIdleLog_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:doubleIdleLog_FCResponse" name="doubleIdleLog_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="vmasLog">
+      <wsdl:input message="tns:vmasLog" name="vmasLog">
+    </wsdl:input>
+      <wsdl:output message="tns:vmasLogResponse" name="vmasLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ydjSelfcheck">
+      <wsdl:input message="tns:ydjSelfcheck" name="ydjSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:ydjSelfcheckResponse" name="ydjSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dyhwSelfcheck">
+      <wsdl:input message="tns:dyhwSelfcheck" name="dyhwSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:dyhwSelfcheckResponse" name="dyhwSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loadDownLog">
+      <wsdl:input message="tns:loadDownLog" name="loadDownLog">
+    </wsdl:input>
+      <wsdl:output message="tns:loadDownLogResponse" name="loadDownLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dyhwAdjust">
+      <wsdl:input message="tns:dyhwAdjust" name="dyhwAdjust">
+    </wsdl:input>
+      <wsdl:output message="tns:dyhwAdjustResponse" name="dyhwAdjustResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdResultLog">
+      <wsdl:input message="tns:obdResultLog" name="obdResultLog">
+    </wsdl:input>
+      <wsdl:output message="tns:obdResultLogResponse" name="obdResultLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCarInfo_FC">
+      <wsdl:input message="tns:getCarInfo_FC" name="getCarInfo_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:getCarInfo_FCResponse" name="getCarInfo_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cycdyhwAdjust">
+      <wsdl:input message="tns:cycdyhwAdjust" name="cycdyhwAdjust">
+    </wsdl:input>
+      <wsdl:output message="tns:cycdyhwAdjustResponse" name="cycdyhwAdjustResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hjcsgyqSelfcheck">
+      <wsdl:input message="tns:hjcsgyqSelfcheck" name="hjcsgyqSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:hjcsgyqSelfcheckResponse" name="hjcsgyqSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pqfxySelfcheck">
+      <wsdl:input message="tns:pqfxySelfcheck" name="pqfxySelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:pqfxySelfcheckResponse" name="pqfxySelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeDataLog_FC">
+      <wsdl:input message="tns:lightproofSmokeDataLog_FC" name="lightproofSmokeDataLog_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:lightproofSmokeDataLog_FCResponse" name="lightproofSmokeDataLog_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loadDownData">
+      <wsdl:input message="tns:loadDownData" name="loadDownData">
+    </wsdl:input>
+      <wsdl:output message="tns:loadDownDataResponse" name="loadDownDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="vmasData">
+      <wsdl:input message="tns:vmasData" name="vmasData">
+    </wsdl:input>
+      <wsdl:output message="tns:vmasDataResponse" name="vmasDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="motoDbIdleData">
+      <wsdl:input message="tns:motoDbIdleData" name="motoDbIdleData">
+    </wsdl:input>
+      <wsdl:output message="tns:motoDbIdleDataResponse" name="motoDbIdleDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSatate">
+      <wsdl:input message="tns:getSatate" name="getSatate">
+    </wsdl:input>
+      <wsdl:output message="tns:getSatateResponse" name="getSatateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleData">
+      <wsdl:input message="tns:doubleIdleData" name="doubleIdleData">
+    </wsdl:input>
+      <wsdl:output message="tns:doubleIdleDataResponse" name="doubleIdleDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleLog">
+      <wsdl:input message="tns:doubleIdleLog" name="doubleIdleLog">
+    </wsdl:input>
+      <wsdl:output message="tns:doubleIdleLogResponse" name="doubleIdleLogResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjPLHPSelfcheck">
+      <wsdl:input message="tns:cgjPLHPSelfcheck" name="cgjPLHPSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjPLHPSelfcheckResponse" name="cgjPLHPSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxyAdjust">
+      <wsdl:input message="tns:wqfxyAdjust" name="wqfxyAdjust">
+    </wsdl:input>
+      <wsdl:output message="tns:wqfxyAdjustResponse" name="wqfxyAdjustResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeData_FC">
+      <wsdl:input message="tns:lightproofSmokeData_FC" name="lightproofSmokeData_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:lightproofSmokeData_FCResponse" name="lightproofSmokeData_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeData">
+      <wsdl:input message="tns:lightproofSmokeData" name="lightproofSmokeData">
+    </wsdl:input>
+      <wsdl:output message="tns:lightproofSmokeDataResponse" name="lightproofSmokeDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qyfxSelfcheck">
+      <wsdl:input message="tns:qyfxSelfcheck" name="qyfxSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:qyfxSelfcheckResponse" name="qyfxSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sdsqtfxySelfcheck">
+      <wsdl:input message="tns:sdsqtfxySelfcheck" name="sdsqtfxySelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:sdsqtfxySelfcheckResponse" name="sdsqtfxySelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage_FC">
+      <wsdl:input message="tns:sendMessage_FC" name="sendMessage_FC">
+    </wsdl:input>
+      <wsdl:output message="tns:sendMessage_FCResponse" name="sendMessage_FCResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxySelfcheck">
+      <wsdl:input message="tns:wqfxySelfcheck" name="wqfxySelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:wqfxySelfcheckResponse" name="wqfxySelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjALPSelfcheck">
+      <wsdl:input message="tns:cgjALPSelfcheck" name="cgjALPSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjALPSelfcheckResponse" name="cgjALPSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lljSelfcheck">
+      <wsdl:input message="tns:lljSelfcheck" name="lljSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:lljSelfcheckResponse" name="lljSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjLSPSelfcheck">
+      <wsdl:input message="tns:cgjLSPSelfcheck" name="cgjLSPSelfcheck">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjLSPSelfcheckResponse" name="cgjLSPSelfcheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeviceSwapIfaceImplServiceSoapBinding" type="tns:DeviceSwapIface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="argChang">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/argChang" style="document"/>
+      <wsdl:input name="argChang">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="argChangResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeLog">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/LightproofSmokeLog" style="document"/>
+      <wsdl:input name="lightproofSmokeLog">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lightproofSmokeLogResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCarInfo">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/getCarInfo" style="document"/>
+      <wsdl:input name="getCarInfo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCarInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/sendMessage" style="document"/>
+      <wsdl:input name="sendMessage">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendMessageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bgAirHC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/bgAirHC" style="document"/>
+      <wsdl:input name="bgAirHC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bgAirHCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleData_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/doubleIdleData_FC" style="document"/>
+      <wsdl:input name="doubleIdleData_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="doubleIdleData_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjLASelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cgjLASelfcheck" style="document"/>
+      <wsdl:input name="cgjLASelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjLASelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cgjSelfcheck" style="document"/>
+      <wsdl:input name="cgjSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdResult">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/obdResult" style="document"/>
+      <wsdl:input name="obdResult">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obdResultResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleLog_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/doubleIdleLog_FC" style="document"/>
+      <wsdl:input name="doubleIdleLog_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="doubleIdleLog_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="vmasLog">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/vmasLog" style="document"/>
+      <wsdl:input name="vmasLog">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="vmasLogResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ydjSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/ydjSelfcheck" style="document"/>
+      <wsdl:input name="ydjSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ydjSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dyhwSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/dyhwSelfcheck" style="document"/>
+      <wsdl:input name="dyhwSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dyhwSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loadDownLog">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/loadDownLog" style="document"/>
+      <wsdl:input name="loadDownLog">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loadDownLogResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dyhwAdjust">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/dyhwAdjust" style="document"/>
+      <wsdl:input name="dyhwAdjust">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dyhwAdjustResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdResultLog">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/obdResultLog" style="document"/>
+      <wsdl:input name="obdResultLog">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obdResultLogResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCarInfo_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/getCarInfo_FC" style="document"/>
+      <wsdl:input name="getCarInfo_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCarInfo_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cycdyhwAdjust">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cycdyhwAdjust" style="document"/>
+      <wsdl:input name="cycdyhwAdjust">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cycdyhwAdjustResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hjcsgyqSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/hjcsgyqSelfcheck" style="document"/>
+      <wsdl:input name="hjcsgyqSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="hjcsgyqSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pqfxySelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/pqfxySelfcheck" style="document"/>
+      <wsdl:input name="pqfxySelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pqfxySelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeDataLog_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/lightproofSmokeDataLog_FC" style="document"/>
+      <wsdl:input name="lightproofSmokeDataLog_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lightproofSmokeDataLog_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loadDownData">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/loadDownData" style="document"/>
+      <wsdl:input name="loadDownData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loadDownDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="vmasData">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/vmasData" style="document"/>
+      <wsdl:input name="vmasData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="vmasDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="motoDbIdleData">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/motoDbIdleData" style="document"/>
+      <wsdl:input name="motoDbIdleData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="motoDbIdleDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSatate">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/getSatate" style="document"/>
+      <wsdl:input name="getSatate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSatateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleData">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/doubleIdleData" style="document"/>
+      <wsdl:input name="doubleIdleData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="doubleIdleDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doubleIdleLog">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/doubleIdleLog" style="document"/>
+      <wsdl:input name="doubleIdleLog">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="doubleIdleLogResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjPLHPSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cgjPLHPSelfcheck" style="document"/>
+      <wsdl:input name="cgjPLHPSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjPLHPSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxyAdjust">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/wqfxyAdjust" style="document"/>
+      <wsdl:input name="wqfxyAdjust">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wqfxyAdjustResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeData_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/lightproofSmokeData_FC" style="document"/>
+      <wsdl:input name="lightproofSmokeData_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lightproofSmokeData_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lightproofSmokeData">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/lightproofSmokeData" style="document"/>
+      <wsdl:input name="lightproofSmokeData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lightproofSmokeDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qyfxSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/qyfxSelfcheck" style="document"/>
+      <wsdl:input name="qyfxSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="qyfxSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sdsqtfxySelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/sdsqtfxySelfcheck" style="document"/>
+      <wsdl:input name="sdsqtfxySelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sdsqtfxySelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage_FC">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/sendMessage_FC" style="document"/>
+      <wsdl:input name="sendMessage_FC">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendMessage_FCResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxySelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/wqfxySelfcheck" style="document"/>
+      <wsdl:input name="wqfxySelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wqfxySelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjALPSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cgjALPSelfcheck" style="document"/>
+      <wsdl:input name="cgjALPSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjALPSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lljSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/lljSelfcheck" style="document"/>
+      <wsdl:input name="lljSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lljSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjLSPSelfcheck">
+      <soap:operation soapAction="http://iface.server.webservice.zkyt.com/cgjLSPSelfcheck" style="document"/>
+      <wsdl:input name="cgjLSPSelfcheck">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjLSPSelfcheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DeviceSwapIfaceImplService">
+    <wsdl:port binding="tns:DeviceSwapIfaceImplServiceSoapBinding" name="DeviceSwapIfaceImplPort">
+      <soap:address location="http://10.111.102.91:8130/interface/services/deviceSwap"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DAL">
+      <UniqueIdentifier>{41641551-3b21-4aed-adbe-5a68dadc235e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Export">
+      <UniqueIdentifier>{6f457e85-a98f-469a-93b0-9ec46527f485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{7acf5ed7-82e9-4d53-b0a4-393674e93d8f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SGSQLServerDBModel.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="SGSQLServerDBService.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ABC.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_DATASECONDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_GDXZ.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_GSXZ.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_XZDB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="BJCLXXB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CLXHXXB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_XZBZ.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_XZDB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="OBD.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="OutLookCheck.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SDS_XZGB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="VehInfo.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingVeh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Zyjs_Btg.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ZYJS_DATASECONDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ZYJS_XZGB.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ABCService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_DATASECONDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_GDXZService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_GSXZService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ASM_XZDBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ASMService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="BJCLXXBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="CLXHXXBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_DATASECONDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_XZBZService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_XZDBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="OBD_DATASECONDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="OutLookCheckService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="SDS_DATASECONDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="SDS_XZGBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="SDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="VehInfoService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingVehService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ZYJS_BtgService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ZYJS_DATASECONDSService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="ZYJS_XZGBService.h">
+      <Filter>DAL</Filter>
+    </ClInclude>
+    <ClInclude Include="JZJS_DATASECONDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="OBD_DATASECONDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SDS_DATASECONDS.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SGSQL.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SGSQLServerDBService.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ABCService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ASM_DATASECONDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ASM_GDXZService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ASM_GSXZService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ASM_XZDBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ASMService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="BJCLXXBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="CLXHXXBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="JZJS_DATASECONDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="JZJS_XZBZService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="JZJS_XZDBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="JZJSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="OBD_DATASECONDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="OutLookCheckService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SDS_DATASECONDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SDS_XZGBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="VehInfoService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingVehService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ZYJS_BtgService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ZYJS_DATASECONDSService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ZYJS_XZGBService.cpp">
+      <Filter>DAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SGSQL.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

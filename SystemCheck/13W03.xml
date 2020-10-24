@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <zj>
+    <tsNo>43040121</tsNo>
+    <testLineNo>4304012105</testLineNo>
+    <jcrq>20200812</jcrq>
+    <hxjckssj>20200812155306</hxjckssj>
+    <jbgl>1445</jbgl>
+    <sjhxsj301>471</sjhxsj301>
+    <sjhxsj302>139</sjhxsj302>
+    <sjhxsj303>461</sjhxsj303>
+    <sjhxsj304>25</sjhxsj304>
+    <sjhxsj305>392</sjhxsj305>
+    <sjhxsj306>698</sjhxsj306>
+    <sjhxsj307>341</sjhxsj307>
+    <sjhxsj308>143</sjhxsj308>
+    <myhxsj301>0</myhxsj301>
+    <myhxsj302>0</myhxsj302>
+    <myhxsj303>0</myhxsj303>
+    <myhxsj304>0</myhxsj304>
+    <myhxsj305>0</myhxsj305>
+    <myhxsj306>0</myhxsj306>
+    <myhxsj307>0</myhxsj307>
+    <myhxsj308>0</myhxsj308>
+    <sjhxsj201>695</sjhxsj201>
+    <sjhxsj202>241</sjhxsj202>
+    <sjhxsj203>66</sjhxsj203>
+    <sjhxsj204>609</sjhxsj204>
+    <sjhxsj205>258</sjhxsj205>
+    <sjhxsj206>679</sjhxsj206>
+    <sjhxsj207>228</sjhxsj207>
+    <sjhxsj208>435</sjhxsj208>
+    <myhxsj201>0</myhxsj201>
+    <myhxsj202>0</myhxsj202>
+    <myhxsj203>0</myhxsj203>
+    <myhxsj204>0</myhxsj204>
+    <myhxsj205>0</myhxsj205>
+    <myhxsj206>0</myhxsj206>
+    <myhxsj207>0</myhxsj207>
+    <myhxsj208>0</myhxsj208>
+    <sjhxsj101>47</sjhxsj101>
+    <sjhxsj102>515</sjhxsj102>
+    <sjhxsj103>395</sjhxsj103>
+    <sjhxsj104>1580</sjhxsj104>
+    <sjhxsj105>367</sjhxsj105>
+    <sjhxsj106>1368</sjhxsj106>
+    <sjhxsj107>490</sjhxsj107>
+    <sjhxsj108>183</sjhxsj108>
+    <myhxsj101>0</myhxsj101>
+    <myhxsj102>0</myhxsj102>
+    <myhxsj103>0</myhxsj103>
+    <myhxsj104>0</myhxsj104>
+    <myhxsj105>0</myhxsj105>
+    <myhxsj106>0</myhxsj106>
+    <myhxsj107>0</myhxsj107>
+    <myhxsj108>0</myhxsj108>
+    <fjssgl1>4.1</fjssgl1>
+    <fjssgl2>3.1</fjssgl2>
+    <fjssgl3>2.4</fjssgl3>
+    <fjssgl4>1.8</fjssgl4>
+    <fjssgl5>1.3</fjssgl5>
+    <fjssgl6>0.9</fjssgl6>
+    <fjssgl7>0.6</fjssgl7>
+    <fjssgl8>0.4</fjssgl8>
+    <hxjcjg1>1</hxjcjg1>
+    <hxjcjg2>1</hxjcjg2>
+    <pdjg>1</pdjg>
+    <jcry>GXCZ3</jcry>
+  </zj>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+  <head>
+
+    <code>1</code>
+
+    <message>上传设备自检数据成功!</message>
+
+    <rownum>0</rownum>
+
+  </head>
+
+  <body>
+
+  </body>
+
+</root>
+
+
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <zj>
+    <tsNo></tsNo>
+    <testLineNo></testLineNo>
+    <jcrq>20200821</jcrq>
+    <hxjckssj>20200821150918</hxjckssj>
+    <jbgl>1453</jbgl>
+    <sjhxsj301>6727</sjhxsj301>
+    <sjhxsj302>5979</sjhxsj302>
+    <sjhxsj303>5232</sjhxsj303>
+    <sjhxsj304>4485</sjhxsj304>
+    <sjhxsj305>3737</sjhxsj305>
+    <sjhxsj306>2990</sjhxsj306>
+    <sjhxsj307>2242</sjhxsj307>
+    <sjhxsj308>1495</sjhxsj308>
+    <myhxsj301>0</myhxsj301>
+    <myhxsj302>0</myhxsj302>
+    <myhxsj303>0</myhxsj303>
+    <myhxsj304>0</myhxsj304>
+    <myhxsj305>0</myhxsj305>
+    <myhxsj306>0</myhxsj306>
+    <myhxsj307>0</myhxsj307>
+    <myhxsj308>0</myhxsj308>
+    <sjhxsj201>10090</sjhxsj201>
+    <sjhxsj202>8969</sjhxsj202>
+    <sjhxsj203>7848</sjhxsj203>
+    <sjhxsj204>6727</sjhxsj204>
+    <sjhxsj205>5606</sjhxsj205>
+    <sjhxsj206>4485</sjhxsj206>
+    <sjhxsj207>3363</sjhxsj207>
+    <sjhxsj208>2242</sjhxsj208>
+    <myhxsj201>0</myhxsj201>
+    <myhxsj202>0</myhxsj202>
+    <myhxsj203>0</myhxsj203>
+    <myhxsj204>0</myhxsj204>
+    <myhxsj205>0</myhxsj205>
+    <myhxsj206>0</myhxsj206>
+    <myhxsj207>0</myhxsj207>
+    <myhxsj208>0</myhxsj208>
+    <sjhxsj101>20181</sjhxsj101>
+    <sjhxsj102>17938</sjhxsj102>
+    <sjhxsj103>15696</sjhxsj103>
+    <sjhxsj104>13454</sjhxsj104>
+    <sjhxsj105>11211</sjhxsj105>
+    <sjhxsj106>8969</sjhxsj106>
+    <sjhxsj107>6727</sjhxsj107>
+    <sjhxsj108>4485</sjhxsj108>
+    <myhxsj101>0</myhxsj101>
+    <myhxsj102>0</myhxsj102>
+    <myhxsj103>0</myhxsj103>
+    <myhxsj104>0</myhxsj104>
+    <myhxsj105>0</myhxsj105>
+    <myhxsj106>0</myhxsj106>
+    <myhxsj107>0</myhxsj107>
+    <myhxsj108>0</myhxsj108>
+    <fjssgl1>6.32</fjssgl1>
+    <fjssgl2>5.06</fjssgl2>
+    <fjssgl3>3.96</fjssgl3>
+    <fjssgl4>3.00</fjssgl4>
+    <fjssgl5>2.18</fjssgl5>
+    <fjssgl6>1.50</fjssgl6>
+    <fjssgl7>0.94</fjssgl7>
+    <fjssgl8>0.51</fjssgl8>
+    <hxjcjg1>1</hxjcjg1>
+    <hxjcjg2>1</hxjcjg2>
+    <pdjg>1</pdjg>
+    <jcry>admin</jcry>
+  </zj>
+</root>

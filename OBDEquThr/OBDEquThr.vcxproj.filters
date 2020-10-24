@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="分析仪">
+      <UniqueIdentifier>{428f398d-c3e2-4293-954a-d525cbace299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="测功机">
+      <UniqueIdentifier>{d03c9f22-b829-478e-ad1a-34125f1ab83d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="点阵屏">
+      <UniqueIdentifier>{5946c984-872d-4400-b745-63768b344dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="不透光">
+      <UniqueIdentifier>{20a1e21a-3cda-4ca8-bfba-6e907f68fa5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="参数仪">
+      <UniqueIdentifier>{ee28ef9f-3c74-4a4a-965e-4688f1559614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="烟度计">
+      <UniqueIdentifier>{118f17e6-7bc1-470d-b80c-9ec2ba268782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="转速计">
+      <UniqueIdentifier>{46a33628-5f5e-4b30-a5fb-a48dfd7b4a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBD">
+      <UniqueIdentifier>{aa6acaa4-1eaa-4ec6-9f63-7a6d673b24ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="燃油蒸发">
+      <UniqueIdentifier>{8fd1a526-9d7b-4bef-b132-1759148310d1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="EquThr.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="res\EquThr.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ModInfo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EquThr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Ana.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="AnaThread.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="Dyn.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="MahaASMP.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNhc03.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="DynThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NH50R.cpp">
+      <Filter>点阵屏</Filter>
+    </ClCompile>
+    <ClCompile Include="NHSZKS.cpp">
+      <Filter>点阵屏</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>点阵屏</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelThread.cpp">
+      <Filter>点阵屏</Filter>
+    </ClCompile>
+    <ClCompile Include="FoFenFTY100.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="FuLiFLB100.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="MingQuanMQY200.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNht1L.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNht6.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="Opa.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="OpaThread.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaPara.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="Para.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaThread.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FoFenFBY201.cpp">
+      <Filter>烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaYd1.cpp">
+      <Filter>烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="Smo.cpp">
+      <Filter>烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoThread.cpp">
+      <Filter>烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaRpm5300.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="Tac.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="TacThread.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalThermometer.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalThermometer_NJRJ.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenYuanOBD.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDAdapter.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDAdapterThread.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha100.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha509Encrypt.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaEPCS.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ZhengDeOBD.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="EVOP\EVOP.cpp">
+      <Filter>燃油蒸发</Filter>
+    </ClCompile>
+    <ClCompile Include="EVOP\EVOPThread.cpp">
+      <Filter>燃油蒸发</Filter>
+    </ClCompile>
+    <ClCompile Include="EVOP\NHEVOP.cpp">
+      <Filter>燃油蒸发</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha610Encrypt.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha501A.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha503.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha503V.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNHT610.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NanHuaWSOBD.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaEPCS4G.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="MingQuanML100.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaSocketPara.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="SG506.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FuLiFLA502.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FuLiVMT2000.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="HuaGongVTET1000.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="MingQuanMQZ3.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNha506I.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FoFenFGA4100.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FuLiFLA501.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="MingQuanMQW511.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="MingQuanMQW50A.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FuLiFLV1000.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowThread.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NanhuaNHF1.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ana.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="AnaThread.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="Dyn.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="MahaASMP.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNhc03.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="DynThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NH50R.h">
+      <Filter>点阵屏</Filter>
+    </ClInclude>
+    <ClInclude Include="NHSZKS.h">
+      <Filter>点阵屏</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>点阵屏</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelThread.h">
+      <Filter>点阵屏</Filter>
+    </ClInclude>
+    <ClInclude Include="FoFenFTY100.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="FuLiFLB100.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="MingQuanMQY200.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNht1L.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNht6.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="Opa.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaThread.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaPara.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="Para.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaThread.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FoFenFBY201.h">
+      <Filter>烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaYd1.h">
+      <Filter>烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="Smo.h">
+      <Filter>烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoThread.h">
+      <Filter>烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaRpm5300.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="Tac.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="TacThread.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="EquThr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalThermometer.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalThermometer_NJRJ.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenYuanOBD.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDAdapter.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDAdapterThread.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha100.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha509Encrypt.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaEPCS.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ZhengDeOBD.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="EVOP\EVOP.h">
+      <Filter>燃油蒸发</Filter>
+    </ClInclude>
+    <ClInclude Include="EVOP\EVOPThread.h">
+      <Filter>燃油蒸发</Filter>
+    </ClInclude>
+    <ClInclude Include="EVOP\NHEVOP.h">
+      <Filter>燃油蒸发</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha610Encrypt.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha501A.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha503.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha503V.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNHT610.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NanHuaWSOBD.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaEPCS4G.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="MingQuanML100.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaSocketPara.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="SG506.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FuLiFLA502.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FuLiVMT2000.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="HuaGongVTET1000.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="MingQuanMQZ3.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNha506I.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FoFenFGA4100.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FuLiFLA501.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="MingQuanMQW511.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="MingQuanMQW50A.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FuLiFLV1000.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowThread.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NanhuaNHF1.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EquThr.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

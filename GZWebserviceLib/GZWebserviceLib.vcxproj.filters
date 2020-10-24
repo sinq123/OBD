@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{3e9dac61-079f-405f-9b75-9dfd733f808a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{c2ede54d-27af-4cb2-9e71-db1416b29f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文档">
+      <UniqueIdentifier>{7a37e606-7412-4568-9aba-8c45f6c5e3a1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="GZWebserviceLib.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="res\GZWebserviceLib.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+    <None Include="广州市在用机动车排放污染物检测机构机动车排气检测设备接口技术规定_修订版 v4.2.0.docx">
+      <Filter>文档</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GZWebserviceLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="GZWebServiceLib_API.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="GZWebserviceLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GZWebServiceLib_API.h">
+      <Filter>API</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GZWebserviceLib.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

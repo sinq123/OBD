@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{54F4EC12-6013-4745-9E10-08067B5C5057}</ProjectGuid>
+    <RootNamespace>EquOpe</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_D</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>.\EquOpe.def</ModuleDefinitionFile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>.\EquOpe.def</ModuleDefinitionFile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="EquOpe.def" />
+    <None Include="ModInfo.txt" />
+    <None Include="ReadMe.txt" />
+    <None Include="res\EquOpe.rc2" />
+    <None Include="res\NHC13_1.bmp" />
+    <None Include="res\NHC13_2.bmp" />
+    <None Include="res\SystemCheckLightOff.ico" />
+    <None Include="res\SystemCheckLightOn.ico" />
+    <None Include="res\SystemCheckLightTick.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="DynamometerTemperatureCheckDlg.cpp" />
+    <ClCompile Include="EquOpe.cpp" />
+    <ClCompile Include="FlowmeterDelayTimeConfigDlg.cpp" />
+    <ClCompile Include="FlowmeterDilO2CalibrationDlg.cpp" />
+    <ClCompile Include="FlowmeterExternalAgreementCalDlg.cpp" />
+    <ClCompile Include="FlowmeterFlowCalibrationDlg.cpp" />
+    <ClCompile Include="FlowmeterFreeFlowCheckDlg.cpp" />
+    <ClCompile Include="FlowmeterPressureCalibrationDlg.cpp" />
+    <ClCompile Include="FlowmeterRealTimeDataDlg.cpp" />
+    <ClCompile Include="FlowmeterTPCalDlg.cpp" />
+    <ClCompile Include="LinePlot.cpp" />
+    <ClCompile Include="MHDForceCalibrationDlg.cpp" />
+    <ClCompile Include="NHA403XGasCheckDlg.cpp" />
+    <ClCompile Include="NHA503XEnvParamsCalibrationDlg.cpp" />
+    <ClCompile Include="NHA503XGasCalibrationDlg.cpp" />
+    <ClCompile Include="NHA503XGasCheckDlg.cpp" />
+    <ClCompile Include="NHA503XGasCheckDlg2.cpp" />
+    <ClCompile Include="NHAGasResponseTimeDlg.cpp" />
+    <ClCompile Include="NHAMPGasCalibrationDlg.cpp" />
+    <ClCompile Include="NHCPLHPGB2018Dlg.cpp" />
+    <ClCompile Include="NHCPLHPGB2018Thread.cpp" />
+    <ClCompile Include="NHNOxCalibrationDlg.cpp" />
+    <ClCompile Include="NHCCommonOperationDlg.cpp" />
+    <ClCompile Include="NHCConstLoadDlg.cpp" />
+    <ClCompile Include="NHCConstLoadThread.cpp" />
+    <ClCompile Include="NHCControlModeDlg.cpp" />
+    <ClCompile Include="NHCDIWDlg.cpp" />
+    <ClCompile Include="NHCDIWThread.cpp" />
+    <ClCompile Include="NHCForceCalibrationDlg.cpp" />
+    <ClCompile Include="NHCForceCalibrationHeavyDlg.cpp" />
+    <ClCompile Include="NHCForceCheckDlg.cpp" />
+    <ClCompile Include="NHCForceCheckHeavyDlg.cpp" />
+    <ClCompile Include="NHCPLHP2Dlg.cpp" />
+    <ClCompile Include="NHCPLHP2Thread.cpp" />
+    <ClCompile Include="NHCPLHPDlg.cpp" />
+    <ClCompile Include="NHCPLHPThread.cpp" />
+    <ClCompile Include="NHCReadWriteVarDlg.cpp" />
+    <ClCompile Include="NHCResponseTime2Dlg.cpp" />
+    <ClCompile Include="NHCResponseTime2Thread.cpp" />
+    <ClCompile Include="NHCResponseTimeDlg.cpp" />
+    <ClCompile Include="NHCResponseTimeThread.cpp" />
+    <ClCompile Include="NHCVarLoadDlg.cpp" />
+    <ClCompile Include="NHCVarLoadDlg2.cpp" />
+    <ClCompile Include="NHCVarLoadThread.cpp" />
+    <ClCompile Include="NHCVarLoadThread2.cpp" />
+    <ClCompile Include="NHNOxCheckDlg.cpp" />
+    <ClCompile Include="NHT1LCalibrationCheckDlg.cpp" />
+    <ClCompile Include="NHT6CalChkDlg.cpp" />
+    <ClCompile Include="OBDOperationDlg.cpp" />
+    <ClCompile Include="ParameterEnvParamsCalibrationDlg.cpp" />
+    <ClCompile Include="ParameterEnvParamsCalibrationXDlg.cpp" />
+    <ClCompile Include="ParameterParamsCheckDlg.cpp" />
+    <ClCompile Include="PLHPCurve.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TachometerCheckDlg.cpp" />
+    <ClCompile Include="YD1CheckDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DynamometerTemperatureCheckDlg.h" />
+    <ClInclude Include="EquOpe.h" />
+    <ClInclude Include="FlowmeterDelayTimeConfigDlg.h" />
+    <ClInclude Include="FlowmeterDilO2CalibrationDlg.h" />
+    <ClInclude Include="FlowmeterExternalAgreementCalDlg.h" />
+    <ClInclude Include="FlowmeterFlowCalibrationDlg.h" />
+    <ClInclude Include="FlowmeterFreeFlowCheckDlg.h" />
+    <ClInclude Include="FlowmeterPressureCalibrationDlg.h" />
+    <ClInclude Include="FlowmeterRealTimeDataDlg.h" />
+    <ClInclude Include="FlowmeterTPCalDlg.h" />
+    <ClInclude Include="LinePlot.h" />
+    <ClInclude Include="MemDC.h" />
+    <ClInclude Include="MHDForceCalibrationDlg.h" />
+    <ClInclude Include="NHA403XGasCheckDlg.h" />
+    <ClInclude Include="NHA503XEnvParamsCalibrationDlg.h" />
+    <ClInclude Include="NHA503XGasCalibrationDlg.h" />
+    <ClInclude Include="NHA503XGasCheckDlg.h" />
+    <ClInclude Include="NHA503XGasCheckDlg2.h" />
+    <ClInclude Include="NHAGasResponseTimeDlg.h" />
+    <ClInclude Include="NHAMPGasCalibrationDlg.h" />
+    <ClInclude Include="NHCPLHPGB2018Dlg.h" />
+    <ClInclude Include="NHCPLHPGB2018Thread.h" />
+    <ClInclude Include="NHNOxCalibrationDlg.h" />
+    <ClInclude Include="NHCCommonOperationDlg.h" />
+    <ClInclude Include="NHCConstLoadDlg.h" />
+    <ClInclude Include="NHCConstLoadThread.h" />
+    <ClInclude Include="NHCControlModeDlg.h" />
+    <ClInclude Include="NHCDIWDlg.h" />
+    <ClInclude Include="NHCDIWThread.h" />
+    <ClInclude Include="NHCForceCalibrationDlg.h" />
+    <ClInclude Include="NHCForceCalibrationHeavyDlg.h" />
+    <ClInclude Include="NHCForceCheckDlg.h" />
+    <ClInclude Include="NHCForceCheckHeavyDlg.h" />
+    <ClInclude Include="NHCPLHP2Dlg.h" />
+    <ClInclude Include="NHCPLHP2Thread.h" />
+    <ClInclude Include="NHCPLHPDlg.h" />
+    <ClInclude Include="NHCPLHPThread.h" />
+    <ClInclude Include="NHCReadWriteVarDlg.h" />
+    <ClInclude Include="NHCResponseTime2Dlg.h" />
+    <ClInclude Include="NHCResponseTime2Thread.h" />
+    <ClInclude Include="NHCResponseTimeDlg.h" />
+    <ClInclude Include="NHCResponseTimeThread.h" />
+    <ClInclude Include="NHCVarLoadDlg.h" />
+    <ClInclude Include="NHCVarLoadDlg2.h" />
+    <ClInclude Include="NHCVarLoadThread.h" />
+    <ClInclude Include="NHCVarLoadThread2.h" />
+    <ClInclude Include="NHNOxCheckDlg.h" />
+    <ClInclude Include="NHT1LCalibrationCheckDlg.h" />
+    <ClInclude Include="NHT6CalChkDlg.h" />
+    <ClInclude Include="OBDOperationDlg.h" />
+    <ClInclude Include="ParameterEnvParamsCalibrationDlg.h" />
+    <ClInclude Include="ParameterEnvParamsCalibrationXDlg.h" />
+    <ClInclude Include="ParameterParamsCheckDlg.h" />
+    <ClInclude Include="PLHPCurve.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TachometerCheckDlg.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="YD1CheckDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EquOpe.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="EquOpe.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

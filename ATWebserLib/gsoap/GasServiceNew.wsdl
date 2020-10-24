@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="VehicleRegJudge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JczId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZcTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarItems" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VehicleRegJudgeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VehicleRegJudgeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnlineJudge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jczNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jcxNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bdrq" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarPZ" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnlineJudgeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OnlineJudgeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCheckData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckDataItems" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckEndDataItems" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCheckDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddCheckDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddObdData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObdDataItems" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddObdDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddObdDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddIuprData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IuprDataItems" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObdType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddIuprDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddIuprDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RyzfControl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rykzItems" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RyzfControlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RyzfControlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddVerify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeviceType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Items" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddVerifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddVerifyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintJudge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lsbh" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jczNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintJudgeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintJudgeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lsbh" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="encodeReport" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintUpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LokeJudge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jczNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="devBm" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LokeJudgeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LokeJudgeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddWGJCData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WgjcDataItems" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddWGJCDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddWGJCDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddDeviceCheckData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="addDeviceCheckData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddDeviceCheckDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddDeviceCheckDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="VehicleRegJudgeSoapIn">
+    <wsdl:part name="parameters" element="tns:VehicleRegJudge" />
+  </wsdl:message>
+  <wsdl:message name="VehicleRegJudgeSoapOut">
+    <wsdl:part name="parameters" element="tns:VehicleRegJudgeResponse" />
+  </wsdl:message>
+  <wsdl:message name="OnlineJudgeSoapIn">
+    <wsdl:part name="parameters" element="tns:OnlineJudge" />
+  </wsdl:message>
+  <wsdl:message name="OnlineJudgeSoapOut">
+    <wsdl:part name="parameters" element="tns:OnlineJudgeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddCheckDataSoapIn">
+    <wsdl:part name="parameters" element="tns:AddCheckData" />
+  </wsdl:message>
+  <wsdl:message name="AddCheckDataSoapOut">
+    <wsdl:part name="parameters" element="tns:AddCheckDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddObdDataSoapIn">
+    <wsdl:part name="parameters" element="tns:AddObdData" />
+  </wsdl:message>
+  <wsdl:message name="AddObdDataSoapOut">
+    <wsdl:part name="parameters" element="tns:AddObdDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddIuprDataSoapIn">
+    <wsdl:part name="parameters" element="tns:AddIuprData" />
+  </wsdl:message>
+  <wsdl:message name="AddIuprDataSoapOut">
+    <wsdl:part name="parameters" element="tns:AddIuprDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="RyzfControlSoapIn">
+    <wsdl:part name="parameters" element="tns:RyzfControl" />
+  </wsdl:message>
+  <wsdl:message name="RyzfControlSoapOut">
+    <wsdl:part name="parameters" element="tns:RyzfControlResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddVerifySoapIn">
+    <wsdl:part name="parameters" element="tns:AddVerify" />
+  </wsdl:message>
+  <wsdl:message name="AddVerifySoapOut">
+    <wsdl:part name="parameters" element="tns:AddVerifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintJudgeSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintJudge" />
+  </wsdl:message>
+  <wsdl:message name="PrintJudgeSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintJudgeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintUpSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintUp" />
+  </wsdl:message>
+  <wsdl:message name="PrintUpSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintUpResponse" />
+  </wsdl:message>
+  <wsdl:message name="LokeJudgeSoapIn">
+    <wsdl:part name="parameters" element="tns:LokeJudge" />
+  </wsdl:message>
+  <wsdl:message name="LokeJudgeSoapOut">
+    <wsdl:part name="parameters" element="tns:LokeJudgeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddWGJCDataSoapIn">
+    <wsdl:part name="parameters" element="tns:AddWGJCData" />
+  </wsdl:message>
+  <wsdl:message name="AddWGJCDataSoapOut">
+    <wsdl:part name="parameters" element="tns:AddWGJCDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddDeviceCheckDataSoapIn">
+    <wsdl:part name="parameters" element="tns:AddDeviceCheckData" />
+  </wsdl:message>
+  <wsdl:message name="AddDeviceCheckDataSoapOut">
+    <wsdl:part name="parameters" element="tns:AddDeviceCheckDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GasServiceNewSoap">
+    <wsdl:operation name="VehicleRegJudge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">车辆注册验证</wsdl:documentation>
+      <wsdl:input message="tns:VehicleRegJudgeSoapIn" />
+      <wsdl:output message="tns:VehicleRegJudgeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnlineJudge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">上线检测权限判断接口</wsdl:documentation>
+      <wsdl:input message="tns:OnlineJudgeSoapIn" />
+      <wsdl:output message="tns:OnlineJudgeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCheckData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">检测数据接口</wsdl:documentation>
+      <wsdl:input message="tns:AddCheckDataSoapIn" />
+      <wsdl:output message="tns:AddCheckDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddObdData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">OBD检测数据接口</wsdl:documentation>
+      <wsdl:input message="tns:AddObdDataSoapIn" />
+      <wsdl:output message="tns:AddObdDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddIuprData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">OBDIUPR检测数据接口</wsdl:documentation>
+      <wsdl:input message="tns:AddIuprDataSoapIn" />
+      <wsdl:output message="tns:AddIuprDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RyzfControl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">燃油蒸发排放控制系统数据接口</wsdl:documentation>
+      <wsdl:input message="tns:RyzfControlSoapIn" />
+      <wsdl:output message="tns:RyzfControlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddVerify">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">设备自检上传接口</wsdl:documentation>
+      <wsdl:input message="tns:AddVerifySoapIn" />
+      <wsdl:output message="tns:AddVerifySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintJudge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">报告打印判断</wsdl:documentation>
+      <wsdl:input message="tns:PrintJudgeSoapIn" />
+      <wsdl:output message="tns:PrintJudgeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintUp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">报告打印并上传接口</wsdl:documentation>
+      <wsdl:input message="tns:PrintUpSoapIn" />
+      <wsdl:output message="tns:PrintUpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LokeJudge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">检测设备自动锁定接口</wsdl:documentation>
+      <wsdl:input message="tns:LokeJudgeSoapIn" />
+      <wsdl:output message="tns:LokeJudgeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddWGJCData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">外观检查接口</wsdl:documentation>
+      <wsdl:input message="tns:AddWGJCDataSoapIn" />
+      <wsdl:output message="tns:AddWGJCDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDeviceCheckData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">检查设备信息接口</wsdl:documentation>
+      <wsdl:input message="tns:AddDeviceCheckDataSoapIn" />
+      <wsdl:output message="tns:AddDeviceCheckDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GasServiceNewSoap" type="tns:GasServiceNewSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VehicleRegJudge">
+      <soap:operation soapAction="http://tempuri.org/VehicleRegJudge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnlineJudge">
+      <soap:operation soapAction="http://tempuri.org/OnlineJudge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCheckData">
+      <soap:operation soapAction="http://tempuri.org/AddCheckData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddObdData">
+      <soap:operation soapAction="http://tempuri.org/AddObdData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddIuprData">
+      <soap:operation soapAction="http://tempuri.org/AddIuprData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RyzfControl">
+      <soap:operation soapAction="http://tempuri.org/RyzfControl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddVerify">
+      <soap:operation soapAction="http://tempuri.org/AddVerify" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintJudge">
+      <soap:operation soapAction="http://tempuri.org/PrintJudge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintUp">
+      <soap:operation soapAction="http://tempuri.org/PrintUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LokeJudge">
+      <soap:operation soapAction="http://tempuri.org/LokeJudge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWGJCData">
+      <soap:operation soapAction="http://tempuri.org/AddWGJCData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDeviceCheckData">
+      <soap:operation soapAction="http://tempuri.org/AddDeviceCheckData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GasServiceNewSoap12" type="tns:GasServiceNewSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VehicleRegJudge">
+      <soap12:operation soapAction="http://tempuri.org/VehicleRegJudge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnlineJudge">
+      <soap12:operation soapAction="http://tempuri.org/OnlineJudge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCheckData">
+      <soap12:operation soapAction="http://tempuri.org/AddCheckData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddObdData">
+      <soap12:operation soapAction="http://tempuri.org/AddObdData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddIuprData">
+      <soap12:operation soapAction="http://tempuri.org/AddIuprData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RyzfControl">
+      <soap12:operation soapAction="http://tempuri.org/RyzfControl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddVerify">
+      <soap12:operation soapAction="http://tempuri.org/AddVerify" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintJudge">
+      <soap12:operation soapAction="http://tempuri.org/PrintJudge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintUp">
+      <soap12:operation soapAction="http://tempuri.org/PrintUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LokeJudge">
+      <soap12:operation soapAction="http://tempuri.org/LokeJudge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWGJCData">
+      <soap12:operation soapAction="http://tempuri.org/AddWGJCData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDeviceCheckData">
+      <soap12:operation soapAction="http://tempuri.org/AddDeviceCheckData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GasServiceNew">
+    <wsdl:port name="GasServiceNewSoap" binding="tns:GasServiceNewSoap">
+      <soap:address location="http://172.168.81.60:10000/GasServiceNew.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GasServiceNewSoap12" binding="tns:GasServiceNewSoap12">
+      <soap12:address location="http://172.168.81.60:10000/GasServiceNew.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

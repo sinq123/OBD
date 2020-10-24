@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{a7bf4175-ccdb-4fff-9fdb-521b3d7ef114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{93e6fc09-a9d7-4313-a888-910a73b6fae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib_json">
+      <UniqueIdentifier>{a6ebbe5e-25ea-440b-88a2-be6dae7394d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ini">
+      <UniqueIdentifier>{82d8a2ec-ebae-4dbc-8203-0e5afc540857}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="YJClientLib.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="res\YJClientLib.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="lib_json\json_internalarray.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\json_internalmap.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\json_valueiterator.inl">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="lib_json\sconscript">
+      <Filter>lib_json</Filter>
+    </None>
+    <None Include="YJConfig.ini">
+      <Filter>Ini</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="YJClientLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_reader.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_value.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="lib_json\json_writer.cpp">
+      <Filter>lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="YJClientLibAPI.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="YJSocket.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="YJClientLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="json\autolink.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\config.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\features.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\forwards.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\reader.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\value.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="json\writer.h">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="lib_json\json_batchallocator.h">
+      <Filter>lib_json</Filter>
+    </ClInclude>
+    <ClInclude Include="YJClientLibAPI.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="YJSocket.h">
+      <Filter>API</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="YJClientLib.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

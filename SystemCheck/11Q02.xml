@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <logout></logout>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+  <head>
+
+    <code>1</code>
+
+    <message>注销成功！</message>
+
+    <rownum>0</rownum>
+
+  </head>
+
+  <body>
+
+  </body>
+
+</root>

@@ -1,0 +1,1533 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="DeviceSwapIfaceImplService" targetNamespace="http://www.hnlh.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.hnlh.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://www.hnlh.com/" version="1.0" xmlns:tns="http://www.hnlh.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="btgGcsj" type="tns:btgGcsj"/>
+<xs:element name="btgGcsjResponse" type="tns:btgGcsjResponse"/>
+<xs:element name="btgJgsj" type="tns:btgJgsj"/>
+<xs:element name="btgJgsjResponse" type="tns:btgJgsjResponse"/>
+<xs:element name="cgjzj" type="tns:cgjzj"/>
+<xs:element name="cgjzjResponse" type="tns:cgjzjResponse"/>
+<xs:element name="cycObdIupr" type="tns:cycObdIupr"/>
+<xs:element name="cycObdIuprResponse" type="tns:cycObdIuprResponse"/>
+<xs:element name="fwqsjtb" type="tns:fwqsjtb"/>
+<xs:element name="fwqsjtbResponse" type="tns:fwqsjtbResponse"/>
+<xs:element name="getAccessToken" type="tns:getAccessToken"/>
+<xs:element name="getAccessTokenResponse" type="tns:getAccessTokenResponse"/>
+<xs:element name="getDjclxx" type="tns:getDjclxx"/>
+<xs:element name="getDjclxxResponse" type="tns:getDjclxxResponse"/>
+<xs:element name="getDjzt" type="tns:getDjzt"/>
+<xs:element name="getDjztResponse" type="tns:getDjztResponse"/>
+<xs:element name="gkrjbbh" type="tns:gkrjbbh"/>
+<xs:element name="gkrjbbhResponse" type="tns:gkrjbbhResponse"/>
+<xs:element name="hjcsyzj" type="tns:hjcsyzj"/>
+<xs:element name="hjcsyzjResponse" type="tns:hjcsyzjResponse"/>
+<xs:element name="jczrylb" type="tns:jczrylb"/>
+<xs:element name="jczrylbResponse" type="tns:jczrylbResponse"/>
+<xs:element name="jystGcsj" type="tns:jystGcsj"/>
+<xs:element name="jystGcsjResponse" type="tns:jystGcsjResponse"/>
+<xs:element name="jystJgsj" type="tns:jystJgsj"/>
+<xs:element name="jystJgsjResponse" type="tns:jystJgsjResponse"/>
+<xs:element name="jzjsGcsj" type="tns:jzjsGcsj"/>
+<xs:element name="jzjsGcsjResponse" type="tns:jzjsGcsjResponse"/>
+<xs:element name="jzjsJgsj" type="tns:jzjsJgsj"/>
+<xs:element name="jzjsJgsjResponse" type="tns:jzjsJgsjResponse"/>
+<xs:element name="lgmhdGcsj" type="tns:lgmhdGcsj"/>
+<xs:element name="lgmhdGcsjResponse" type="tns:lgmhdGcsjResponse"/>
+<xs:element name="lgmhdJgsj" type="tns:lgmhdJgsj"/>
+<xs:element name="lgmhdJgsjResponse" type="tns:lgmhdJgsjResponse"/>
+<xs:element name="lljzj" type="tns:lljzj"/>
+<xs:element name="lljzjResponse" type="tns:lljzjResponse"/>
+<xs:element name="obdDjlb" type="tns:obdDjlb"/>
+<xs:element name="obdDjlbResponse" type="tns:obdDjlbResponse"/>
+<xs:element name="obdGcsj" type="tns:obdGcsj"/>
+<xs:element name="obdGcsjResponse" type="tns:obdGcsjResponse"/>
+<xs:element name="obdJgsj" type="tns:obdJgsj"/>
+<xs:element name="obdJgsjResponse" type="tns:obdJgsjResponse"/>
+<xs:element name="qycObdIupr" type="tns:qycObdIupr"/>
+<xs:element name="qycObdIuprResponse" type="tns:qycObdIuprResponse"/>
+<xs:element name="ryzfJysj" type="tns:ryzfJysj"/>
+<xs:element name="ryzfJysjResponse" type="tns:ryzfJysjResponse"/>
+<xs:element name="sdsGcsj" type="tns:sdsGcsj"/>
+<xs:element name="sdsGcsjResponse" type="tns:sdsGcsjResponse"/>
+<xs:element name="sdsJgsj" type="tns:sdsJgsj"/>
+<xs:element name="sdsJgsjResponse" type="tns:sdsJgsjResponse"/>
+<xs:element name="wgjcJgsj" type="tns:wgjcJgsj"/>
+<xs:element name="wgjcJgsjResponse" type="tns:wgjcJgsjResponse"/>
+<xs:element name="wqfxybd" type="tns:wqfxybd"/>
+<xs:element name="wqfxybdResponse" type="tns:wqfxybdResponse"/>
+<xs:element name="wqfxyzj" type="tns:wqfxyzj"/>
+<xs:element name="wqfxyzjResponse" type="tns:wqfxyzjResponse"/>
+<xs:element name="wtGcsj" type="tns:wtGcsj"/>
+<xs:element name="wtGcsjResponse" type="tns:wtGcsjResponse"/>
+<xs:element name="wtJgsj" type="tns:wtJgsj"/>
+<xs:element name="wtJgsjResponse" type="tns:wtJgsjResponse"/>
+<xs:element name="xxtz" type="tns:xxtz"/>
+<xs:element name="xxtzResponse" type="tns:xxtzResponse"/>
+<xs:element name="ydjzj" type="tns:ydjzj"/>
+<xs:element name="ydjzjResponse" type="tns:ydjzjResponse"/>
+<xs:complexType name="sdsGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="gklx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="hc" type="xs:double"/>
+<xs:element name="co" type="xs:double"/>
+<xs:element name="co2" type="xs:double"/>
+<xs:element name="o2" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="jyyw" type="xs:double"/>
+<xs:element minOccurs="0" name="fdjzs" type="xs:string"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sdsGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAccessToken">
+<xs:sequence>
+<xs:element minOccurs="0" name="jcxbh" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAccessTokenResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="gkrjbbh">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="bbh" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="gkrjbbhResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="clsbm" type="xs:string"/>
+<xs:element minOccurs="0" name="obdzsbz" type="xs:string"/>
+<xs:element name="clxslc" type="xs:int"/>
+<xs:element minOccurs="0" name="fdjkzdycid" type="xs:string"/>
+<xs:element minOccurs="0" name="fdjkzdycvn" type="xs:string"/>
+<xs:element minOccurs="0" name="hclkzdycid" type="xs:string"/>
+<xs:element minOccurs="0" name="hclkzdycvn" type="xs:string"/>
+<xs:element minOccurs="0" name="qtkzdycid" type="xs:string"/>
+<xs:element minOccurs="0" name="qtkzdycvn" type="xs:string"/>
+<xs:element minOccurs="0" name="obdgzzsq" type="xs:string"/>
+<xs:element minOccurs="0" name="obdtxqk" type="xs:string"/>
+<xs:element minOccurs="0" name="obdzzqsfdl" type="xs:string"/>
+<xs:element minOccurs="0" name="obdjxzt" type="xs:string"/>
+<xs:element minOccurs="0" name="obdjcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="obdgzxx" type="xs:string"/>
+<xs:element minOccurs="0" name="jyymc" type="xs:string"/>
+<xs:element minOccurs="0" name="jckssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jcjssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ydjzj">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="ldjcjg" type="xs:string"/>
+<xs:element name="lgpz1" type="xs:double"/>
+<xs:element name="lgpz2" type="xs:double"/>
+<xs:element name="jcz1" type="xs:double"/>
+<xs:element name="jcz2" type="xs:double"/>
+<xs:element name="wcl1" type="xs:double"/>
+<xs:element name="wcl2" type="xs:double"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ydjzjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wqfxybd">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="bqlb" type="xs:string"/>
+<xs:element name="bzCO2" type="xs:double"/>
+<xs:element name="sjCO2" type="xs:double"/>
+<xs:element name="bzCO" type="xs:double"/>
+<xs:element name="sjCO" type="xs:double"/>
+<xs:element name="bzNO" type="xs:double"/>
+<xs:element name="sjNO" type="xs:double"/>
+<xs:element name="bzHC" type="xs:double"/>
+<xs:element name="sjHC" type="xs:double"/>
+<xs:element name="bzO2" type="xs:double"/>
+<xs:element name="sjO2" type="xs:double"/>
+<xs:element name="sjPEF" type="xs:double"/>
+<xs:element name="bzC3H8" type="xs:double"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wqfxybdResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jystJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="co" type="xs:double"/>
+<xs:element name="hc" type="xs:double"/>
+<xs:element name="no" type="xs:double"/>
+<xs:element name="sdgl" type="xs:double"/>
+<xs:element name="sjxsjl" type="xs:double"/>
+<xs:element name="cssj" type="xs:double"/>
+<xs:element name="plcs" type="xs:double"/>
+<xs:element name="zplsj" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element name="ynd" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jystJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wgjcJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="cljxzk" type="xs:string"/>
+<xs:element minOccurs="0" name="pqwrkzzz" type="xs:string"/>
+<xs:element minOccurs="0" name="fdjsfdkb" type="xs:string"/>
+<xs:element minOccurs="0" name="sfsjymhy" type="xs:string"/>
+<xs:element minOccurs="0" name="qzxtfxt" type="xs:string"/>
+<xs:element minOccurs="0" name="ryzfkzxt" type="xs:string"/>
+<xs:element minOccurs="0" name="ybpgzqk" type="xs:string"/>
+<xs:element minOccurs="0" name="sfyjxgz" type="xs:string"/>
+<xs:element minOccurs="0" name="pqxtsfxl" type="xs:string"/>
+<xs:element minOccurs="0" name="sfyytxl" type="xs:string"/>
+<xs:element minOccurs="0" name="sfyobd" type="xs:string"/>
+<xs:element minOccurs="0" name="ltqysfzc" type="xs:string"/>
+<xs:element minOccurs="0" name="ltsfqjgj" type="xs:string"/>
+<xs:element minOccurs="0" name="sfgbktnf" type="xs:string"/>
+<xs:element minOccurs="0" name="sfzdmxgn" type="xs:string"/>
+<xs:element minOccurs="0" name="yxypsfyc" type="xs:string"/>
+<xs:element minOccurs="0" name="sfshgkfjc" type="xs:string"/>
+<xs:element minOccurs="0" name="cyjg" type="xs:string"/>
+<xs:element minOccurs="0" name="jyymc" type="xs:string"/>
+<xs:element minOccurs="0" name="jysj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wgjcJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ryzfJysj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="jykcsyl" type="xs:double"/>
+<xs:element name="jykssyl" type="xs:double"/>
+<xs:element minOccurs="0" name="jykcsjg" type="xs:string"/>
+<xs:element name="yxgxlll" type="xs:double"/>
+<xs:element name="yxgcsyl" type="xs:double"/>
+<xs:element name="yxgssyl" type="xs:double"/>
+<xs:element minOccurs="0" name="yxgcsjg" type="xs:string"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ryzfJysjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="btgGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="gklx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="ydz" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="yw" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="btgGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lljzj">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="jqglljcjg" type="xs:double"/>
+<xs:element name="lljylcjcjg" type="xs:double"/>
+<xs:element name="yqglcbz" type="xs:double"/>
+<xs:element name="yqglcclz" type="xs:double"/>
+<xs:element name="yqglcwc" type="xs:double"/>
+<xs:element name="yqdlcbz" type="xs:double"/>
+<xs:element name="yqdlcclz" type="xs:double"/>
+<xs:element name="yqdlcwc" type="xs:double"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lljzjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="fwqsjtb">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="fwqsjtbResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdDjlb">
+<xs:sequence>
+<xs:element minOccurs="0" name="jczbh" type="xs:string"/>
+<xs:element minOccurs="0" name="cphm" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdDjlbResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lgmhdGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="lgmhd" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lgmhdGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDjclxx">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDjclxxResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jzjsJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="k100" type="xs:double"/>
+<xs:element name="k80" type="xs:double"/>
+<xs:element name="nox80" type="xs:double"/>
+<xs:element name="zdlbgl" type="xs:double"/>
+<xs:element name="zdsd" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="dszs" type="xs:double"/>
+<xs:element name="fdjzssx" type="xs:double"/>
+<xs:element name="fdjzsxx" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jzjsJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wtGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="gklx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="wxzhc" type="xs:double"/>
+<xs:element name="wxzco" type="xs:double"/>
+<xs:element name="wxzno" type="xs:double"/>
+<xs:element name="hc" type="xs:double"/>
+<xs:element name="co" type="xs:double"/>
+<xs:element name="no" type="xs:double"/>
+<xs:element name="o2" type="xs:double"/>
+<xs:element name="co2" type="xs:double"/>
+<xs:element name="cs" type="xs:double"/>
+<xs:element name="zs" type="xs:double"/>
+<xs:element name="xsxzxs" type="xs:double"/>
+<xs:element name="sdxzxs" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="dpcgjfz" type="xs:double"/>
+<xs:element name="zjzgl" type="xs:double"/>
+<xs:element name="jsgl" type="xs:double"/>
+<xs:element name="zsgl" type="xs:double"/>
+<xs:element name="nl" type="xs:double"/>
+<xs:element name="fxyglyl" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element name="yw" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wtGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wtJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="hc5025" type="xs:double"/>
+<xs:element name="co5025" type="xs:double"/>
+<xs:element name="no5025" type="xs:double"/>
+<xs:element name="fdjzs5025" type="xs:double"/>
+<xs:element name="fdjyw5025" type="xs:double"/>
+<xs:element name="pjcs5025" type="xs:double"/>
+<xs:element name="zgl5025" type="xs:double"/>
+<xs:element name="hc2540" type="xs:double"/>
+<xs:element name="co2540" type="xs:double"/>
+<xs:element name="no2540" type="xs:double"/>
+<xs:element name="fdjzs2540" type="xs:double"/>
+<xs:element name="fdjyw2540" type="xs:double"/>
+<xs:element name="pjcs2540" type="xs:double"/>
+<xs:element name="zgl2540" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wtJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="jcsxh" type="xs:string"/>
+<xs:element name="jqmjdkd" type="xs:double"/>
+<xs:element name="fhz" type="xs:double"/>
+<xs:element name="ycgqxh" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="cs" type="xs:double"/>
+<xs:element name="fdjgl" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="jql" type="xs:double"/>
+<xs:element name="jqyl" type="xs:double"/>
+<xs:element name="zyyl" type="xs:double"/>
+<xs:element name="ymkd" type="xs:double"/>
+<xs:element name="hyl" type="xs:double"/>
+<xs:element name="nycgqnd" type="xs:double"/>
+<xs:element name="nspsl" type="xs:double"/>
+<xs:element name="pqwd" type="xs:double"/>
+<xs:element name="klbzqyc" type="xs:double"/>
+<xs:element name="egrkd" type="xs:double"/>
+<xs:element name="rypsyl" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obdGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cgjzj">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="gsjzllsj" type="xs:double"/>
+<xs:element name="gsjzsjsj" type="xs:double"/>
+<xs:element name="dsjzllsj" type="xs:double"/>
+<xs:element name="dsjzsjsj" type="xs:double"/>
+<xs:element name="gsjzns" type="xs:double"/>
+<xs:element name="dsjzns" type="xs:double"/>
+<xs:element name="gsjzhxgl" type="xs:double"/>
+<xs:element name="dsjzhxgl" type="xs:double"/>
+<xs:element name="jbgl" type="xs:double"/>
+<xs:element minOccurs="0" name="gsjzjcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="dsjzjcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cgjzjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="xxtz">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="code" type="xs:string"/>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="xxtzResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDjzt">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDjztResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="btgJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="ydz1" type="xs:double"/>
+<xs:element name="zs1" type="xs:double"/>
+<xs:element name="ydz2" type="xs:double"/>
+<xs:element name="zs2" type="xs:double"/>
+<xs:element name="ydz3" type="xs:double"/>
+<xs:element name="zs3" type="xs:double"/>
+<xs:element name="dszs" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="btgJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="hjcsyzj">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="sjhjwd" type="xs:double"/>
+<xs:element name="clhjwd" type="xs:double"/>
+<xs:element name="sjhjsd" type="xs:double"/>
+<xs:element name="clhjsd" type="xs:double"/>
+<xs:element name="sjdqyl" type="xs:double"/>
+<xs:element name="cldqyl" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="hjcsyzjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lgmhdJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="lgmhd" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="lgmhdJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jczrylb">
+<xs:sequence>
+<xs:element minOccurs="0" name="jczbh" type="xs:string"/>
+<xs:element minOccurs="0" name="jsdm" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jczrylbResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jystGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="gklx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="wxzhc" type="xs:double"/>
+<xs:element name="hc" type="xs:double"/>
+<xs:element name="wxzco" type="xs:double"/>
+<xs:element name="co" type="xs:double"/>
+<xs:element name="co2" type="xs:double"/>
+<xs:element name="wxznox" type="xs:double"/>
+<xs:element name="nox" type="xs:double"/>
+<xs:element name="o2" type="xs:double"/>
+<xs:element name="sjll" type="xs:double"/>
+<xs:element name="bzll" type="xs:double"/>
+<xs:element name="wqll" type="xs:double"/>
+<xs:element name="cs" type="xs:double"/>
+<xs:element name="bzss" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="xsxzxs" type="xs:double"/>
+<xs:element name="nosdxzxs" type="xs:double"/>
+<xs:element name="xsb" type="xs:double"/>
+<xs:element name="jzgl" type="xs:double"/>
+<xs:element name="jsgl" type="xs:double"/>
+<xs:element name="zsgl" type="xs:double"/>
+<xs:element name="lljqy" type="xs:double"/>
+<xs:element name="lljwd" type="xs:double"/>
+<xs:element name="nl" type="xs:double"/>
+<xs:element name="fxyglyl" type="xs:double"/>
+<xs:element name="scfz" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jystGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jzjsGcsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="qssx" type="xs:string"/>
+<xs:element minOccurs="0" name="gklx" type="xs:string"/>
+<xs:element name="jcsxh" type="xs:int"/>
+<xs:element name="gxsxs" type="xs:double"/>
+<xs:element name="ydz" type="xs:double"/>
+<xs:element name="sscs" type="xs:double"/>
+<xs:element name="fdjzs" type="xs:double"/>
+<xs:element name="nl" type="xs:double"/>
+<xs:element name="nj" type="xs:double"/>
+<xs:element name="scgl" type="xs:double"/>
+<xs:element name="glxzxs" type="xs:double"/>
+<xs:element name="xzhgl" type="xs:double"/>
+<xs:element name="nox" type="xs:double"/>
+<xs:element name="co2" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jzjsGcsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wqfxyzj">
+<xs:sequence>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element minOccurs="0" name="jcjg" type="xs:string"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+<xs:element minOccurs="0" name="bz" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="wqfxyzjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cycObdIupr">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element name="nmhcchqjccs" type="xs:int"/>
+<xs:element name="nmhcchqfhtjcs" type="xs:int"/>
+<xs:element name="nmhcchqiuprl" type="xs:double"/>
+<xs:element name="noxchqjccs" type="xs:int"/>
+<xs:element name="noxchqfhtjcs" type="xs:int"/>
+<xs:element name="noxchqiuprl" type="xs:double"/>
+<xs:element name="noxxfqjccs" type="xs:int"/>
+<xs:element name="noxxfqfhtjcs" type="xs:int"/>
+<xs:element name="noxxfqiuprl" type="xs:double"/>
+<xs:element name="pmbjqjccs" type="xs:int"/>
+<xs:element name="pmbjqfhtjcs" type="xs:int"/>
+<xs:element name="pmbjqiuprl" type="xs:double"/>
+<xs:element name="fqcgqjccs" type="xs:int"/>
+<xs:element name="fqcgqfhtjcs" type="xs:int"/>
+<xs:element name="fqcgqiuprl" type="xs:double"/>
+<xs:element name="egrvvtjccs" type="xs:int"/>
+<xs:element name="egrvvtfhtjcs" type="xs:int"/>
+<xs:element name="egrvvtiuprl" type="xs:double"/>
+<xs:element name="zyyljccs" type="xs:int"/>
+<xs:element name="zyylfhtjcs" type="xs:int"/>
+<xs:element name="zyyliuprl" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cycObdIuprResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sdsJgsj">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element minOccurs="0" name="accessToken" type="xs:string"/>
+<xs:element name="dszs" type="xs:double"/>
+<xs:element name="dsyw" type="xs:double"/>
+<xs:element name="gdszs" type="xs:double"/>
+<xs:element name="gdsyw" type="xs:double"/>
+<xs:element name="dsco" type="xs:double"/>
+<xs:element name="dshc" type="xs:double"/>
+<xs:element name="gdsco" type="xs:double"/>
+<xs:element name="gdshc" type="xs:double"/>
+<xs:element name="glkqxs" type="xs:double"/>
+<xs:element name="wd" type="xs:double"/>
+<xs:element name="sd" type="xs:double"/>
+<xs:element name="dqy" type="xs:double"/>
+<xs:element minOccurs="0" name="kssj" type="xs:string"/>
+<xs:element minOccurs="0" name="jssj" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sdsJgsjResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="qycObdIupr">
+<xs:sequence>
+<xs:element minOccurs="0" name="lsh" type="xs:string"/>
+<xs:element name="chqz1jccs" type="xs:int"/>
+<xs:element name="chqz1fhtjcs" type="xs:int"/>
+<xs:element name="chqz1iuprl" type="xs:double"/>
+<xs:element name="chqz2jccs" type="xs:int"/>
+<xs:element name="chqz2fhtjcs" type="xs:int"/>
+<xs:element name="chqz2iuprl" type="xs:double"/>
+<xs:element name="qycgqz1jccs" type="xs:int"/>
+<xs:element name="qycgqz1fhtjcs" type="xs:int"/>
+<xs:element name="qycgqz1iuprl" type="xs:double"/>
+<xs:element name="qycgqz2jccs" type="xs:int"/>
+<xs:element name="qycgqz2fhtjcs" type="xs:int"/>
+<xs:element name="qycgqz2iuprl" type="xs:double"/>
+<xs:element name="hycgqz1jccs" type="xs:int"/>
+<xs:element name="hycgqz1fhtjcs" type="xs:int"/>
+<xs:element name="hycgqz1iuprl" type="xs:double"/>
+<xs:element name="hycgqz2jccs" type="xs:int"/>
+<xs:element name="hycgqz2fhtjcs" type="xs:int"/>
+<xs:element name="hycgqz2iuprl" type="xs:double"/>
+<xs:element name="evapjccs" type="xs:int"/>
+<xs:element name="evapfhtjcs" type="xs:int"/>
+<xs:element name="evapiuprl" type="xs:double"/>
+<xs:element name="egrvvtjccs" type="xs:int"/>
+<xs:element name="egrvvtfhtjcs" type="xs:int"/>
+<xs:element name="egrvvtiuprl" type="xs:double"/>
+<xs:element name="gpfz1jccs" type="xs:int"/>
+<xs:element name="gpfz1fhtjcs" type="xs:int"/>
+<xs:element name="gpfz1iuprl" type="xs:double"/>
+<xs:element name="gpfz2jccs" type="xs:int"/>
+<xs:element name="gpfz2fhtjcs" type="xs:int"/>
+<xs:element name="gpfz2iuprl" type="xs:double"/>
+<xs:element name="eckqpsxtjccs" type="xs:int"/>
+<xs:element name="eckqpsxtfhtjcs" type="xs:int"/>
+<xs:element name="eckqpsxtiuprl" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="qycObdIuprResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+
+  </wsdl:types>
+  <wsdl:message name="jczrylbResponse">
+    <wsdl:part element="tns:jczrylbResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wtJgsj">
+    <wsdl:part element="tns:wtJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jystGcsj">
+    <wsdl:part element="tns:jystGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxyzjResponse">
+    <wsdl:part element="tns:wqfxyzjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwqsjtbResponse">
+    <wsdl:part element="tns:fwqsjtbResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsGcsjResponse">
+    <wsdl:part element="tns:sdsGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccessTokenResponse">
+    <wsdl:part element="tns:getAccessTokenResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ydjzjResponse">
+    <wsdl:part element="tns:ydjzjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wtGcsjResponse">
+    <wsdl:part element="tns:wtGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxyzj">
+    <wsdl:part element="tns:wqfxyzj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="gkrjbbh">
+    <wsdl:part element="tns:gkrjbbh" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lgmhdGcsj">
+    <wsdl:part element="tns:lgmhdGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lljzj">
+    <wsdl:part element="tns:lljzj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="qycObdIupr">
+    <wsdl:part element="tns:qycObdIupr" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsJgsj">
+    <wsdl:part element="tns:sdsJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lgmhdJgsj">
+    <wsdl:part element="tns:lgmhdJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cycObdIuprResponse">
+    <wsdl:part element="tns:cycObdIuprResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jzjsJgsjResponse">
+    <wsdl:part element="tns:jzjsJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdJgsj">
+    <wsdl:part element="tns:obdJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ryzfJysjResponse">
+    <wsdl:part element="tns:ryzfJysjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="hjcsyzjResponse">
+    <wsdl:part element="tns:hjcsyzjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="gkrjbbhResponse">
+    <wsdl:part element="tns:gkrjbbhResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="hjcsyzj">
+    <wsdl:part element="tns:hjcsyzj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjzj">
+    <wsdl:part element="tns:cgjzj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wtJgsjResponse">
+    <wsdl:part element="tns:wtJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxybd">
+    <wsdl:part element="tns:wqfxybd" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdGcsj">
+    <wsdl:part element="tns:obdGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jzjsGcsj">
+    <wsdl:part element="tns:jzjsGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdDjlb">
+    <wsdl:part element="tns:obdDjlb" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jczrylb">
+    <wsdl:part element="tns:jczrylb" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lljzjResponse">
+    <wsdl:part element="tns:lljzjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="btgJgsj">
+    <wsdl:part element="tns:btgJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lgmhdJgsjResponse">
+    <wsdl:part element="tns:lgmhdJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDjclxxResponse">
+    <wsdl:part element="tns:getDjclxxResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wtGcsj">
+    <wsdl:part element="tns:wtGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="xxtz">
+    <wsdl:part element="tns:xxtz" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wgjcJgsj">
+    <wsdl:part element="tns:wgjcJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsGcsj">
+    <wsdl:part element="tns:sdsGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDjztResponse">
+    <wsdl:part element="tns:getDjztResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="btgGcsj">
+    <wsdl:part element="tns:btgGcsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jystJgsj">
+    <wsdl:part element="tns:jystJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDjclxx">
+    <wsdl:part element="tns:getDjclxx" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDjzt">
+    <wsdl:part element="tns:getDjzt" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jystJgsjResponse">
+    <wsdl:part element="tns:jystJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wgjcJgsjResponse">
+    <wsdl:part element="tns:wgjcJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgjzjResponse">
+    <wsdl:part element="tns:cgjzjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ydjzj">
+    <wsdl:part element="tns:ydjzj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jzjsGcsjResponse">
+    <wsdl:part element="tns:jzjsGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="xxtzResponse">
+    <wsdl:part element="tns:xxtzResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lgmhdGcsjResponse">
+    <wsdl:part element="tns:lgmhdGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jystGcsjResponse">
+    <wsdl:part element="tns:jystGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="btgJgsjResponse">
+    <wsdl:part element="tns:btgJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="btgGcsjResponse">
+    <wsdl:part element="tns:btgGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdDjlbResponse">
+    <wsdl:part element="tns:obdDjlbResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="qycObdIuprResponse">
+    <wsdl:part element="tns:qycObdIuprResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cycObdIupr">
+    <wsdl:part element="tns:cycObdIupr" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwqsjtb">
+    <wsdl:part element="tns:fwqsjtb" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdJgsjResponse">
+    <wsdl:part element="tns:obdJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sdsJgsjResponse">
+    <wsdl:part element="tns:sdsJgsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="wqfxybdResponse">
+    <wsdl:part element="tns:wqfxybdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccessToken">
+    <wsdl:part element="tns:getAccessToken" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obdGcsjResponse">
+    <wsdl:part element="tns:obdGcsjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ryzfJysj">
+    <wsdl:part element="tns:ryzfJysj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="jzjsJgsj">
+    <wsdl:part element="tns:jzjsJgsj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeviceSwapIface">
+    <wsdl:operation name="sdsGcsj">
+      <wsdl:input message="tns:sdsGcsj" name="sdsGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:sdsGcsjResponse" name="sdsGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccessToken">
+      <wsdl:input message="tns:getAccessToken" name="getAccessToken">
+    </wsdl:input>
+      <wsdl:output message="tns:getAccessTokenResponse" name="getAccessTokenResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="gkrjbbh">
+      <wsdl:input message="tns:gkrjbbh" name="gkrjbbh">
+    </wsdl:input>
+      <wsdl:output message="tns:gkrjbbhResponse" name="gkrjbbhResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdJgsj">
+      <wsdl:input message="tns:obdJgsj" name="obdJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:obdJgsjResponse" name="obdJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ydjzj">
+      <wsdl:input message="tns:ydjzj" name="ydjzj">
+    </wsdl:input>
+      <wsdl:output message="tns:ydjzjResponse" name="ydjzjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxybd">
+      <wsdl:input message="tns:wqfxybd" name="wqfxybd">
+    </wsdl:input>
+      <wsdl:output message="tns:wqfxybdResponse" name="wqfxybdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jystJgsj">
+      <wsdl:input message="tns:jystJgsj" name="jystJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:jystJgsjResponse" name="jystJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wgjcJgsj">
+      <wsdl:input message="tns:wgjcJgsj" name="wgjcJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:wgjcJgsjResponse" name="wgjcJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ryzfJysj">
+      <wsdl:input message="tns:ryzfJysj" name="ryzfJysj">
+    </wsdl:input>
+      <wsdl:output message="tns:ryzfJysjResponse" name="ryzfJysjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="btgGcsj">
+      <wsdl:input message="tns:btgGcsj" name="btgGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:btgGcsjResponse" name="btgGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lljzj">
+      <wsdl:input message="tns:lljzj" name="lljzj">
+    </wsdl:input>
+      <wsdl:output message="tns:lljzjResponse" name="lljzjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwqsjtb">
+      <wsdl:input message="tns:fwqsjtb" name="fwqsjtb">
+    </wsdl:input>
+      <wsdl:output message="tns:fwqsjtbResponse" name="fwqsjtbResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdDjlb">
+      <wsdl:input message="tns:obdDjlb" name="obdDjlb">
+    </wsdl:input>
+      <wsdl:output message="tns:obdDjlbResponse" name="obdDjlbResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lgmhdGcsj">
+      <wsdl:input message="tns:lgmhdGcsj" name="lgmhdGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:lgmhdGcsjResponse" name="lgmhdGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDjclxx">
+      <wsdl:input message="tns:getDjclxx" name="getDjclxx">
+    </wsdl:input>
+      <wsdl:output message="tns:getDjclxxResponse" name="getDjclxxResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jzjsJgsj">
+      <wsdl:input message="tns:jzjsJgsj" name="jzjsJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:jzjsJgsjResponse" name="jzjsJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wtGcsj">
+      <wsdl:input message="tns:wtGcsj" name="wtGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:wtGcsjResponse" name="wtGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wtJgsj">
+      <wsdl:input message="tns:wtJgsj" name="wtJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:wtJgsjResponse" name="wtJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdGcsj">
+      <wsdl:input message="tns:obdGcsj" name="obdGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:obdGcsjResponse" name="obdGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjzj">
+      <wsdl:input message="tns:cgjzj" name="cgjzj">
+    </wsdl:input>
+      <wsdl:output message="tns:cgjzjResponse" name="cgjzjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="xxtz">
+      <wsdl:input message="tns:xxtz" name="xxtz">
+    </wsdl:input>
+      <wsdl:output message="tns:xxtzResponse" name="xxtzResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDjzt">
+      <wsdl:input message="tns:getDjzt" name="getDjzt">
+    </wsdl:input>
+      <wsdl:output message="tns:getDjztResponse" name="getDjztResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="btgJgsj">
+      <wsdl:input message="tns:btgJgsj" name="btgJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:btgJgsjResponse" name="btgJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hjcsyzj">
+      <wsdl:input message="tns:hjcsyzj" name="hjcsyzj">
+    </wsdl:input>
+      <wsdl:output message="tns:hjcsyzjResponse" name="hjcsyzjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lgmhdJgsj">
+      <wsdl:input message="tns:lgmhdJgsj" name="lgmhdJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:lgmhdJgsjResponse" name="lgmhdJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jczrylb">
+      <wsdl:input message="tns:jczrylb" name="jczrylb">
+    </wsdl:input>
+      <wsdl:output message="tns:jczrylbResponse" name="jczrylbResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jystGcsj">
+      <wsdl:input message="tns:jystGcsj" name="jystGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:jystGcsjResponse" name="jystGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jzjsGcsj">
+      <wsdl:input message="tns:jzjsGcsj" name="jzjsGcsj">
+    </wsdl:input>
+      <wsdl:output message="tns:jzjsGcsjResponse" name="jzjsGcsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxyzj">
+      <wsdl:input message="tns:wqfxyzj" name="wqfxyzj">
+    </wsdl:input>
+      <wsdl:output message="tns:wqfxyzjResponse" name="wqfxyzjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cycObdIupr">
+      <wsdl:input message="tns:cycObdIupr" name="cycObdIupr">
+    </wsdl:input>
+      <wsdl:output message="tns:cycObdIuprResponse" name="cycObdIuprResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sdsJgsj">
+      <wsdl:input message="tns:sdsJgsj" name="sdsJgsj">
+    </wsdl:input>
+      <wsdl:output message="tns:sdsJgsjResponse" name="sdsJgsjResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qycObdIupr">
+      <wsdl:input message="tns:qycObdIupr" name="qycObdIupr">
+    </wsdl:input>
+      <wsdl:output message="tns:qycObdIuprResponse" name="qycObdIuprResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeviceSwapIfaceImplServiceSoapBinding" type="tns:DeviceSwapIface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sdsGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sdsGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sdsGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccessToken">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAccessToken">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAccessTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="gkrjbbh">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="gkrjbbh">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="gkrjbbhResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obdJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obdJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ydjzj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ydjzj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ydjzjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxybd">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="wqfxybd">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wqfxybdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jystJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="jystJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="jystJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wgjcJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="wgjcJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wgjcJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ryzfJysj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ryzfJysj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ryzfJysjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="btgGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="btgGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="btgGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lljzj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="lljzj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lljzjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwqsjtb">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="fwqsjtb">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="fwqsjtbResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdDjlb">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obdDjlb">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obdDjlbResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lgmhdGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="lgmhdGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lgmhdGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDjclxx">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getDjclxx">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDjclxxResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jzjsJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="jzjsJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="jzjsJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wtGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="wtGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wtGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obdGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obdGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obdGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wtJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="wtJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wtJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgjzj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cgjzj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgjzjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDjzt">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getDjzt">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDjztResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="xxtz">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="xxtz">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="xxtzResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="btgJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="btgJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="btgJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hjcsyzj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="hjcsyzj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="hjcsyzjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jczrylb">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="jczrylb">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="jczrylbResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lgmhdJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="lgmhdJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lgmhdJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jystGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="jystGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="jystGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="jzjsGcsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="jzjsGcsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="jzjsGcsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wqfxyzj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="wqfxyzj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="wqfxyzjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cycObdIupr">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cycObdIupr">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cycObdIuprResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sdsJgsj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sdsJgsj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sdsJgsjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qycObdIupr">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="qycObdIupr">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="qycObdIuprResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DeviceSwapIfaceImplService">
+    <wsdl:port binding="tns:DeviceSwapIfaceImplServiceSoapBinding" name="DeviceSwapIfaceImplPort">
+      <soap:address location="http://172.16.68.105:7898/sjjk/services/sjjk"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

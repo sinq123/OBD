@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <login>
+    <jczbh>43040121</jczbh>
+    <jcxbh>4304012105</jcxbh>
+    <dlzh>GXCZ3</dlzh>
+    <dlkl>21218CCA77804D2BA1922C33E0151105</dlkl>
+  </login>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <head>
+    <code>1</code>
+    <message>登录成功!</message>
+    <rownum>1</rownum>
+  </head>
+  <body>
+    <list id="0">
+      <data>0BF83F050621830D35E94732137C9566</data>
+    </list>
+  </body>
+</root>

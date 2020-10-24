@@ -1,0 +1,207 @@
+版本信息
+
+版本：1.0.34
+日期：2014-06-20
+作者：Lihy
+描述：在GetDboRealTimeDataOfLUGDOWN()函数中增加读取PowerCorrectionFactor字段
+
+版本：1.0.33
+日期：2014-05-04
+作者：Lihy
+描述：在GetDboTestLog()函数中增加读取SRM字段
+
+版本：1.0.32
+日期：2013-08-19
+作者：Chc
+描述：修改过程数据读取不取ReportNumber和RunningNumber的BUG
+
+版本：1.0.33
+日期：2013-06-22
+作者：Chc
+描述：修改过程数据读取和写入压缩函数内存泄露的BUG
+
+版本：1.0.32
+日期：2013-07-12
+作者：Duanjf
+描述：SetDboSystemLog系统日志SetDboLineLock检测线锁止表操作
+
+版本：1.0.31
+日期：2013-06-22
+作者：Chc
+描述：加入稳态、简易瞬态、加载减速、双怠速、摩托车怠速和摩托车双怠速的过程数据读取和写入函数（压缩格式，以Zip后缀结尾）
+
+版本：1.0.30
+日期：2013-03-29
+作者：Chc
+描述：1)在获取FSNHT限值函数中，如果获取限值失败或空，限值都设置为最宽松限值，限值尾数都相应加1，以便区分限值的来源
+	  2)修改DIS获取默认限值的错误
+	  3)增加用户权限读取和写入函数
+
+版本：1.0.29
+日期：2013-01-28
+作者：Chc
+描述：1)增加读取白名单函数GetDboWhiteList
+	  2)增加读取重复性函数GetDboRepeat
+
+版本：1.0.28
+日期：2013-01-05
+作者：Lihy
+描述：修正GetDboXXX函数,使输出日期格式为XXXX-XX-XX XX:XX:XX
+
+版本：1.0.27
+日期：2012-10-08
+作者：wuyq
+描述：修正SetDboResultOfDIS函数,使数据库中O2保存正确的数据(之前保存的数据是CO2的)
+
+版本：1.0.26
+日期：2010-05-19
+作者：Modb
+描述：1)类NHModeServerDB,函数GetDboBillInfo、GetDboTestLog、SetDboBillInfo、SetTestLog添加接口wchNumberOfTestPeriodMDIS
+	  2)类NHModeServerDB,函数GetDboTestAmount、SetDboTestAmount添加接口wchMDISAmount
+	  3)类NHModeServerDB,添加获取摩托车双怠速结果数据函数GetDboResultOfMDIS
+	  4)类NHModeServerDB,添加写入摩托车双怠速结果数据函数SetDboResultOfMDIS
+	  5)类NHModeServerDB,添加写入摩托车双怠速实时数据函数SetDborealTimeDataOfMDIS
+
+版本：1.0.25
+日期：2011-10-10
+作者：hemincong
+描述：.vt = VT_NULL;改为.ChangeType(VT_NULL);
+
+版本：1.0.24
+日期：2011-05-19
+作者：Ming
+描述：1)添加函数SetDboTestLogIsSentEP()
+
+版本：1.0.23
+日期：2011-05-17
+作者：Raylee
+描述：添加Sampling字段的相应操作
+
+版本：1.0.22
+日期：2011-04-28
+作者：Liangzs
+描述：1）统一NHModeServerDB和NHModeClientDB两个库的接口（包括函数名，参数列表，返回类型），除注明返回值逻辑的函数外，
+	  其它函数遵循如下返回规则：Getxxx：执行成功返回0x01，无对应记录返回0x00，异常返回0xff；Setxxx：成功返回0x00，异常返回0xff
+	  2）每个函数加上注释，特别是加上返回值的注释
+
+版本：1.0.21
+日期：2011-04-25
+作者：Raylee
+描述：1）修正SetTestLog函数，以RunningNumber为主键插入
+	  2）注释数据库超时设置，使用ADO默认设置
+
+版本：1.0.20
+日期：2011-04-15
+作者：Ming
+描述：函数GetDboVehicleInfo,SetDboVehicleInfo,添加读取和写入字段OwnerCharacter、OwnerDistrict、LicenseDepartment、LicenseIssueDate和LicenseValidDate
+	  函数GetDboTestLog,SetDboTestLog,添加读取和写入字段IsSentEP、OwnerCharacter、OwnerDistrict、LicenseDepartment、LicenseIssueDate和LicenseValidDate
+
+版本：1.0.19
+日期：2011-04-07
+作者：Ming
+描述：添加函数GetDboStationTestAmount,SetDboStationTestAmount,实现生成检测站顺序号
+
+版本：1.0.18
+日期：2011-04-02
+作者：Raylee
+描述：GetDboSystemParameters函数添加读取PeriodOfDynamometerForceCheck字段
+
+版本：1.0.17
+日期：2011-03-11
+作者：Raylee
+描述：修正GetDboSystemParameters函数没有读取PeriodOfEnvParamMeasurerCheck字段的bug
+
+版本：1.0.16
+日期：2011-01-20
+作者：Ming
+描述：1)添加获取实时数据函数GetDboRealTimeDataOfASM()、GetDboRealTimeDataOfLUGDOWN()、GetDboRealTimeDataOfDIS()、GetDboRealTimeDataOfVMAS()
+	  2)添加函数SetDboTestLogIsSent()
+
+版本：1.0.15
+日期：2011-01-17
+作者：Raylee
+描述：修正GetDboSystemParameters()函数没有读取TestPeriod字段的bug
+
+版本：1.0.14
+日期：2011-01-15
+作者：Raylee
+描述：NHModeServerDB中添加函数GetDboResultOfVMAS()
+
+版本：1.0.13
+日期：2011-01-10
+作者：Ming
+描述：1)类NHModeServerDB，在获取ASM、LUGDOWN、VMAS、DIS、FSUYD限值函数中，如果获取限值失败或空，限值都设置为最宽松限值，限值尾数都相应加1，以便区分限值的来源
+	  2)类NHModeServerDB，函数GetDboTestLog，SetDboTestLog，SetDboVehicleInfo添加四个个接口wchEngineStroke、wchEmissionStandard、wchAnnualTestPeriod、wchHasOBD
+
+版本：1.0.12
+日期：2010-12-30
+作者：Ming
+描述：1)类NHModeServerDB,添加设置检测线状态函数SetDboLineInfoLineState
+
+版本：1.0.11
+日期：2010-12-27
+作者：Raylee
+描述：修正GetDboVehicleModel函数没有读取PassengerVehicle的bug
+
+版本：1.0.10
+日期：2010-12-11
+作者：Ming
+描述：1)类NHModeServerDB,函数GetDboBillInfo、GetDboTestLog、SetDboBillInfo、SetTestLog添加接口wchNumberOfTestPeriodAVFSU和wchNumberOfTestPeriodMI
+	  2)类NHModeServerDB,函数GetDboTestAmount、SetDboTestAmount添加接口wchMIAmount和wchAVFSUAmount
+	  3)类NHModeServerDB,添加获取农用车自由加速结果数据函数GetDboResultOfAVFSU
+	  4)类NHModeServerDB,添加写入农用车自由加速结果数据函数SetDboResultOfAVFSU
+	  5)类NHModeServerDB,添加获取摩托车怠速结果数据函数GetDboResultOfMI
+	  6)类NHModeServerDB,添加写入摩托车怠速结果数据函数SetDboResultOfMI
+	  7)类NHModeServerDB,添加写入摩托车怠速实时数据函数SetDborealTimeDataOfMI
+
+版本：1.0.9
+日期：2010-11-30
+作者：Ming
+描述：添加UpdateTestPhoto()，写拍照时间接口
+
+版本：1.0.8
+日期：2010-11-09
+作者：Ming
+描述：类NHModeServerDB,函数SetDboBillInfo，GetDboBillInfo，SetDboTestLog，GetDboTestLog添加接口实收金额ReceivableMoney
+
+版本：1.0.7
+日期：2010-10-30
+作者：Raylee
+描述：优化检测实时数据的插入，提高速度
+
+版本：1.0.6
+日期：2010-10-08
+作者：Raylee
+描述：修正SetDboResultOfASM函数，Lambda5025做转换时，_wtoi改为_wtof
+
+版本：1.0.5
+日期：2010-09-20
+作者：Ming
+描述：类NHModeServerDB,函数GetDboVehicleInfo添加四个个接口wchEngineStroke、wchEmissionStandard、wchAnnualTestPeriod、wchHasOBD
+
+版本：1.0.4
+日期：2010-09-14
+作者：Qin
+描述：类NHModeServerDB,函数SetDboBillInfoTestState加入两个接口wchLineNumber(检测线编号)与StartTime(改变检测状态时间)
+
+版本:1.0.3
+时间:2010-07-29
+作者:cyx
+描述:1)文件NHModeServerDB.h,重新编写文件注释
+     2)文件NHModeServerDB.cpp,修正函数GetDboResultOfASM读取LimitOfCO2540_EDP字段的Bug
+	 
+版本:1.0.2
+时间:2010-07-19
+作者:Ming
+描述:1)修改GetDboCertificateOfLineInfo和SetDboCertificateOfLineInfo函数第二个参数byte改成BYTE
+	 2)添加获取和写检测数量函数GetDboTestAmount、SetDboTestAmount函数
+
+版本:1.0.1
+时间:2010-07-15
+作者:Ming
+描述:将所有static_cast<short>(_wtoi(str.c_str()))改成static_cast<int>(_wtoi(str.c_str()))
+
+版本:1.0.0
+时间:2010-07-14
+作者:hyh, Ming
+描述:正式发布

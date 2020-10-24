@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <zj>
+    <tsNo>43040121</tsNo>
+    <testLineNo>4304012101</testLineNo>
+    <jcrq>20200806</jcrq>
+    <jckssj>20200806082239</jckssj>
+    <bhgsm></bhgsm>
+    <jcjg>1</jcjg>
+    <jcry>GXCZ1</jcry>
+  </zj>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+  <head>
+
+    <code>1</code>
+
+    <message>上传设备自检数据成功!</message>
+
+    <rownum>0</rownum>
+
+  </head>
+
+  <body>
+
+  </body>
+
+</root>

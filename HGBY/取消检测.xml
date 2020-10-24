@@ -1,0 +1,18 @@
+
+
+
+
+<Params>
+  <szToken>2307cf1a-7365-4972-80c1-b955c6b2b367</szToken>
+  <szDevSN>JD0102</szDevSN>
+  <lDetectID>5502868</lDetectID>
+</Params>
+
+
+<response>
+  <head>
+    <code>0</code>
+    <message>数据保存成功</message>
+  </head>
+  <body></body>
+</response>

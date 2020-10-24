@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{7101b179-c6fe-48a6-9d85-a5b93e9c6704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定">
+      <UniqueIdentifier>{8b57188f-c305-4417-9a9c-03c9c9ae67de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\分析仪">
+      <UniqueIdentifier>{fe9e8f5e-dd4d-40f6-9d13-b11d5e5a5101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\测功机">
+      <UniqueIdentifier>{3a343192-c1a0-42a8-9ebb-6d8fea2376f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\流量计">
+      <UniqueIdentifier>{2b6ccae9-21b4-4682-b350-c434ae7f04fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\氮氧分析仪">
+      <UniqueIdentifier>{af7ca582-17c9-4917-9e69-6ea3ea920d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\OBD">
+      <UniqueIdentifier>{f51c052c-a9bf-446f-a3dc-cda34ed3acc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\不透光度计">
+      <UniqueIdentifier>{c1043bb5-93ba-43e9-88df-d77cb1f244d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\参数测量仪">
+      <UniqueIdentifier>{3c04814a-850a-4f79-ba20-89bd3eb6df67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\滤纸式烟度计">
+      <UniqueIdentifier>{cb75c999-a6f3-4068-83ee-9910453d5f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{d5646561-60fb-44bb-b622-a2379f493e4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{34b21ffe-f5bf-4673-a315-53de8a092d37}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\SystemCheck.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheck.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DailyDemarcation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DataManagement.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EmissionTest.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EPLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\red_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheck.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemConfig.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\TrainingPresentation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\yellow_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\icon1.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shundown.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SystemCheck.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCheckDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+    <ClInclude Include="NHDailyDemarcationDlg.h">
+      <Filter>标定</Filter>
+    </ClInclude>
+    <ClInclude Include="AnaDlg.h">
+      <Filter>标定\分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="DynDlg.h">
+      <Filter>标定\测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="FloDlg.h">
+      <Filter>标定\流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="NOxDlg.h">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ObdDlg.h">
+      <Filter>标定\OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaDlg.h">
+      <Filter>标定\不透光度计</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaDlg.h">
+      <Filter>标定\参数测量仪</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoDlg.h">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="HNSY_API.h">
+      <Filter>API</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SystemCheck.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemCheckDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="NHDailyDemarcationDlg.cpp">
+      <Filter>标定</Filter>
+    </ClCompile>
+    <ClCompile Include="AnaDlg.cpp">
+      <Filter>标定\分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="DynDlg.cpp">
+      <Filter>标定\测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="FloDlg.cpp">
+      <Filter>标定\流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="NOxDlg.cpp">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ObdDlg.cpp">
+      <Filter>标定\OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="OpaDlg.cpp">
+      <Filter>标定\不透光度计</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaDlg.cpp">
+      <Filter>标定\参数测量仪</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoDlg.cpp">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="HNSY_AP.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SystemCheck.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gsoap\sjjk.wsdl">
+      <Filter>gsoap</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="分析仪">
+      <UniqueIdentifier>{381c896d-1fea-41c6-b311-495d2140b85c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="烟度计">
+      <UniqueIdentifier>{0cc4e92d-77cf-41b0-b364-fae80ea0c541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="参数仪">
+      <UniqueIdentifier>{f71445b8-b0a3-47ac-bf32-40d63814143b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="转速计">
+      <UniqueIdentifier>{b60deba7-6e5d-4ec7-bb5e-614fcce59506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="不透光">
+      <UniqueIdentifier>{b79f1b0d-1c61-4bda-8bd8-92df43538d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="测功机">
+      <UniqueIdentifier>{d0d2f99b-0eca-4bfc-97ae-3dc4f47b922f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="流量计">
+      <UniqueIdentifier>{3553ec16-6255-4ef6-bbe9-730d513ff999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="测功机\响应时间曲线">
+      <UniqueIdentifier>{c1d390ca-ebef-49b0-8f69-43833f1dbcd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBD">
+      <UniqueIdentifier>{b8b32fde-33a9-49c0-a96c-4bc40d353fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="氮氧分析仪">
+      <UniqueIdentifier>{31c1f505-1354-4c7b-add5-50fc6e9bd960}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="EquOpe.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="res\EquOpe.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ModInfo.txt" />
+    <None Include="res\SystemCheckLightOff.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheckLightOn.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheckLightTick.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHC13_1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHC13_2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EquOpe.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHA503XGasCalibrationDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHA403XGasCheckDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHA503XGasCheckDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHA503XGasCheckDlg2.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHA503XEnvParamsCalibrationDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="YD1CheckDlg.cpp">
+      <Filter>烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterEnvParamsCalibrationDlg.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterEnvParamsCalibrationXDlg.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterParamsCheckDlg.cpp">
+      <Filter>参数仪</Filter>
+    </ClCompile>
+    <ClCompile Include="TachometerCheckDlg.cpp">
+      <Filter>转速计</Filter>
+    </ClCompile>
+    <ClCompile Include="NHT1LCalibrationCheckDlg.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NHT6CalChkDlg.cpp">
+      <Filter>不透光</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCCommonOperationDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCConstLoadDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCConstLoadThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCControlModeDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCDIWDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCDIWThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="MHDForceCalibrationDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCForceCalibrationDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCForceCalibrationHeavyDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCForceCheckDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCForceCheckHeavyDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHP2Dlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHP2Thread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHPDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHPThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="PLHPCurve.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCReadWriteVarDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamometerTemperatureCheckDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCVarLoadDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCVarLoadDlg2.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCVarLoadThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCVarLoadThread2.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterDelayTimeConfigDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterDilO2CalibrationDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterFlowCalibrationDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterFreeFlowCheckDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterPressureCalibrationDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterRealTimeDataDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="LinePlot.cpp">
+      <Filter>测功机\响应时间曲线</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCResponseTime2Dlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCResponseTime2Thread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCResponseTimeDlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCResponseTimeThread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterTPCalDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="NHNOxCalibrationDlg.cpp">
+      <Filter>氮氧分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHNOxCheckDlg.cpp">
+      <Filter>氮氧分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDOperationDlg.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="NHAMPGasCalibrationDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHPGB2018Dlg.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCPLHPGB2018Thread.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="NHAGasResponseTimeDlg.cpp">
+      <Filter>分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowmeterExternalAgreementCalDlg.cpp">
+      <Filter>流量计</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHA503XGasCalibrationDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="EquOpe.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHA403XGasCheckDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NHA503XGasCheckDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NHA503XGasCheckDlg2.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NHA503XEnvParamsCalibrationDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="YD1CheckDlg.h">
+      <Filter>烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterEnvParamsCalibrationDlg.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterEnvParamsCalibrationXDlg.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterParamsCheckDlg.h">
+      <Filter>参数仪</Filter>
+    </ClInclude>
+    <ClInclude Include="TachometerCheckDlg.h">
+      <Filter>转速计</Filter>
+    </ClInclude>
+    <ClInclude Include="NHT1LCalibrationCheckDlg.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NHT6CalChkDlg.h">
+      <Filter>不透光</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCCommonOperationDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCConstLoadDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCConstLoadThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCControlModeDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCDIWDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCDIWThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="MHDForceCalibrationDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCForceCalibrationDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCForceCalibrationHeavyDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCForceCheckDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCForceCheckHeavyDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHP2Dlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHP2Thread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHPDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHPThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="PLHPCurve.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCReadWriteVarDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamometerTemperatureCheckDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCVarLoadDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCVarLoadDlg2.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCVarLoadThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCVarLoadThread2.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterDelayTimeConfigDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterDilO2CalibrationDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterFlowCalibrationDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterFreeFlowCheckDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterPressureCalibrationDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterRealTimeDataDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlot.h">
+      <Filter>测功机\响应时间曲线</Filter>
+    </ClInclude>
+    <ClInclude Include="MemDC.h">
+      <Filter>测功机\响应时间曲线</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCResponseTime2Dlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCResponseTime2Thread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCResponseTimeDlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCResponseTimeThread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterTPCalDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="NHNOxCalibrationDlg.h">
+      <Filter>氮氧分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NHNOxCheckDlg.h">
+      <Filter>氮氧分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDOperationDlg.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="NHAMPGasCalibrationDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHPGB2018Dlg.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCPLHPGB2018Thread.h">
+      <Filter>测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="NHAGasResponseTimeDlg.h">
+      <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowmeterExternalAgreementCalDlg.h">
+      <Filter>流量计</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EquOpe.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

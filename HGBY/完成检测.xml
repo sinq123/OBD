@@ -1,0 +1,16 @@
+
+
+<Params>
+  <szToken>68675711-5338-4381-98ab-71fff79d9177</szToken>
+  <szDeviceSN>JD0102</szDeviceSN>
+  <lDetectID>5502411</lDetectID>
+</Params>
+
+
+<response>
+  <head>
+    <code>0</code>
+    <message>成功</message>
+  </head>
+  <body></body>
+</response>

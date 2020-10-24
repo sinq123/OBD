@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{43B49CA7-684A-4124-ABA7-FF594E134175}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SGSQL</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)_D</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ABC.h" />
+    <ClInclude Include="ABCService.h" />
+    <ClInclude Include="ASM.h" />
+    <ClInclude Include="ASMService.h" />
+    <ClInclude Include="ASM_DATASECONDS.h" />
+    <ClInclude Include="ASM_DATASECONDSService.h" />
+    <ClInclude Include="ASM_GDXZ.h" />
+    <ClInclude Include="ASM_GDXZService.h" />
+    <ClInclude Include="ASM_GSXZ.h" />
+    <ClInclude Include="ASM_GSXZService.h" />
+    <ClInclude Include="ASM_XZDB.h" />
+    <ClInclude Include="ASM_XZDBService.h" />
+    <ClInclude Include="BJCLXXB.h" />
+    <ClInclude Include="BJCLXXBService.h" />
+    <ClInclude Include="CLXHXXB.h" />
+    <ClInclude Include="CLXHXXBService.h" />
+    <ClInclude Include="JZJS.h" />
+    <ClInclude Include="JZJSService.h" />
+    <ClInclude Include="JZJS_DATASECONDS.h" />
+    <ClInclude Include="JZJS_DATASECONDSService.h" />
+    <ClInclude Include="JZJS_XZBZ.h" />
+    <ClInclude Include="JZJS_XZBZService.h" />
+    <ClInclude Include="JZJS_XZDB.h" />
+    <ClInclude Include="JZJS_XZDBService.h" />
+    <ClInclude Include="OBD.h" />
+    <ClInclude Include="OBDService.h" />
+    <ClInclude Include="OBD_DATASECONDS.h" />
+    <ClInclude Include="OBD_DATASECONDSService.h" />
+    <ClInclude Include="OutLookCheck.h" />
+    <ClInclude Include="OutLookCheckService.h" />
+    <ClInclude Include="SDS.h" />
+    <ClInclude Include="SDSService.h" />
+    <ClInclude Include="SDS_DATASECONDS.h" />
+    <ClInclude Include="SDS_DATASECONDSService.h" />
+    <ClInclude Include="SDS_XZGB.h" />
+    <ClInclude Include="SDS_XZGBService.h" />
+    <ClInclude Include="SGSQL.h" />
+    <ClInclude Include="SGSQLServerDBModel.h" />
+    <ClInclude Include="SGSQLServerDBService.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="VehInfo.h" />
+    <ClInclude Include="VehInfoService.h" />
+    <ClInclude Include="WaitingVeh.h" />
+    <ClInclude Include="WaitingVehService.h" />
+    <ClInclude Include="Zyjs_Btg.h" />
+    <ClInclude Include="ZYJS_BtgService.h" />
+    <ClInclude Include="ZYJS_DATASECONDS.h" />
+    <ClInclude Include="ZYJS_DATASECONDSService.h" />
+    <ClInclude Include="ZYJS_XZGB.h" />
+    <ClInclude Include="ZYJS_XZGBService.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ABCService.cpp" />
+    <ClCompile Include="ASMService.cpp" />
+    <ClCompile Include="ASM_DATASECONDSService.cpp" />
+    <ClCompile Include="ASM_GDXZService.cpp" />
+    <ClCompile Include="ASM_GSXZService.cpp" />
+    <ClCompile Include="ASM_XZDBService.cpp" />
+    <ClCompile Include="BJCLXXBService.cpp" />
+    <ClCompile Include="CLXHXXBService.cpp" />
+    <ClCompile Include="JZJSService.cpp" />
+    <ClCompile Include="JZJS_DATASECONDSService.cpp" />
+    <ClCompile Include="JZJS_XZBZService.cpp" />
+    <ClCompile Include="JZJS_XZDBService.cpp" />
+    <ClCompile Include="OBDService.cpp" />
+    <ClCompile Include="OBD_DATASECONDSService.cpp" />
+    <ClCompile Include="OutLookCheckService.cpp" />
+    <ClCompile Include="SDSService.cpp" />
+    <ClCompile Include="SDS_DATASECONDSService.cpp" />
+    <ClCompile Include="SDS_XZGBService.cpp" />
+    <ClCompile Include="SGSQL.cpp" />
+    <ClCompile Include="SGSQLServerDBService.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="VehInfoService.cpp" />
+    <ClCompile Include="WaitingVehService.cpp" />
+    <ClCompile Include="ZYJS_BtgService.cpp" />
+    <ClCompile Include="ZYJS_DATASECONDSService.cpp" />
+    <ClCompile Include="ZYJS_XZGBService.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Common">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="methodName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonParam" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResultData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SourceData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SourceDataMS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="passWord" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CommonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadAppearanceData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonParam" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="passWord" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appearancePicture" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic6" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic7" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pic8" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadAppearanceDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadAppearanceDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CommonSoapIn">
+    <wsdl:part name="parameters" element="tns:Common" />
+  </wsdl:message>
+  <wsdl:message name="CommonSoapOut">
+    <wsdl:part name="parameters" element="tns:CommonResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadAppearanceData" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadAppearanceDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CommonHttpGetIn">
+    <wsdl:part name="methodName" type="s:string" />
+    <wsdl:part name="jsonParam" type="s:string" />
+    <wsdl:part name="ResultData" type="s:string" />
+    <wsdl:part name="SourceData" type="s:string" />
+    <wsdl:part name="SourceDataMS" type="s:string" />
+    <wsdl:part name="userName" type="s:string" />
+    <wsdl:part name="passWord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CommonHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataHttpGetIn">
+    <wsdl:part name="jsonParam" type="s:string" />
+    <wsdl:part name="userName" type="s:string" />
+    <wsdl:part name="passWord" type="s:string" />
+    <wsdl:part name="appearancePicture" type="s:string" />
+    <wsdl:part name="pic2" type="s:string" />
+    <wsdl:part name="pic3" type="s:string" />
+    <wsdl:part name="pic4" type="s:string" />
+    <wsdl:part name="pic5" type="s:string" />
+    <wsdl:part name="pic6" type="s:string" />
+    <wsdl:part name="pic7" type="s:string" />
+    <wsdl:part name="pic8" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CommonHttpPostIn">
+    <wsdl:part name="methodName" type="s:string" />
+    <wsdl:part name="jsonParam" type="s:string" />
+    <wsdl:part name="ResultData" type="s:string" />
+    <wsdl:part name="SourceData" type="s:string" />
+    <wsdl:part name="SourceDataMS" type="s:string" />
+    <wsdl:part name="userName" type="s:string" />
+    <wsdl:part name="passWord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CommonHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataHttpPostIn">
+    <wsdl:part name="jsonParam" type="s:string" />
+    <wsdl:part name="userName" type="s:string" />
+    <wsdl:part name="passWord" type="s:string" />
+    <wsdl:part name="appearancePicture" type="s:string" />
+    <wsdl:part name="pic2" type="s:string" />
+    <wsdl:part name="pic3" type="s:string" />
+    <wsdl:part name="pic4" type="s:string" />
+    <wsdl:part name="pic5" type="s:string" />
+    <wsdl:part name="pic6" type="s:string" />
+    <wsdl:part name="pic7" type="s:string" />
+    <wsdl:part name="pic8" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadAppearanceDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="DataInterfaceSoap">
+    <wsdl:operation name="Common">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">数据上传接口</wsdl:documentation>
+      <wsdl:input message="tns:CommonSoapIn" />
+      <wsdl:output message="tns:CommonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">外检单上传接口，手机端调用</wsdl:documentation>
+      <wsdl:input message="tns:UploadAppearanceDataSoapIn" />
+      <wsdl:output message="tns:UploadAppearanceDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DataInterfaceHttpGet">
+    <wsdl:operation name="Common">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">数据上传接口</wsdl:documentation>
+      <wsdl:input message="tns:CommonHttpGetIn" />
+      <wsdl:output message="tns:CommonHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">外检单上传接口，手机端调用</wsdl:documentation>
+      <wsdl:input message="tns:UploadAppearanceDataHttpGetIn" />
+      <wsdl:output message="tns:UploadAppearanceDataHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DataInterfaceHttpPost">
+    <wsdl:operation name="Common">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">数据上传接口</wsdl:documentation>
+      <wsdl:input message="tns:CommonHttpPostIn" />
+      <wsdl:output message="tns:CommonHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">外检单上传接口，手机端调用</wsdl:documentation>
+      <wsdl:input message="tns:UploadAppearanceDataHttpPostIn" />
+      <wsdl:output message="tns:UploadAppearanceDataHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataInterfaceSoap" type="tns:DataInterfaceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Common">
+      <soap:operation soapAction="http://tempuri.org/Common" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <soap:operation soapAction="http://tempuri.org/UploadAppearanceData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataInterfaceSoap12" type="tns:DataInterfaceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Common">
+      <soap12:operation soapAction="http://tempuri.org/Common" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <soap12:operation soapAction="http://tempuri.org/UploadAppearanceData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataInterfaceHttpGet" type="tns:DataInterfaceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Common">
+      <http:operation location="/Common" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <http:operation location="/UploadAppearanceData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataInterfaceHttpPost" type="tns:DataInterfaceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Common">
+      <http:operation location="/Common" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAppearanceData">
+      <http:operation location="/UploadAppearanceData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataInterface">
+    <wsdl:port name="DataInterfaceSoap" binding="tns:DataInterfaceSoap">
+      <soap:address location="http://localhost:3044/DataInterface.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataInterfaceSoap12" binding="tns:DataInterfaceSoap12">
+      <soap12:address location="http://localhost:3044/DataInterface.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataInterfaceHttpGet" binding="tns:DataInterfaceHttpGet">
+      <http:address location="http://localhost:3044/DataInterface.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataInterfaceHttpPost" binding="tns:DataInterfaceHttpPost">
+      <http:address location="http://localhost:3044/DataInterface.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

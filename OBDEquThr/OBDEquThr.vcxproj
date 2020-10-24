@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6A6A583D-D66C-4196-9274-B0FA76C15D3A}</ProjectGuid>
+    <RootNamespace>EquThr</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_D</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>.\EquThr.def</ModuleDefinitionFile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>.\EquThr.def</ModuleDefinitionFile>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="EquThr.def" />
+    <None Include="ModInfo.txt" />
+    <None Include="ReadMe.txt" />
+    <None Include="res\EquThr.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Ana.cpp" />
+    <ClCompile Include="AnaThread.cpp" />
+    <ClCompile Include="DigitalThermometer.cpp" />
+    <ClCompile Include="DigitalThermometer_NJRJ.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Dyn.cpp" />
+    <ClCompile Include="DynThread.cpp" />
+    <ClCompile Include="EquThr.cpp" />
+    <ClCompile Include="EVOP\EVOP.cpp" />
+    <ClCompile Include="EVOP\EVOPThread.cpp" />
+    <ClCompile Include="EVOP\NHEVOP.cpp" />
+    <ClCompile Include="FlowThread.cpp" />
+    <ClCompile Include="FoFenFBY201.cpp" />
+    <ClCompile Include="FoFenFGA4100.cpp" />
+    <ClCompile Include="FoFenFTY100.cpp" />
+    <ClCompile Include="FuLiFLA501.cpp" />
+    <ClCompile Include="FuLiFLA502.cpp" />
+    <ClCompile Include="FuLiFLB100.cpp" />
+    <ClCompile Include="FuLiFLV1000.cpp" />
+    <ClCompile Include="FuLiVMT2000.cpp" />
+    <ClCompile Include="HuaGongVTET1000.cpp" />
+    <ClCompile Include="MahaASMP.cpp" />
+    <ClCompile Include="md5.cpp" />
+    <ClCompile Include="MingQuanML100.cpp" />
+    <ClCompile Include="MingQuanMQW50A.cpp" />
+    <ClCompile Include="MingQuanMQW511.cpp" />
+    <ClCompile Include="MingQuanMQY200.cpp" />
+    <ClCompile Include="MingQuanMQZ3.cpp" />
+    <ClCompile Include="NanhuaEPCS.cpp" />
+    <ClCompile Include="NanhuaEPCS4G.cpp" />
+    <ClCompile Include="NanhuaNha100.cpp" />
+    <ClCompile Include="NanhuaNha501A.cpp" />
+    <ClCompile Include="NanhuaNha503.cpp" />
+    <ClCompile Include="NanhuaNha503V.cpp" />
+    <ClCompile Include="NanhuaNha506I.cpp" />
+    <ClCompile Include="NanhuaNha509Encrypt.cpp" />
+    <ClCompile Include="NanhuaNha610Encrypt.cpp" />
+    <ClCompile Include="NanhuaNHF1.cpp" />
+    <ClCompile Include="NanhuaNHT610.cpp" />
+    <ClCompile Include="NanhuaNhc03.cpp" />
+    <ClCompile Include="NanhuaNht1L.cpp" />
+    <ClCompile Include="NanhuaNht6.cpp" />
+    <ClCompile Include="NanhuaPara.cpp" />
+    <ClCompile Include="NanhuaRpm5300.cpp" />
+    <ClCompile Include="NanhuaSocketPara.cpp" />
+    <ClCompile Include="NanHuaWSOBD.cpp" />
+    <ClCompile Include="NanhuaYd1.cpp" />
+    <ClCompile Include="NH50R.cpp" />
+    <ClCompile Include="NHSZKS.cpp" />
+    <ClCompile Include="OBDAdapter.cpp" />
+    <ClCompile Include="OBDAdapterThread.cpp" />
+    <ClCompile Include="Opa.cpp" />
+    <ClCompile Include="OpaThread.cpp" />
+    <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="PanelThread.cpp" />
+    <ClCompile Include="Para.cpp" />
+    <ClCompile Include="ParaThread.cpp" />
+    <ClCompile Include="SG506.cpp" />
+    <ClCompile Include="Smo.cpp" />
+    <ClCompile Include="SmoThread.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Tac.cpp" />
+    <ClCompile Include="TacThread.cpp" />
+    <ClCompile Include="ZenYuanOBD.cpp" />
+    <ClCompile Include="ZhengDeOBD.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ana.h" />
+    <ClInclude Include="AnaThread.h" />
+    <ClInclude Include="DigitalThermometer.h" />
+    <ClInclude Include="DigitalThermometer_NJRJ.h" />
+    <ClInclude Include="Dyn.h" />
+    <ClInclude Include="DynThread.h" />
+    <ClInclude Include="EquThr.h" />
+    <ClInclude Include="EVOP\EVOP.h" />
+    <ClInclude Include="EVOP\EVOPThread.h" />
+    <ClInclude Include="EVOP\NHEVOP.h" />
+    <ClInclude Include="FlowThread.h" />
+    <ClInclude Include="FoFenFBY201.h" />
+    <ClInclude Include="FoFenFGA4100.h" />
+    <ClInclude Include="FoFenFTY100.h" />
+    <ClInclude Include="FuLiFLA501.h" />
+    <ClInclude Include="FuLiFLA502.h" />
+    <ClInclude Include="FuLiFLB100.h" />
+    <ClInclude Include="FuLiFLV1000.h" />
+    <ClInclude Include="FuLiVMT2000.h" />
+    <ClInclude Include="HuaGongVTET1000.h" />
+    <ClInclude Include="MahaASMP.h" />
+    <ClInclude Include="md5.h" />
+    <ClInclude Include="MingQuanML100.h" />
+    <ClInclude Include="MingQuanMQW50A.h" />
+    <ClInclude Include="MingQuanMQW511.h" />
+    <ClInclude Include="MingQuanMQY200.h" />
+    <ClInclude Include="MingQuanMQZ3.h" />
+    <ClInclude Include="NanhuaEPCS.h" />
+    <ClInclude Include="NanhuaEPCS4G.h" />
+    <ClInclude Include="NanhuaNha100.h" />
+    <ClInclude Include="NanhuaNha501A.h" />
+    <ClInclude Include="NanhuaNha503.h" />
+    <ClInclude Include="NanhuaNha503V.h" />
+    <ClInclude Include="NanhuaNha506I.h" />
+    <ClInclude Include="NanhuaNha509Encrypt.h" />
+    <ClInclude Include="NanhuaNha610Encrypt.h" />
+    <ClInclude Include="NanhuaNHF1.h" />
+    <ClInclude Include="NanhuaNHT610.h" />
+    <ClInclude Include="NanhuaNhc03.h" />
+    <ClInclude Include="NanhuaNht1L.h" />
+    <ClInclude Include="NanhuaNht6.h" />
+    <ClInclude Include="NanhuaPara.h" />
+    <ClInclude Include="NanhuaRpm5300.h" />
+    <ClInclude Include="NanhuaSocketPara.h" />
+    <ClInclude Include="NanHuaWSOBD.h" />
+    <ClInclude Include="NanhuaYd1.h" />
+    <ClInclude Include="NH50R.h" />
+    <ClInclude Include="NHSZKS.h" />
+    <ClInclude Include="OBDAdapter.h" />
+    <ClInclude Include="OBDAdapterThread.h" />
+    <ClInclude Include="Opa.h" />
+    <ClInclude Include="OpaThread.h" />
+    <ClInclude Include="Panel.h" />
+    <ClInclude Include="PanelThread.h" />
+    <ClInclude Include="Para.h" />
+    <ClInclude Include="ParaThread.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SG506.h" />
+    <ClInclude Include="Smo.h" />
+    <ClInclude Include="SmoThread.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tac.h" />
+    <ClInclude Include="TacThread.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ZenYuanOBD.h" />
+    <ClInclude Include="ZhengDeOBD.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EquThr.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{8f379176-a33e-4660-bf31-f1db0051ba0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="登录">
+      <UniqueIdentifier>{b62795b9-8524-4fcc-a027-fb1046669d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{df2a59df-5935-4f26-b76f-7427aef03bbf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\DRSXLN.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DRSXLN.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="xx.xml">
+      <Filter>头文件</Filter>
+    </None>
+    <None Include="1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DRSXLN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DRSXLNDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
+      <Filter>登录</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+    <ClInclude Include="NSSocket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DRSXLN.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DRSXLNDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>登录</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="NSSocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DRSXLN.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

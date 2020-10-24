@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="第三方类">
+      <UniqueIdentifier>{313f81a7-a6d8-4fc8-bc61-cf1dc6d36566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="导出文件">
+      <UniqueIdentifier>{3d1a626b-01b8-4fa5-afb4-8cc81d93a8ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProDoc">
+      <UniqueIdentifier>{547b7de8-1171-4a6b-a41a-5e2e808310fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AES">
+      <UniqueIdentifier>{d5a9e32f-12e0-494d-a576-abb7327dc8ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHXmlOperator">
+      <UniqueIdentifier>{bcb77497-8440-4492-9844-f750ed816105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHXmlOperator\TinyXML">
+      <UniqueIdentifier>{d0085ba2-a366-46f3-ac88-75c93d4251ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHSQLServerDBO">
+      <UniqueIdentifier>{5aede7f7-e0ee-4e59-81a2-d420bde43052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NHLogAPI">
+      <UniqueIdentifier>{71eb55c2-6c2a-42f6-8178-456de41b10ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="md5">
+      <UniqueIdentifier>{ebd929ca-0284-4846-b613-64051e95b0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="编码转换">
+      <UniqueIdentifier>{8b213fdd-0f76-4b94-800e-aec3e3b46ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQLite3">
+      <UniqueIdentifier>{c3bf049c-4445-4af7-8e9c-25eef0c27ce2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHCommonAPI.cpp">
+      <Filter>第三方类</Filter>
+    </ClCompile>
+    <ClCompile Include="IniFile.cpp">
+      <Filter>第三方类</Filter>
+    </ClCompile>
+    <ClCompile Include="AES.cpp">
+      <Filter>AES</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinystr.cpp">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxml.cpp">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxmlerror.cpp">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxmlparser.cpp">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlReader.cpp">
+      <Filter>NHXmlOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlWriter.cpp">
+      <Filter>NHXmlOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="NHSQLServerDBO.cpp">
+      <Filter>NHSQLServerDBO</Filter>
+    </ClCompile>
+    <ClCompile Include="NHLogAPI.cpp">
+      <Filter>NHLogAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>md5</Filter>
+    </ClCompile>
+    <ClCompile Include="ZBase64.cpp">
+      <Filter>编码转换</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSQLite3.cpp">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="NHSQLite3DBO.cpp">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHCommonAPI.h">
+      <Filter>第三方类</Filter>
+    </ClInclude>
+    <ClInclude Include="NHWin32Lib.h">
+      <Filter>导出文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IniFile.h">
+      <Filter>第三方类</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AES.h">
+      <Filter>AES</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinystr.h">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinyxml.h">
+      <Filter>NHXmlOperator\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="KPathParser.h">
+      <Filter>NHXmlOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlReader.h">
+      <Filter>NHXmlOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlWriter.h">
+      <Filter>NHXmlOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="NHSQLServerDBO.h">
+      <Filter>NHSQLServerDBO</Filter>
+    </ClInclude>
+    <ClInclude Include="NHLogAPI.h">
+      <Filter>NHLogAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>md5</Filter>
+    </ClInclude>
+    <ClInclude Include="ZBase64.h">
+      <Filter>编码转换</Filter>
+    </ClInclude>
+    <ClInclude Include="kutfconv.h">
+      <Filter>编码转换</Filter>
+    </ClInclude>
+    <ClInclude Include="URLCode.h">
+      <Filter>编码转换</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSQLite3.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="NHSQLite3DBO.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VersionInfo.txt">
+      <Filter>ProDoc</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+    <None Include="ProjectDescription.txt">
+      <Filter>ProDoc</Filter>
+    </None>
+    <None Include="msado60_Backcompat_i386.tlb">
+      <Filter>NHSQLServerDBO</Filter>
+    </None>
+    <None Include="sqlite3.dll">
+      <Filter>SQLite3</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="sqlite3.lib">
+      <Filter>SQLite3</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
