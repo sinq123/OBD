@@ -283,6 +283,9 @@ void CATDlg::OnBnClickedBtnNext()
 	dlg.m_strRunningNumber = m_strCurrentRunningNumber.GetString();
 	dlg.m_strOperator = m_strDriver;
 	dlg.m_pConnection = m_pConnection;
+	m_edIsRetest.GetWindowTextW(str);
+	int ntesttime = _wtoi(str);
+	dlg.m_ntesttimes = ntesttime;
 	INT_PTR nDoModel = dlg.DoModal();
 	if (IDOK == nDoModel)
 	{
@@ -1187,10 +1190,10 @@ void CATDlg::UpdateVehicleList(short const siTestType/* = 0*/, CString strFilter
 
 void CATDlg::SelectVehicle(void)
 {
-	GetVehicleInfo();
+	//GetVehicleInfo();
 	// 以上获取数据库
 	// 以下获取平台
-	//GetIntVehInfo();
+	GetIntVehInfo();
 }
 
 void CATDlg::GetVehicleInfo(void)
@@ -2039,6 +2042,25 @@ void CATDlg::GetIntVehInfo(void)
 			strMsg.Format(L"获取车辆信息返回:%d %s", nRet, L"接口访问失败");
 			OperationHint(strMsg);
 			return;
+		}
+
+		// 显示车辆信息
+		if (!m_sIntVehInfo.strjylsh.empty())
+		{
+			m_edPlateNumber.SetWindowTextW(m_sIntVehInfo.strlicense.c_str());
+			m_edOwner.SetWindowTextW(m_sIntVehInfo.strowner.c_str());
+			m_cbPlateType.SetWindowTextW(m_sIntVehInfo.strlicensecode.c_str());
+			m_edVIN.SetWindowTextW(m_sIntVehInfo.strvin.c_str());
+			if (m_strCurrentTestType.Find(L"烟度法") != -1
+				|| m_strCurrentTestType.Find(L"加载减速") != -1)
+			{
+				m_cbFuelType.SetWindowTextW(L"柴油");
+			}
+			else
+			{
+				m_cbFuelType.SetWindowTextW(L"汽油");
+			}
+			m_edIsRetest.SetWindowTextW(m_sIntVehInfo.strtesttimes.c_str());
 		}
 
 	}

@@ -286,20 +286,6 @@ void COBDTestDlg::OnBnClickedButtonFinish()
 	// TODO: 在此添加控件通知处理程序代码
 
 	// 是否需要获取 检测流水号？？
-	
-	theApp.m_strDetectLSBH = L"";
-	//以下获取App_data
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"TestLog.ini", wchPath))
-	{
-		CSimpleIni si(wchPath);
-
-		theApp.m_strDetectLSBH = si.GetString(L"TestLog", L"ReportNumber", L"");
-	}
-	// 以下获取平台
-	int nRet;
-	std::wstring strRet;
 }
 
 void COBDTestDlg::SetTestLogAndVehDB(const CString& strItemOBD, const CString& strHasOBD, CString& strstrMsg)
@@ -397,8 +383,7 @@ void COBDTestDlg::StartItem(void)
 	SetDboResultOfOBD(sResultOfOBD);
 	// 写入临时文件
 	SetIniResultOfOBD(sResultOfOBD);
-
-	// 艾特平台是统一在结尾上传的，看可以要求是否上传OBD过程数据 如上传统一处理只需要先保存好数据库和修改数据库的字段
+	
 	// 上传过程数据
 	CString strMsg(L"");
 	if (m_bIsOBDRealTime)
@@ -421,11 +406,19 @@ void COBDTestDlg::StartItem(void)
 	}
 	else
 	{
-		strMsg.Empty();
-		SetTestLogAndVehDB(L"4", L"1", strMsg);
+		UpOBDReaust(sResultOfOBD, strMsg);
 		if (strMsg.IsEmpty())
 		{
-			OperationHint(L"修改完成, 可以正常操作");
+			strMsg.Empty();
+			SetTestLogAndVehDB(L"4", L"1", strMsg);
+			if (strMsg.IsEmpty())
+			{
+				OperationHint(L"修改完成, 可以正常操作");
+			}
+			else
+			{
+				OperationHint(strMsg);
+			}
 		}
 		else
 		{
@@ -893,9 +886,92 @@ CString COBDTestDlg::MapVec2Json(JsonMapVec vmPost)
 }
 
 
-void COBDTestDlg::UpOBDReaust(CString& strMsg)
+void COBDTestDlg::UpOBDReaust(const SResultOfOBD& sResultOfOBD, CString& strMsg)
 {
+	CStringW strXmlDoc = L"";
+	CString strsjc;
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+	strsjc.Format(L"%04d-%02d-%02d %02d:%02d:%02d.%03d", st.wYear, st.wMonth, st.wDay,
+		st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
 
+	strXmlDoc.Format(L"<?xml version=\"1.0\" encoding=\"GBK\"?><root><head>");
+	strXmlDoc.AppendFormat(L"<organ>%s</organ>", theApp.m_strStationNum);
+	strXmlDoc.AppendFormat(L"<jkxlh>%s</jkxlh>", theApp.m_strLineNum);
+	strXmlDoc.AppendFormat(L"<jkid>%s</jkid>", L"JC011");
+	strXmlDoc.AppendFormat(L"<sjc>%s</sjc>", strsjc);
+	strXmlDoc.AppendFormat(L"</head><body><vehispara>");
+	strXmlDoc.AppendFormat(L"<jylsh>%s</jylsh>", sResultOfOBD.strRunningNumber.c_str());
+	strXmlDoc.AppendFormat(L"<testtimes>%d</testtimes>", m_ntesttimes == 0 ? 1: m_ntesttimes);
+	strXmlDoc.AppendFormat(L"<tsno>%s</tsno>", theApp.m_strStationNum);
+	strXmlDoc.AppendFormat(L"<jyksrq>%s</jyksrq>", sResultOfOBD.strDetBegTime.c_str());
+	strXmlDoc.AppendFormat(L"<jyjsrq>%s</jyjsrq>", sResultOfOBD.strDetEndTime.c_str());
+	strXmlDoc.AppendFormat(L"<jyy>%s</jyy>", (sResultOfOBD.strOperator.empty() ? L"刘家成" : sResultOfOBD.strOperator.c_str()));
+	strXmlDoc.AppendFormat(L"<jyjg>%s</jyjg>", L"1");
+	strXmlDoc.AppendFormat(L"<obdzdyscqy>%s</obdzdyscqy>", L"佛山市南华仪器有限公司");
+	strXmlDoc.AppendFormat(L"<obdzdyxh>%s</obdzdyxh>", L"NHOBD-1");
+	strXmlDoc.AppendFormat(L"<vin>%s</vin>", sResultOfOBD.strVIN.c_str());
+	strXmlDoc.AppendFormat(L"<obdyq>%s</obdyq>", sResultOfOBD.strOBDType.c_str());
+	strXmlDoc.AppendFormat(L"<gzjg>%s</gzjg>", L"1");
+	strXmlDoc.AppendFormat(L"<tx>%s</tx>", L"1");
+	strXmlDoc.AppendFormat(L"<txbz>%s</txbz>", L"");
+	strXmlDoc.AppendFormat(L"<bj>%s</bj>", L"1");
+	strXmlDoc.AppendFormat(L"<bjbz>%s</bjbz>", L"");
+	strXmlDoc.AppendFormat(L"<jxxm>%s</jxxm>", L"1");
+	strXmlDoc.AppendFormat(L"<jxxmbz>%s</jxxmbz>", L"");
+	strXmlDoc.AppendFormat(L"<odometer>%s</odometer>", L"0");
+	strXmlDoc.AppendFormat(L"<odomil>%s</odomil>", L"");
+	strXmlDoc.AppendFormat(L"<enginecalid>%s</enginecalid>", sResultOfOBD.strEngineCALID.c_str());
+	strXmlDoc.AppendFormat(L"<enginecvn>%s</enginecvn>", sResultOfOBD.strEngineCVN.c_str());
+	strXmlDoc.AppendFormat(L"<hclcalid>%s</hclcalid>", L"");
+	strXmlDoc.AppendFormat(L"<hclcvn>%s</hclcvn>", L"");
+	strXmlDoc.AppendFormat(L"<calid>%s</calid>", L"");
+	strXmlDoc.AppendFormat(L"<cvn>%s</cvn>", L"");
+	//strXmlDoc.AppendFormat(L"<iupr>%s</iupr>", L"");
+	strXmlDoc.AppendFormat(L"</vehispara></body></root>");
+
+	std::wstring strRetStr;
+
+	int nRet = CACInterfaceLib_API::WriteObjectOut(theApp.m_pchURL, strXmlDoc.GetString(), strRetStr);
+
+	if (nRet == 0)
+	{
+		strRetStr = (LPCTSTR)theApp.DecodeURI(strRetStr.c_str());
+
+		CXmlReader xmlReader;
+
+		if (xmlReader.Parse(strRetStr.c_str()))
+		{
+			std::wstring strCode, strContent, str;
+
+			if (xmlReader.OpenNode(L"root/head/code"))
+			{
+				xmlReader.GetNodeContent(strCode);
+
+			}
+
+			if (xmlReader.OpenNode(L"root/head/message"))
+			{
+				xmlReader.GetNodeContent(strContent);
+			}
+
+			if (strCode == L"1")
+			{
+			}
+			else
+			{
+				strMsg.Format(L"获取返回：\r\n%s\r\n%s", strCode.c_str(), strContent.c_str());
+			}
+		}
+		else
+		{
+			strMsg.Format(L"获取返回：\r\n%d\r\n%s", nRet, L"解析失败");
+		}
+	}
+	else
+	{
+		strMsg.Format(L"获取返回：\r\n%d\r\n%s", nRet, L"接口访问失败");
+	}
 
 }
 

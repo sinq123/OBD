@@ -21,7 +21,7 @@ std::wstring CACInterfaceLib_API::LogFilePath(void)
 	COleDateTime odtNow(COleDateTime::GetCurrentTime());
 
 	CStringW strFileName;
-	strFileName.Format(L"HN%s.log", odtNow.Format(L"%Y-%m-%d"));
+	strFileName.Format(L"ACOBD%s.log", odtNow.Format(L"%Y-%m-%d"));
 
 	CStringW strLogFilePath;
 	strLogFilePath = wchLogFileFolderPath;

@@ -74,7 +74,7 @@
 
 
 #ifndef Up_OBD_RealTime
-#define Up_OBD_RealTime
+//#define Up_OBD_RealTime
 #endif
 
 // CATApp:

@@ -100,7 +100,8 @@ public:
 	CString m_strOperator;
 	// VINÂë
 	CString m_strVIN;
-
+	// ¼ì²â´ÎÊý
+	int m_ntesttimes;
 
 	std::vector<std::wstring> m_vtGasolineItem;
 	std::map<std::wstring, DWORD> m_mapGasolineJudge;
@@ -130,7 +131,7 @@ private:
 	void GetEngineCALID(const CString& strOBDType, const CString& strFulType, CString& strEngineCALID, CString& strEngineCVN);
 
 
-	void UpOBDReaust(CString& strMsg);
+	void UpOBDReaust(const SResultOfOBD& sResultOfOBD, CString& strMsg);
 	void UpOBDIURP(CString& strMsg);
 	void SetTestLogAndVehDB(const CString& strItemOBD, const CString& strHasOBD, CString& strstrMsg);
 };
