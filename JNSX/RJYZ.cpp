@@ -52,7 +52,7 @@ bool CRJYZ::IsYZ(std::wstring &strMsg, std::wstring &strDLMM )
 			return false;
 		}
 	}
-	catch (CFileException ex)
+	catch (CFileException& ex)
 	{
 		if (NULL != pbEnData)
 		{

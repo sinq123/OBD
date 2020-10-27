@@ -298,7 +298,7 @@ void CMFCDAFDlg::OnEnChangeEdFilepath()
 			}
 			pFile.Close();
 		}
-		catch (CFileException ex)
+		catch (CFileException& ex)
 		{
 			if (NULL != pbEnData)
 			{
