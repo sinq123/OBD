@@ -28,6 +28,8 @@ public:
 		const std::wstring& strBLSpower, const std::wstring& strCLSpower, const std::wstring& strDLSpower, const std::wstring& strcheckResult, 
 		const std::wstring& strcheckTimeStart, const std::wstring& strcheckTimeEnd, const std::wstring& strremark, std::wstring& strRetStr);
 
+	static int getSatate(const char * pchURL, const std::wstring& strregistCode, std::wstring& strRetStr);
+
 	// 日志位置
 	static std::wstring LogFilePath(void);
 	// 设置日志文件

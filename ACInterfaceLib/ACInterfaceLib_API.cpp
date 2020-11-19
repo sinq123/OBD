@@ -108,7 +108,12 @@ int CACInterfaceLib_API::WriteObjectOut(const char * pchURL, const std::wstring&
 		strRetStr = response.writeResult->c_str();
 		CNHLogAPI::WriteLogEx(CACInterfaceLib_API::LogFilePath().c_str(), L"接收", L"", strRetStr.c_str());
 	}
-
+	else
+	{
+		CString strLog;
+		strLog.Format(L"%d 失败", nRet);
+		CNHLogAPI::WriteLogEx(CACInterfaceLib_API::LogFilePath().c_str(), L"接收", L"", strLog);
+	}
 	return nRet;
 }
 

@@ -4378,4 +4378,38 @@ typedef struct LogOfDIM
 	wchar_t wchReserved3[50];
 	LogOfDIM(){ZeroMemory(this, sizeof(LogOfDIM));}
 }LOGOFDIM, *PLOGOFDIM;
+
+
+// 白名单修改的参数
+struct SWhiteModifiedParameters
+{
+	std::wstring strAutoID;
+	std::wstring strA;
+	std::wstring strB;
+	std::wstring strC;
+	std::wstring strD;
+	std::wstring strE;
+	std::wstring strF;
+	std::wstring strG;
+	std::wstring strH;
+	std::wstring strI;
+	std::wstring strJ;
+	std::wstring strK;
+	std::wstring strL;
+	std::wstring strM;
+	std::wstring strN;
+	std::wstring strO;
+	std::wstring strP;
+	std::wstring strQ;
+	std::wstring strR;
+	std::wstring strS;
+	std::wstring strT;
+	std::wstring strU;
+	std::wstring strV;
+	std::wstring strW;
+	std::wstring strX;
+	std::wstring strY;
+	std::wstring strZ;
+};
+
 #endif

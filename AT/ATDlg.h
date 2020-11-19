@@ -56,7 +56,7 @@ private:
 	CLabel m_lbEPPortInfo;
 
 	// ≥µ¡æ–≈œ¢
-	CComboBox m_cbTestType;
+	c m_cbTestType;
 	CComboBox m_cbPlateType;
 	CComboBox m_cbDriveType;
 	CComboBox m_cbFuelType;

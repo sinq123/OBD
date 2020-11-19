@@ -127,6 +127,45 @@ int CGZWebServic_API::cgjLSPSelfcheck(const char * pchURL, const bool& bDieselOi
 
 	return nRet;
 }
+
+int CGZWebServic_API::getSatate(const char * pchURL, const std::wstring& strregistCode, std::wstring& strRetStr)
+{
+	int nRet(99);
+
+	DeviceSwapIfaceImplServiceSoapBindingProxy toasb;
+	soap_set_mode(&toasb, SOAP_C_UTFSTRING);
+	toasb.soap_endpoint = pchURL;
+
+	std::wstring m_strregistCode = strregistCode;
+
+
+	ns1__getSatate send;
+	ns1__getSatateResponse sres;
+
+	send.registCode = &m_strregistCode;
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"·¢ËÍ", L"getSatate", send.registCode->c_str());
+
+	nRet = toasb.getSatate(&send, sres);
+
+	if (nRet == SOAP_OK)
+	{
+
+		CString str;
+
+		str.Format(L"%s,%s,%s", sres.return_->businessId->c_str(), sres.return_->methodId->c_str(),sres.return_->state->c_str());
+		strRetStr = str.GetString();
+		
+	}
+	else
+	{
+		CString str;
+		str.Format(L"Ê§°Ü%d", nRet);
+		strRetStr = str.GetString();
+	}
+	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"·µ»Ø", L"getSatate",strRetStr.c_str());
+	return nRet;
+}
+
 DWORD CGZWebServic_API::SetLogFilePath(const std::wstring& strLogFilePath)
 {
 	if (strLogFilePath.empty())

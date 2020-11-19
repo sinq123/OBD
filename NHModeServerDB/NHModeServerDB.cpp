@@ -50130,7 +50130,7 @@ DWORD SetDboAppPhotoInfo(const std::vector<SAppPhotoInfo> &vtAppPhotoInfo)
 				{
 					pRecordset->AddNew();    //添加新记录
 				}
-			
+
 				PutFieldDataEx(pRecordset, L"RunningNumber", VT_BSTR, vtAppPhotoInfo[i].strRunningNumber);
 				PutFieldDataEx(pRecordset, L"Code", VT_BSTR, vtAppPhotoInfo[i].strCode);
 				PutFieldDataEx(pRecordset, L"Name", VT_BSTR, vtAppPhotoInfo[i].strName);
@@ -50285,7 +50285,7 @@ DWORD SetDboTestPhotoData(const std::vector<STestPhotoData> &vtTestPhotoData)
 				{
 					pRecordset->AddNew();    //添加新记录
 				}
-			
+
 				PutFieldDataEx(pRecordset, L"RunningNumber", VT_BSTR, vtTestPhotoData[i].strRunningNumber);
 				PutFieldDataEx(pRecordset, L"Code", VT_BSTR, vtTestPhotoData[i].strCode);
 				PutFieldDataEx(pRecordset, L"Name", VT_BSTR, vtTestPhotoData[i].strName);
@@ -50324,6 +50324,295 @@ DWORD SetDboTestPhotoData(const std::vector<STestPhotoData> &vtTestPhotoData)
 				WriteDatabaseError(e);
 				dwReturn = 0xff;
 			}
+		}
+
+	}  // if (0x00 == ConnectDatabase(pConnection))
+
+	if (0x00 != DisconnectDatabase(pConnection))
+	{
+		dwReturn = 0xff;
+	}
+
+	return dwReturn;
+}
+
+// 获取白名单修改的参数
+DWORD GetDboWhiteModifiedParameters(const wchar_t wchSql[SQLMAX], SWhiteModifiedParameters* const pWhiteModifiedParameters)
+{
+	assert(NULL != wchSql);
+	assert(NULL != pWhiteModifiedParameters);
+
+	DWORD dwReturn(0x00);
+
+	_ConnectionPtr pConnection(NULL);
+
+	if (0x00 == ConnectDatabase(pConnection))
+	{
+		_RecordsetPtr pRecordset;
+
+		try
+		{
+			pRecordset.CreateInstance(L"ADODB.Recordset");
+			pRecordset->Open((_bstr_t)wchSql,
+				_variant_t((IDispatch*)pConnection, true),
+				adOpenStatic,
+				adLockOptimistic,
+				adCmdText);
+
+			if (!pRecordset->adoEOF)
+			{
+				pWhiteModifiedParameters->strAutoID = GetFieldDataEx(pRecordset, L"AutoID");
+				pWhiteModifiedParameters->strA = GetFieldDataEx(pRecordset, L"A");
+				pWhiteModifiedParameters->strB = GetFieldDataEx(pRecordset, L"B");
+				pWhiteModifiedParameters->strC = GetFieldDataEx(pRecordset, L"C");
+				pWhiteModifiedParameters->strD = GetFieldDataEx(pRecordset, L"D");
+				pWhiteModifiedParameters->strE = GetFieldDataEx(pRecordset, L"E");
+				pWhiteModifiedParameters->strF = GetFieldDataEx(pRecordset, L"F");
+				pWhiteModifiedParameters->strG = GetFieldDataEx(pRecordset, L"G");
+				pWhiteModifiedParameters->strH = GetFieldDataEx(pRecordset, L"H");
+				pWhiteModifiedParameters->strI = GetFieldDataEx(pRecordset, L"I");
+				pWhiteModifiedParameters->strJ = GetFieldDataEx(pRecordset, L"J");
+				pWhiteModifiedParameters->strK = GetFieldDataEx(pRecordset, L"K");
+				pWhiteModifiedParameters->strL = GetFieldDataEx(pRecordset, L"L");
+				pWhiteModifiedParameters->strM = GetFieldDataEx(pRecordset, L"M");
+				pWhiteModifiedParameters->strN = GetFieldDataEx(pRecordset, L"N");
+				pWhiteModifiedParameters->strO = GetFieldDataEx(pRecordset, L"O");
+				pWhiteModifiedParameters->strP = GetFieldDataEx(pRecordset, L"P");
+				pWhiteModifiedParameters->strQ = GetFieldDataEx(pRecordset, L"Q");
+				pWhiteModifiedParameters->strR = GetFieldDataEx(pRecordset, L"R");
+				pWhiteModifiedParameters->strS = GetFieldDataEx(pRecordset, L"S");
+				pWhiteModifiedParameters->strT = GetFieldDataEx(pRecordset, L"T");
+				pWhiteModifiedParameters->strU = GetFieldDataEx(pRecordset, L"U");
+				pWhiteModifiedParameters->strV = GetFieldDataEx(pRecordset, L"V");
+				pWhiteModifiedParameters->strW = GetFieldDataEx(pRecordset, L"W");
+				pWhiteModifiedParameters->strX = GetFieldDataEx(pRecordset, L"X");
+				pWhiteModifiedParameters->strY = GetFieldDataEx(pRecordset, L"Y");
+				pWhiteModifiedParameters->strZ = GetFieldDataEx(pRecordset, L"Z");
+
+				dwReturn = 0x01;
+			}
+			else
+			{
+				dwReturn = 0x00;
+			}
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
+		}
+
+		try
+		{
+			//关闭记录集
+			if (NULL!=pRecordset && adStateClosed!=pRecordset->State)
+			{
+				pRecordset->Close();
+			}
+			if (NULL != pRecordset)
+			{
+				pRecordset.Release();
+				pRecordset = NULL;
+			}
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
+		}
+	}
+	else
+	{
+		dwReturn = 0xff;
+	}
+
+	if (0x00 != DisconnectDatabase(pConnection))
+	{
+		dwReturn = 0xff;
+	}
+
+	return dwReturn;
+}
+
+DWORD GetDboWhiteModifiedParameters(const wchar_t wchSql[SQLMAX], std::vector<SWhiteModifiedParameters> & vtWhiteModifiedParameters)
+{
+	assert(NULL != wchSql);
+
+	DWORD dwReturn(0x00);
+
+	_ConnectionPtr pConnection(NULL);
+
+	if (0x00 == ConnectDatabase(pConnection))
+	{
+		_RecordsetPtr pRecordset;
+
+		try
+		{
+			pRecordset.CreateInstance(L"ADODB.Recordset");
+			pRecordset->Open((_bstr_t)wchSql,
+				_variant_t((IDispatch*)pConnection, true),
+				adOpenStatic,
+				adLockOptimistic,
+				adCmdText);
+
+			while (!pRecordset->adoEOF)
+			{
+				SWhiteModifiedParameters sWhiteModifiedParameters;
+				sWhiteModifiedParameters.strAutoID = GetFieldDataEx(pRecordset, L"AutoID");
+				sWhiteModifiedParameters.strA = GetFieldDataEx(pRecordset, L"A");
+				sWhiteModifiedParameters.strB = GetFieldDataEx(pRecordset, L"B");
+				sWhiteModifiedParameters.strC = GetFieldDataEx(pRecordset, L"C");
+				sWhiteModifiedParameters.strD = GetFieldDataEx(pRecordset, L"D");
+				sWhiteModifiedParameters.strE = GetFieldDataEx(pRecordset, L"E");
+				sWhiteModifiedParameters.strF = GetFieldDataEx(pRecordset, L"F");
+				sWhiteModifiedParameters.strG = GetFieldDataEx(pRecordset, L"G");
+				sWhiteModifiedParameters.strH = GetFieldDataEx(pRecordset, L"H");
+				sWhiteModifiedParameters.strI = GetFieldDataEx(pRecordset, L"I");
+				sWhiteModifiedParameters.strJ = GetFieldDataEx(pRecordset, L"J");
+				sWhiteModifiedParameters.strK = GetFieldDataEx(pRecordset, L"K");
+				sWhiteModifiedParameters.strL = GetFieldDataEx(pRecordset, L"L");
+				sWhiteModifiedParameters.strM = GetFieldDataEx(pRecordset, L"M");
+				sWhiteModifiedParameters.strN = GetFieldDataEx(pRecordset, L"N");
+				sWhiteModifiedParameters.strO = GetFieldDataEx(pRecordset, L"O");
+				sWhiteModifiedParameters.strP = GetFieldDataEx(pRecordset, L"P");
+				sWhiteModifiedParameters.strQ = GetFieldDataEx(pRecordset, L"Q");
+				sWhiteModifiedParameters.strR = GetFieldDataEx(pRecordset, L"R");
+				sWhiteModifiedParameters.strS = GetFieldDataEx(pRecordset, L"S");
+				sWhiteModifiedParameters.strT = GetFieldDataEx(pRecordset, L"T");
+				sWhiteModifiedParameters.strU = GetFieldDataEx(pRecordset, L"U");
+				sWhiteModifiedParameters.strV = GetFieldDataEx(pRecordset, L"V");
+				sWhiteModifiedParameters.strW = GetFieldDataEx(pRecordset, L"W");
+				sWhiteModifiedParameters.strX = GetFieldDataEx(pRecordset, L"X");
+				sWhiteModifiedParameters.strY = GetFieldDataEx(pRecordset, L"Y");
+				sWhiteModifiedParameters.strZ = GetFieldDataEx(pRecordset, L"Z");
+
+				vtWhiteModifiedParameters.push_back(sWhiteModifiedParameters);
+
+				pRecordset->MoveNext();
+
+				dwReturn = 0x01;
+			}
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
+		}
+
+		try
+		{
+			//关闭记录集
+			if (NULL!=pRecordset && adStateClosed!=pRecordset->State)
+			{
+				pRecordset->Close();
+			}
+			if (NULL != pRecordset)
+			{
+				pRecordset.Release();
+				pRecordset = NULL;
+			}
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
+		}
+	}
+	else
+	{
+		dwReturn = 0xff;
+	}
+
+	if (0x00 != DisconnectDatabase(pConnection))
+	{
+		dwReturn = 0xff;
+	}
+
+	return dwReturn;
+}
+// 设置白名单修改的参数
+DWORD SetDboWhiteModifiedParameters(const SWhiteModifiedParameters &sWhiteModifiedParameters)
+{
+	assert(&sWhiteModifiedParameters != NULL);
+
+	//返回值
+	DWORD dwReturn(0x00);
+
+	_ConnectionPtr pConnection(NULL);
+
+	if (0x00 == ConnectDatabase(pConnection))
+	{
+		_RecordsetPtr pRecordset;
+
+		try
+		{
+			wchar_t wchSql[SQLMAX];
+			wsprintf(wchSql, L"select * from WhiteModifiedParameters where A='%s'", sWhiteModifiedParameters.strA.c_str());
+
+			pRecordset.CreateInstance(L"ADODB.Recordset");
+			pRecordset->Open((_bstr_t)wchSql, 
+				_variant_t((IDispatch*)pConnection, true), 
+				adOpenStatic, 
+				adLockOptimistic, 
+				adCmdText);
+
+			if(pRecordset->adoEOF)
+			{
+				pRecordset->AddNew();    //添加新记录
+			}
+			
+			PutFieldDataEx(pRecordset, L"A", VT_BSTR, sWhiteModifiedParameters.strA);
+			PutFieldDataEx(pRecordset, L"B", VT_BSTR, sWhiteModifiedParameters.strB);
+			PutFieldDataEx(pRecordset, L"C", VT_BSTR, sWhiteModifiedParameters.strC);
+			PutFieldDataEx(pRecordset, L"D", VT_BSTR, sWhiteModifiedParameters.strD);
+			PutFieldDataEx(pRecordset, L"E", VT_BSTR, sWhiteModifiedParameters.strE);
+			PutFieldDataEx(pRecordset, L"F", VT_BSTR, sWhiteModifiedParameters.strF);
+			PutFieldDataEx(pRecordset, L"G", VT_BSTR, sWhiteModifiedParameters.strG);
+			PutFieldDataEx(pRecordset, L"H", VT_BSTR, sWhiteModifiedParameters.strH);
+			PutFieldDataEx(pRecordset, L"L", VT_BSTR, sWhiteModifiedParameters.strI);
+			PutFieldDataEx(pRecordset, L"J", VT_BSTR, sWhiteModifiedParameters.strJ);
+			PutFieldDataEx(pRecordset, L"K", VT_BSTR, sWhiteModifiedParameters.strK);
+			PutFieldDataEx(pRecordset, L"L", VT_BSTR, sWhiteModifiedParameters.strL);
+			PutFieldDataEx(pRecordset, L"M", VT_BSTR, sWhiteModifiedParameters.strM);
+			PutFieldDataEx(pRecordset, L"N", VT_BSTR, sWhiteModifiedParameters.strN);
+			PutFieldDataEx(pRecordset, L"O", VT_BSTR, sWhiteModifiedParameters.strO);
+			PutFieldDataEx(pRecordset, L"P", VT_BSTR, sWhiteModifiedParameters.strP);
+			PutFieldDataEx(pRecordset, L"Q", VT_BSTR, sWhiteModifiedParameters.strQ);
+			PutFieldDataEx(pRecordset, L"R", VT_BSTR, sWhiteModifiedParameters.strR);
+			PutFieldDataEx(pRecordset, L"S", VT_BSTR, sWhiteModifiedParameters.strS);
+			PutFieldDataEx(pRecordset, L"T", VT_BSTR, sWhiteModifiedParameters.strT);
+			PutFieldDataEx(pRecordset, L"U", VT_BSTR, sWhiteModifiedParameters.strU);
+			PutFieldDataEx(pRecordset, L"V", VT_BSTR, sWhiteModifiedParameters.strV);
+			PutFieldDataEx(pRecordset, L"W", VT_BSTR, sWhiteModifiedParameters.strW);
+			PutFieldDataEx(pRecordset, L"X", VT_BSTR, sWhiteModifiedParameters.strX);
+			PutFieldDataEx(pRecordset, L"Y", VT_BSTR, sWhiteModifiedParameters.strY);
+			PutFieldDataEx(pRecordset, L"Z", VT_BSTR, sWhiteModifiedParameters.strZ);
+
+			pRecordset->Update();
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
+		}
+
+		try
+		{
+			//关闭记录集
+			if (NULL != pRecordset && adStateClosed != pRecordset->State)
+			{
+				pRecordset->Close();
+			}
+			if (NULL != pRecordset)
+			{
+				pRecordset.Release();
+				pRecordset = NULL;
+			}
+		}
+		catch (_com_error &e)
+		{
+			WriteDatabaseError(e);
+			dwReturn = 0xff;
 		}
 
 	}  // if (0x00 == ConnectDatabase(pConnection))

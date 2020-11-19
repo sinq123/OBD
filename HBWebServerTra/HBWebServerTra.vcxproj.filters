@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{718fe793-2c48-4256-86cf-f2ad9f5aa690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ini">
+      <UniqueIdentifier>{376e8bf2-3bad-4010-ae1c-dd78c75eb9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads">
+      <UniqueIdentifier>{224d10e1-ddb0-46ea-8325-6cda109de49a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\DLL">
+      <UniqueIdentifier>{361ef057-4b57-4594-bdf9-a42794ee4dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Include">
+      <UniqueIdentifier>{0e4b5a2b-9dcf-42ef-a51a-590b15944a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Lib">
+      <UniqueIdentifier>{1f64fcec-be29-4eb1-b4cf-bea2741fc675}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\HBWebServerTra.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\HBWebServerTra.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="HBWebServerTra.ini">
+      <Filter>Ini</Filter>
+    </None>
+    <None Include="pthreadGC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadGCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVSE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="libpthreadGC2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="libpthreadGCE2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HBWebServerTra.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HBWebServerTraDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pthread.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="sched.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="semaphore.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HBWebServerTra.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HBWebServerTraDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapClient.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapServer.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HBWebServerTra.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gsoap\deviceSwap.wsdl">
+      <Filter>gsoap</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="pthreadVC2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVCE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVSE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+  </ItemGroup>
+</Project>

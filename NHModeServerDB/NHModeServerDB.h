@@ -1031,4 +1031,10 @@ using std::list;
 	DWORD GetDboTestPhotoData(const wchar_t wchSql[SQLMAX], std::vector<STestPhotoData> &vtTestPhotoData);
 	DWORD SetDboTestPhotoData(const std::vector<STestPhotoData> &vtTestPhotoData);
 
+	// 获取白名单修改的参数
+	DWORD GetDboWhiteModifiedParameters(const wchar_t wchSql[SQLMAX], SWhiteModifiedParameters* const pWhiteModifiedParameters);
+	DWORD GetDboWhiteModifiedParameters(const wchar_t wchSql[SQLMAX], std::vector<SWhiteModifiedParameters> & vtWhiteModifiedParameters);
+	// 设置白名单修改的参数
+	DWORD SetDboWhiteModifiedParameters(const SWhiteModifiedParameters &sWhiteModifiedParameters);
+
 #endif
