@@ -22,7 +22,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -105,11 +105,13 @@
     <None Include="res\JSCSZNDlg.rc2" />
     <None Include="VehicleInfo.xml" />
     <None Include="VehInfoList.xml" />
+    <None Include="ZJ.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JSCSZNDlg.h" />
     <ClInclude Include="JSCSZNDlgDlg.h" />
     <ClInclude Include="LogIn.h" />
+    <ClInclude Include="md5.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RJYZ.h" />
     <ClInclude Include="stdafx.h" />
@@ -119,6 +121,7 @@
     <ClCompile Include="JSCSZNDlg.cpp" />
     <ClCompile Include="JSCSZNDlgDlg.cpp" />
     <ClCompile Include="LogIn.cpp" />
+    <ClCompile Include="md5.cpp" />
     <ClCompile Include="RJYZ.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

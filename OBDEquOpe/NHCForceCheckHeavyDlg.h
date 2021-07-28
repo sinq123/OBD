@@ -115,9 +115,9 @@
 // 自用库
 #include "..\NHLib\NHLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\Debug\\NHLib_D.lib")
+#pragma comment(lib, "..\\debug\\MYLib_D.lib")
 #else
-#pragma comment(lib, "..\\Release\\NHLib.lib")
+#pragma comment(lib, "..\\Release\\MYLib.lib")
 #endif
 
 // CNHCForceCheckHeavyDlg 对话框

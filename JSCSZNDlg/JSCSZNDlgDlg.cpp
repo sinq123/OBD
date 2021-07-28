@@ -7,6 +7,9 @@
 #include "JSCSZNDlgDlg.h"
 #include "afxdialogex.h"
 
+#include "md5.h"
+#include <algorithm>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -40,6 +43,7 @@ void CJSCSZNDlgDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COM_OBDJCY, m_cbOBDJCY);
 
 	DDX_Control(pDX, ID_ED_URL, m_edURL);
+	DDX_Control(pDX, ID_ED_URL2, m_edURL2);
 	DDX_Control(pDX, ID_ED_UNITID, m_edunitid);
 	DDX_Control(pDX, ID_ED_LINEID, m_edlineid);
 	DDX_Control(pDX, ID_ED_TOKEN, m_edtoken);
@@ -91,6 +95,8 @@ BOOL CJSCSZNDlgDlg::OnInitDialog()
 	{
 		m_edMsg.SetWindowTextW(L"请点击更新列表，获取车辆信息");
 	}
+	//GetBaseTypeInfo();
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -253,6 +259,10 @@ void CJSCSZNDlgDlg::SetConfig(void)
 
 		strTemp = si.GetString(L"EPB", L"Password", L"123456");
 		m_edInterpwd.SetWindowTextW(strTemp);
+
+		strTemp = si.GetString(L"EPB", L"BDURL", L"http://172.141.32.1:9999/synchrodata/webservice/bd?wsdl");
+		m_edURL2.SetWindowTextW(strTemp);
+
 	}
 
 	GetDlgItem(IDC_BTN_UP)->EnableWindow(FALSE);
@@ -377,13 +387,24 @@ void CJSCSZNDlgDlg::GetToken(void)
 	}
 	pchURL = CNHCommonAPI::UnicodeToANSI(strURL);
 
+	std::string smd(CW2A(strInterpwd.GetString()));
+	MD5 md5(smd);
+	smd = md5.md5();
+	// 大写
+	transform(smd.begin(), smd.end(), smd.begin(), ::toupper);
+	// 小写
+	//transform(smd.begin(), smd.end(), smd.begin(), ::tolower);
+
+	// 长度为32的登录口令MD5字符串
+	CStringW strTemp;
+	strTemp = smd.c_str();
+
 	std::wstring strRet;
-	int nRet = CSZInterfaceLib_API::LoginServer(pchURL, strunitid.GetString(), strlineid.GetString(), strInterusername.GetString(), strInterpwd.GetString(), strRet);
+	int nRet = CSZIntLib_New_API::LoginServer(pchURL, strunitid.GetString(), strlineid.GetString(), strInterusername.GetString(), strTemp.GetString(), strRet);
 
 	// 暂时不知道返回，先不管；
 	if (nRet == 0)
 	{
-		
 	}
 	strLog.Format(L"联网获取情况%d, 返回信息%s", nRet, strRet.c_str());
 	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"记录GetToken", L"", strLog);
@@ -536,7 +557,7 @@ bool CJSCSZNDlgDlg::GetVehInfoList(void)
 	pchURL = CNHCommonAPI::UnicodeToANSI(strURL);
 
 	std::wstring strRet;
-	int nRet = CSZInterfaceLib_API::GetCheckList(pchURL, strtoken.GetString(), strunitid.GetString(), strRet);
+	int nRet = CSZIntLib_New_API::GetCheckList(pchURL, L"", strunitid.GetString(), strRet);
 
 #ifdef _DEBUG
 	nRet = 0;
@@ -706,7 +727,7 @@ bool CJSCSZNDlgDlg::GetVehInfo(void)
 	pchURL = CNHCommonAPI::UnicodeToANSI(strURL);
 
 	std::wstring strRet;
-	int nRet = CSZInterfaceLib_API::getVehicle(pchURL, strtoken.GetString(), strunitid.GetString(), m_sVehInfoList.strvin.c_str(), strRet);
+	int nRet = CSZIntLib_New_API::getVehicle(pchURL, strtoken.GetString(), strunitid.GetString(), m_sVehInfoList.strvin.c_str(), strRet);
 
 #ifdef _DEBUG
 	nRet = 0;
@@ -1108,9 +1129,24 @@ bool CJSCSZNDlgDlg::SaveINIAndSQLAndUP(void)
 		}
 		else
 		{
-			m_edMsg.SetWindowTextW(L"请先用工控软件选择车辆");
-			return false;
+			
+			// 数据库获取不到用配置文件获取
+			GetIniTestLog(&sTestLogRun);
+
+			// 保证车牌号码相同才复制Running
+			if (wcscmp(sTestLogRun.wchPlateNumber, m_sTestLog.wchPlateNumber) == 0)
+			{
+				wcscpy_s(m_sTestLog.wchRunningNumber, sTestLogRun.wchRunningNumber);
+			}
+			else
+			{
+				m_edMsg.SetWindowTextW(L"请先用工控软件选择车辆");
+				return false;
+			}
 		}
+
+
+
 
 		strSQL.Format(L"SELECT * FROM ResultOfOBD WHERE RunningNumber = '%s'", m_sTestLog.wchPlateNumber);
 		SResultOfOBD sResultOfOBD;
@@ -1253,7 +1289,7 @@ bool CJSCSZNDlgDlg::UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString
 	strDocXml.AppendFormat(L"<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 	strDocXml.AppendFormat(L"<result>");
 	// 柴油
-	if (wcscmp(m_sTestLog.wchFuelType, L"A") != 0)
+	if (wcscmp(m_sTestLog.wchFuelType, L"B") == 0)
 	{
 		ncheckmethod = 7;
 	}
@@ -1279,6 +1315,7 @@ bool CJSCSZNDlgDlg::UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString
 	strDocXml.AppendFormat(L"<obdstand>%s</obdstand>", sResultOfOBD.strOBDType.c_str());
 	strDocXml.AppendFormat(L"<communication>%s</communication>", L"0");
 	strDocXml.AppendFormat(L"<communication_desc>%s</communication_desc>", L"");
+	strDocXml.AppendFormat(L"<ycpfzdtx>%s</ycpfzdtx>", L"0");
 	strDocXml.AppendFormat(L"<isready>%s</isready>", L"0");
 	strDocXml.AppendFormat(L"<isreadyfailitem>%s</isreadyfailitem>", L"");
 	strDocXml.AppendFormat(L"<passed>%s</passed>", L"1");
@@ -1287,6 +1324,7 @@ bool CJSCSZNDlgDlg::UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString
 	strDocXml.AppendFormat(L"<trou_data>");
 	strDocXml.AppendFormat(L"<troubleid>%s</troubleid>", L"1");
 	strDocXml.AppendFormat(L"<milodo>%s</milodo>", L"0.00");
+	strDocXml.AppendFormat(L"<gzmnum>%s</gzmnum>", L"0");
 	strDocXml.AppendFormat(L"<trouble_desc>%s</trouble_desc>", L"-");
 	strDocXml.AppendFormat(L"</trou_data>");
 
@@ -1298,14 +1336,14 @@ bool CJSCSZNDlgDlg::UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString
 
 	strDocXml.AppendFormat(L"<cal_data>");
 	strDocXml.AppendFormat(L"<obd_con_name>%s</obd_con_name>", L"后处理控制单元");
-	strDocXml.AppendFormat(L"<calid>%s</calid>", sResultOfOBD.strPostProcessingCALID.c_str());
-	strDocXml.AppendFormat(L"<cvn>%s</cvn>", sResultOfOBD.strPostProcessingCVN.c_str());
+	strDocXml.AppendFormat(L"<calid>%s</calid>", L"不支持");
+	strDocXml.AppendFormat(L"<cvn>%s</cvn>", L"不支持");
 	strDocXml.AppendFormat(L"</cal_data>");
 
 	strDocXml.AppendFormat(L"<cal_data>");
 	strDocXml.AppendFormat(L"<obd_con_name>%s</obd_con_name>", L"其他控制单元");
-	strDocXml.AppendFormat(L"<calid>%s</calid>", sResultOfOBD.strOtherCALID.c_str());
-	strDocXml.AppendFormat(L"<cvn>%s</cvn>", sResultOfOBD.strOtherCVN.c_str());
+	strDocXml.AppendFormat(L"<calid>%s</calid>", L"不支持");
+	strDocXml.AppendFormat(L"<cvn>%s</cvn>", L"不支持");
 	strDocXml.AppendFormat(L"</cal_data>");
 
 	for (int i=0; i<17;i++)
@@ -1320,7 +1358,7 @@ bool CJSCSZNDlgDlg::UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString
 	strDocXml.AppendFormat(L"</result>");
 
 	std::wstring strRet;
-	int nRet = CSZInterfaceLib_API::UploadInspectionResult(pchURL, strtoken.GetString(), strunitid.GetString(), strDocXml.GetString(), ncheckmethod, strRet);
+	int nRet = CSZIntLib_New_API::UploadInspectionResult(pchURL, strtoken.GetString(), strunitid.GetString(), strDocXml.GetString(), ncheckmethod, strRet);
 
 
 #ifdef _DEBUG
@@ -1700,7 +1738,7 @@ bool CJSCSZNDlgDlg::UpOBDRealTimeData(CString& strMsg)
 
 	
 	std::wstring strRet;
-	int nRet = CSZInterfaceLib_API::UploadInspectionResult(pchURL, strtoken.GetString(), strunitid.GetString(), strDocXml.GetString(), ncheckmethod, strRet);
+	int nRet = CSZIntLib_New_API::UploadInspectionResult(pchURL, strtoken.GetString(), strunitid.GetString(), strDocXml.GetString(), ncheckmethod, strRet);
 
 #ifdef _DEBUG
 	nRet = 0;
@@ -1945,7 +1983,7 @@ bool CJSCSZNDlgDlg::SetOBDLOG(SResultOfOBD& sResultOfOBD, CString& strMsg)
 
 CString CJSCSZNDlgDlg::GetOBDType(const int& nType, const CString& strFulType)
 {
-	if (strFulType == L"汽油")
+	//if (strFulType == L"汽油")
 	{
 		switch (nType)
 		{
@@ -1957,13 +1995,13 @@ CString CJSCSZNDlgDlg::GetOBDType(const int& nType, const CString& strFulType)
 		case 5:{return L"OBD,OBDII,EOBD和KOBD";} break;
 		case 6:{return L"JOBD";} break;
 		case 7:{return L"不适用";} break;
-		default : {return L"";} break;
+		default : {return L"JOBD";} break;
 		}
 	}
-	else
-	{
-		return L"";
-	}
+	//else
+	//{
+	//	return L"";
+	//}
 }
 
 void CJSCSZNDlgDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulType,
@@ -2201,6 +2239,13 @@ void CJSCSZNDlgDlg::OnLvnItemchangedLstVehicle(NMHDR *pNMHDR, LRESULT *pResult)
 void CJSCSZNDlgDlg::OnBnClickedBtnUp()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CString strMsg;
+	if (!GetGasAri(3, strMsg))
+	{m_edMsg.SetWindowTextW(strMsg); return;}
+	if (!GetGasAri(4, strMsg))
+	{m_edMsg.SetWindowTextW(strMsg); return;}
+	if (!GetGasAri(1, strMsg))
+	{m_edMsg.SetWindowTextW(strMsg); return;}
 
 	if (SaveINIAndSQLAndUP())
 	{
@@ -2224,5 +2269,154 @@ void CJSCSZNDlgDlg::OnBnClickedBtnUpobdtimedata()
 	{
 		strMsg = L"上传过程数据失败\r\n" + strMsg;
 		m_edMsg.SetWindowTextW(strMsg);
+	}
+}
+
+void CJSCSZNDlgDlg::GetBaseTypeInfo(void)
+{
+	CString strMsg;
+	CString strURL, strunitid, strlineid, strInterusername, strInterpwd, strtoken;
+	m_edURL.GetWindowTextW(strURL);
+	m_edunitid.GetWindowTextW(strunitid);
+	m_edlineid.GetWindowTextW(strlineid);
+	m_edInterusername.GetWindowTextW(strInterusername);
+	m_edInterpwd.GetWindowTextW(strInterpwd);
+	m_edtoken.GetWindowTextW(strtoken);
+
+	if (strURL.IsEmpty() || strunitid.IsEmpty() || strlineid.IsEmpty() 
+		|| strInterusername.IsEmpty() || strInterpwd.IsEmpty())
+	{
+		strMsg.AppendFormat(L"联网参数有空值");
+		return;
+	}
+
+	char* pchURL(NULL);
+
+	if (NULL != pchURL)
+	{
+		free(pchURL);
+		pchURL = NULL;
+	}
+	pchURL = CNHCommonAPI::UnicodeToANSI(strURL);
+
+	CString strDocXml;
+	CString str;
+	str.Format(L"%s", strunitid.Mid(0,5));
+	int ncheckmethod;
+
+	std::wstring strRet;
+	CSZIntLib_New_API::GetBaseTypeInfo(pchURL, strRet);
+}
+
+
+bool CJSCSZNDlgDlg::GetGasAri(const int& nType, CString& strMsg)
+{
+
+	CString strURL, strunitid, strlineid, strInterusername, strInterpwd, strtoken;
+	m_edURL2.GetWindowTextW(strURL);
+	m_edunitid.GetWindowTextW(strunitid);
+	m_edlineid.GetWindowTextW(strlineid);
+	m_edInterusername.GetWindowTextW(strInterusername);
+	m_edInterpwd.GetWindowTextW(strInterpwd);
+	m_edtoken.GetWindowTextW(strtoken);
+
+	if (strURL.IsEmpty() || strunitid.IsEmpty() || strlineid.IsEmpty() 
+		|| strInterusername.IsEmpty() || strInterpwd.IsEmpty())
+	{
+		strMsg.AppendFormat(L"联网参数有空值");
+		return false;
+	}
+
+	char* pchURL(NULL);
+
+	if (NULL != pchURL)
+	{
+		free(pchURL);
+		pchURL = NULL;
+	}
+	pchURL = CNHCommonAPI::UnicodeToANSI(strURL);
+
+	CString strDocXml;
+
+	strDocXml.AppendFormat(L"<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+	strDocXml.AppendFormat(L"<result><result_data>");
+
+	strDocXml.AppendFormat(L"<unit_id>%s</unit_id>", strunitid);
+	strDocXml.AppendFormat(L"<line_id>%s</line_id>", strlineid);
+	strDocXml.AppendFormat(L"<type>%d</type>", nType);
+	if (nType == 1)
+	{
+		COleDateTime odtCurTime = COleDateTime::GetCurrentTime();
+		COleDateTimeSpan odts;
+		odts.SetDateTimeSpan(0, 0, 0, 9);
+		COleDateTime odtSartTime = odtCurTime - odts;
+		strDocXml.AppendFormat(L"<start_time>%s</start_time>", odtSartTime.Format(L"%Y-%m-%d %H:%M:%S"));
+	}
+	else if (nType == 4)
+	{
+		COleDateTime odtCurTime = COleDateTime::GetCurrentTime();
+		COleDateTimeSpan odts;
+		odts.SetDateTimeSpan(0, 0, 0, 16);
+		COleDateTime odtSartTime = odtCurTime - odts;
+		strDocXml.AppendFormat(L"<start_time>%s</start_time>", odtSartTime.Format(L"%Y-%m-%d %H:%M:%S"));
+	}
+	else
+	{
+		COleDateTime odtCurTime = COleDateTime::GetCurrentTime();
+		COleDateTimeSpan odts;
+		odts.SetDateTimeSpan(0, 0, 0, 12);
+		COleDateTime odtSartTime = odtCurTime - odts;
+		strDocXml.AppendFormat(L"<start_time>%s</start_time>", odtSartTime.Format(L"%Y-%m-%d %H:%M:%S"));
+	}
+	strDocXml.AppendFormat(L"<end_time>%s</end_time>", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+	strDocXml.AppendFormat(L"<passed>%s</passed>", L"1");
+	strDocXml.AppendFormat(L"<jcry>%s</jcry>", L"胡玉辰");
+
+	strDocXml.AppendFormat(L"</result_data></result>");
+
+	
+	std::wstring strRet;
+	int nRet = CSZIntLibbd_New_API::UploadInspectionResult(pchURL, strDocXml.GetString(), 12, strRet);
+
+
+#ifdef _DEBUG
+	nRet = 0;
+#endif
+	if (nRet == 0)
+	{
+		CXmlReader xmlReader;
+
+		if (xmlReader.Parse(strRet.c_str()))
+		{
+			std::wstring wstrCode, wstrContent;
+
+			if (xmlReader.OpenNode(L"xml/status"))
+			{
+				xmlReader.GetNodeContent(wstrCode);
+			}
+			CString strTAndF(wstrCode.c_str());
+			strTAndF.MakeUpper(); // 最大化
+			
+			if (strTAndF != L"TRUE")
+			{
+				if (xmlReader.OpenNode(L"xml/errMsg"))
+				{
+					xmlReader.GetNodeContent(wstrCode);
+				}
+				strMsg.AppendFormat(L"自检数据失败原因%s", wstrCode.c_str());
+				return false;
+			}
+			return true;
+		}
+		else
+		{
+			strMsg.AppendFormat(L"自检数据解析失败");
+			return false;
+		}
+	}
+	else
+	{
+		strMsg.AppendFormat(L"自检数据联网失败，返回代码%d", nRet);
+		return false;
 	}
 }

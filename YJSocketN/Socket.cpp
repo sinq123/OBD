@@ -161,11 +161,14 @@ bool CSocket::SendAndRecvPacket(LPCTSTR szSend, std::wstring &strRecv)
 
 bool CSocket::RecvPacket(std::wstring &strRecv)
 {
+
+#ifndef _DEBUG
 	if (!IsOpen())
 	{
 		return false;
 	}
-	
+#endif
+
 	std::string strRecvData;
 	char szBuf[MAX_PATH] = {0};
 	while (RecvAll(m_socket, szBuf, 1))
@@ -184,19 +187,18 @@ bool CSocket::RecvPacket(std::wstring &strRecv)
 	}
 
 	std::wstring strData;
-	if(strRecvData == "")
-	{
-	}
-	else
+	if(strRecvData != "")
 	{
 		strData = ANSIToTChar(strRecvData.c_str());
-	}
-	int nIntPos = strData.find(L"@@@")+3;
-	int nTekPos = strData.find(L"tek");
-	strRecv = strData.substr(nIntPos, nTekPos-nIntPos);
 
-	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"CSocket::SendAndRecvPacket", L"接收成功", strData.c_str());
-	return true;
+		int nIntPos = strData.find(L"@@@")+3;
+		int nTekPos = strData.find(L"tek");
+		strRecv = strData.substr(nIntPos, nTekPos-nIntPos);
+
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"CSocket::SendAndRecvPacket", L"接收成功", strData.c_str());
+		return true;
+	}
+	return false;
 }
 
 bool CSocket::RecvAll(SOCKET sockfd, char *recvbuf, int len)

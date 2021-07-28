@@ -122,9 +122,9 @@
 // 自用库(MFC扩展DLL)
 #include "..\NHLib\NHLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\debug\\NHLib_D.lib")
+#pragma comment(lib, "..\\debug\\MYLib_D.lib")
 #else
-#pragma comment(lib, "..\\release\\NHLib.lib")
+#pragma comment(lib, "..\\Release\\MYLib.lib")
 #endif
 
 #include "..\OBDEquThr\EquThr.h"
@@ -216,10 +216,14 @@ private:
 	void CalculateResult1(void);
 	// 滤光片2结果
 	void CalculateResult2(void);
+	// 滤光片3结果
+	void CalculateResult3(void);
 	// 显示滤光片1结果
 	void ShowResult1(void);
 	// 显示滤光片2结果
 	void ShowResult2(void);
+	// 显示滤光片3结果
+	void ShowResult3(void);
 	// 显示结果判定
 	void ShowJudgement(void);
 	// 停止校准检查
@@ -244,6 +248,9 @@ private:
 	CNumericEdit m_edN1;
 	// 标准滤光片2数值编辑框
 	CNumericEdit m_edN2;
+	// 标准滤光片3数值编辑框
+	CNumericEdit m_edN3;
+
 
 	// 10秒数据列表框
 	CListCtrl m_lcData;
@@ -259,14 +266,21 @@ private:
 	CLabel m_lbAve1;
 	// 平均值2显示框
 	CLabel m_lbAve2;
+	// 平均值3显示框
+	CLabel m_lbAve3;
 	// 线性度1显示框
 	CLabel m_lbLinear1;
 	// 线性度2显示框
 	CLabel m_lbLinear2;
+	// 线性度3显示框
+	CLabel m_lbLinear3;
+
 	// 误差1显示框
 	CLabel m_lbErr1;
 	// 误差2显示框
 	CLabel m_lbErr2;
+	// 误差2显示框
+	CLabel m_lbErr3;
 	// 判定显示框
 	CLabel m_lbJudgement;
 
@@ -287,6 +301,8 @@ private:
 	CLabel m_lbStep4;
 	// 步骤5
 	CLabel m_lbStep5;
+	// 步骤5
+	CLabel m_lbStep6;
 
 	// 步骤1标签
 	CStatic m_stcStep1Label;
@@ -298,6 +314,8 @@ private:
 	CStatic m_stcStep4Label;
 	// 步骤5标签
 	CStatic m_stcStep5Label;
+	// 步骤5标签
+	CStatic m_stcStep6Label;
 
 	// 上下标文本控件
 	CMathLabel m_mlb1;
@@ -327,6 +345,8 @@ private:
 	bool m_bGetData1;
 	// 获取滤光片2数值
 	bool m_bGetData2;
+	// 获取滤光片3数值
+	bool m_bGetData3;
 	// 操作是否至少完成1次
 	bool m_bIsOperationFinishedAtLeaseOnce;
 
@@ -335,36 +355,52 @@ private:
 	int m_nStd1;
 	// 标准滤光片2数值,单位:0.01%,放大100倍,四舍五入
 	int m_nStd2;
+	// 标准滤光片3数值,单位:0.01%,放大100倍,四舍五入
+	int m_nStd3;
 
 private:
 	// 滤光片1测量值,单位:0.01%,放大100倍,四舍五入
 	int m_nN1[20];
 	// 滤光片2测量值,单位:0.01%,放大100倍,四舍五入
 	int m_nN2[20];
+	// 滤光片3测量值,单位:0.01%,放大100倍,四舍五入
+	int m_nN3[20];
 	// 滤光片1测量值平均值,单位:0.01%,放大100倍,四舍五入
 	int m_nAve1;
 	// 滤光片2测量值平均值,单位:0.01%,放大100倍,四舍五入
 	int m_nAve2;
+	// 滤光片3测量值平均值,单位:0.01%,放大100倍,四舍五入
+	int m_nAve3;
 	// 滤光片1测量值线性度,单位:0.01%,放大100倍,四舍五入
 	int m_nLinear1;
 	// 滤光片2测量值线性度,单位:0.01%,放大100倍,四舍五入
 	int m_nLinear2;
+	// 滤光片3测量值线性度,单位:0.01%,放大100倍,四舍五入
+	int m_nLinear3;
 	// 滤光片1绝对误差,单位:0.01%,放大100倍,四舍五入
 	int m_nAE1;
 	// 滤光片2绝对误差,单位:0.01%,放大100倍,四舍五入
 	int m_nAE2;
+	// 滤光片3绝对误差,单位:0.01%,放大100倍,四舍五入
+	int m_nAE3;
 	// 滤光片1线性度是否合格
 	bool m_bIsLinear1Pass;
 	// 滤光片2线性度是否合格
 	bool m_bIsLinear2Pass;
+	// 滤光片3线性度是否合格
+	bool m_bIsLinear3Pass;
 	// 滤光片1绝对误差是否合格
 	bool m_bIsAE1Pass;
 	// 滤光片2绝对误差是否合格
 	bool m_bIsAE2Pass;
+	// 滤光片3绝对误差是否合格
+	bool m_bIsAE3Pass;
 	// 滤光片1检查是否合格
 	bool m_bIsN1Pass;
 	// 滤光片2检查是否合格
 	bool m_bIsN2Pass;
+	// 滤光片3检查是否合格
+	bool m_bIsN3Pass;
 	// 校准检查是否通过
 	bool m_bIsCalChkPass;
 

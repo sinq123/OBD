@@ -8,9 +8,9 @@
 
 #include "..\NHLib\NHLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\Debug\\NHLib_D.lib")
+#pragma comment(lib, "..\\debug\\MYLib_D.lib")
 #else
-#pragma comment(lib, "..\\Release\\NHLib.lib")
+#pragma comment(lib, "..\\Release\\MYLib.lib")
 #endif
 
 #include "..\NHWin32Lib\NHWin32Lib.h"
@@ -39,6 +39,20 @@
 #pragma comment(lib, "..\\Debug\\SZInterfaceLib_D.lib")
 #else
 #pragma comment(lib, "..\\Release\\SZInterfaceLib.lib")
+#endif
+
+#include "..\SZIntLib_New\SZIntLib_New.h"
+#ifdef _DEBUG
+#pragma comment(lib, "..\\Debug\\SZIntLib_New_D.lib")
+#else
+#pragma comment(lib, "..\\Release\\SZIntLib_New.lib")
+#endif
+
+#include "..\SZIntLibbd_New\SZIntLibbd_New.h"
+#ifdef _DEBUG
+#pragma comment(lib, "..\\Debug\\SZIntLibbd_New_D.lib")
+#else
+#pragma comment(lib, "..\\Release\\SZIntLibbd_New.lib")
 #endif
 
 struct SVehInfoList
@@ -98,6 +112,7 @@ public:
 
 	// 联网
 	CEdit m_edURL;
+	CEdit m_edURL2;
 	CEdit m_edunitid;
 	CEdit m_edlineid;
 	CEdit m_edtoken;
@@ -162,4 +177,8 @@ private:
 	bool UpOBDReaustAndIURP(const SResultOfOBD& sResultOfOBD, CString& strMsg);
 	// OBD过程数据
 	bool UpOBDRealTimeData(CString& strMsg);
+
+	void GetBaseTypeInfo(void);
+
+	bool GetGasAri(const int& nType, CString& strMsg);
 };

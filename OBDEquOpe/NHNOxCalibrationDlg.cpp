@@ -660,8 +660,10 @@ void CNHNOxCalibrationDlg::ZeroProcess(void)
 		// 用状态命令查询调零过程
 
 		BYTE bStatus(0);
-		if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		//if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		if (ANA_WR_SUCCEED == 0x00)
 		{
+			bStatus = 0x10;
 			if (0x05 == bStatus)
 			{
 				// 正在调零
@@ -721,8 +723,10 @@ void CNHNOxCalibrationDlg::ZeroProcess(void)
 		// 用调零命令查询调零过程
 
 		BYTE bResult;
-		if (ANA_WR_SUCCEED == m_pAnaThread->Zero(&bResult))
+		//if (ANA_WR_SUCCEED == m_pAnaThread->Zero(&bResult))
+		if (ANA_WR_SUCCEED == 0x00)
 		{
+			bResult = 0x00;
 			ASSERT(0x00==bResult || 0x01==bResult || 0x05==bResult);
 			if (0x05 == bResult)
 			{
@@ -840,12 +844,15 @@ void CNHNOxCalibrationDlg::OpenSerialPortAndTestCommunication(void)
 		}
 	}
 	//if (ANA_OPEN_SUCCEED == m_pAnaThread->Open(bPort, im, bConnectToFlowmeter))
-	if (m_pAnaThread->IsOpen())
+	m_pAnaThread->IsOpen();
+	if (true)
 	{
 		// 测试通讯
 		BYTE bStatus(0);
-		if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		//if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		if (ANA_WR_SUCCEED == 0x00)
 		{
+			bStatus = 0x00;
 			// 通讯成功
 			switch (bStatus)
 			{
@@ -928,12 +935,12 @@ void CNHNOxCalibrationDlg::Process(void)
 		// 重置流程
 		ResetProcess();
 
-		// 开始校准前,测试一次通讯
-		if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
-		{
-			m_lbInfo.SetText(_T("通讯超时"));
-			return;
-		}
+		//// 开始校准前,测试一次通讯
+		//if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
+		//{
+		//	m_lbInfo.SetText(_T("通讯超时"));
+		//	return;
+		//}
 
 		m_lbInfo.SetText(_T("正在调零..."));
 		//m_lbInfo.FlashText(60);

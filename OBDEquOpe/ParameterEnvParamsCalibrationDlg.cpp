@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "ParameterEnvParamsCalibrationDlg.h"
-
+#include "UpTachometerDlg.h"
 
 // CParameterEnvParamsCalibrationDlg 对话框
 
@@ -13,6 +13,7 @@ CParameterEnvParamsCalibrationDlg::CParameterEnvParamsCalibrationDlg(CWnd* pPare
 	: CDialogZoom(CParameterEnvParamsCalibrationDlg::IDD, pParent)
 	, m_pParaThread(NULL)
 	, m_bRefreshDataSign(true)
+	, m_pfProcessCtrl(NULL)
 {
 	// 针对1280*1024分辨率进行开发
 	int nSM_CYSCREEN = GetSystemMetrics(SM_CYSCREEN);
@@ -81,6 +82,8 @@ BEGIN_MESSAGE_MAP(CParameterEnvParamsCalibrationDlg, CDialogZoom)
 	ON_BN_CLICKED(IDC_BUTTON_QUIT, &CParameterEnvParamsCalibrationDlg::OnBnClickedButtonQuit)
 	ON_BN_CLICKED(IDC_BUTTON_DEFAULT_CONFIG, &CParameterEnvParamsCalibrationDlg::OnBnClickedButtonDefaultConfig)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BTN_UP_ENV_PARA, &CParameterEnvParamsCalibrationDlg::OnBnClickedBtnUpEnvPara)
+	ON_BN_CLICKED(IDC_BTN_UP_TACHOMETER, &CParameterEnvParamsCalibrationDlg::OnBnClickedBtnUpTachometer)
 END_MESSAGE_MAP()
 
 
@@ -92,6 +95,7 @@ BOOL CParameterEnvParamsCalibrationDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 
+	m_odtbegin = COleDateTime::GetCurrentTime();
 	// 初始化控件
 	InitCtrls();
 
@@ -131,10 +135,10 @@ void CParameterEnvParamsCalibrationDlg::InitCtrls(void)
 	m_lbLabel4.SetTextColor(RGB(0, 102, 204));
 
 	// 测量值编辑框
-	m_edETMea.SetReadOnly(TRUE);
-	m_edRHMea.SetReadOnly(TRUE);
-	m_edAPMea.SetReadOnly(TRUE);
-	m_edOTMea.SetReadOnly(TRUE);
+	m_edETMea.SetReadOnly(FALSE);
+	m_edRHMea.SetReadOnly(FALSE);
+	m_edAPMea.SetReadOnly(FALSE);
+	m_edOTMea.SetReadOnly(FALSE);
 
 	// 校准值编辑框
 	m_neETStd.AllowNegative(FALSE);
@@ -387,7 +391,7 @@ void CParameterEnvParamsCalibrationDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 	case 1:
 		{
-			RefreshData();
+			//RefreshData();
 		}
 		break;
 	case 2:
@@ -466,5 +470,121 @@ void CParameterEnvParamsCalibrationDlg::OnBnClickedButtonDefaultConfig()
 	else
 	{
 		MessageBox(L"恢复参数测量仪校准参数默认设置失败", L"参数测量仪校准设置", MB_OK|MB_ICONINFORMATION);
+	}
+}
+
+void CParameterEnvParamsCalibrationDlg::SetProcessCtrlCallBack(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus))
+{
+	m_pfProcessCtrl = pfProcessCtrl;
+}
+
+void CParameterEnvParamsCalibrationDlg::OnBnClickedBtnUpEnvPara()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString str[6];
+	for (int i = 0; i < 6; i++)
+	{
+		str[i] = L"";
+	}
+
+	//获取全部是参数
+	// 温度（测量）
+	m_edETMea.GetWindowTextW(str[0]);
+	m_neETStd.GetWindowTextW(str[1]);
+	// 湿度
+	m_edRHMea.GetWindowTextW(str[2]);
+	m_neRHStd.GetWindowTextW(str[3]);
+	// 大气压
+	m_edAPMea.GetWindowTextW(str[4]);
+	m_neAPStd.GetWindowTextW(str[5]);
+
+	bool bEmp(false);
+	for (int i = 0; i < 6; i++)
+	{
+		if (str[i].IsEmpty())
+		{
+			bEmp = true;
+			break;
+		}
+	}
+	if (bEmp)
+	{
+		MessageBox(L"环境参数有空值");
+		return;
+	}
+
+	// 先删除之前的文档
+	// 获取文件路径
+	wchar_t wchPath[MAX_PATH];
+	ZeroMemory(wchPath, sizeof(wchPath));
+	if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfEnvParams.ini", wchPath, false))
+	{
+		DeleteFile(wchPath);
+	}
+	
+	CString strTemp;
+	CString strResult;
+
+	strResult.AppendFormat(L"\r\n[EnvParams]");
+
+	// 开始时间
+	strTemp.Format(L"\r\nStartTime=%s", m_odtbegin.Format(L"%Y-%m-%d %H:%M:%S").GetString());
+	strResult += strTemp;
+
+	// 结束时间
+	strTemp.Format(L"\r\nEndTime=%s", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S").GetString());
+	strResult += strTemp;
+
+	// 温度测量
+	strTemp.Format(L"\r\nETMea=%s", str[0]);
+	strResult += strTemp;
+	// 温度标准
+	strTemp.Format(L"\r\nETStd=%s", str[1]);
+	strResult += strTemp;
+	// 湿度测量
+	strTemp.Format(L"\r\nRHMea=%s", str[2]);
+	strResult += strTemp;
+	// 湿度标准
+	strTemp.Format(L"\r\nRHStd=%s", str[3]);
+	strResult += strTemp;
+	// 大气压测量
+	strTemp.Format(L"\r\nAPMea=%s", str[4]);
+	strResult += strTemp;
+	// 大气压标准
+	strTemp.Format(L"\r\nAPStd=%s", str[5]);
+	strResult += strTemp;
+
+	ZeroMemory(wchPath, sizeof(wchPath));
+	CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfEnvParams.ini", wchPath, true);
+	CStdioFileEx sfe;
+	sfe.Open(wchPath, CFile::modeCreate|CFile::modeWrite|CFile::modeNoTruncate|CStdioFileEx::modeWriteUnicode);
+	// 追加写入
+	sfe.SeekToEnd();
+	sfe.WriteString(strResult);
+	sfe.Close();
+
+	Sleep(200);
+	// 回调输出信息
+	if (NULL != m_pfProcessCtrl)
+	{
+		m_pfProcessCtrl(0x01);
+	}
+}
+
+
+void CParameterEnvParamsCalibrationDlg::OnBnClickedBtnUpTachometer()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CUpTachometerDlg dlg;
+
+	if (IDOK == dlg.DoModal())
+	{
+		Sleep(200);
+		// 回调输出信息
+		if (NULL != m_pfProcessCtrl)
+		{
+			m_pfProcessCtrl(0x02);
+		}
 	}
 }

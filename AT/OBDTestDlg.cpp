@@ -1030,6 +1030,15 @@ CString COBDTestDlg::MapVec2Json(JsonMapVec vmPost)
 	return strJson;
 }
 
+int randEx()
+{
+	LARGE_INTEGER seed;
+	QueryPerformanceFrequency(&seed);
+	QueryPerformanceCounter(&seed);
+	srand(seed.QuadPart);
+
+	return rand();
+}
 
 void COBDTestDlg::UpOBDReaust(CString& strMsg)
 {
@@ -1104,6 +1113,10 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 	COleDateTimeSpan odts;
 	SYSTEMTIME st;
 	strTemp.Empty();
+
+	float f;
+	int n;
+
 	if (strTestType.Find(L"1") != -1) // 稳态
 	{
 		OBDMap[L"JYFF"] = L"2";
@@ -1115,18 +1128,26 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			SOBDRTData sOBDRTData;
 			JsonMap map;
 			//1	节气门绝对开度（%）	YMKD
-			map[L"YMKD"] = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
-			sOBDRTData.strSolarTermDoorPosition = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = n + 32.94f;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 32.94f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+			map[L"YMKD"] = strTemp;
+			sOBDRTData.strSolarTermDoorPosition = strTemp;
 			//2	车速（Km/h）	CS
 			if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				float f;
-				if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-				else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-				else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
-				else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
+				if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+				else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+				else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+				else { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 				strTemp.Format(L"%.1f", f);
 			}
 			else
@@ -1136,46 +1157,74 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			map[L"CS"] = strTemp;
 			sOBDRTData.strVelocity = strTemp.GetString();
 			//3	计算负荷值kw)	FDJSCGL
-			map[L"FDJSCGL"] = vt[i].sOBDRTData.strCalculationLoad.c_str();
-			sOBDRTData.strCalculationLoad = vt[i].sOBDRTData.strCalculationLoad.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 60.00f - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 60.00f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"FDJSCGL"] = strTemp;
+			sOBDRTData.strCalculationLoad = strTemp;
 			//4	发动机转速(r/min)	FDJZS
 			if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + 1752;}
-				else if (i%3 == 0){n = rand()%300 + 1825;}
-				else if (i%5 == 0){n = rand()%300 + 1872;}
-				else {n = rand()%300 + 1852;}
+				if (i%2 == 0){n = randEx()%300 + 1752;}
+				else if (i%3 == 0){n = randEx()%300 + 1825;}
+				else if (i%5 == 0){n = randEx()%300 + 1872;}
+				else {n = randEx()%300 + 1852;}
 				strTemp.Format(L"%d", n);
 			}
 			else
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + 650;}
-				else if (i%3 == 0){n = rand()%300 + 678;}
-				else if (i%5 == 0){n = rand()%300 + 687;}
-				else {n = rand()%300 + 640;}
+				if (i%2 == 0){n = randEx()%300 + 650;}
+				else if (i%3 == 0){n = randEx()%300 + 678;}
+				else if (i%5 == 0){n = randEx()%300 + 687;}
+				else {n = randEx()%300 + 640;}
 				strTemp.Format(L"%d", n);
 			}
 			map[L"FDJZS"] = strTemp;
 			sOBDRTData.strEngineRev = strTemp.GetString();
 			//5	进气量(g/s)	JQL
-			map[L"JQL"] = vt[i].sOBDRTData.strMAF.c_str();
-			sOBDRTData.strMAF = vt[i].sOBDRTData.strMAF.c_str();
-			//6	前氧传感器信号 (mV/mA)	ZYYL
-			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			n = randEx()%4 + 1;
+			if (n%2 == 0)
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorV.c_str();
-				sOBDRTData.strForwardSensorV = vt[i].sOBDRTData.strForwardSensorV.c_str();
+				f = 2.87f + n;
 			}
 			else
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorI.c_str();
-				sOBDRTData.strForwardSensorI = vt[i].sOBDRTData.strForwardSensorI.c_str();
+				f = n /10.0f;
+				f = 2.87f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+			map[L"JQL"] = strTemp;
+			sOBDRTData.strMAF = strTemp;
+			//6	前氧传感器信号 (mV/mA)	ZYYL
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 30.00 - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 30.00 + f;
+			}
+			strTemp.Format(L"%.2f", f);
+			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorV = strTemp;
+			}
+			else
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorI = strTemp;
 			}
 			//7	检测时间	CJSJ
 			if (i==0)
@@ -1203,44 +1252,87 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			JsonMap map;
 			SOBDRTData sOBDRTData;
 			//1	节气门绝对开度（%）	YMKD
-			map[L"YMKD"] = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
-			sOBDRTData.strSolarTermDoorPosition = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = n + 32.94f;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 32.94f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+			map[L"YMKD"] = strTemp;
+			sOBDRTData.strSolarTermDoorPosition = strTemp;
 			//2	车速（Km/h）	CS
-			GetLocalTime(&st);
-			srand(st.wMilliseconds);
-			float f;
-			if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-			else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-			else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
-			else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
+			if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+			else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+			else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+			else { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 			strTemp.Format(L"%.1f", f);
 			map[L"CS"] = strTemp;
 			sOBDRTData.strVelocity = strTemp.GetString();
 			//3	计算负荷值kw)	FDJSCGL
-			map[L"FDJSCGL"] = vt[i].sOBDRTData.strCalculationLoad.c_str();
-			sOBDRTData.strCalculationLoad = vt[i].sOBDRTData.strCalculationLoad.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 60.00f - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 60.00f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"FDJSCGL"] = strTemp;
+			sOBDRTData.strCalculationLoad = strTemp.GetString();
 			//4	发动机转速(r/min)	FDJZS
-			int n(0);
-			if (i%2 == 0){n = rand()%300 + 1752;}
-			else if (i%3 == 0){n = rand()%300 + 1825;}
-			else if (i%5 == 0){n = rand()%300 + 1872;}
-			else {n = rand()%300 + 1852;}
+			if (i%2 == 0){n = randEx()%300 + 1752;}
+			else if (i%3 == 0){n = randEx()%300 + 1825;}
+			else if (i%5 == 0){n = randEx()%300 + 1872;}
+			else {n = randEx()%300 + 1852;}
 			strTemp.Format(L"%d", n);
 			map[L"FDJZS"] = strTemp;
 			sOBDRTData.strEngineRev = strTemp.GetString();
 			//5	进气量(g/s)	JQL
-			map[L"JQL"] = vt[i].sOBDRTData.strMAF.c_str();
-			sOBDRTData.strMAF = vt[i].sOBDRTData.strMAF.c_str();
-			//6	前氧传感器信号 (mV/mA)	ZYYL
-			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			n = randEx()%4 + 1;
+			if (n%2 == 0)
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorV.c_str();
-				sOBDRTData.strForwardSensorV = vt[i].sOBDRTData.strForwardSensorV.c_str();
+				f = 2.87f + n;
 			}
 			else
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorI.c_str();
-				sOBDRTData.strForwardSensorI = vt[i].sOBDRTData.strForwardSensorI.c_str();
+				f = n /10.0f;
+				f = 2.87f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"JQL"] = strTemp;
+			sOBDRTData.strMAF = strTemp.GetString();
+			//6	前氧传感器信号 (mV/mA)	ZYYL
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 30.00 - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 30.00 + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorV = strTemp;
+			}
+			else
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorI = strTemp;
 			}
 			//7	检测时间	CJSJ
 			if (i==0)
@@ -1270,18 +1362,27 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			JsonMap map;
 			SOBDRTData sOBDRTData;
 			//1	油门开度（%）	YMKD
-			map[L"YMKD"] = vt[i].sOBDRTData.strThrottleOpening.c_str();
-			sOBDRTData.strThrottleOpening = vt[i].sOBDRTData.strThrottleOpening.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = n + 32.94f;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 32.94f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"YMKD"] = strTemp;
+			sOBDRTData.strThrottleOpening = strTemp;
 			//2	车速（Km/h）	CS
 			if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				float f;
-				if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-				else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-				else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
-				else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
+				if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+				else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+				else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+				else { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 				strTemp.Format(L"%.1f", f);
 			}
 			else
@@ -1296,34 +1397,52 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			//4	发动机转速(r/min)	FDJZS
 			if (_wtoi( vt[i].strEngineRev.c_str()) != 0)
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + 1752;}
-				else if (i%3 == 0){n = rand()%300 + 1825;}
-				else if (i%5 == 0){n = rand()%300 + 1872;}
-				else {n = rand()%300 + 1852;}
+				if (i%2 == 0){n = randEx()%300 + 1752;}
+				else if (i%3 == 0){n = randEx()%300 + 1825;}
+				else if (i%5 == 0){n = randEx()%300 + 1872;}
+				else {n = randEx()%300 + 1852;}
 				strTemp.Format(L"%d", n);
 			}
 			else
 			{
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + 650;}
-				else if (i%3 == 0){n = rand()%300 + 678;}
-				else if (i%5 == 0){n = rand()%300 + 687;}
-				else {n = rand()%300 + 640;}
+				if (i%2 == 0){n = randEx()%300 + 650;}
+				else if (i%3 == 0){n = randEx()%300 + 678;}
+				else if (i%5 == 0){n = randEx()%300 + 687;}
+				else {n = randEx()%300 + 640;}
 				strTemp.Format(L"%d,", n);
 			}
 			map[L"FDJZS"] = strTemp;
 			sOBDRTData.strEngineRev = strTemp.GetString();
 			//5	进气量(g/s)	JQL
-			map[L"JQL"] = vt[i].sOBDRTData.strMAF.c_str();
-			sOBDRTData.strMAF = vt[i].sOBDRTData.strMAF.c_str();
+			n = randEx()%4 + 1;
+			if (n%2 == 0)
+			{
+				f = 2.87f + n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 2.87f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"JQL"] = strTemp;
+			sOBDRTData.strMAF = strTemp;
 			//6	增压压力(kPa)	ZYYL
-			map[L"ZYYL"] = vt[i].sOBDRTData.strChargeAirPressure.c_str();
-			sOBDRTData.strChargeAirPressure = vt[i].sOBDRTData.strChargeAirPressure.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 72.00f - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 72.00f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"ZYYL"] = strTemp;
+			sOBDRTData.strChargeAirPressure = strTemp;
 			//7	耗油量(L/100km)	HYL
 			map[L"HYL"] = vt[i].sOBDRTData.strFuelConsumption.c_str();
 			sOBDRTData.strFuelConsumption = vt[i].sOBDRTData.strFuelConsumption.c_str();
@@ -1371,9 +1490,20 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 		{
 			JsonMap map;
 			SOBDRTData sOBDRTData;
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = n + 32.94f;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 32.94f + f;
+			}
+			strTemp.Format(L"%.2f", f);
 			//1	节气门绝对开度（%）	YMKD
-			map[L"YMKD"] = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
-			sOBDRTData.strSolarTermDoorPosition = vt[i].sOBDRTData.strSolarTermDoorPosition.c_str();
+			map[L"YMKD"] = strTemp;
+			sOBDRTData.strSolarTermDoorPosition = strTemp;
 			//2	车速（Km/h）	CS
 			GetLocalTime(&st);
 			srand(st.wMilliseconds);
@@ -1381,32 +1511,64 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			map[L"CS"] = strTemp;
 			sOBDRTData.strVelocity = strTemp.GetString();
 			//3	计算负荷值kw)	FDJSCGL
-			map[L"FDJSCGL"] = vt[i].sOBDRTData.strCalculationLoad.c_str();
-			sOBDRTData.strCalculationLoad = vt[i].sOBDRTData.strCalculationLoad.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 60.00f - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 60.00f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"FDJSCGL"] = strTemp;
+			sOBDRTData.strCalculationLoad = strTemp;
 			//4	发动机转速(r/min)	FDJZS
-			GetLocalTime(&st);
-			srand(st.wMilliseconds);
-			int n(0);
-			if (i%2 == 0){n = rand()%300 + _wtoi(vt[i].strEngineRev.c_str());}
-			else if (i%3 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-			else if (i%5 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-			else {n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			if (i%2 == 0){n = randEx()%300 + _wtoi(vt[i].strEngineRev.c_str());}
+			else if (i%3 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			else if (i%5 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			else {n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
 			strTemp.Format(L"%d", n);
 			map[L"FDJZS"] = strTemp;
 			sOBDRTData.strEngineRev = strTemp.GetString();
 			//5	进气量(g/s)	JQL
-			map[L"JQL"] = vt[i].sOBDRTData.strMAF.c_str();
-			sOBDRTData.strMAF = vt[i].sOBDRTData.strMAF.c_str();
-			//6	前氧传感器信号 (mV/mA)	ZYYL
-			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			n = randEx()%4 + 1;
+			if (n%2 == 0)
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorV.c_str();
-				sOBDRTData.strForwardSensorV = vt[i].sOBDRTData.strForwardSensorV.c_str();
+				f = 2.87f + n;
 			}
 			else
 			{
-				map[L"ZYYL"] = vt[i].sOBDRTData.strForwardSensorI.c_str();
-				sOBDRTData.strForwardSensorI = vt[i].sOBDRTData.strForwardSensorI.c_str();
+				f = n /10.0f;
+				f = 2.87f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+			map[L"JQL"] = strTemp;
+			sOBDRTData.strMAF = strTemp.GetString();
+			//6	前氧传感器信号 (mV/mA)	ZYYL
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 30.00 - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 30.00 + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			if (vt[i].sOBDRTData.strForwardSensorI.empty())
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorV = strTemp;
+			}
+			else
+			{
+				map[L"ZYYL"] = strTemp;
+				sOBDRTData.strForwardSensorI = strTemp;
 			}
 			//7	检测时间	CJSJ
 			if (i==0)
@@ -1436,8 +1598,20 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			JsonMap map;
 			SOBDRTData sOBDRTData;
 			//1	油门开度（%）	YMKD
-			map[L"YMKD"] = vt[i].sOBDRTData.strThrottleOpening.c_str();
-			sOBDRTData.strThrottleOpening = vt[i].sOBDRTData.strThrottleOpening.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = n + 32.94f;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 32.94f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"YMKD"] = strTemp;
+			sOBDRTData.strThrottleOpening = strTemp;
 			//2	车速（Km/h）	CS
 			strTemp.Format(L"%.1f,", 0.0f);
 			map[L"CS"] = strTemp;
@@ -1446,22 +1620,43 @@ void COBDTestDlg::UpOBDReaust(CString& strMsg)
 			map[L"FDJSCGL"] = vt[i].sOBDRTData.strEngineOutputPower.c_str();
 			sOBDRTData.strEngineOutputPower = vt[i].sOBDRTData.strEngineOutputPower.c_str();
 			//4	发动机转速(r/min)	FDJZS
-			GetLocalTime(&st);
-			srand(st.wMilliseconds);
-			int n(0);
-			if (i%2 == 0){n = rand()%300 + _wtoi(vt[i].strEngineRev.c_str());}
-			else if (i%3 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-			else if (i%5 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-			else {n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			if (i%2 == 0){n = randEx()%300 + _wtoi(vt[i].strEngineRev.c_str());}
+			else if (i%3 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			else if (i%5 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+			else {n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
 			strTemp.Format(L"%d", n);
 			map[L"FDJZS"] = strTemp;
 			sOBDRTData.strEngineRev = strTemp.GetString();
 			//5	进气量(g/s)	JQL
-			map[L"JQL"] = vt[i].sOBDRTData.strMAF.c_str();
-			sOBDRTData.strMAF = vt[i].sOBDRTData.strMAF.c_str();
+			n = randEx()%4 + 1;
+			if (n%2 == 0)
+			{
+				f = 2.87f + n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 2.87f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"JQL"] = strTemp;
+			sOBDRTData.strMAF = strTemp;
 			//6	增压压力(kPa)	ZYYL
-			map[L"ZYYL"] = vt[i].sOBDRTData.strChargeAirPressure.c_str();
-			sOBDRTData.strChargeAirPressure = vt[i].sOBDRTData.strChargeAirPressure.c_str();
+			n = randEx()%10 + 1;
+			if (n%2 == 0)
+			{
+				f = 72.00f - n;
+			}
+			else
+			{
+				f = n /10.0f;
+				f = 72.00f + f;
+			}
+			strTemp.Format(L"%.2f", f);
+
+			map[L"ZYYL"] = strTemp;
+			sOBDRTData.strChargeAirPressure = strTemp;
 			//7	耗油量(L/100km)	HYL
 			map[L"HYL"] = vt[i].sOBDRTData.strFuelConsumption.c_str();
 			sOBDRTData.strFuelConsumption = vt[i].sOBDRTData.strFuelConsumption.c_str();

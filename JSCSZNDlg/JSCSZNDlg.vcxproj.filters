@@ -43,6 +43,9 @@
     <None Include="QYCTimeData.xml">
       <Filter>Xml</Filter>
     </None>
+    <None Include="ZJ.xml">
+      <Filter>Xml</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JSCSZNDlg.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="RJYZ.h">
       <Filter>验证</Filter>
     </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JSCSZNDlg.cpp">
@@ -82,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="RJYZ.cpp">
       <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

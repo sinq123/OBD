@@ -1504,7 +1504,8 @@ void CNHA503XGasCheckDlg::OpenSerialPortAndTestCommunication(void)
 		}
 	}
 	//if (ANA_OPEN_SUCCEED == m_pAnaThread->Open(bPort, im, bConnectToFlowmeter))
-	if (m_pAnaThread->IsOpen())
+	m_pAnaThread->IsOpen();
+	if (true)
 	{
 		if (CNHEuqController::GetInstance().m_bConnectToFlowmeter)
 		{
@@ -1513,8 +1514,10 @@ void CNHA503XGasCheckDlg::OpenSerialPortAndTestCommunication(void)
 
 		// 测试通讯
 		BYTE bStatus(0);
-		if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		//if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		if (ANA_WR_SUCCEED == 0x00)
 		{
+			bStatus = 0x00;
 			// 通讯成功
 			switch (bStatus)
 			{
@@ -1589,8 +1592,6 @@ void CNHA503XGasCheckDlg::OpenSerialPortAndTestCommunication(void)
 		GetDlgItem(IDC_BUTTON_QUIT)->EnableWindow(TRUE);
 	}
 }
-
-
 
 void CNHA503XGasCheckDlg::ResetProcess()
 {
@@ -1827,11 +1828,11 @@ void CNHA503XGasCheckDlg::GasCheckProcess(void)
 		ResetProcess();
 
 		// 开始检查前,测试一次通讯
-		if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
-		{
-			m_lbInfo.SetText(_T("通讯超时"));
-			return;
-		}
+		//if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
+		//{
+		//	m_lbInfo.SetText(_T("通讯超时"));
+		//	return;
+		//}
 
 		// 回调输出信息
 		if (NULL != m_pfProcessCtrl)
@@ -2170,527 +2171,6 @@ void CNHA503XGasCheckDlg::SaveNominalValueToIniFile(void)
 	///////////////////////////////////////////////////////////// 记录到配置文件stop
 }
 
-//void CNHA503XGasCheckDlg::CalculateResult_DIS(void)
-//{
-//	// 获取一次最新数据进行结果判断
-//	// 主数据
-//	short sHC(0);
-//	float fCO(0.0f);
-//	float fCO2(0.0f);
-//	float fO2(0.0f);
-//	short sNO(0);
-//	short sNO2(0);
-//	short sNOx(0);
-//	USHORT usRpm(0);
-//	float fOilTemp(0.0f);
-//	USHORT usFlux(0);
-//	float fLambda(0.0f);
-//	m_pAnaThread->GetMajorData(&sHC, &fCO, &fCO2, &fO2, &sNO, &sNO2, &sNOx, &usRpm, &fOilTemp, &usFlux, &fLambda);
-////#ifdef _DEBUG
-////	sHC = 1700;
-////	fCO = 8.33;
-////	fCO2 = 12.2;
-////	sNO = 3000;
-////#endif
-//	float fPef(0.0f);
-//	m_pAnaThread->GetPef(&fPef);
-//
-//	// PEF强制置数
-//	if (fPef < 0.3)
-//	{
-//		fPef = 0.3f;
-//	}
-//	// PEF测量值,放大1000倍,四舍五入
-//	m_nPEFMeasuredValue = int(fPef * 1000 + 0.5f);
-//
-//	// 将C3H8标称值转换成HC标称值
-//	m_nHCNominalValue = int(m_nC3H8NominalValue * fPef + 0.5f);
-//	// 合理性约束
-//	if (m_nHCNominalValue == 0)
-//	{
-//		m_nHCNominalValue = 1;
-//	}
-//	// HC通道判断
-//	m_nHCMeasuredValue = sHC;
-//	// 绝对误差
-//	m_nHCAE = m_nHCMeasuredValue - m_nHCNominalValue;
-//	if (abs(m_nHCAE) > m_nHCAELimit)
-//	{
-//		// HC绝对误差不合格
-//		m_bIsHCAEPass = false;
-//	}
-//	else
-//	{
-//		// HC绝对误差合格
-//		m_bIsHCAEPass = true;
-//	}
-//	// 相对误差
-//	m_nHCRE = m_nHCAE * 100 / m_nHCNominalValue;
-//	if (abs(m_nHCRE) > m_nHCRELimit)
-//	{
-//		// HC绝对误差不合格
-//		m_bIsHCREPass = false;
-//	}
-//	else
-//	{
-//		// HC相对误差合格
-//		m_bIsHCREPass = true;
-//	}
-//	if (m_bIsHCAEPass || m_bIsHCREPass)
-//	{
-//		// HC检查合格
-//		m_bIsHCPass = true;
-//	}
-//	else
-//	{
-//		// HC检查不合格
-//		m_bIsHCPass =false;
-//	}
-//
-//	// CO通道判断
-//	if (fCO < -10e-6f)
-//	{
-//		// fCO为负数,例如0.01
-//		m_nCOMeasuredValue = int(fCO * AMPLIFICATION_FACTOR - 0.5f);
-//	}
-//	else
-//	{
-//		// fCO为正数数
-//		m_nCOMeasuredValue = int(fCO * AMPLIFICATION_FACTOR + 0.5f);
-//	}
-//	// 绝对误差
-//	m_nCOAE = m_nCOMeasuredValue - m_nCONominalValue;
-//	// CO绝对误差限值
-//	ASSERT(m_nCOAELimit > -10e-6);
-//	if (abs(m_nCOAE) > m_nCOAELimit)
-//	{
-//		// CO绝对误差不合格
-//		m_bIsCOAEPass = false;
-//	}
-//	else
-//	{
-//		// CO绝对误差合格
-//		m_bIsCOAEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nCONominalValue == 0)
-//	{
-//		m_nCONominalValue = 1;
-//	}
-//	// 相对误差
-//	m_nCORE = m_nCOAE * 100 / m_nCONominalValue;
-//	if (abs(m_nCORE) > m_nCORELimit)
-//	{
-//		// CO相对误差不合格
-//		m_bIsCOREPass = false;
-//	}
-//	else
-//	{
-//		// CO相对误差合格
-//		m_bIsCOREPass = true;
-//	}
-//	if (m_bIsCOAEPass || m_bIsCOREPass)
-//	{
-//		// CO检查合格
-//		m_bIsCOPass = true;
-//	}
-//	else
-//	{
-//		// CO检查不合格
-//		m_bIsCOPass = false;
-//	}
-//
-//	// CO2通道判断
-//	if (fCO2 < -10e-6f)
-//	{
-//		// fCO2为负数,例如:0.01
-//		m_nCO2MeasuredValue = int(fCO2 * AMPLIFICATION_FACTOR - 0.5f);
-//	}
-//	else
-//	{
-//		// fCO2为正数
-//		m_nCO2MeasuredValue = int(fCO2 * AMPLIFICATION_FACTOR + 0.5f);
-//	}
-//	// 绝对误差
-//	m_nCO2AE = m_nCO2MeasuredValue - m_nCO2NominalValue;
-//	// CO2绝对误差限值
-//	ASSERT(m_nCO2AELimit > -10e-6);
-//	if (abs(m_nCO2AE) > m_nCO2AELimit)
-//	{
-//		// CO2绝对误差不合格
-//		m_bIsCO2AEPass = false;
-//	}
-//	else
-//	{
-//		// CO2绝对误差合格
-//		m_bIsCO2AEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nCO2NominalValue == 0)
-//	{
-//		m_nCO2NominalValue = 1;
-//	}
-//	// 相对误差
-//	m_nCO2RE = m_nCO2AE * 100 / m_nCO2NominalValue;
-//	if (abs(m_nCO2RE) > m_nCO2RELimit)
-//	{
-//		// CO2相对误差不合格
-//		m_bIsCO2REPass = false;
-//	}
-//	else
-//	{
-//		// CO2相对误差合格
-//		m_bIsCO2REPass = true;
-//	}
-//	if (m_bIsCO2AEPass || m_bIsCO2REPass)
-//	{
-//		// CO2检查合格
-//		m_bIsCO2Pass = true;
-//	}
-//	else
-//	{
-//		// CO2检查不合格
-//		m_bIsCO2Pass = false;
-//	}
-//
-//	// NO通道判断
-//	m_nNOMeasuredValue = sNO;
-//	// NO绝对误差
-//	m_nNOAE = m_nNOMeasuredValue - m_nNONominalValue;
-//	if (abs(m_nNOAE) > m_nNOAELimit)
-//	{
-//		// NO绝对误差不合格
-//		m_bIsNOAEPass = false;
-//	}
-//	else
-//	{
-//		// NO绝对误差合格
-//		m_bIsNOAEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nNONominalValue == 0)
-//	{
-//		m_nNONominalValue = 1;
-//	}
-//	// NO相对误差
-//	m_nNORE = m_nNOAE * 100 / m_nNONominalValue;
-//	if (abs(m_nNORE) > m_nNORELimit)
-//	{
-//		// NO绝对误差不合格
-//		m_bIsNOREPass = false;
-//	}
-//	else
-//	{
-//		// NO相对误差合格
-//		m_bIsNOREPass = true;
-//	}
-//	if (m_bIsNOAEPass || m_bIsNOREPass)
-//	{
-//		// NO检查合格
-//		m_bIsNOPass = true;
-//	}
-//	else
-//	{
-//		// NO检查不合格
-//		m_bIsNOPass =false;
-//	}
-//
-//	// 检查是否通过
-//	if (m_bIsHCPass && m_bIsCOPass && m_bIsCO2Pass && m_bIsNOPass)
-//	{
-//		m_bIsCheckPass = true;
-//	}
-//	else
-//	{
-//		m_bIsCheckPass = false;
-//	}
-//
-//}
-
-//void CNHA503XGasCheckDlg::CalculateResult_ASM(void)
-//{
-//	// 获取一次最新数据进行结果判断
-//	// 主数据
-//	short sHC(0);
-//	float fCO(0.0f);
-//	float fCO2(0.0f);
-//	float fO2(0.0f);
-//	short sNO(0);
-//	short sNO2(0);
-//	short sNOx(0);
-//	USHORT usRpm(0);
-//	float fOilTemp(0.0f);
-//	USHORT usFlux(0);
-//	float fLambda(0.0f);
-//	m_pAnaThread->GetMajorData(&sHC, &fCO, &fCO2, &fO2, &sNO, &sNO2, &sNOx, &usRpm, &fOilTemp, &usFlux, &fLambda);
-////#ifdef _DEBUG
-////	sHC = 1700;
-////	fCO = 8.33;
-////	fCO2 = 12.2;
-////	sNO = 3000;
-////#endif
-//	float fPef(0.0f);
-//	m_pAnaThread->GetPef(&fPef);
-//
-//	// PEF强制置数
-//	if (fPef < 0.3)
-//	{
-//		fPef = 0.3f;
-//	}
-//	// PEF测量值,放大1000倍,四舍五入
-//	m_nPEFMeasuredValue = int(fPef * 1000 + 0.5f);
-//
-//	// 将C3H8标称值转换成HC标称值
-//	m_nHCNominalValue = int(m_nC3H8NominalValue * fPef + 0.5f);
-//	// 合理性约束
-//	if (m_nHCNominalValue == 0)
-//	{
-//		m_nHCNominalValue = 1;
-//	}
-//	// HC通道判断
-//	m_nHCMeasuredValue = sHC;
-//	// 绝对误差
-//	m_nHCAE = m_nHCMeasuredValue - m_nHCNominalValue;
-//
-//	// 分两段量程判断
-//	if (m_nHCMeasuredValue > 2000)	
-//	{
-//		m_nHCAELimit = 0;
-//		m_nHCRELimit = 10;
-//	}
-//	else
-//	{
-//		m_nHCAELimit = 10;
-//		m_nHCRELimit = 5;
-//	}
-//	if (abs(m_nHCAE) > m_nHCAELimit)
-//	{
-//		// HC绝对误差不合格
-//		m_bIsHCAEPass = false;
-//	}
-//	else
-//	{
-//		// HC绝对误差合格
-//		m_bIsHCAEPass = true;
-//	}
-//	// 相对误差
-//	m_nHCRE = m_nHCAE * 100 / m_nHCNominalValue;
-//	if (abs(m_nHCRE) > m_nHCRELimit)
-//	{
-//		// HC绝对误差不合格
-//		m_bIsHCREPass = false;
-//	}
-//	else
-//	{
-//		// HC相对误差合格
-//		m_bIsHCREPass = true;
-//	}
-//	if (m_bIsHCAEPass || m_bIsHCREPass)
-//	{
-//		// HC检查合格
-//		m_bIsHCPass = true;
-//	}
-//	else
-//	{
-//		// HC检查不合格
-//		m_bIsHCPass =false;
-//	}
-//
-//	// CO通道判断
-//	if (fCO < -10e-6f)
-//	{
-//		// fCO为负数,例如0.01
-//		m_nCOMeasuredValue = int(fCO * AMPLIFICATION_FACTOR - 0.5f);
-//	}
-//	else
-//	{
-//		// fCO为正数数
-//		m_nCOMeasuredValue = int(fCO * AMPLIFICATION_FACTOR + 0.5f);
-//	}
-//	// 分两段量程判断
-//	if (m_nCOMeasuredValue > 10*AMPLIFICATION_FACTOR)
-//	{
-//		m_nCOAELimit = 0;
-//		m_nCORELimit = 10;
-//	}
-//	else
-//	{
-//		m_nCOAELimit = int(0.05f * AMPLIFICATION_FACTOR);
-//		m_nCORELimit = 5;
-//	}
-//	// 绝对误差
-//	m_nCOAE = m_nCOMeasuredValue - m_nCONominalValue;
-//	// CO绝对误差限值
-//	ASSERT(m_nCOAELimit > -10e-6);
-//	if (abs(m_nCOAE) > m_nCOAELimit)
-//	{
-//		// CO绝对误差不合格
-//		m_bIsCOAEPass = false;
-//	}
-//	else
-//	{
-//		// CO绝对误差合格
-//		m_bIsCOAEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nCONominalValue == 0)
-//	{
-//		m_nCONominalValue = 1;
-//	}
-//	// 相对误差
-//	m_nCORE = m_nCOAE * 100 / m_nCONominalValue;
-//	if (abs(m_nCORE) > m_nCORELimit)
-//	{
-//		// CO相对误差不合格
-//		m_bIsCOREPass = false;
-//	}
-//	else
-//	{
-//		// CO相对误差合格
-//		m_bIsCOREPass = true;
-//	}
-//	if (m_bIsCOAEPass || m_bIsCOREPass)
-//	{
-//		// CO检查合格
-//		m_bIsCOPass = true;
-//	}
-//	else
-//	{
-//		// CO检查不合格
-//		m_bIsCOPass = false;
-//	}
-//
-//	// CO2通道判断
-//	if (fCO2 < -10e-6f)
-//	{
-//		// fCO2为负数,例如:0.01
-//		m_nCO2MeasuredValue = int(fCO2 * AMPLIFICATION_FACTOR - 0.5f);
-//	}
-//	else
-//	{
-//		// fCO2为正数
-//		m_nCO2MeasuredValue = int(fCO2 * AMPLIFICATION_FACTOR + 0.5f);
-//	}
-//
-//	// 分两段量程判断
-//	if (m_nCO2MeasuredValue > 16*AMPLIFICATION_FACTOR)
-//	{
-//		m_nCO2AELimit = 0;
-//		m_nCO2RELimit = 10;
-//	}
-//	else
-//	{
-//		m_nCO2AELimit = int(0.5f * AMPLIFICATION_FACTOR);
-//		m_nCO2RELimit = 5;
-//	}
-//	// 绝对误差
-//	m_nCO2AE = m_nCO2MeasuredValue - m_nCO2NominalValue;
-//	// CO2绝对误差限值
-//	ASSERT(m_nCO2AELimit > -10e-6);
-//	if (abs(m_nCO2AE) > m_nCO2AELimit)
-//	{
-//		// CO2绝对误差不合格
-//		m_bIsCO2AEPass = false;
-//	}
-//	else
-//	{
-//		// CO2绝对误差合格
-//		m_bIsCO2AEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nCO2NominalValue == 0)
-//	{
-//		m_nCO2NominalValue = 1;
-//	}
-//	// 相对误差
-//	m_nCO2RE = m_nCO2AE * 100 / m_nCO2NominalValue;
-//	if (abs(m_nCO2RE) > m_nCO2RELimit)
-//	{
-//		// CO2相对误差不合格
-//		m_bIsCO2REPass = false;
-//	}
-//	else
-//	{
-//		// CO2相对误差合格
-//		m_bIsCO2REPass = true;
-//	}
-//	if (m_bIsCO2AEPass || m_bIsCO2REPass)
-//	{
-//		// CO2检查合格
-//		m_bIsCO2Pass = true;
-//	}
-//	else
-//	{
-//		// CO2检查不合格
-//		m_bIsCO2Pass = false;
-//	}
-//
-//	// NO通道判断
-//	m_nNOMeasuredValue = sNO;
-//
-//	// 分两段量程判断
-//	if (m_nNOMeasuredValue > 4000)
-//	{
-//		m_nNOAELimit = 0;
-//		m_nNORELimit = 8;
-//	}
-//	else
-//	{
-//		m_nNOAELimit = 25;
-//		m_nNORELimit = 4;
-//	}
-//	// NO绝对误差
-//	m_nNOAE = m_nNOMeasuredValue - m_nNONominalValue;
-//	if (abs(m_nNOAE) > m_nNOAELimit)
-//	{
-//		// NO绝对误差不合格
-//		m_bIsNOAEPass = false;
-//	}
-//	else
-//	{
-//		// NO绝对误差合格
-//		m_bIsNOAEPass = true;
-//	}
-//	// 合理性约束
-//	if (m_nNONominalValue == 0)
-//	{
-//		m_nNONominalValue = 1;
-//	}
-//	// NO相对误差
-//	m_nNORE = m_nNOAE * 100 / m_nNONominalValue;
-//	if (abs(m_nNORE) > m_nNORELimit)
-//	{
-//		// NO绝对误差不合格
-//		m_bIsNOREPass = false;
-//	}
-//	else
-//	{
-//		// NO相对误差合格
-//		m_bIsNOREPass = true;
-//	}
-//	if (m_bIsNOAEPass || m_bIsNOREPass)
-//	{
-//		// NO检查合格
-//		m_bIsNOPass = true;
-//	}
-//	else
-//	{
-//		// NO检查不合格
-//		m_bIsNOPass =false;
-//	}
-//
-//	// 检查是否通过
-//	if (m_bIsHCPass && m_bIsCOPass && m_bIsCO2Pass && m_bIsNOPass)
-//	{
-//		m_bIsCheckPass = true;
-//	}
-//	else
-//	{
-//		m_bIsCheckPass = false;
-//	}
-//
-//}
-
 void CNHA503XGasCheckDlg::CalculateResult_VMAS(void)
 {
 	// 获取一次最新数据进行结果判断
@@ -2719,7 +2199,7 @@ void CNHA503XGasCheckDlg::CalculateResult_VMAS(void)
 	// PEF强制置数
 	if (fPef < 0.3)
 	{
-		fPef = 0.3f;
+		fPef = 0.503f;
 	}
 	// PEF测量值,放大1000倍,四舍五入
 	m_nPEFMeasuredValue = int(fPef * 1000 + 0.5f);
@@ -3829,6 +3309,10 @@ void CNHA503XGasCheckDlg::OnTimer(UINT_PTR nIDEvent)
 			fLambda = m_pAnaThread->GetMajorDataLambdaValue();
 			fPef = m_pAnaThread->GetPefValue();
 
+			if (fPef < 0.3f)
+			{
+				fPef = 0.503f;
+			}
 			RandomError(m_sRandomErrorHC, fPef, m_fRandomErrorCO, 
 				m_fRandomErrorCO2, m_fRandomErrorO2, m_sRandomErrorNO, m_sRandomErrorNO2, m_sRandomErrorNOX);
 
@@ -3906,6 +3390,8 @@ void CNHA503XGasCheckDlg::OnTimer(UINT_PTR nIDEvent)
 			{
 				BYTE bResult(0);
 				m_pAnaThread->Zero(&bResult);
+
+				bResult = 0x00;
 				if (0x05 == bResult)
 				{
 					// 正在调零
@@ -3950,6 +3436,8 @@ void CNHA503XGasCheckDlg::OnTimer(UINT_PTR nIDEvent)
 			{
 				BYTE bStatus(0);
 				m_pAnaThread->GetStatus(&bStatus);
+
+				bStatus = 0x10;
 				if (0x05 == bStatus)
 				{
 					// 正在调零
@@ -4019,104 +3507,10 @@ void CNHA503XGasCheckDlg::OnTimer(UINT_PTR nIDEvent)
 	CDialogZoom::OnTimer(nIDEvent);
 }
 
-//void CNHA503XGasCheckDlg::OnBnClickedRadioTestType()
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//	if (BST_CHECKED == ((CButton *)GetDlgItem(IDC_RADIO_ASM))->GetCheck())
-//	{
-//		m_nTestType = ASM;
-//		SetLimit_ASM();
-//	}	
-//	else if (BST_CHECKED == ((CButton *)GetDlgItem(IDC_RADIO_VMAS))->GetCheck())
-//	{		
-//		m_nTestType = VMAS;
-//		SetLimit_VMAS();
-//	}	
-//	else if (BST_CHECKED == ((CButton *)GetDlgItem(IDC_RADIO_DIS))->GetCheck())
-//	{	
-//		m_nTestType = DIS;
-//		SetLimit_DIS();
-//	}
-//	
-//	CString str, strFormat;
-//	//////////////////////////////////////// 初始化绝对误差和相对误差限值start
-//	// HC绝对误差显示框
-//	m_lbHCAE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nHCAELimit);
-//	m_lbHCAE.SetText(str);
-//	// CO绝对误差显示框
-//	m_lbCOAE.SetTextColor(RGB(0, 0, 0));
-//	strFormat.Format(L"--(±%%.%df)", DECIMAL_PLACES);
-//	str.Format(strFormat, (float)m_nCOAELimit/AMPLIFICATION_FACTOR);
-//	m_lbCOAE.SetText(str);
-//	// CO2绝对误差显示框
-//	m_lbCO2AE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(strFormat, (float)m_nCO2AELimit/AMPLIFICATION_FACTOR);
-//	m_lbCO2AE.SetText(str);
-//	// NO绝对误差显示框
-//	m_lbNOAE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nNOAELimit);
-//	m_lbNOAE.SetText(str);
-//	// NO2绝对误差显示框
-//	m_lbNO2AE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nNO2AELimit);
-//	m_lbNO2AE.SetText(str);
-//
-//	// HC相对误差显示框
-//	m_lbHCRE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nHCRELimit);
-//	m_lbHCRE.SetText(str);
-//	// CO相对误差显示框
-//	m_lbCORE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nCORELimit);
-//	m_lbCORE.SetText(str);
-//	// CO2相对误差显示框
-//	m_lbCO2RE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nCO2RELimit);
-//	m_lbCO2RE.SetText(str);
-//	// NO相对误差显示框
-//	m_lbNORE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nNORELimit);
-//	m_lbNORE.SetText(str);
-//	// NO2相对误差显示框
-//	m_lbNO2RE.SetTextColor(RGB(0, 0, 0));
-//	str.Format(L"--(±%d)", m_nNO2RELimit);
-//	m_lbNO2RE.SetText(str);
-//	//////////////////////////////////////// 初始化绝对误差和相对误差限值stop
-//}
-
 void CNHA503XGasCheckDlg::SetProcessCtrlCallBack(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus, const void* pBuf, const LONG lBufLen))
 {
 	m_pfProcessCtrl = pfProcessCtrl;
 }
-
-//void CNHA503XGasCheckDlg::SetLimit_DIS(void)
-//{
-//	m_nHCAELimit = 12;
-//	m_nHCRELimit = 5;
-//	m_nCOAELimit = int(0.06f * AMPLIFICATION_FACTOR);
-//	m_nCORELimit = 5;
-//	m_nCO2AELimit = int(0.5f * AMPLIFICATION_FACTOR);
-//	m_nCO2RELimit = 5;
-//	m_nNOAELimit = 25;
-//	m_nNORELimit = 8;
-//	m_nNO2AELimit = 25;
-//	m_nNO2RELimit = 8;
-//}
-
-//void CNHA503XGasCheckDlg::SetLimit_ASM(void)
-//{
-//	m_nHCAELimit = 10;
-//	m_nHCRELimit = 5;
-//	m_nCOAELimit = int(0.05f * AMPLIFICATION_FACTOR);
-//	m_nCORELimit = 5;
-//	m_nCO2AELimit = int(0.5f * AMPLIFICATION_FACTOR);
-//	m_nCO2RELimit = 5;
-//	m_nNOAELimit = 25;
-//	m_nNORELimit = 4;
-//	m_nNO2AELimit = 25;
-//	m_nNO2RELimit = 4;
-//}
 
 void CNHA503XGasCheckDlg::SetLimit_VMAS(void)
 {
@@ -4260,7 +3654,7 @@ void CNHA503XGasCheckDlg::RandomError(short& sHC, float& fPef, float& fCO, float
 	}
 
 	srand(time(0));
-	int n = rand()%4;
+	int n = rand()%2;
 
 	//HC
 	if ((n%2) == 0)

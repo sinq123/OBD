@@ -51,9 +51,9 @@
 // ×ÔÓÃ¿â(MFCÀ©Õ¹DLL)
 #include "..\NHLib\NHLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\debug\\NHLib_D.lib")
+#pragma comment(lib, "..\\debug\\MYLib_D.lib")
 #else
-#pragma comment(lib, "..\\release\\NHLib.lib")
+#pragma comment(lib, "..\\Release\\MYLib.lib")
 #endif
 
 #include "..\OBDEquThr\EquThr.h"

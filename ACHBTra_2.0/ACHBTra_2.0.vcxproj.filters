@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="URL">
+      <UniqueIdentifier>{7b8bd347-e4e9-4533-9f43-fd23047c13d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads">
+      <UniqueIdentifier>{b8e15547-f3b4-417f-94d2-c5cc54e72b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\DLL">
+      <UniqueIdentifier>{1d35931f-5f7b-40bd-8d51-45dfc7b64a49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Include">
+      <UniqueIdentifier>{3b27dbb3-1945-4788-971a-292ea49f6848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Lib">
+      <UniqueIdentifier>{77f54ea9-5e75-4e1f-a114-20d5b9b4db30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{803be87a-51c3-4821-84ee-ad3bd98d8560}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\ACHBTra_20.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\ACHBTra_2.0.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="pthreadGC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadGCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVSE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="libpthreadGCE2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="libpthreadGC2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="gsoap\WSServiceImplServiceSoapBinding.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ACHBTra_2.0.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ACHBTra_2.0Dlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kutfconv.h">
+      <Filter>URL</Filter>
+    </ClInclude>
+    <ClInclude Include="URLCode.h">
+      <Filter>URL</Filter>
+    </ClInclude>
+    <ClInclude Include="pthread.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="sched.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="semaphore.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gsoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ACHBTra_2.0.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ACHBTra_2.0Dlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="URLCode.cpp">
+      <Filter>URL</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapClient.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\soapServer.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gsoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ACHBTra_2.0.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="pthreadVSE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVCE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVC2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gsoap\VeptsOutAccess.wsdl">
+      <Filter>gsoap</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

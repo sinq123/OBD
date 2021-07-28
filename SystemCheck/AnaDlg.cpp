@@ -371,8 +371,8 @@ DWORD CAnaDlg::WriteAnaGasChkData(void)
 
 	CString str = si.GetString(L"ResultOfAnaGasChk", L"Type", L"1");
 
-	UpGasCheck(L"13W08");
-	UpEqulChk(6);
+	//UpGasCheck(L"13W08");
+	//UpEqulChk(6);
 	if (str.Find(L"4") != -1)
 	{
 		UpGasCheck13W07();

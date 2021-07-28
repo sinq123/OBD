@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+  <result_data>
+    <unit_id>320300060</unit_id>
+    <line_id>32030006003</line_id>
+    <type>3</type>
+    <start_time>2021-01-20 14:35:28</start_time>
+    <end_time>2021-01-20 14:35:38</end_time>
+    <passed>1</passed>
+    <jcry>胡玉辰</jcry>
+  </result_data>
+</result>
+
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+  <result_data>
+    <unit_id>320300060</unit_id>
+    <line_id>32030006003</line_id>
+    <type>4</type>
+    <start_time>2021-01-20 14:35:25</start_time>
+    <end_time>2021-01-20 14:35:39</end_time>
+    <passed>1</passed>
+    <jcry>胡玉辰</jcry>
+  </result_data>
+</result>
+
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+  <result_data>
+    <unit_id>320300060</unit_id>
+    <line_id>32030006003</line_id>
+    <type>1</type>
+    <start_time>2021-01-20 14:35:39</start_time>
+    <end_time>2021-01-20 14:35:49</end_time>
+    <passed>1</passed>
+    <jcry>胡玉辰</jcry>
+  </result_data>
+</result>
+
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+  <result_data>
+    <unit_id>
+      320300060
+    </unit_id>
+    <line_id>
+      32030006003
+    </line_id>
+    <type>
+      3
+    </type>
+    <start_time>
+      2021-01-22 10:22:12
+    </start_time>
+    <end_time>
+      2021-01-22 10:22:24
+    </end_time>
+    <passed>
+      1
+    </passed>
+    <jcry>
+      胡玉辰
+    </jcry>
+  </result_data>
+</result>
+
+<xml>
+  <status>false</status>
+  <errMsg>
+    元素类型 "jcry" 必须由匹配的结束标记 "</jcry>" 终止。
+  </errMsg>
+</xml>

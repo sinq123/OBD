@@ -909,7 +909,7 @@ void CLinePlot::OnPaint()
 	int nFontHeight = GetSystemMetrics(SM_CYSCREEN)*15/1024;//GetSystemMetrics(SM_CYCAPTION)-8;
 
 	//  create a memory dc for double buffering.
-	CMemDC dcMem(&dc, &rcClient);
+	CMemDCEx dcMem(&dc, &rcClient);
 
 	dcMem.SaveDC();
 

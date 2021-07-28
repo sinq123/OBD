@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="标定">
+      <UniqueIdentifier>{357fb974-1dcf-4664-a8b8-1c43ae597213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\OBD">
+      <UniqueIdentifier>{ec203784-e2e2-489c-b908-18d7ecc1cd01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\不透光度计">
+      <UniqueIdentifier>{087df04c-cc30-4710-9623-3b3db03c1ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\分析仪">
+      <UniqueIdentifier>{d14c261f-90f0-4b21-af90-03f6a50c5dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\参数测量仪">
+      <UniqueIdentifier>{5644d16a-ad83-4aaa-9edd-5232d62eaa27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\氮氧分析仪">
+      <UniqueIdentifier>{4ff1c05c-1809-4f62-859b-5bf046cbca9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\流量计">
+      <UniqueIdentifier>{8267c620-f859-44ea-b9d6-ffd8e40f329a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\测功机">
+      <UniqueIdentifier>{d8961b50-9019-44ab-8e97-05e4fd19c570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\滤纸式烟度计">
+      <UniqueIdentifier>{b4d795ba-b0c4-43ee-89c5-90699249d1b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="检测员信息">
+      <UniqueIdentifier>{02ee8afb-3404-4b3b-b8d3-e759898da669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{8747a62f-8d37-4d05-b8bb-2672f9b6b43b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\CDSCheck.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\CDSCheck.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DailyDemarcation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shundown.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EPLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EmissionTest.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DataManagement.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\yellow_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\TrainingPresentation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemConfig.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheck.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\red_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CDSCheck.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CDSCheckDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHDailyDemarcationDlg.h">
+      <Filter>标定</Filter>
+    </ClInclude>
+    <ClInclude Include="DynDlg.h">
+      <Filter>标定\测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="FloDlg.h">
+      <Filter>标定\流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="NOxDlg.h">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ObdDlg.h">
+      <Filter>标定\OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaDlg.h">
+      <Filter>标定\不透光度计</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoDlg.h">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaDlg.h">
+      <Filter>标定\参数测量仪</Filter>
+    </ClInclude>
+    <ClInclude Include="AnaDlg.h">
+      <Filter>标定\分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoTestingPerSonnel.h">
+      <Filter>检测员信息</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDSCheck.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CDSCheckDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHDailyDemarcationDlg.cpp">
+      <Filter>标定</Filter>
+    </ClCompile>
+    <ClCompile Include="DynDlg.cpp">
+      <Filter>标定\测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="FloDlg.cpp">
+      <Filter>标定\流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="NOxDlg.cpp">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="OpaDlg.cpp">
+      <Filter>标定\不透光度计</Filter>
+    </ClCompile>
+    <ClCompile Include="ObdDlg.cpp">
+      <Filter>标定\OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoDlg.cpp">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaDlg.cpp">
+      <Filter>标定\参数测量仪</Filter>
+    </ClCompile>
+    <ClCompile Include="AnaDlg.cpp">
+      <Filter>标定\分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoTestingPerSonnel.cpp">
+      <Filter>检测员信息</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CDSCheck.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,7 +1,7 @@
 /**
 * @file MemDC.h
 *
-* 本文档定义了CMemDC类
+* 本文档定义了CMemDCEx类
 *
 * @author 第三方
 */
@@ -11,7 +11,7 @@
 #define _MEMDC_H_
 
 //////////////////////////////////////////////////
-// CMemDC - memory DC
+// CMemDCEx - memory DC
 //
 // Author: Keith Rule
 // Email:  keithr@europa.com
@@ -36,16 +36,16 @@
 // flicker free drawing.
 
 /**
-* @brief CMemDC内存DC类
+* @brief CMemDCEx内存DC类
 *
 * 防止重绘控件时界面闪烁
 */
-class CMemDC : public CDC {
+class CMemDCEx : public CDC {
 private:
 	/// 屏幕偏移位图
 	CBitmap		m_bitmap;		// Offscreen bitmap
 	/// 原先建立的位图指针
-	CBitmap*	m_oldBitmap;	// bitmap originally found in CMemDC
+	CBitmap*	m_oldBitmap;	// bitmap originally found in CMemDCEx
 	/// 保存构造函数传递的CDC
 	CDC*		m_pDC;			// Saves CDC passed in constructor
 	/// 画图区域
@@ -55,7 +55,7 @@ private:
 public:
 	
 	/// 构造函数
-	CMemDC(CDC* pDC, const CRect* pRect = NULL) : CDC()
+	CMemDCEx(CDC* pDC, const CRect* pRect = NULL) : CDC()
 	{
 		ASSERT(pDC != NULL); 
 
@@ -102,7 +102,7 @@ public:
 	}
 	
 	/// 析构函数
-	~CMemDC()	
+	~CMemDCEx()	
 	{		
 		if (m_bMemDC) {
 			// Copy the offscreen bitmap onto the screen.
@@ -120,13 +120,13 @@ public:
 	}
 	
 	// Allow usage as a pointer	
-	CMemDC* operator->() 
+	CMemDCEx* operator->() 
 	{
 		return this;
 	}	
 
 	// Allow usage as a pointer	
-	operator CMemDC*() 
+	operator CMemDCEx*() 
 	{
 		return this;
 	}

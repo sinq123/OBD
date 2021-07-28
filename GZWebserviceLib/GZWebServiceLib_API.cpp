@@ -68,42 +68,42 @@ int CGZWebServic_API::cgjLSPSelfcheck(const char * pchURL, const bool& bDieselOi
 	std::wstring strF;
 
 	send.registCode = &m_strregistCode;
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.registCode->c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.registCode->c_str());
 	if (bDieselOil)
 	{
 		send.AvitualTime = (float)_wtof(strAvitualTime.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strAvitualTime.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strAvitualTime.c_str());
 		send.ArealTime = (float)_wtof(strArealTime.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strArealTime.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strArealTime.c_str());
 		send.BvitualTime = (float)_wtof(strBvitualTime.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBvitualTime.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBvitualTime.c_str());
 		send.BrealTime = (float)_wtof(strBrealTime.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBrealTime.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBrealTime.c_str());
 		send.ALSpower = (float)_wtof(strALSpower.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strALSpower.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strALSpower.c_str());
 		send.BLSpower = (float)_wtof(strBLSpower.c_str());
-		CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBLSpower.c_str());
+		//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strBLSpower.c_str());
 	}
 	send.CvitualTime = (float)_wtof(strCvitualTime.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCvitualTime.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCvitualTime.c_str());
 	send.CrealTime = (float)_wtof(strCrealTime.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCrealTime.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCrealTime.c_str());
 	send.DvitualTime = (float)_wtof(strDvitualTime.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDvitualTime.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDvitualTime.c_str());
 	send.DrealTime = (float)_wtof(strDrealTime.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDrealTime.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDrealTime.c_str());
 	send.CLSpower = (float)_wtof(strCLSpower.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCLSpower.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strCLSpower.c_str());
 	send.DLSpower = (float)_wtof(strDLSpower.c_str());
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDLSpower.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", strDLSpower.c_str());
 	send.checkResult = &m_strcheckResult;
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkResult->c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkResult->c_str());
 	send.checkTimeStart = &m_strcheckTimeStart;
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkTimeStart->c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkTimeStart->c_str());
 	send.checkTimeEnd = &m_strcheckTimeEnd;
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkTimeEnd->c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.checkTimeEnd->c_str());
 	send.remark = &m_strremark;
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.remark->c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"发送", L"cgjLSPSelfcheck", send.remark->c_str());
 
 	
 	
@@ -162,7 +162,7 @@ int CGZWebServic_API::getSatate(const char * pchURL, const std::wstring& strregi
 		str.Format(L"失败%d", nRet);
 		strRetStr = str.GetString();
 	}
-	CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"返回", L"getSatate",strRetStr.c_str());
+	//CNHLogAPI::WriteLogEx(CGZWebServic_API::LogFilePath().c_str(), L"返回", L"getSatate",strRetStr.c_str());
 	return nRet;
 }
 

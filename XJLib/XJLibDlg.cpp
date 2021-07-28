@@ -852,23 +852,23 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			case 1:{strEngineCALID = L"000008617572000008622137"; strEngineCVN = L"B1332BBA109DB30D";} break;
 			case 2:{strEngineCALID = L"000008617572000008638799"; strEngineCVN = L"B1332BBA67E4F98A";} break;
 			case 3:{strEngineCALID = L"00000925"; strEngineCVN = L"000050D5";} break;
-			case 4:{strEngineCALID = L"0000QSB10900UAES"; strEngineCVN = L"不支持";} break;
+			case 4:{strEngineCALID = L"0000QSB10900UAES"; strEngineCVN = L"487D596F";} break;
 			case 5:{strEngineCALID = L"0034468840270090"; strEngineCVN = L"487D596F";} break;
 			case 6:{strEngineCALID = L"0044469440150263"; strEngineCVN = L"89225B2E00000000";} break;
 			case 7:{strEngineCALID = L"0064464240190159"; strEngineCVN = L"AE90F315";} break;
-			case 8:{strEngineCALID = L"00740R0366UAES"; strEngineCVN = L"不支持";} break;
-			case 9:{strEngineCALID = L"007503A330UAES"; strEngineCVN = L"不支持";} break;
-			case 10:{strEngineCALID = L"00C80R0334GW"; strEngineCVN = L"不支持";} break;
-			case 11:{strEngineCALID = L"00JB0HA234UAES"; strEngineCVN = L"不支持";} break;
-			case 12:{strEngineCALID = L"00MP230421UAES"; strEngineCVN = L"不支持";} break;
-			case 13:{strEngineCALID = L"00MP261016UAES"; strEngineCVN = L"不支持";} break;
+			case 8:{strEngineCALID = L"00740R0366UAES"; strEngineCVN = L"89225B2E00000000";} break;
+			case 9:{strEngineCALID = L"007503A330UAES"; strEngineCVN = L"89225B2E00000000";} break;
+			case 10:{strEngineCALID = L"00C80R0334GW"; strEngineCVN = L"AE90F315";} break;
+			case 11:{strEngineCALID = L"00JB0HA234UAES"; strEngineCVN = L"89225B2E00000000";} break;
+			case 12:{strEngineCALID = L"00MP230421UAES"; strEngineCVN = L"89225B2E00000000";} break;
+			case 13:{strEngineCALID = L"00MP261016UAES"; strEngineCVN = L"AE90F315";} break;
 			case 14:{strEngineCALID = L"0356CMR3SC110815"; strEngineCVN = L"B23725E3";} break;
 			case 15:{strEngineCALID = L"0356CMR5SC120830"; strEngineCVN = L"E8927CBA";} break;
-			case 16:{strEngineCALID = L"03C906014CE1108"; strEngineCVN = L"不支持";} break;
+			case 16:{strEngineCALID = L"03C906014CE1108"; strEngineCVN = L"AE90F315";} break;
 			case 17:{strEngineCALID = L"03C906022AS4150"; strEngineCVN = L"A5416587";} break;
 			case 18:{strEngineCALID = L"03C906022BH9928"; strEngineCVN = L"96F5B3BE";} break;
 			case 19:{strEngineCALID = L"03C906022CA4511"; strEngineCVN = L"A7345A7A";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"03C906022AS4150"; strEngineCVN = L"A7345A7A";} break;
 			}
 		}
 		else if (strOBDType == L"ISO/SAE预留")
@@ -881,7 +881,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			case 1: {strEngineCALID = L"10294382"; strEngineCVN = L"00003C06";} break;
 			case 2: {strEngineCALID = L"10190196"; strEngineCVN = L"000087DE";} break;
 			case 3: {strEngineCALID = L"10236164"; strEngineCVN = L"00005C7F";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"10190196"; strEngineCVN = L"00005C7F";} break;
 			}
 		}
 		else if (strOBDType == L"OBDII-加州")
@@ -894,7 +894,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			case 1: {strEngineCALID = L"68193991AG"; strEngineCVN = L"39381886";} break;
 			case 2: {strEngineCALID = L"2410568200"; strEngineCVN = L"5A4F616B";} break;
 			case 3: {strEngineCALID = L"30CL120150C81101"; strEngineCVN = L"BFEB74AB5FA56D64";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"30CL120150C81101"; strEngineCVN = L"BFEB74AB5FA56D64";} break;
 			}
 		}
 		else if (strOBDType == L"OBD-OBDII")
@@ -904,7 +904,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			switch (n)
 			{
 			case 0: {strEngineCALID = L"2769016100190793"; strEngineCVN = L"447DCB91";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"2769016100190793"; strEngineCVN = L"447DCB91";} break;
 			}
 		}
 		else if (strOBDType == L"JOBD-EOBD")
@@ -916,7 +916,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			case 0: {strEngineCALID = L"31411182AA"; strEngineCVN = L"F257665B";} break;
 			case 1: {strEngineCALID = L"31459703AA"; strEngineCVN = L"AD5B51F9";} break;
 			case 2: {strEngineCALID = L"32267993"; strEngineCVN = L"1595668E";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"32267993"; strEngineCVN = L"1595668E";} break;
 			}
 		}
 		else if (strOBDType == L"JOBD")
@@ -926,7 +926,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			switch (n)
 			{
 			case 0: {strEngineCALID = L"33629000A0C01000"; strEngineCVN = L"90C7247B2C411C65";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"33629000A0C01000"; strEngineCVN = L"90C7247B2C411C65";} break;
 			}
 		}
 		else if (strOBDType == L"不适用")
@@ -950,7 +950,7 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			case 12: {strEngineCALID = L"W3B2RP0V"; strEngineCVN = L"CFAC7099";} break;
 			case 13: {strEngineCALID = L"WH24WX1X"; strEngineCVN = L"2D863958";} break;
 			case 14: {strEngineCALID = L"YM008AT0600300G0"; strEngineCVN = L"42716105";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"YM008AT0600300G0"; strEngineCVN = L"42716105";} break;
 			}
 		}
 		else 
@@ -961,9 +961,9 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 			{
 			case 0: {strEngineCALID = L"306B4000"; strEngineCVN = L"97627560";} break;
 			case 1: {strEngineCALID = L"306B4000"; strEngineCVN = L"97627560";} break;
-			case 2: {strEngineCALID = L"LF0L0643UAES"; strEngineCVN = L"不支持";} break;
+			case 2: {strEngineCALID = L"LF0L0643UAES"; strEngineCVN = L"378055A4H640";} break;
 			case 3: {strEngineCALID = L"378055A4H640"; strEngineCVN = L"378055A4H640";} break;
-			default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+			default : {strEngineCALID = L"378055A4H640"; strEngineCVN = L"378055A4H640";} break;
 			}
 		}
 	}
@@ -987,8 +987,8 @@ void CXJLibDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulT
 		case 11: {strEngineCALID = L"S114405B1204"; strEngineCVN = L"6C84F9DCF436BEC9";} break;
 		case 12: {strEngineCALID = L"S114405B1204"; strEngineCVN = L"19A6AF95F2E08A15";} break;
 		case 13: {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"9CBB4CAC97DB";} break;
-		case 14: {strEngineCALID = L"不支持"; strEngineCVN = L"E0002658F816511F";} break;
-		default : {strEngineCALID = L"不支持"; strEngineCVN = L"不支持";} break;
+		case 14: {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"E0002658F816511F";} break;
+		default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"9CBB4CAC97DB";} break;
 		}
 
 	}

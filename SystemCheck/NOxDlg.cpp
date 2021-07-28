@@ -358,8 +358,8 @@ DWORD CNOxDlg::WriteAnaGasChkData(void)
 	{
 		UpGasCheck13W07();
 		UpEqulChk(5);
-		UpGasCheck(L"13W08");
-		UpEqulChk(6);
+		//UpGasCheck(L"13W08");
+		//UpEqulChk(6);
 	}
 	else
 	{

@@ -22,7 +22,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -103,7 +103,9 @@
     <None Include="13W01.xml" />
     <None Include="13W02.xml" />
     <None Include="13W03.xml" />
-    <None Include="13W05.xml" />
+    <None Include="13W05.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="13W08.xml" />
     <None Include="13W09.xml" />
     <None Include="13W10.xml" />

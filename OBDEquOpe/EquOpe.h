@@ -24,6 +24,7 @@ extern "C"
 	DWORD AFX_EXT_API LoadYD1ChkDlg(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus, const void* pBuf, const LONG lBufLen) = NULL);
 
 	// ฒฮสýาว
+	DWORD AFX_EXT_API ShowLoadParameterEnvParamsCalibrationDlg(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus) = NULL);
 	DWORD AFX_EXT_API LoadParameterEnvParamsCalibrationDlg(void);
 	DWORD AFX_EXT_API LoadParameterEnvParamsCalibrationXDlg(void);
 	DWORD AFX_EXT_API LoadParameterParamsCheckDlg(void);

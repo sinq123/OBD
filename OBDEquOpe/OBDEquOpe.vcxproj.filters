@@ -241,6 +241,9 @@
     <ClCompile Include="FlowmeterExternalAgreementCalDlg.cpp">
       <Filter>流量计</Filter>
     </ClCompile>
+    <ClCompile Include="UpTachometerDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="FlowmeterExternalAgreementCalDlg.h">
       <Filter>流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="UpTachometerDlg.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

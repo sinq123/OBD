@@ -1,0 +1,95 @@
+
+<!--OBD开始参数-->
+<?xml version="1.0" encoding="gb2312"?><root>
+  <head>
+    <organ>43018104</organ>
+    <jkxlh>A4FF87C0-7E04-4051-9701-FCA5CA584B25</jkxlh>
+    <jkid>OBD001</jkid>
+    <sjc>2020-12-21 16:13:11:816</sjc>
+  </head>
+  <body>
+    <vehispara>
+      <jylsh>4301810420201218000008</jylsh>
+      <testtimes>1</testtimes>
+      <businessId>4301810420201218000008</businessId>
+      <registCode>A4FF87C0-7E04-4051-9701-FCA5CA584B25</registCode>
+      <message></message>
+    </vehispara>
+  </body>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <head>
+    <code>1</code>
+    <message>OBD检测启动成功</message>
+  </head>
+</root>
+
+<!--OBD检测结果参数-->
+<?xml version="1.0" encoding="GBK"?><root>
+  <head>
+    <organ>43018104</organ>
+    <jkxlh>A4FF87C0-7E04-4051-9701-FCA5CA584B25</jkxlh>
+    <jkid>JC011</jkid>
+    <sjc>2020-12-21 16:13:40:556</sjc>
+  </head>
+  <body>
+    <vehispara>
+      <jylsh>4301810420201218000008</jylsh>
+      <businessId>4301810420201218000008</businessId>
+      <registCode>A4FF87C0-7E04-4051-9701-FCA5CA584B25</registCode>
+      <testtimes>1</testtimes>
+      <tsno>43018104</tsno>
+      <jyksrq>2020-12-21 16:13:11</jyksrq>
+      <jyjsrq>2020-12-21 16:13:40</jyjsrq>
+      <jyy>肖智勇</jyy>
+      <jyjg>1</jyjg>
+      <obdzdyscqy>佛山市南华仪器有限公司</obdzdyscqy>
+      <obdzdyxh>NHOBD-1</obdzdyxh>
+      <vin></vin>
+      <obdyq>EOBD</obdyq>
+      <txbz></txbz>
+      <gzjg>1</gzjg>
+      <tx>1</tx>
+      <txbz></txbz>
+      <bj>1</bj>
+      <bjbz></bjbz>
+      <jxxm>1</jxxm>
+      <jxxmbz></jxxmbz>
+      <odometer>0</odometer>
+      <odomil></odomil>
+      <enginecalid>不支持</enginecalid>
+      <enginecvn>不支持</enginecvn>
+      <hclcalid></hclcalid>
+      <hclcvn></hclcvn>
+      <calid></calid>
+      <cvn></cvn>
+    </vehispara>
+  </body>
+</root>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <head>
+    <code>1</code>
+    <message>数据保存成功</message>
+  </head>
+</root>
+
+
+<?xml version="1.0" encoding="GBK"?>
+<root>
+  <head>
+    <organ>43018104</organ>
+    <jkxlh>2FD3E35B0433719F311C9312B64AB123</jkxlh>
+    <jkid>GetObd</jkid>
+    <sjc>2021-01-19 20:56:52.878</sjc>
+  </head>
+  <vehispara>
+    <license></license>
+    <licensetype></licensetype>
+    <vin></vin>
+    <tsno>43018104</tsno>
+  </vehispara>
+</root>

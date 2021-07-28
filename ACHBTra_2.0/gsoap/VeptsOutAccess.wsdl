@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.jc-jcode.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="WSServiceImplService" targetNamespace="http://www.jc-jcode.com">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.jc-jcode.com" elementFormDefault="unqualified" targetNamespace="http://www.jc-jcode.com" version="1.0">
+
+  <xs:element name="query" type="tns:query"/>
+
+  <xs:element name="queryResponse" type="tns:queryResponse"/>
+
+  <xs:element name="write" type="tns:write"/>
+
+  <xs:element name="writeResponse" type="tns:writeResponse"/>
+
+  <xs:complexType name="write">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="xmlDoc" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="writeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="query">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="xmlDoc" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="queryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="queryResponse">
+    <wsdl:part element="tns:queryResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="query">
+    <wsdl:part element="tns:query" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="writeResponse">
+    <wsdl:part element="tns:writeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="write">
+    <wsdl:part element="tns:write" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WSService">
+    <wsdl:operation name="write">
+      <wsdl:input message="tns:write" name="write">
+    </wsdl:input>
+      <wsdl:output message="tns:writeResponse" name="writeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="query">
+      <wsdl:input message="tns:query" name="query">
+    </wsdl:input>
+      <wsdl:output message="tns:queryResponse" name="queryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSServiceImplServiceSoapBinding" type="tns:WSService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="write">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="write">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="writeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="query">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="query">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="queryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSServiceImplService">
+    <wsdl:port binding="tns:WSServiceImplServiceSoapBinding" name="servicesPort">
+      <soap:address location="http://172.26.163.44:18081/car-apiService/services/VeptsOutAccess.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

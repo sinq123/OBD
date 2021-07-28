@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="标定">
+      <UniqueIdentifier>{ecfeb447-f84b-4e9a-ad31-823f388a2de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\OBD">
+      <UniqueIdentifier>{ef9832f4-627d-4d6b-b196-b1879d89bc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\不透光度计">
+      <UniqueIdentifier>{4960db3e-390f-48f8-b71e-38e4c37bc867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\分析仪">
+      <UniqueIdentifier>{ffe7c6ce-a0b7-43e9-80b7-df99ae5c9c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\参数测量仪">
+      <UniqueIdentifier>{ab373646-af09-4392-bf74-0658b847d612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\氮氧分析仪">
+      <UniqueIdentifier>{09967326-fe05-454a-953f-1d3c347487cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\流量计">
+      <UniqueIdentifier>{d4d0e1ad-afc2-48bb-97c6-63ff0c60f446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\测功机">
+      <UniqueIdentifier>{ddbc8f25-98d3-412b-9a2b-9185e85be044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="标定\滤纸式烟度计">
+      <UniqueIdentifier>{a8aa263e-d48f-43ec-b280-5b7208448c10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\SystemCheckToNH.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheckToNH.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DailyDemarcation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shundown.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EPLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\yellow_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\TrainingPresentation.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemConfig.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\SystemCheck.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\red_locked.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHLOGO.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EmissionTest.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\DataManagement.png">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SystemCheckToNH.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCheckToNHDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHDailyDemarcationDlg.h">
+      <Filter>标定</Filter>
+    </ClInclude>
+    <ClInclude Include="AnaDlg.h">
+      <Filter>标定\分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="ObdDlg.h">
+      <Filter>标定\OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaDlg.h">
+      <Filter>标定\参数测量仪</Filter>
+    </ClInclude>
+    <ClInclude Include="NOxDlg.h">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="FloDlg.h">
+      <Filter>标定\流量计</Filter>
+    </ClInclude>
+    <ClInclude Include="DynDlg.h">
+      <Filter>标定\测功机</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaDlg.h">
+      <Filter>标定\不透光度计</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoDlg.h">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SystemCheckToNH.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemCheckToNHDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHDailyDemarcationDlg.cpp">
+      <Filter>标定</Filter>
+    </ClCompile>
+    <ClCompile Include="AnaDlg.cpp">
+      <Filter>标定\分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="ObdDlg.cpp">
+      <Filter>标定\OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaDlg.cpp">
+      <Filter>标定\参数测量仪</Filter>
+    </ClCompile>
+    <ClCompile Include="NOxDlg.cpp">
+      <Filter>标定\氮氧分析仪</Filter>
+    </ClCompile>
+    <ClCompile Include="FloDlg.cpp">
+      <Filter>标定\流量计</Filter>
+    </ClCompile>
+    <ClCompile Include="DynDlg.cpp">
+      <Filter>标定\测功机</Filter>
+    </ClCompile>
+    <ClCompile Include="OpaDlg.cpp">
+      <Filter>标定\不透光度计</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoDlg.cpp">
+      <Filter>标定\滤纸式烟度计</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SystemCheckToNH.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

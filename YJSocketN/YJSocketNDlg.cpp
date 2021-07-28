@@ -78,9 +78,11 @@ BOOL CYJSocketNDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+#ifndef _DEBUG
 	GetDlgItem(IDC_BTN_UP)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BTN_UP_TELET)->EnableWindow(FALSE);
 	m_btnSocket.EnableWindow(FALSE);
+#endif
 
 	m_bAuthentication = false;
 	SetConfig();
@@ -170,7 +172,6 @@ void CYJSocketNDlg::SetConfig(void)
 	}
 }
 
-
 void CYJSocketNDlg::SetVehCtrl(void)
 {
 	const int nSM_CXSCREEN = GetSystemMetrics(SM_CXSCREEN);
@@ -229,7 +230,6 @@ void CYJSocketNDlg::SetVehCtrl(void)
 	CHeaderCtrl *pHeaderCtrl = m_lstVehicle.GetHeaderCtrl();
 	pHeaderCtrl->SetFont(&fontDlgFont);
 }
-
 
 bool CYJSocketNDlg::GetVehicleList(void)
 {
@@ -466,21 +466,17 @@ bool CYJSocketNDlg::GetVehicleList(void)
 	return true;
 }
 
-
-
 void CYJSocketNDlg::OnBnClickedButtonUpdateVehicleList()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	GetVehicleList();
 }
 
-
 void CYJSocketNDlg::OnBnClickedBtnSetconfig()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	SetConfig();
 }
-
 
 void CYJSocketNDlg::OnEnChangeEdPlatenumber()
 {
@@ -581,9 +577,14 @@ bool CYJSocketNDlg::SendAndRecvPacket(CString strDataType, CString strStationNum
 		if (!m_yjSocket.Open(strIP, nPort) ||(strIP == L"" || strPort == L""))
 		{
 			strRecv = L"连接服务器失败！";
+#ifndef _DEBUG
 			return false;
+#endif
 		}
-		else
+	}
+
+	if (strDataType != L"LJZC" && !m_bAuthentication)
+	{
 		{
 			std::wstring strResult, strMsg;
 			m_bAuthentication = Authentication(strResult, strMsg);
@@ -602,17 +603,23 @@ bool CYJSocketNDlg::GetTime()
 	m_edLineNumber.GetWindowTextW(strLineNum);
 
 	std::wstring strRecv;
-	bool bRet = SendAndRecvPacket(L"HJ26", strStationNum, strLineNum, GenerateInsNum(), L"", strRecv);
+	bool bRet;
+	bRet = SendAndRecvPacket(L"HJ26", strStationNum, strLineNum, GenerateInsNum(), L"", strRecv);
+
+#ifndef _DEBUG
 	if (bRet)
+#else
+	if (true)
+#endif
 	{
 		std::wstring strMsg;
-		if (!m_yjSocket.RecvPacket(strMsg))
+		bRet = m_yjSocket.RecvPacket(strMsg);
+		if (!bRet)
 		{
 			CNHLogAPI::WriteLogEx(m_yjSocket.GetLogFilePath(),L"返回时间", L"", strRecv.c_str());
 
 			int nIntPos = strRecv.find(L",");
 			strRecv = strRecv.substr(nIntPos+1);
-
 			CNHLogAPI::WriteLogEx(m_yjSocket.GetLogFilePath(),L"返回时间", L"", strRecv.c_str());
 
 			COleDateTime odtNow;
@@ -678,8 +685,6 @@ bool CYJSocketNDlg::GetTime()
 	return true;
 }
 
-
-
 void CYJSocketNDlg::OnBnClickedBtnSocket()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -690,7 +695,12 @@ void CYJSocketNDlg::OnBnClickedBtnSocket()
 	{
 		std::wstring strResult, strMsg;
 		m_bAuthentication = Authentication(strResult, strMsg);
+
+#ifndef _DEBUG
 		if (m_bAuthentication)
+#else
+		if (true)
+#endif
 		{
 			m_edMsg.SetWindowTextW(L"连接成功");
 			GetDlgItem(IDC_BTN_UP)->EnableWindow(TRUE);
@@ -708,7 +718,6 @@ void CYJSocketNDlg::OnBnClickedBtnSocket()
 		m_btnSocket.SetWindowTextW(L"连接");
 	}
 }
-
 
 void CYJSocketNDlg::OnLvnItemchangedLstVehicle(NMHDR *pNMHDR, LRESULT *pResult)
 {
@@ -737,7 +746,6 @@ void CYJSocketNDlg::OnLvnItemchangedLstVehicle(NMHDR *pNMHDR, LRESULT *pResult)
 
 	*pResult = 0;
 }
-
 
 void CYJSocketNDlg::OnBnClickedBtnUp()
 {
@@ -1272,7 +1280,6 @@ void CYJSocketNDlg::GetEngineCALID(const CString& strOBDType, const CString& str
 	}
 }
 
-
 bool CYJSocketNDlg::UpOBDReaust(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
 		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
 {
@@ -1496,7 +1503,6 @@ void CYJSocketNDlg::OnBnClickedBtnUpTelet()
 	SetDboVehicleInfo(sVehicleInfo);
 
 }
-
 
 bool CYJSocketNDlg::UPRealTimeData(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg)
 {

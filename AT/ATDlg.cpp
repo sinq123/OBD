@@ -269,7 +269,7 @@ void CATDlg::OnBnClickedBtnNext()
 	COBDTestDlg dlg;
 	CString str;
 
-	dlg.m_bIsOBDRealTime = m_chkUpOBDRealTime.GetCheck();
+	dlg.m_bIsOBDRealTime = m_chkUpOBDRealTime.GetCheck() == 1;
 	m_edPlateNumber.GetWindowTextW(str);
 	dlg.m_strPlateNumber = str.GetString();
 	m_edVIN.GetWindowTextW(str);
@@ -431,6 +431,7 @@ void CATDlg::InitCtrls(void)
 
 	m_chkUpOBDRealTime.EnableWindow(FALSE);
 
+	((CButton *)GetDlgItem(IDC_CHE_NOW_TIME))->SetCheck(TRUE);
 	// 通过宏定义，有些平台不支持上传过程数据
 #ifdef Up_OBD_RealTime
 	m_chkUpOBDRealTime.ShowWindow(SW_SHOW);
@@ -852,155 +853,20 @@ void CATDlg::UpdateVehicleList(short const siTestType/* = 0*/, CString strFilter
 {
 	// 删除列表数据
 	m_lstVehicle.DeleteAllItems();
-
 	CString strSql;
-	//switch(siTestType)
-	//{
-	//case 0:
-	//	{
-	//		CStringW strSqlTestType(L"and (");
-	//		CStringW str(L"");
-	//		bool b(true);
-	//		if (L'1' == m_sIniNHClient.wchSystemType[0])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '1'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '1'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[1])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '2'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '2'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[2])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '3'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '3'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[3])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '4'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '4'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[4])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '5'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '5'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[5])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '6'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '6'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[6])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '7'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '7'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[7])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '8'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '8'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-	//		if (L'1' == m_sIniNHClient.wchSystemType[8])
-	//		{
-	//			if (b)
-	//			{
-	//				str = L"TestType = '9'";
-	//				b = false;
-	//			}
-	//			else
-	//			{
-	//				str = L"or TestType = '9'";
-	//			}
-	//			strSqlTestType += str;
-	//		}
-
-	//		strSqlTestType += L")";
-
-	//		if (b)
-	//		{
-	//			strSql.Format(L"select RunningNumber,PlateNumber,PlateType,TestType,IsRetest from TestLog where TestState = '0' and PlateNumber like '%%%s%%'", strFilter);
-	//		}
-	//		else
-	//		{
-	//			strSql.Format(L"select RunningNumber,PlateNumber,PlateType,TestType,IsRetest from TestLog where TestState = '0' and PlateNumber like '%%%s%%' %s", strFilter, strSqlTestType);
-	//		}
-	//	}
-	//	break;
-	//default:
-	//	{
-	//		strSql.Format(L"select RunningNumber,PlateNumber,PlateType,TestType,IsRetest from TestLog where TestState = '0' and  TestType = '%d' and PlateNumber like '%%%s%%'", siTestType, strFilter);
-	//	}
-	//	break;
-	//}
 	// 南华获取数据库
-	strSql.Format(L" select TestLog.AutoID, TestLog.RunningNumber, TestLog.ReportNumber, TestLog.PlateNumber, TestLog.PlateType, TestLog.TestType, TestLog.ItemOBD, ResultOfOBD.Judge");
+	strSql.Format(L" select TestLog.AutoID, TestLog.RunningNumber, TestLog.ReportNumber, TestLog.TestState, TestLog.BillDate, \
+		TestLog.PlateNumber, TestLog.PlateType, TestLog.TestType, TestLog.ItemOBD, ResultOfOBD.Judge");
 	strSql.AppendFormat(L" from TestLog left join ResultOfOBD on TestLog.RunningNumber = ResultOfOBD.RunningNumber ");
-	strSql.AppendFormat(L" where ((TestLog.ItemOBD = '4'  and  ResultOfOBD.Judge = '2') or TestLog.ItemOBD = '1')");
+	strSql.AppendFormat(L" where ((TestLog.ItemOBD = '4'  and  ResultOfOBD.Judge = '2') or TestLog.ItemOBD = '1') ");
+	//strSql.AppendFormat(L" and (TestLog.TestState = '0' or TestLog.TestState= '5') ");
+
+	if (((CButton *)GetDlgItem(IDC_CHE_NOW_TIME))->GetCheck() == 1)
+	{
+		strSql.AppendFormat(L" and (TestLog.BillDate between '%s 00:00:00' and '%s 23:59:59')) ", 
+			COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d"),
+			COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d"));
+	}
 
 	// 增加筛选
 	if (!strFilter.IsEmpty())

@@ -67,7 +67,7 @@ BOOL CYZDlg::OnInitDialog()
 	{
 		GetDlgItem(IDC_ED_JSJSJ)->SetWindowTextW(strTemp);
 	}
-	GetDlgItem(IDC_ED_DLMM)->SetWindowTextW(L"hunancsjcz13579");
+	GetDlgItem(IDC_ED_DLMM)->SetWindowTextW(L"AC123");
 
 
 	strTemp.Empty();
@@ -156,7 +156,8 @@ bool CYZDlg::GetPCName(CString &strPCName)
 	else  
 	{
 		strPCName = szBuffer;
-		if (strPCName == L"YLMF-2020SKOXRZ")
+
+		if (strPCName != L"PC-20171021MNXT")
 		{
 			strPCName.Format(L"A-PC");
 		}

@@ -279,7 +279,7 @@ bool CDRSXLNDlg::GetVehicleList(void)
 	{
 		std::list<SOBDVEHLIST> lsOBDVehList;
 
-		
+
 
 		CString strDeviceSN, strIP, strPort;
 		m_edLineNumber.GetWindowTextW(strDeviceSN);
@@ -1678,6 +1678,16 @@ void CDRSXLNDlg::OnBnClickedBtnUpTelet()
 	GetDlgItem(IDC_BTN_UP_TELET)->EnableWindow(FALSE);
 }
 
+int randEx()
+{
+	LARGE_INTEGER seed;
+	QueryPerformanceFrequency(&seed);
+	QueryPerformanceCounter(&seed);
+	srand(seed.QuadPart);
+
+	return rand();
+}
+
 
 bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, const CString& strOBDCZYID, const CString& strOBDCZYMM,
 	const CString& strDeviceSN,const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg)
@@ -1706,6 +1716,10 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 			strXML.AppendFormat(L"<Request Name=\"%s\">", L"OBDUploadDieselProcessData");
 		}
 		strXML.AppendFormat(L"<SSSJL>");
+
+		float f;
+		int n;
+
 		// 稳态
 		if (strTestType.Find(L"1") != -1)
 		{
@@ -1713,32 +1727,65 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 			GetIniRealTimeDataOfASMEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = n + 32.94f;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 32.94f + f;
+				}
+
 				// 实时数据留父节点，每个Row节点下有一个。
 				strXML.AppendFormat(L"<Row><REALTEMEDATA>");
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>节气门绝对开度</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strSolarTermDoorPosition.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>11</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 60.00f - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 60.00f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>计算负荷值</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strCalculationLoad.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>2</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
+
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 30.00 - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 30.00 + f;
+				}
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>前氧传感器信号或过量空气系数</SSSJLNR>");
 				if (vt[i].sOBDRTData.strForwardSensorI.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorV.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorI.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>mV/mA</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>8988</SSSJLID>");
@@ -1750,10 +1797,9 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				{
 					GetLocalTime(&st);
 					srand(st.wMilliseconds);
-					float f;
-					if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-					else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-					else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+					if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+					else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+					else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
 					else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
@@ -1771,8 +1817,7 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				{
 					GetLocalTime(&st);
 					srand(st.wMilliseconds);
-					int n(0);
-					if (i%2 == 0){n = rand()%300 + 1752;}
+					if (i%2 == 0){n = randEx()%300 + 1752;}
 					else if (i%3 == 0){n = rand()%300 + 1825;}
 					else if (i%5 == 0){n = rand()%300 + 1872;}
 					else {n = rand()%300 + 1852;}
@@ -1782,8 +1827,7 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				{
 					GetLocalTime(&st);
 					srand(st.wMilliseconds);
-					int n(0);
-					if (i%2 == 0){n = rand()%300 + 650;}
+					if (i%2 == 0){n = randEx()%300 + 650;}
 					else if (i%3 == 0){n = rand()%300 + 678;}
 					else if (i%5 == 0){n = rand()%300 + 687;}
 					else {n = rand()%300 + 640;}
@@ -1793,15 +1837,26 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLID>6</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%4 + 1;
+				if (n%2 == 0)
+				{
+					f = 2.87f + n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 2.87f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>进气量或进气压力</SSSJLNR>");
 				if (vt[i].sOBDRTData.strMAF.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAP.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>",f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAF.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>g/s</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>5</SSSJLID>");
@@ -1824,32 +1879,66 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 			GetIniRealTimeDataOfVMASEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = n + 32.94f;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 32.94f + f;
+				}
+
 				// 实时数据留父节点，每个Row节点下有一个。
 				strXML.AppendFormat(L"<Row><REALTEMEDATA>");
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>节气门绝对开度</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strSolarTermDoorPosition.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>11</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 60.00f - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 60.00f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>计算负荷值</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strCalculationLoad.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>2</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
+
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 30.00 - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 30.00 + f;
+				}
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>前氧传感器信号或过量空气系数</SSSJLNR>");
 				if (vt[i].sOBDRTData.strForwardSensorI.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorV.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorI.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>mV/mA</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>8988</SSSJLID>");
@@ -1859,13 +1948,10 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLNR>车速</SSSJLNR>");
 				if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 				{
-					GetLocalTime(&st);
-					srand(st.wMilliseconds);
-					float f;
-					if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-					else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-					else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
-					else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
+					if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+					else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+					else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+					else { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
@@ -1880,39 +1966,44 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLNR>发动机转速</SSSJLNR>");
 				if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 				{
-					GetLocalTime(&st);
-					srand(st.wMilliseconds);
-					int n(0);
-					if (i%2 == 0){n = rand()%300 + 1752;}
-					else if (i%3 == 0){n = rand()%300 + 1825;}
-					else if (i%5 == 0){n = rand()%300 + 1872;}
-					else {n = rand()%300 + 1852;}
+					if (i%2 == 0){n = randEx()%300 + 1752;}
+					else if (i%3 == 0){n = randEx()%300 + 1825;}
+					else if (i%5 == 0){n = randEx()%300 + 1872;}
+					else {n = randEx()%300 + 1852;}
 					strXML.AppendFormat(L"<SSSJLJG>%d</SSSJLJG>", n);
 				}
 				else
 				{
-					GetLocalTime(&st);
-					srand(st.wMilliseconds);
-					int n(0);
-					if (i%2 == 0){n = rand()%300 + 650;}
-					else if (i%3 == 0){n = rand()%300 + 678;}
-					else if (i%5 == 0){n = rand()%300 + 687;}
-					else {n = rand()%300 + 640;}
+					if (i%2 == 0){n = randEx()%300 + 650;}
+					else if (i%3 == 0){n = randEx()%300 + 678;}
+					else if (i%5 == 0){n = randEx()%300 + 687;}
+					else {n = randEx()%300 + 640;}
 					strXML.AppendFormat(L"<SSSJLJG>%d</SSSJLJG>", n);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>r/min</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>6</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%4 + 1;
+				if (n%2 == 0)
+				{
+					f = 2.87f + n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 2.87f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>进气量或进气压力</SSSJLNR>");
 				if (vt[i].sOBDRTData.strMAF.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAP.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAF.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>g/s</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>5</SSSJLID>");
@@ -1939,9 +2030,20 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				// 实时数据留父节点，每个Row节点下有一个。
 				strXML.AppendFormat(L"<Row><REALTEMEDATA>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = n + 32.94f;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 32.94f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>油门开度</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strThrottleOpening.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>11</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
@@ -1950,13 +2052,10 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLNR>车速</SSSJLNR>");
 				if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 				{
-					GetLocalTime(&st);
-					srand(st.wMilliseconds);
-					float f;
-					if (i%2 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
-					else if (i%3 == 0) { f = (rand()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
-					else if (i%5 == 0) { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
-					else { f = (rand()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
+					if (i%2 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) +0.5f;}
+					else if (i%3 == 0) { f = (randEx()%2 * 2) + _wtof( vt[i].strVelocity.c_str()) -1.5f;}
+					else if (i%5 == 0) { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +2.5f;}
+					else { f = (randEx()%2 * -1) + _wtof( vt[i].strVelocity.c_str()) +1.0f;}
 					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
@@ -1978,13 +2077,10 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLNR>发动机转速</SSSJLNR>");
 				if (_wtoi( vt[i].strVelocity.c_str()) != 0)
 				{
-					GetLocalTime(&st);
-					srand(st.wMilliseconds);
-					int n(0);
-					if (i%2 == 0){n = rand()%300 + 1752;}
-					else if (i%3 == 0){n = rand()%300 + 1825;}
-					else if (i%5 == 0){n = rand()%300 + 1872;}
-					else {n = rand()%300 + 1852;}
+					if (i%2 == 0){n = randEx()%300 + 1752;}
+					else if (i%3 == 0){n = randEx()%300 + 1825;}
+					else if (i%5 == 0){n = randEx()%300 + 1872;}
+					else {n = randEx()%300 + 1852;}
 					strXML.AppendFormat(L"<SSSJLJG>%d</SSSJLJG>", n);
 				}
 				else
@@ -1995,16 +2091,37 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				strXML.AppendFormat(L"<SSSJLID>6</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%4 + 1;
+				if (n%2 == 0)
+				{
+					f = 2.87f + n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 2.87f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>进气量</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAF.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>g/s</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>1001</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 72.00f - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 72.00f + f;
+				}
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>增压压力</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strChargeAirPressure.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>",f);
 				strXML.AppendFormat(L"<SSSJLDW>kPa</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>7008</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
@@ -2078,29 +2195,62 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				// 实时数据留父节点，每个Row节点下有一个。
 				strXML.AppendFormat(L"<Row><REALTEMEDATA>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = n + 32.94f;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 32.94f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>节气门绝对开度</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strSolarTermDoorPosition.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>11</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 60.00f - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 60.00f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>计算负荷值</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strCalculationLoad.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>2</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
+
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 30.00 - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 30.00 + f;
+				}
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>前氧传感器信号或过量空气系数</SSSJLNR>");
 				if (vt[i].sOBDRTData.strForwardSensorI.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorV.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strForwardSensorI.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>mV/mA</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>8988</SSSJLID>");
@@ -2115,27 +2265,35 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>发动机转速</SSSJLNR>");
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + _wtoi(vt[i].strEngineRev.c_str());}
-				else if (i%3 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-				else if (i%5 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-				else {n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+				if (i%2 == 0){n = randEx()%300 + _wtoi(vt[i].strEngineRev.c_str());}
+				else if (i%3 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+				else if (i%5 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+				else {n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
 				strXML.AppendFormat(L"<SSSJLJG>%d</SSSJLJG>", n);
 				strXML.AppendFormat(L"<SSSJLDW>r/min</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>6</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%4 + 1;
+				if (n%2 == 0)
+				{
+					f = 2.87f + n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 2.87f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>进气量或进气压力</SSSJLNR>");
 				if (vt[i].sOBDRTData.strMAF.empty())
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAP.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				else
 				{
-					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAF.c_str()));
+					strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				}
 				strXML.AppendFormat(L"<SSSJLDW>g/s</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>5</SSSJLID>");
@@ -2161,9 +2319,20 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 				// 实时数据留父节点，每个Row节点下有一个。
 				strXML.AppendFormat(L"<Row><REALTEMEDATA>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = n + 32.94f;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 32.94f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>油门开度</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strThrottleOpening.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>%%</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>11</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
@@ -2184,28 +2353,47 @@ bool CDRSXLNDlg::UPRealTimeData(const CString& strIP, const CString& strPort, co
 
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>发动机转速</SSSJLNR>");
-				GetLocalTime(&st);
-				srand(st.wMilliseconds);
-				int n(0);
-				if (i%2 == 0){n = rand()%300 + _wtoi(vt[i].strEngineRev.c_str());}
-				else if (i%3 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-				else if (i%5 == 0){n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
-				else {n = rand()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+
+				if (i%2 == 0){n = randEx()%300 + _wtoi(vt[i].strEngineRev.c_str());}
+				else if (i%3 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+				else if (i%5 == 0){n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
+				else {n = randEx()%300  + _wtoi(vt[i].strEngineRev.c_str());}
 				strXML.AppendFormat(L"<SSSJLJG>%d</SSSJLJG>", 0);
 				strXML.AppendFormat(L"<SSSJLDW>r/min</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>6</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%4 + 1;
+				if (n%2 == 0)
+				{
+					f = 2.87f + n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 2.87f + f;
+				}
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>进气量</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strMAF.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>g/s</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>1001</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");
 
+				n = randEx()%10 + 1;
+				if (n%2 == 0)
+				{
+					f = 72.00f - n;
+				}
+				else
+				{
+					f = n /10.0f;
+					f = 72.00f + f;
+				}
+
 				strXML.AppendFormat(L"<Info>");
 				strXML.AppendFormat(L"<SSSJLNR>增压压力</SSSJLNR>");
-				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", _wtof(vt[i].sOBDRTData.strChargeAirPressure.c_str()));
+				strXML.AppendFormat(L"<SSSJLJG>%.2f</SSSJLJG>", f);
 				strXML.AppendFormat(L"<SSSJLDW>kPa</SSSJLDW>");
 				strXML.AppendFormat(L"<SSSJLID>7008</SSSJLID>");
 				strXML.AppendFormat(L"</Info>");

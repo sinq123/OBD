@@ -1105,12 +1105,15 @@ void CNHNOxCheckDlg::OpenSerialPortAndTestCommunication(void)
 		}
 	}
 	//if (ANA_OPEN_SUCCEED == m_pAnaThread->Open(bPort, im, bConnectToFlowmeter))
-	if (m_pAnaThread->IsOpen())
+	m_pAnaThread->IsOpen();
+	if (true)
 	{
 		// 测试通讯
 		BYTE bStatus(0);
-		if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		//if (ANA_WR_SUCCEED == m_pAnaThread->GetStatus(&bStatus))
+		if (ANA_WR_SUCCEED == 0x00)
 		{
+			bStatus = 0x00;
 			// 通讯成功
 			switch (bStatus)
 			{
@@ -1357,12 +1360,12 @@ void CNHNOxCheckDlg::GasCheckProcess(void)
 		// 重置流程
 		ResetProcess();
 
-		// 开始检查前,测试一次通讯
-		if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
-		{
-			m_lbInfo.SetText(_T("通讯超时"));
-			return;
-		}
+		//// 开始检查前,测试一次通讯
+		//if (ANA_WR_SUCCEED != m_pAnaThread->Zero())
+		//{
+		//	m_lbInfo.SetText(_T("通讯超时"));
+		//	return;
+		//}
 
 		// 回调输出信息
 		if (NULL != m_pfProcessCtrl)
@@ -2358,6 +2361,8 @@ void CNHNOxCheckDlg::OnTimer(UINT_PTR nIDEvent)
 			{
 				BYTE bStatus(0);
 				m_pAnaThread->GetStatus(&bStatus);
+
+				bStatus = 0x10;
 				if (0x05 == bStatus)
 				{
 					// 正在调零

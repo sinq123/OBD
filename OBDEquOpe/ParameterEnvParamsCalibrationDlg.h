@@ -48,9 +48,9 @@
 // 自用库
 #include "..\NHLib\NHLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\Debug\\NHLib_D.lib")
+#pragma comment(lib, "..\\debug\\MYLib_D.lib")
 #else
-#pragma comment(lib, "..\\Release\\NHLib.lib")
+#pragma comment(lib, "..\\Release\\MYLib.lib")
 #endif
 
 #include "..\OBDNHEuqController\NHEuqController.h"
@@ -115,13 +115,13 @@ private:
 	CLabel m_lbLabel4;
 
 	// 环境温度测量值编辑框
-	CEdit m_edETMea;
+	CNumericEdit m_edETMea;
 	// 相对湿度测量值编辑框
-	CEdit m_edRHMea;
+	CNumericEdit m_edRHMea;
 	// 大气压力测量值编辑框
-	CEdit m_edAPMea;
+	CNumericEdit m_edAPMea;
 	// 油温测量值编辑框
-	CEdit m_edOTMea;
+	CNumericEdit m_edOTMea;
 
 	// 环境温度标准值编辑框
 	CNumericEdit m_neETStd;
@@ -159,4 +159,18 @@ private:
 private:
 	// 参数测量仪线程
 	CParaThread *m_pParaThread;
+public:
+	afx_msg void OnBnClickedBtnUpEnvPara();
+	COleDateTime m_odtbegin;
+
+	///////////////////////////////////////////////////////////////// 上传环境参数回调函数begin
+private:
+	typedef DWORD (CALLBACK * PFProcessCtrl)(const DWORD dwStatus);
+	PFProcessCtrl m_pfProcessCtrl;
+public:
+	void SetProcessCtrlCallBack(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus));
+
+	//////////////////////////////////////////////////////////////// 上传环境参数回调函数end
+
+	afx_msg void OnBnClickedBtnUpTachometer();
 };

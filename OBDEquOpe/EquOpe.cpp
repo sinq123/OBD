@@ -190,8 +190,23 @@ DWORD LoadYD1ChkDlg(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus, const
 	return 0x00;
 }
 
+DWORD ShowLoadParameterEnvParamsCalibrationDlg(DWORD (CALLBACK * pfProcessCtrl)(const DWORD dwStatus)/*=NULL*/)
+{
+	HINSTANCE hOld = AfxGetResourceHandle();
+	AfxSetResourceHandle(EquOpeDLL.hResource);
+
+	CParameterEnvParamsCalibrationDlg dlg;
+	dlg.SetProcessCtrlCallBack(pfProcessCtrl);
+	dlg.DoModal();
+
+	AfxSetResourceHandle(hOld);
+
+	return 0;
+}
+
 DWORD LoadParameterEnvParamsCalibrationDlg()
 {
+
 	HINSTANCE hOld = AfxGetResourceHandle();
 	AfxSetResourceHandle(EquOpeDLL.hResource);
 

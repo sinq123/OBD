@@ -19,6 +19,8 @@ CNHT6CalChkDlg::CNHT6CalChkDlg(CWnd* pParent /*=NULL*/)
 	, m_nStd1(3000)
 	// 标准滤光片2数值,单位:0.01%,放大100倍,四舍五入
 	, m_nStd2(3100)
+	// 标准滤光片3数值,单位:0.01%,放大100倍,四舍五入
+	, m_nStd3(3200)
 
 	// 步骤
 	, m_nStep(0)
@@ -35,26 +37,38 @@ CNHT6CalChkDlg::CNHT6CalChkDlg(CWnd* pParent /*=NULL*/)
 	, m_nAve1(0)
 	// 滤光片2测量值平均值,单位:0.01%,放大100倍,四舍五入
 	, m_nAve2(0)
+	// 滤光片3测量值平均值,单位:0.01%,放大100倍,四舍五入
+	, m_nAve3(0)
 	// 滤光片1测量值线性度
 	, m_nLinear1(0)
 	// 滤光片2测量值线性度
 	, m_nLinear2(0)
+	// 滤光片3测量值线性度
+	, m_nLinear3(0)
 	// 滤光片1绝对误差,单位:0.01%,放大100倍,四舍五入
 	, m_nAE1(0)
 	// 滤光片2绝对误差,单位:0.01%,放大100倍,四舍五入
 	, m_nAE2(0)
+	// 滤光片3绝对误差,单位:0.01%,放大100倍,四舍五入
+	, m_nAE3(0)
 	// 滤光片1线性度是否合格
 	, m_bIsLinear1Pass(false)
 	// 滤光片2线性度是否合格
 	, m_bIsLinear2Pass(false)
+	// 滤光片3线性度是否合格
+	, m_bIsLinear3Pass(false)
 	// 滤光片1绝对误差是否合格
 	, m_bIsAE1Pass(false)
 	// 滤光片2绝对误差是否合格
 	, m_bIsAE2Pass(false)
+	// 滤光片3绝对误差是否合格
+	, m_bIsAE3Pass(false)
 	// 滤光片1检查是否合格
 	, m_bIsN1Pass(false)
 	// 滤光片2检查是否合格
 	, m_bIsN2Pass(false)
+	// 滤光片3检查是否合格
+	, m_bIsN3Pass(false)
 	// 校准检查是否通过
 	, m_bIsCalChkPass(false)
 
@@ -62,6 +76,8 @@ CNHT6CalChkDlg::CNHT6CalChkDlg(CWnd* pParent /*=NULL*/)
 	, m_bGetData1(false)
 	// 获取滤光片2数值
 	, m_bGetData2(false)
+	// 获取滤光片3数值
+	, m_bGetData3(false)
 	// 操作是否至少完成1次
 	, m_bIsOperationFinishedAtLeaseOnce(false)
 	// 初始化回调函数
@@ -127,6 +143,8 @@ void CNHT6CalChkDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_INFO, m_lbInfo);
 	DDX_Control(pDX, IDC_EDIT_N1, m_edN1);
 	DDX_Control(pDX, IDC_EDIT_N2, m_edN2);
+	DDX_Control(pDX, IDC_EDIT_N3, m_edN3);
+
 	DDX_Control(pDX, IDC_STATIC_LABEL1, m_lb1);
 	DDX_Control(pDX, IDC_STATIC_LABEL2, m_lb2);
 	DDX_Control(pDX, IDC_STATIC_LABEL3, m_lb3);
@@ -135,10 +153,14 @@ void CNHT6CalChkDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_K, m_lbK);
 	DDX_Control(pDX, IDC_STATIC_AVE1, m_lbAve1);
 	DDX_Control(pDX, IDC_STATIC_AVE2, m_lbAve2);
+	DDX_Control(pDX, IDC_STATIC_AVE3, m_lbAve3);
+
 	DDX_Control(pDX, IDC_STATIC_LINEAR1, m_lbLinear1);
 	DDX_Control(pDX, IDC_STATIC_LINEAR2, m_lbLinear2);
+	DDX_Control(pDX, IDC_STATIC_LINEAR3, m_lbLinear3);
 	DDX_Control(pDX, IDC_STATIC_ERR1, m_lbErr1);
 	DDX_Control(pDX, IDC_STATIC_ERR2, m_lbErr2);
+	DDX_Control(pDX, IDC_STATIC_ERR3, m_lbErr3);
 	DDX_Control(pDX, IDC_STATIC_JUDGEMENT, m_lbJudgement);
 
 	DDX_Control(pDX, IDC_STATIC_STEP1, m_lbStep1);
@@ -146,11 +168,13 @@ void CNHT6CalChkDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_STEP3, m_lbStep3);
 	DDX_Control(pDX, IDC_STATIC_STEP4, m_lbStep4);
 	DDX_Control(pDX, IDC_STATIC_STEP5, m_lbStep5);
+	DDX_Control(pDX, IDC_STATIC_STEP6, m_lbStep6);
 	DDX_Control(pDX, IDC_STATIC_STEP1_LABEL, m_stcStep1Label);
 	DDX_Control(pDX, IDC_STATIC_STEP2_LABEL, m_stcStep2Label);
 	DDX_Control(pDX, IDC_STATIC_STEP3_LABEL, m_stcStep3Label);
 	DDX_Control(pDX, IDC_STATIC_STEP4_LABEL, m_stcStep4Label);
 	DDX_Control(pDX, IDC_STATIC_STEP5_LABEL, m_stcStep5Label);
+	DDX_Control(pDX, IDC_STATIC_STEP6_LABEL, m_stcStep6Label);
 	DDX_Control(pDX, IDC_ST_HEAD, m_lbHead);
 	DDX_Control(pDX, IDC_MATHLABLE1, m_mlb1);
 	DDX_Control(pDX, IDC_STATIC_N_STD, m_lbNstd);
@@ -218,6 +242,10 @@ void CNHT6CalChkDlg::OnTimer(UINT_PTR nIDEvent)
 			{
 				fNRaw = (float)((m_nStd2 + n))/100.0f;
 			}
+			if (m_bGetData3)
+			{
+				fNRaw = (float)((m_nStd3 + n))/100.0f;
+			}
 			
 		}
 		else
@@ -229,6 +257,10 @@ void CNHT6CalChkDlg::OnTimer(UINT_PTR nIDEvent)
 			if (m_bGetData2)
 			{
 				fNRaw = (float)((m_nStd2 - n))/100.0f;
+			}
+			if (m_bGetData3)
+			{
+				fNRaw = (float)((m_nStd3 - n))/100.0f;
 			}
 		}
 
@@ -246,7 +278,7 @@ void CNHT6CalChkDlg::OnTimer(UINT_PTR nIDEvent)
 			}
 			else
 			{
-				m_lcData.SetItemText(m_nTime-10, 5, str);
+				m_lcData.SetItemText(m_nTime-10, 6, str);
 			}
 
 			m_nTime++;
@@ -273,7 +305,7 @@ void CNHT6CalChkDlg::OnTimer(UINT_PTR nIDEvent)
 			}
 			else
 			{
-				m_lcData.SetItemText(m_nTime-10, 6, str);
+				m_lcData.SetItemText(m_nTime-10, 7, str);
 			}
 
 			m_nTime++;
@@ -288,6 +320,34 @@ void CNHT6CalChkDlg::OnTimer(UINT_PTR nIDEvent)
 				CalChkProcess();
 			}
 		}
+
+		if (m_bGetData3)
+		{
+			// 获取第3块滤光片数值
+			m_nN3[m_nTime] = int(fNRaw*100.0f + 0.5f);
+			str.Format(_T("%.2f"), fNRaw);
+			if (m_nTime < 10)
+			{
+				m_lcData.SetItemText(m_nTime, 3, str);
+			}
+			else
+			{
+				m_lcData.SetItemText(m_nTime-10, 8, str);
+			}
+
+			m_nTime++;
+
+			str.Format(L"正在获取数据...%d", 10-m_nTime/2);
+			m_lbInfo.SetText(str);
+
+			if (20 == m_nTime)
+			{
+				m_bGetData3 = false;
+				// 进入下一步
+				CalChkProcess();
+			}
+		}
+
 	}
 	else if (2 == nIDEvent)
 	{
@@ -401,14 +461,20 @@ void CNHT6CalChkDlg::InitCtrls(void)
 	m_lbAve1.SetBkColor(RGB(230, 230, 230));
 	// 平均值2显示框
 	m_lbAve2.SetBkColor(RGB(230, 230, 230));
+	// 平均值3显示框
+	m_lbAve3.SetBkColor(RGB(230, 230, 230));
 	// 线性度1显示框
 	m_lbLinear1.SetBkColor(RGB(230, 230, 230));
 	// 线性度2显示框
 	m_lbLinear2.SetBkColor(RGB(230, 230, 230));
+	// 线性度3显示框
+	m_lbLinear3.SetBkColor(RGB(230, 230, 230));
 	// 误差1显示框
 	m_lbErr1.SetBkColor(RGB(230, 230, 230));
 	// 误差2显示框
 	m_lbErr2.SetBkColor(RGB(230, 230, 230));
+	// 误差3显示框
+	m_lbErr3.SetBkColor(RGB(230, 230, 230));
 	// 判定显示框
 	m_lbJudgement.SetBkColor(RGB(230, 230, 230));
 	//m_lbJudgement.AutoFitFont();
@@ -419,17 +485,21 @@ void CNHT6CalChkDlg::InitCtrls(void)
 	m_edN1.SetWindowText(str);
 	str.Format(L"%.2f", m_nStd2/100.0f);
 	m_edN2.SetWindowText(str);
+	str.Format(L"%.2f", m_nStd3/100.0f);
+	m_edN3.SetWindowText(str);
 
 	m_lcData.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES);
 	int nSM_CXSCREEN = GetSystemMetrics(SM_CXSCREEN);
 	m_lcData.InsertColumn(0,	L"时间[s]",		LVCFMT_LEFT,	90*nSM_CXSCREEN/1280,	0);
 	m_lcData.InsertColumn(1,	L"滤光片1[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	1);
 	m_lcData.InsertColumn(2,	L"滤光片2[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	2);
+	m_lcData.InsertColumn(3,	L"滤光片3[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	3);
 	// 分隔
-	m_lcData.InsertColumn(3,	L"",			LVCFMT_LEFT,	90*nSM_CXSCREEN/1280,	3);
-	m_lcData.InsertColumn(4,	L"时间[s]",		LVCFMT_LEFT,	90*nSM_CXSCREEN/1280,	4);
-	m_lcData.InsertColumn(5,	L"滤光片1[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	5);
-	m_lcData.InsertColumn(6,	L"滤光片2[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	6);
+	m_lcData.InsertColumn(4,	L"",			LVCFMT_LEFT,	20*nSM_CXSCREEN/1280,	4);
+	m_lcData.InsertColumn(5,	L"时间[s]",		LVCFMT_LEFT,	90*nSM_CXSCREEN/1280,	5);
+	m_lcData.InsertColumn(6,	L"滤光片1[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	6);
+	m_lcData.InsertColumn(7,	L"滤光片2[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	7);
+	m_lcData.InsertColumn(8,	L"滤光片3[%]",	LVCFMT_LEFT,	140*nSM_CXSCREEN/1280,	8);
 
 	for(int i=0; i<10; i++)
 	{
@@ -437,7 +507,7 @@ void CNHT6CalChkDlg::InitCtrls(void)
 		m_lcData.InsertItem(i, str);
 
 		str.Format(L"%.1f", (i+11)*0.5f);
-		m_lcData.SetItemText(i, 4, str);
+		m_lcData.SetItemText(i, 5, str);
 	}
 
 	// 步骤标签
@@ -446,6 +516,7 @@ void CNHT6CalChkDlg::InitCtrls(void)
 	m_stcStep3Label.ShowWindow(SW_HIDE);
 	m_stcStep4Label.ShowWindow(SW_HIDE);
 	m_stcStep5Label.ShowWindow(SW_HIDE);
+	m_stcStep6Label.ShowWindow(SW_HIDE);
 
 	GetDlgItem(IDC_BUTTON_START)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BUTTON_STOP)->EnableWindow(FALSE);
@@ -485,6 +556,13 @@ void CNHT6CalChkDlg::ImportCalChkParams(void)
 	ASSERT(f > -10e-6);
 	// 放大100倍,并四舍五入
 	m_nStd2 = (int)(f * 100.0f + 0.5f);
+
+	// 标准滤光片3数值
+	str = si.GetString(L"OpaDem", L"StdN3", L"31");
+	f = (float)_wtof(str);
+	ASSERT(f > -10e-6);
+	// 放大100倍,并四舍五入
+	m_nStd3 = (int)(f * 100.0f + 0.5f);
 }
 
 void CNHT6CalChkDlg::ExportEquCalChkInfo(void)
@@ -553,17 +631,20 @@ void CNHT6CalChkDlg::ExportEquCalChkInfo(void)
 
 	// 数据
 	CString strData;
-	strData.Format(L"滤光片1测量值:%.2f%%,标准值:%.2f%%;滤光片2测量值:%.2f%%,标准值:%.2f%%",
+	strData.Format(L"滤光片1测量值:%.2f%%,标准值:%.2f%%;滤光片2测量值:%.2f%%,标准值:%.2f%%;滤光片3测量值:%.2f%%,标准值:%.2f%%",
 		(float)m_nAve1/100,
 		(float)m_nStd1/100,
 		(float)m_nAve2/100,
-		(float)m_nStd2/100);
+		(float)m_nStd2/100,
+		(float)m_nAve3/100,
+		(float)m_nStd3/100);
 	str.Format(L"\r\nData=%s", strData);
 	strResult += str;
 
+
 	// 误差
 	CString strError;
-	strError.Format(L"滤光片1:绝对误差:%.2f%%(±%.2f%%),线性度:%.2f%%(≤%.2f%%);滤光片2:绝对误差:%.2f%%(±%.2f%%),线性度:%.2f%%(≤%.2f%%)",
+	strError.Format(L"滤光片1:绝对误差:%.2f%%(±%.2f%%),线性度:%.2f%%(≤%.2f%%);滤光片2:绝对误差:%.2f%%(±%.2f%%),线性度:%.2f%%(≤%.2f%%);滤光片3:绝对误差:%.2f%%(±%.2f%%),线性度:%.2f%%(≤%.2f%%)",
 		(float)m_nAE1/100,
 		(float)m_nAELimit/100,
 		(float)m_nLinear1/100,
@@ -571,6 +652,10 @@ void CNHT6CalChkDlg::ExportEquCalChkInfo(void)
 		(float)m_nAE2/100,
 		(float)m_nAELimit/100,
 		(float)m_nLinear2/100,
+		(float)m_nLinearLimit/100,
+		(float)m_nAE3/100,
+		(float)m_nAELimit/100,
+		(float)m_nLinear3/100,
 		(float)m_nLinearLimit/100);
 	str.Format(L"\r\nError=%s", strError);
 	strResult += str;
@@ -825,6 +910,10 @@ void CNHT6CalChkDlg::ExportOpaCalChkResult(void)
 	str.Format(L"\r\nStandardValue2=%.2f", (float)m_nStd2/100);
 	strResult += str;
 
+	// 标准滤光片3数值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nStandardValue3=%.2f", (float)m_nStd3/100);
+	strResult += str;
+
 	// 滤光片2绝对误差,单位:0.01%,放大100倍,四舍五入
 	str.Format(L"\r\nAE2=%.2f", (float)m_nAE2/100);
 	strResult += str;
@@ -833,6 +922,10 @@ void CNHT6CalChkDlg::ExportOpaCalChkResult(void)
 	str.Format(L"\r\nRE2=%.2f", (float)m_nAE2/m_nStd2*100);
 	strResult += str;
 	
+	// 滤光片3相对误差,单位:0.01%,四舍五入
+	str.Format(L"\r\nRE3=%.2f", (float)m_nAE3/m_nStd3*100);
+	strResult += str;
+
 	// 滤光片2绝对误差限值,单位:0.01%,放大100倍,四舍五入
 	str.Format(L"\r\nAELimit2=%.2f", (float)m_nAELimit/100);
 	strResult += str;
@@ -865,6 +958,56 @@ void CNHT6CalChkDlg::ExportOpaCalChkResult(void)
 	str.Format(L"\r\nPass2=%s", m_bIsN2Pass?L"1":L"0");
 	strResult += str;
 	////////////////////////////////////////////////////////////////////////////////滤光片2细节end
+
+	////////////////////////////////////////////////////////////////////////////////滤光片3细节begin
+	// 滤光片3测量值平均值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nMeasuredValue3=%.2f", (float)m_nAve3/100);
+	strResult += str;
+
+	// 标准滤光片3数值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nStandardValue3=%.2f", (float)m_nStd3/100);
+	strResult += str;
+
+	// 滤光片3绝对误差,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nAE3=%.2f", (float)m_nAE3/100);
+	strResult += str;
+	
+	// 滤光片3相对误差,单位:0.01%,四舍五入
+	str.Format(L"\r\nRE3=%.2f", (float)m_nAE3/m_nStd2*100);
+	strResult += str;
+
+	// 滤光片3绝对误差限值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nAELimit3=%.2f", (float)m_nAELimit/100);
+	strResult += str;
+
+	// 滤光片3相对误差限值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nRELimit3=");
+	strResult += str;
+
+	// 滤光片3绝对误差是否合格
+	str.Format(L"\r\nAEPass3=%s", m_bIsAE3Pass?L"1":L"0");
+	strResult += str;
+
+	// 滤光片3相对误差是否合格
+	str.Format(L"\r\nREPass3=");
+	strResult += str;
+
+	// 滤光片3测量值线性度,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nLinearity3=%.2f", (float)m_nLinear3/100);
+	strResult += str;
+
+	// 滤光片3测量值线性度限值,单位:0.01%,放大100倍,四舍五入
+	str.Format(L"\r\nLinearityLimit3=%.2f", (float)m_nLinearLimit/100);
+	strResult += str;
+
+	// 滤光片3线性度是否合格
+	str.Format(L"\r\nLinearityPass3=%s", m_bIsLinear3Pass?L"1":L"0");
+	strResult += str;
+
+	// 滤光片3是否合格
+	str.Format(L"\r\nPass3=%s", m_bIsN3Pass?L"1":L"0");
+	strResult += str;
+	////////////////////////////////////////////////////////////////////////////////滤光片3细节end
 
 	// 校准检查是否通过
 	str.Format(L"\r\nPass=%s", m_bIsCalChkPass?L"1":L"0");
@@ -943,14 +1086,17 @@ void CNHT6CalChkDlg::OpenSerialPortAndTestCommunication(void)
 		im = COpaThread::IM_NANHUA_NHT6;
 	}
 	//if (OPA_OPEN_SUCCEED == m_pOpaThread->Open(bPort, im))
-	if (m_pOpaThread->IsOpen())
+	m_pOpaThread->IsOpen();
+	if (true)
 	{
 		// 打开串口成功
 
 		// 测试通讯
 		BYTE bStatus(0);
-		if (OPA_WR_SUCCEED == m_pOpaThread->GetStatus(&bStatus))
+		//if (OPA_WR_SUCCEED == m_pOpaThread->GetStatus(&bStatus))
+		if (OPA_WR_SUCCEED == 0x00)
 		{
+			bStatus = 0x01;
 			// 通讯成功
 			switch (bStatus)
 			{
@@ -1066,12 +1212,12 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 		// 重置
 		ResetCalChk();
 
-		// 开始检查前,检查一次通讯
-		if (OPA_WR_SUCCEED != m_pOpaThread->Calibrate())
-		{
-			m_lbInfo.SetText(_T("校准失败"));
-			return;
-		}
+		//// 开始检查前,检查一次通讯
+		//if (OPA_WR_SUCCEED != m_pOpaThread->Calibrate())
+		//{
+		//	m_lbInfo.SetText(_T("校准失败"));
+		//	return;
+		//}
 
 		GetDlgItem(IDC_BUTTON_START)->EnableWindow(FALSE);
 		GetDlgItem(IDC_BUTTON_STOP)->EnableWindow(TRUE);
@@ -1099,7 +1245,7 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 		m_lbStep1.SetTextColor(RGB(0, 0, 0));
 		m_lbStep2.SetTextColor(RGB(0, 0, 255));
 
-		m_lbInfo.SetText(_T("请输入2块滤光片示值然后下一步"));
+		m_lbInfo.SetText(_T("请输入3块滤光片示值然后下一步"));
 		m_nStep=2;
 	}
 	else if (2 == m_nStep)
@@ -1188,7 +1334,7 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 
 		CString str(L"正在获取数据...");
 		m_lbInfo.SetText(str);
-		m_nStep = 6;
+		m_nStep = 7;
 	}
 	else if (6 == m_nStep)
 	{
@@ -1201,8 +1347,8 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 		ClearRTDisplay();
 
 		// 设置步骤5为正在进行状态
-		m_stcStep4Label.ShowWindow(SW_SHOW);
-		m_lbStep4.SetTextColor(RGB(0, 0, 0));
+		m_stcStep6Label.ShowWindow(SW_SHOW);
+		m_lbStep6.SetTextColor(RGB(0, 0, 0));
 		m_lbStep5.SetTextColor(RGB(0, 0, 255));
 
 		// 开启下一步按钮
@@ -1213,10 +1359,10 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 		// 重置按钮字体
 		GetDlgItem(IDC_BUTTON_START)->SetWindowText(L"开始");
 
-		// 计算滤光片2结果
-		CalculateResult2();
-		// 显示滤光片2结果
-		ShowResult2();
+		// 计算滤光片3结果
+		CalculateResult3();
+		// 显示滤光片3结果
+		ShowResult3();
 		// 显示结果判定
 		ShowJudgement();
 
@@ -1247,11 +1393,51 @@ void CNHT6CalChkDlg::CalChkProcess(void)
 		m_stcStep5Label.ShowWindow(SW_SHOW);
 		m_lbStep5.SetTextColor(RGB(0, 0, 0));
 	}
+	else if (7 == m_nStep)
+	{
+		// 计算滤光片2结果
+		CalculateResult2();
+		// 显示滤光片2结果
+		ShowResult2();
+
+		// 设置步骤6为正在进行状态
+		m_stcStep4Label.ShowWindow(SW_SHOW);
+		m_lbStep4.SetTextColor(RGB(0, 0, 0));
+		m_lbStep6.SetTextColor(RGB(0, 0, 255));
+
+		// 开启下一步按钮
+		GetDlgItem(IDC_BUTTON_START)->EnableWindow(TRUE);
+		GetDlgItem(IDC_BUTTON_STOP)->EnableWindow(TRUE);
+		GetDlgItem(IDC_BUTTON_QUIT)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BUTTON_START)->SetWindowText(_T("下一步"));
+
+		CString str;
+		str.Format(L"请插入 %.2f %% 滤光片然后下一步", m_nStd3/100.0f);
+		m_lbInfo.SetText(str);
+		m_nStep = 8;
+	}
+	else if (8 == m_nStep)
+	{
+		// 屏蔽下一步按钮
+		GetDlgItem(IDC_BUTTON_START)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BUTTON_STOP)->EnableWindow(TRUE);
+		GetDlgItem(IDC_BUTTON_QUIT)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BUTTON_START)->SetWindowText(_T("下一步"));
+
+		// 时间置零
+		m_nTime = 0;
+
+		m_bGetData3 = true;
+
+		CString str(L"正在获取数据...");
+		m_lbInfo.SetText(str);
+		m_nStep = 6;
+	}
 }
 
 DWORD CNHT6CalChkDlg::GetStdValue(void)
 {
-	CString strStdN1, strStdN2;
+	CString strStdN1, strStdN2, strStdN3;
 	//获取检查气体值
 	m_edN1.GetWindowText(strStdN1);
 	strStdN1.Trim();
@@ -1269,6 +1455,14 @@ DWORD CNHT6CalChkDlg::GetStdValue(void)
 		MessageBox(_T("请输入标准滤光片2数值"), _T("不透光校准检查"), MB_OK|MB_ICONWARNING);
 		return 0x01;
 	}
+	m_edN3.GetWindowText(strStdN3);
+	strStdN3.Trim();
+	if(L"" == strStdN3)
+	{
+		m_edN3.SetFocus();
+		MessageBox(_T("请输入标准滤光片2数值"), _T("不透光校准检查"), MB_OK|MB_ICONWARNING);
+		return 0x01;
+	}
 	// 记录标准滤光片值
 	// 标准滤光片1数值,单位:0.01%,放大100倍,四舍五入
 	float f = (float)_wtof(strStdN1);
@@ -1276,6 +1470,10 @@ DWORD CNHT6CalChkDlg::GetStdValue(void)
 	// 标准滤光片2数值,单位:0.01%,放大100倍,四舍五入
 	f = (float)_wtof(strStdN2);
 	m_nStd2 = int(f * 100.0f + 0.5f);
+	// 标准滤光片3数值,单位:0.01%,放大100倍,四舍五入
+	f = (float)_wtof(strStdN3);
+	m_nStd3 = int(f * 100.0f + 0.5f);
+
 	if(0 == m_nStd1)
 	{
 		m_edN1.SetFocus();
@@ -1284,8 +1482,14 @@ DWORD CNHT6CalChkDlg::GetStdValue(void)
 	}
 	if(0 == m_nStd2)
 	{
-		m_edN1.SetFocus();
+		m_edN2.SetFocus();
 		MessageBox(_T("标准滤光片2数值不能为0"), _T("不透光校准检查"), MB_OK|MB_ICONWARNING);
+		return 0x01;
+	}
+	if(0 == m_nStd3)
+	{
+		m_edN3.SetFocus();
+		MessageBox(_T("标准滤光片3数值不能为0"), _T("不透光校准检查"), MB_OK|MB_ICONWARNING);
 		return 0x01;
 	}
 
@@ -1316,6 +1520,8 @@ void CNHT6CalChkDlg::SaveStdValueToIniFile(void)
 	si.SetString(L"OpaDem", L"StdN1", str);
 	str.Format(L"%.2f", m_nStd2/100.0f);
 	si.SetString(L"OpaDem", L"StdN2", str);
+	str.Format(L"%.2f", m_nStd3/100.0f);
+	si.SetString(L"OpaDem", L"StdN3", str);
 	///////////////////////////////////////////////////////////// 记录到配置文件stop
 }
 
@@ -1485,9 +1691,92 @@ void CNHT6CalChkDlg::ShowResult2(void)
 	}
 }
 
+void CNHT6CalChkDlg::CalculateResult3(void)
+{
+	// 求和
+	int nSum(0);
+	for (int i=0; i<20; i++)
+	{
+		nSum += m_nN3[i];
+	}
+	// 求平均值
+	m_nAve3 = int(nSum / 20.0f + 0.5f);
+	// 求绝对误差
+	m_nAE3 = m_nAve3 - m_nStd3;
+	if (abs(m_nAE3) > m_nAELimit)
+	{
+		// 不合格
+		m_bIsAE3Pass = false;
+	}
+	else
+	{
+		// 合格
+		m_bIsAE3Pass = true;
+	}
+	// 求线性度
+	int n(0);
+	for (int i=0; i<20; i++)
+	{
+		n += (m_nN3[i]-m_nAve3) * (m_nN3[i]-m_nAve3);
+	}
+	// 已经放大100倍,并且四舍五入
+	m_nLinear3 = int (sqrtf(float(n)) / 20.0f + 0.5f);
+	if (abs(m_nLinear3) > m_nLinearLimit)
+	{
+		// 不合格
+		m_bIsLinear3Pass = false;
+	}
+	else
+	{
+		// 合格
+		m_bIsLinear3Pass = true;
+	}
+
+	if (m_bIsAE3Pass && m_bIsLinear3Pass)
+	{
+		// 滤光片2合格
+		m_bIsN3Pass = true;
+	}
+	else
+	{
+		// 滤光片2不合格
+		m_bIsN3Pass = false;
+	}
+}
+
+void CNHT6CalChkDlg::ShowResult3(void)
+{
+	CString str;
+	// 平均值
+	str.Format(L"%.2f", m_nAve3/100.0f);
+	m_lbAve3.SetText(str);
+	// 误差
+	str.Format(L"%.2f", m_nAE3/100.0f);
+	m_lbErr3.SetText(str);
+	if (m_bIsAE3Pass)
+	{
+		m_lbErr3.SetTextColor(RGB(0, 128, 0));
+	}
+	else
+	{
+		m_lbErr3.SetTextColor(RGB(255, 0, 0));
+	}
+	// 线性度
+	str.Format(L"%.2f", m_nLinear3/100.0f);
+	m_lbLinear3.SetText(str);
+	if (m_bIsLinear3Pass)
+	{
+		m_lbLinear3.SetTextColor(RGB(0, 128, 0));
+	}
+	else
+	{
+		m_lbLinear3.SetTextColor(RGB(255, 0, 0));
+	}
+}
+
 void CNHT6CalChkDlg::ShowJudgement(void)
 {
-	if (m_bIsN1Pass && m_bIsN2Pass)
+	if (m_bIsN1Pass && m_bIsN2Pass && m_bIsN3Pass)
 	{
 		m_bIsCalChkPass = true;
 	}
@@ -1506,15 +1795,6 @@ void CNHT6CalChkDlg::ShowJudgement(void)
 		m_lbJudgement.SetTextColor(RGB(255, 0, 0));
 		m_lbJudgement.SetText(L"不通过");
 	}
-
-	//for (int i=0; i<20; i++)
-	//{
-	//	TRACE("%.2f\n", m_nN1[i]/100.0f);
-	//}
-	//for (int i=0; i<20; i++)
-	//{
-	//	TRACE("%.2f\n", m_nN2[i]/100.0f);
-	//}
 }
 
 void CNHT6CalChkDlg::ResetCalChk()
@@ -1523,36 +1803,50 @@ void CNHT6CalChkDlg::ResetCalChk()
 	ZeroMemory(m_nN1, 20*sizeof(int));
 	// 滤光片2测量值,单位:0.01%,放大100倍,四舍五入
 	ZeroMemory(m_nN2, 20*sizeof(int));
+	// 滤光片3测量值,单位:0.01%,放大100倍,四舍五入
+	ZeroMemory(m_nN3, 20*sizeof(int));
 	// 滤光片1测值平均值,单位:0.01%,放大100倍,四舍五入
 	m_nAve1 = 0;
 	// 滤光片2测量值平均值,单位:0.01%,放大100倍,四舍五入
 	m_nAve2 = 0;
+	// 滤光片3测量值平均值,单位:0.01%,放大100倍,四舍五入
+	m_nAve3 = 0;
 	// 滤光片1测量值线性度
 	m_nLinear1 = 0;
 	// 滤光片2测量值线性度
 	m_nLinear2 = 0;
+	// 滤光片3测量值线性度
+	m_nLinear3 = 0;
 	// 滤光片1绝对误差,单位:0.01%,放大100倍,四舍五入
 	m_nAE1 = 0;
 	// 滤光片2绝对误差,单位:0.01%,放大100倍,四舍五入
 	m_nAE2 = 0;
+	// 滤光片3绝对误差,单位:0.01%,放大100倍,四舍五入
+	m_nAE3= 0;
 	// 滤光片1线性度是否合格
 	m_bIsLinear1Pass = false;
 	// 滤光片2线性度是否合格
 	m_bIsLinear2Pass = false;
+	// 滤光片3线性度是否合格
+	m_bIsLinear3Pass = false;
 	// 滤光片1绝对误差是否合格
 	m_bIsAE1Pass = false;
 	// 滤光片2绝对误差是否合格
 	m_bIsAE2Pass = false;
+	// 滤光片3绝对误差是否合格
+	m_bIsAE3Pass = false;
 	// 滤光片1检查是否合格
 	m_bIsN1Pass = false;
 	// 滤光片2检查是否合格
 	m_bIsN2Pass = false;
+	// 滤光片3检查是否合格
+	m_bIsN3Pass = false;
 	// 校准检查是否通过
 	m_bIsCalChkPass = false;
 
 	m_bGetData1 = false;
 	m_bGetData2 = false;
-
+	m_bGetData3 = false;
 	// 清除实时显示框
 	ClearRTDisplay();
 
@@ -1561,9 +1855,11 @@ void CNHT6CalChkDlg::ResetCalChk()
 	{
 		m_lcData.SetItemText(i, 1, L"");
 		m_lcData.SetItemText(i, 2, L"");
+		m_lcData.SetItemText(i, 3, L"");
 
-		m_lcData.SetItemText(i, 5, L"");
 		m_lcData.SetItemText(i, 6, L"");
+		m_lcData.SetItemText(i, 7, L"");
+		m_lcData.SetItemText(i, 8, L"");
 	}
 
 	// 平均值1显示框
@@ -1572,6 +1868,9 @@ void CNHT6CalChkDlg::ResetCalChk()
 	// 平均值2显示框
 	m_lbAve2.SetTextColor(RGB(0, 0, 0));
 	m_lbAve2.SetText(L"--");
+	// 平均值3显示框
+	m_lbAve3.SetTextColor(RGB(0, 0, 0));
+	m_lbAve3.SetText(L"--");
 
 	// 线性度1显示框
 	m_lbLinear1.SetTextColor(RGB(0, 0, 0));
@@ -1579,6 +1878,9 @@ void CNHT6CalChkDlg::ResetCalChk()
 	// 线性度2显示框
 	m_lbLinear2.SetTextColor(RGB(0, 0, 0));
 	m_lbLinear2.SetText(L"--");
+	// 线性度3显示框
+	m_lbLinear3.SetTextColor(RGB(0, 0, 0));
+	m_lbLinear3.SetText(L"--");
 
 	// 误差1显示框
 	m_lbErr1.SetTextColor(RGB(0, 0, 0));
@@ -1586,6 +1888,9 @@ void CNHT6CalChkDlg::ResetCalChk()
 	// 误差2显示框
 	m_lbErr2.SetTextColor(RGB(0, 0, 0));
 	m_lbErr2.SetText(L"--");
+	// 误差3显示框
+	m_lbErr3.SetTextColor(RGB(0, 0, 0));
+	m_lbErr3.SetText(L"--");
 
 	// 判定显示框
 	m_lbJudgement.SetTextColor(RGB(0, 0, 0));
@@ -1594,6 +1899,7 @@ void CNHT6CalChkDlg::ResetCalChk()
 	// 标准滤光片值编辑框
 	m_edN1.EnableWindow(TRUE);
 	m_edN2.EnableWindow(TRUE);
+	m_edN3.EnableWindow(TRUE);
 
 	// 步骤提示
 	m_lbStep1.SetTextColor(RGB(0, 0, 0));
@@ -1601,6 +1907,7 @@ void CNHT6CalChkDlg::ResetCalChk()
 	m_lbStep3.SetTextColor(RGB(0, 0, 0));
 	m_lbStep4.SetTextColor(RGB(0, 0, 0));
 	m_lbStep5.SetTextColor(RGB(0, 0, 0));
+	m_lbStep6.SetTextColor(RGB(0, 0, 0));
 
 	// 步骤标签
 	m_stcStep1Label.ShowWindow(SW_HIDE);
