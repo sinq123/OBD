@@ -147,4 +147,7 @@ public:
 	CString GetOBDType(const int& nType, const CString& strFulType);
 	void GetEngineCALID(const CString& strOBDType, const CString& strFulType, CString& strEngineCALID, CString& strEngineCVN);
 	
+
+
+	bool UpOBDStart(const CString& strInspectionNum, const CStringW& strStationNum, const CStringW& strLineNum);
 };

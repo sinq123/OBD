@@ -7,6 +7,8 @@
 #include "CDSCheckDlg.h"
 #include "afxdialogex.h"
 #include "NHDailyDemarcationDlg.h"
+#include "NHSystemCheckDlg.h"
+#include "EmissionTestPrepareDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -153,6 +155,14 @@ void CCDSCheckDlg::OnBnClickedBtnDailyDemarcation()
 
 void CCDSCheckDlg::OnBnClickedBtnEmissionTest()
 {
+	// 反初始化
+	CNHEuqController::GetInstance().UnInit();
+
+	CEmissionTestPrepareDlg dlg;
+	const DWORD dwReturn = (DWORD)dlg.DoModal();
+
+	// 初始化
+	CNHEuqController::GetInstance().Init();
 }
 
 void CCDSCheckDlg::OnBnClickedBtnDataManagement()
@@ -165,11 +175,14 @@ void CCDSCheckDlg::OnBnClickedBtnSystemManagement()
 
 void CCDSCheckDlg::OnBnClickedBtnSystemCheck()
 {
-#ifdef _DEBUG
-	SHBMsg sHBMsg;
-	//CZYHttp_PAI::GetInstance().SetDieCheck(L"1", sHBMsg);
-	CZYHttp_PAI::GetInstance().SetGasPLHP(sHBMsg);
-#endif
+	GetLocalTime(&m_sCurrencyTime);
+	SetDboLineInfoLineState(m_sIniNHClient.wchLineNumber, EQU_SYSTEMCHECK, &m_sCurrencyTime);
+
+	CNHSystemCheckDlg dlg;
+	const DWORD dwReturn = (DWORD)dlg.DoModal();
+
+	GetLocalTime(&m_sCurrencyTime);
+	SetDboLineInfoLineState(m_sIniNHClient.wchLineNumber, EQU_FREE, &m_sCurrencyTime);
 }
 
 void CCDSCheckDlg::OnBnClickedBtnTrainingPresentation()

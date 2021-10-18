@@ -410,8 +410,20 @@ DWORD CAnaDlg::WriteAnaGasChkData(void)
 	{
 		SHBMsg sHBMsg; 
 
-		CZYHttp_PAI::GetInstance().SetGasCheck(L"2", sHBMsg);
-		CZYHttp_PAI::GetInstance().SetGasCheck(L"1", sHBMsg);
+		
+		if ((str == L"2") || (str == L"3"))
+		{
+			CZYHttp_PAI::GetInstance().SetGasCheck(L"2", sHBMsg);
+		}
+		else
+		{
+			CZYHttp_PAI::GetInstance().SetGasCheck(L"1", sHBMsg);
+			if (IDYES == AfxMessageBox(L"是否上传五点检查", MB_YESNO))
+			{
+				CZYHttp_PAI::GetInstance().SetGasCheck(L"2", sHBMsg);
+			}
+		}
+		
 
 		if (sHBMsg.code == L"200")
 		{

@@ -46,6 +46,12 @@
     <Filter Include="验证">
       <UniqueIdentifier>{8747a62f-8d37-4d05-b8bb-2672f9b6b43b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="自检">
+      <UniqueIdentifier>{4acc8331-86ac-4d96-95be-4ecdf2003d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="设备准备">
+      <UniqueIdentifier>{ef97641b-a5bf-485d-98ed-2fe0b70f9f6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -138,6 +144,24 @@
     <ClInclude Include="RJYZ.h">
       <Filter>验证</Filter>
     </ClInclude>
+    <ClInclude Include="NHSystemCheckDlg.h">
+      <Filter>自检</Filter>
+    </ClInclude>
+    <ClInclude Include="DieselVehicleEquipmentPrepareDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="GasolineVehicleEquipmentPrepareDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="GasolineVehicleEquipmentPrepareNDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="EmissionTestPrepareDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
+    <ClInclude Include="OBDTestDlg.h">
+      <Filter>设备准备</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDSCheck.cpp">
@@ -181,6 +205,24 @@
     </ClCompile>
     <ClCompile Include="RJYZ.cpp">
       <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="NHSystemCheckDlg.cpp">
+      <Filter>自检</Filter>
+    </ClCompile>
+    <ClCompile Include="DieselVehicleEquipmentPrepareDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="GasolineVehicleEquipmentPrepareDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="GasolineVehicleEquipmentPrepareNDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="EmissionTestPrepareDlg.cpp">
+      <Filter>设备准备</Filter>
+    </ClCompile>
+    <ClCompile Include="OBDTestDlg.cpp">
+      <Filter>设备准备</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

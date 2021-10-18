@@ -9,6 +9,20 @@
 
 #include "..\NHWin32Lib\NHWin32Lib.h"
 
+#include "..\NHDetCommModu\NHDetCommModu.h"
+#ifdef _DEBUG
+#pragma comment(lib, "..\\Debug\\NHDetCommModu_D.lib")
+#else
+#pragma comment(lib, "..\\Release\\NHDetCommModu.lib")
+#endif
+
+#include "..\JsonnLib\JsonnLib.h"
+#ifdef _DEBUG
+#pragma comment(lib, "..\\Debug\\JsonnLib_D.lib")
+#else
+#pragma comment(lib, "..\\Release\\JsonnLib.lib")
+#endif
+
 struct SHBMsg
 {
 	// 返回结果Code
@@ -42,7 +56,6 @@ struct SEnvPara
 	//scdqy	实测大气压读数kPa	String	可空	小数点后保留一位
 	std::wstring scdqy;
 };
-
 // 转速
 struct STachometer
 {
@@ -118,10 +131,11 @@ public:
 	bool GetTestMethod(const CStringW& hphm, const CStringW& hpzl, const CStringW& clsbdh, SHBMsg& sHBMsg);
 	// 90Y07-受理信息列表下载接口
 	// 车辆受理信息，可根据时间段获取受理信息，默认下载200条，超过提醒下载失败，请重新设置时间段。
-	bool GetVehAccInfo(const CStringW& jyff, const CStringW& slkssj, const CStringW& sljssj, const CStringW& hphm, const CStringW& hpzl, const CStringW& rllb, SHBMsg& sHBMsg);
+	bool GetVehAccInfo(const CStringW& jyff, const CStringW& slkssj, const CStringW& sljssj, const CStringW& hphm, const CStringW& hpzl, const CStringW& rllb, 
+		std::list<TESTLOG> &lsTestLog ,SHBMsg& sHBMsg);
 	// 90Y08-受理信息详情下载接口
 	// 根据检验流水号获取车辆受理信息详情。
-	bool GetAccInfo(const CStringW& jylsh, SHBMsg& sHBMsg);
+	bool GetAccInfo(const CStringW& jylsh, TESTLOG& sTestLog, VEHICLEINFO& sVehInfo, SHBMsg& sHBMsg);
 	// 90Y09-车辆审核不通过原因查询
 	// 检验机构根据检验流水号，检验次数获得车辆审核不通过原因信息。
 	bool GetVehFailPass(const CStringW& jylsh, const CStringW& jycs, SHBMsg& sHBMsg);
@@ -130,16 +144,16 @@ public:
 	// 写入类接口 开始
 	// 90Y24-机动车检验项目开始信息
 	// 机动车排气检验、OBD检验项目开始时，上传检验项目开始信息。
-	bool SetVehItemStart(const CStringW& jylsh, const CStringW& jcxdh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg);
+	bool SetVehItemStart(const CStringW& jylsh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg);
 	// 90Y25-机动车检验项目结束信息
 	// 机动车排气检验、OBD检验项目开始时，上传检验项目结束信息。
-	bool SetVehItemEnd(const CStringW& jylsh, const CStringW& jcxdh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg);
+	bool SetVehItemEnd(const CStringW& jylsh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg);
 	// 90Y26-上报检测信号信息
 	// 检测过程中，从插入采样管开始，所属检验方法的关键节点都应向平台上报检测信号。
-	bool SetTestingSignalInfo(const CStringW& jylsh, const CStringW& jcxdh, const CStringW& jycs, const CStringW& jygcbs, SHBMsg& sHBMsg);
+	bool SetTestingSignalInfo(const CStringW& jylsh, const CStringW& jycs, const CStringW& jygcbs, SHBMsg& sHBMsg);
 	// 90Y27-OBD检验结果信息上报
 	// 车辆OBD检测结束后，上报OBD检测结果信息到监管平台。
-	bool SetOBDItemEnd(SHBMsg& sHBMsg);
+	bool SetOBDItemEnd(const TestLog &sTestLog, const SResultOfOBD &sResultData, SHBMsg& sHBMsg);
 	// 90Y28-OBD系统检验过程数据上报
 	// OBD系统检查结束后上报监管平台
 	bool SetOBDProData(SHBMsg& sHBMsg);
@@ -232,6 +246,33 @@ private:
 	CString Map2Json(JsonMap mapPost);
 	CString MapVec2Json(JsonMapVec vmPost);
 
+	// Json格式转换
+	CString JsonValueToCString(Json::Value root);
+
+	// 检验方法转换
+	CStringW TestTypeNameToCode(const CString strTestTypeName);
+	CStringW TestTypeCodeToName(const CString strTestTypeCode);
+	// 车牌颜色
+	CStringW PlateTypeNameToCode(const CString strName);
+	CStringW PlateTypeCodeToName(const CString strCode);
+	// 3.6 燃料类别
+	CStringW FuleNameToCode(const CString strName);
+	CStringW FuleCodeToName(const CString strCode);
+	//3.12 车身颜色
+	CStringW VehColourNameToCode(const CString strName);
+	CStringW VehColourCodeToName(const CString strCode);
+	//	3.5 进气方式
+	CStringW AirIntakeModeNameToCode(const CString strName);
+	CStringW AirIntakeModeCodeToName(const CString strCode);
+	//3.7 供油方式
+	CStringW OilSupplyModeNameToCode(const CString strName);
+	CStringW OilSupplyModeCodeToName(const CString strCode);
+	// 3.8 驱动型式
+	CStringW DriveTypeNameToCode(const CString strName);
+	CStringW DriveTypeCodeToName(const CString strCode);
+	// 3.9 燃油规格
+	CStringW FuelMarkNameToCode(const CString strName);
+	CStringW FuelMarkCodeToName(const CString strCode);
 private:
 	// URL写入地址
 	std::wstring wstrWURL;

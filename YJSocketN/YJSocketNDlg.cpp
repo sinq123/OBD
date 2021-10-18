@@ -843,7 +843,7 @@ void CYJSocketNDlg::OnBnClickedBtnUp()
 
 	CString strTempMsg;
 	strMsg.Empty();
-
+	bRet = UpOBDStart(strStationNum, strLineNum, sTestLog, sResultOfOBD, sVehInfo, strMsg);
 	bRet = UpOBDReaust(strStationNum, strLineNum, sTestLog, sResultOfOBD, sVehInfo, strMsg);
 	if (!bRet)
 	{
@@ -1278,6 +1278,32 @@ void CYJSocketNDlg::GetEngineCALID(const CString& strOBDType, const CString& str
 		}
 
 	}
+}
+
+bool CYJSocketNDlg::UpOBDStart(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
+		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
+{
+	bool bRet(false);
+
+	CString strJsonData(L"{");
+	strJsonData.AppendFormat(L"\"InspectionNum\":\"%s\",", sTestLog.wchReportNumber);
+	strJsonData.AppendFormat(L"\"StationCode\":\"%s\",", strStationNum);
+	strJsonData.AppendFormat(L"\"SceneCode\":\"%s\",", strLineNum);
+	strJsonData.AppendFormat(L"\"Time\":\"%s\",", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+	strJsonData.AppendFormat(L"\"Code\":\"%s\"}", L"start");
+
+	std::wstring strRecv;
+	bRet = SendAndRecvPacket(L"HJ04", strStationNum, strLineNum, GenerateInsNum(), strJsonData, strRecv);
+
+	if (bRet)
+	{
+		strMsg.Format(L"上传成功：%s", strRecv.c_str());
+	}
+	else
+	{
+		strMsg.Format(L"上传失败：%s", strRecv.c_str());
+	}
+	return bRet;
 }
 
 bool CYJSocketNDlg::UpOBDReaust(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 

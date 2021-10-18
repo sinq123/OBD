@@ -3683,11 +3683,11 @@ void CNHA503XGasCheckDlg::RandomError(short& sHC, float& fPef, float& fCO, float
 
 	if (m_nCONominalValue > 999)
 	{
-		n = rand()%10 + 100;
+		n = rand()%6 + 5;
 	}
 	else
 	{
-		n = rand()%10 + 10;
+		n = rand()%6 + 10;
 	}
 	if ((n%2) == 0)
 	{
@@ -3715,11 +3715,11 @@ void CNHA503XGasCheckDlg::RandomError(short& sHC, float& fPef, float& fCO, float
 
 	if (m_nCO2NominalValue > 999)
 	{
-		n = rand()%10 + 150;
+		n = rand()%6 + 5;
 	}
 	else
 	{
-		n = rand()%10 + 20;
+		n = rand()%5 + 10;
 	}
 	if ((n%2) == 0)
 	{

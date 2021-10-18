@@ -1,12 +1,7 @@
 #include "stdafx.h"
 #include "ZYHttp_API.h"
 
-#include "..\JsonnLib\JsonnLib.h"
-#ifdef _DEBUG
-#pragma comment(lib, "..\\Debug\\JsonnLib_D.lib")
-#else
-#pragma comment(lib, "..\\Release\\JsonnLib.lib")
-#endif
+
 
 #include "..\RapidjsonLib\RapidjsonLib.h"
 #ifdef _DEBUG
@@ -83,6 +78,880 @@ CZYHttp_PAI& CZYHttp_PAI::GetInstance(void)
 	return *(auto_ptr_instance.get());
 }
 
+// 查询类接口 开始
+
+bool CZYHttp_PAI::GetPlatFormTime(SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+	//根节点
+	Json::Value root;
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y01）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y01", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y07）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+
+				std::wstring strTime = UTF8ToTChar(root["data"]["sj"].asString().c_str());
+				strTime.replace(strTime.begin(), strTime.end(), L'.', L'\0');
+
+				HANDLE token;
+				//提升权限
+				if(!OpenProcessToken(GetCurrentProcess(),TOKEN_ADJUST_PRIVILEGES,&token))
+				{
+					CNHLogAPI::WriteLogEx(m_strLogFilePath, LOG_MSG, L"GetPlatFormTime返回", L"打开进程令牌失败");
+					bRet = false;
+				}
+				else
+				{
+					TOKEN_PRIVILEGES tkp;
+					tkp.PrivilegeCount = 1;
+					::LookupPrivilegeValue(NULL,SE_SYSTEMTIME_NAME,&tkp.Privileges[0].Luid);
+					tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+					if(!AdjustTokenPrivileges(token,FALSE,&tkp,sizeof(tkp),NULL,NULL))
+					{
+						CNHLogAPI::WriteLogEx(m_strLogFilePath, LOG_MSG, L"GetPlatFormTime返回", L"调整令牌权限失败");
+						bRet = false;
+					}
+					else
+					{
+						CloseHandle(token);
+
+						// 同步时间
+						COleDateTime odtNow;
+						if (odtNow.ParseDateTime(strTime.c_str()))
+						{
+							SYSTEMTIME st;
+							odtNow.GetAsSystemTime(st);
+							// 本机
+							if (SetLocalTime(&st))
+							{
+								CNHLogAPI::WriteLogEx(m_strLogFilePath, LOG_MSG, L"GetPlatFormTime返回", L"同步本地时间成功");
+							}
+							else
+							{
+								CNHLogAPI::WriteLogEx(m_strLogFilePath, LOG_MSG, L"GetPlatFormTime返回", L"同步本地时间失败");
+								bRet = false;
+							}
+						}
+						else
+						{
+							bRet = false;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetVehInfo(const CStringW& hphm, const CStringW& hpzl, const CStringW& hpys, const CStringW& clsbdh, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+
+	//1	hphm	号牌号码	String	不可空	
+	root["data"]["hphm"] = TCharToUTF8(hphm.GetString());
+	//2	hpzl	号牌种类	String	不可空	见附录3.1
+	root["data"]["hpzl"] = TCharToUTF8(hpzl.GetString());
+	//3	hpys	号牌颜色	String	不可空	
+	root["data"]["hpys"] = TCharToUTF8(hpys.GetString());
+	//4	clsbdh	车辆识别代号	String	不可空	可以后4位
+	root["data"]["clsbdh"] = TCharToUTF8(clsbdh.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y02）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y02", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y02）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetLimitValue(const CStringW& jyff, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	//1	jyff	检验方法	String	不可空	见附录3.10
+	root["data"]["jyff"] = TCharToUTF8(jyff.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y03）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y03", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y03）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetPersonnelInfo(SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y04）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y04", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y04）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetTestMethod(const CStringW& hphm, const CStringW& hpzl, const CStringW& clsbdh, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	//1		hphm	号牌号码	String	不可空	在用车是
+	root["data"]["hphm"] = TCharToUTF8(hphm.GetString());
+	//2		hpzl	号牌种类	String	不可空	在用车是，见附录3.1
+	root["data"]["hpzl"] = TCharToUTF8(hpzl.GetString());
+	//3		clsbdh	车辆识别代号	String	不可空	
+	root["data"]["clsbdh"] = TCharToUTF8(clsbdh.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y06）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y06", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y06）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetVehAccInfo(const CStringW& jyff, const CStringW& slkssj, const CStringW& sljssj, const CStringW& hphm, const CStringW& hpzl, const CStringW& rllb,
+	std::list<TESTLOG> &lsTestLog ,SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	//1		jyff	检验方法	String	可空	见附录3.10
+	root["data"]["jyff"] = TCharToUTF8(TestTypeNameToCode(jyff).GetString());
+	//2		slkssj	受理开始时间	String	可空	格式：yyyy-mm-dd hh24:mi:ss
+	root["data"]["slkssj"] = TCharToUTF8(slkssj.GetString());
+	//3		sljssj	受理结束时间	String	可空	格式：yyyy-mm-dd hh24:mi:ss
+	root["data"]["sljssj"] = TCharToUTF8(sljssj.GetString());
+	//4		hphm	号牌号码	String	可空	
+	root["data"]["hphm"] = TCharToUTF8(hphm.GetString());
+	//5		hpzl	号牌种类	String	可空	见附录3.1
+	root["data"]["hpzl"] = TCharToUTF8(hpzl.GetString());
+	//6		rllb	燃料类别	String	可空	见附录3.6
+	root["data"]["rllb"] = TCharToUTF8(rllb.GetString());
+
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y07）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y07", root, wstrRet);
+
+#ifdef _DEBUG
+	nRet = 0;
+	wstrRet = L"{\"code\":200,\"msg\":\"操作成功\",\"count\":\"1\",\"data\":[\
+			   {\"xh\":\"1\",\"jylsh\":\"4307031221070700012\",\"jycs\":\"1\",\"hphm\":\"测SDS107\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HS\",\"clcp\":\"东风牌\",\"rllb\":\"A\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"},\
+			   {\"xh\":\"2\",\"jylsh\":\"4307031221070700013\",\"jycs\":\"1\",\"hphm\":\"测SDS108\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HA\",\"clcp\":\"东风牌\",\"rllb\":\"A\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"},\
+			   {\"xh\":\"3\",\"jylsh\":\"4307031221070700014\",\"jycs\":\"1\",\"hphm\":\"测SDS109\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HY\",\"clcp\":\"东风牌\",\"rllb\":\"B\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"},\
+			   {\"xh\":\"3\",\"jylsh\":\"4307031221070700015\",\"jycs\":\"1\",\"hphm\":\"测SDS110\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HP\",\"clcp\":\"东风牌\",\"rllb\":\"B\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"},\
+			   {\"xh\":\"5\",\"jylsh\":\"4307031221070700016\",\"jycs\":\"1\",\"hphm\":\"测SDS111\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HJ\",\"clcp\":\"东风牌\",\"rllb\":\"B\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"},\
+			   {\"xh\":\"6\",\"jylsh\":\"4307031221070700016\",\"jycs\":\"1\",\"hphm\":\"测SDS112\",\"hpzl\":\"02\",\"hpys\":\"0\",\"clsbdh\":\"LJNTGUC59LN159494\",\
+			   \"slsj\":\"2021-07-07 09:40:54\",\"jyff\":\"HV\",\"clcp\":\"东风牌\",\"rllb\":\"A\",\"fdjedgl\":\"77\",\"fdjedzs\":\"3000\",\"ccrq\":\"2020-06-01\",\
+			   \"ccdjrq\":\"2020-06-23\",\"zdzzl\":\"2810\",\"zbzl\":\"1995\",\"sfyOBD\":\"1\"}\
+			   ]}";
+#endif
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y07）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+
+				const Json::Value arrayObj = root["data"];
+
+				for(UINT i = 0; i < arrayObj.size(); i++)
+				{
+					TESTLOG sTestLog;
+
+					//1		xh	序号	String		数据的序号
+					wcscpy_s(sTestLog.wchReserved1 , JsonValueToCString(arrayObj[i]["xh"]));
+					//2		jylsh	检验流水号	String		
+					wcscpy_s(sTestLog.wchReportNumber , JsonValueToCString(arrayObj[i]["jylsh"]));
+					//3		jycs	检验次数	String		
+					wcscpy_s(sTestLog.wchNumberOfTestPeriod , JsonValueToCString(arrayObj[i]["jycs"]));
+					//4		hphm	号牌号码	String		
+					wcscpy_s(sTestLog.wchPlateNumber ,JsonValueToCString(arrayObj[i]["hphm"]));
+					//5		hpzl	号牌种类	String		见附录3.1
+					wcscpy_s(sTestLog.wchPlateTypeCodeGA ,JsonValueToCString(arrayObj[i]["hpzl"]));
+					//6		hpys	号牌颜色	String		见附录3.2
+					wcscpy_s(sTestLog.wchPlateTypeCode ,JsonValueToCString(arrayObj[i]["hpys"]));
+					wcscpy_s(sTestLog.wchPlateType ,PlateTypeCodeToName(sTestLog.wchPlateTypeCode));
+					//7		clsbdh	车辆识别代号	String		
+					wcscpy_s(sTestLog.wchVIN ,JsonValueToCString(arrayObj[i]["clsbdh"]));
+					//8		clcp	车辆厂牌	String		
+					wcscpy_s(sTestLog.wchModel ,JsonValueToCString(arrayObj[i]["clcp"]));
+					//9		slsj	受理时间	String		yyyy-mm-dd hh24:mi:ss
+					wcscpy_s(sTestLog.wchReserved2 ,JsonValueToCString(arrayObj[i]["slsj"]));
+					//10		jyff	检验方法	String		见附录3.10
+					wcscpy_s(sTestLog.wchTestType , TestTypeCodeToName(JsonValueToCString(arrayObj[i]["jyff"])));
+					//11		rllb	燃料类别	String		见附录3.6
+					wcscpy_s(sTestLog.wchFuelType ,FuleCodeToName(JsonValueToCString(arrayObj[i]["rllb"])));
+					//12		fdjedgl	发动机额定功率	String		
+					wcscpy_s(sTestLog.wchRatedPower ,JsonValueToCString(arrayObj[i]["fdjedgl"]));
+					//13		fdjedzs	发动机额定转速	String		
+					wcscpy_s(sTestLog.wchRatedRev ,JsonValueToCString(arrayObj[i]["fdjedzs"]));
+					//14		ccrq	出厂日期	String		
+					wcscpy_s(sTestLog.wchProductionDate ,JsonValueToCString(arrayObj[i]["ccrq"]));
+					//15		ccdjrq	初次登记日期	String		
+					wcscpy_s(sTestLog.wchRegistrationDate ,JsonValueToCString(arrayObj[i]["ccdjrq"]));
+					//16		zdzzl	  最大总质量	String		千克（kg）
+					wcscpy_s(sTestLog.wchMaximumTotalMass ,JsonValueToCString(arrayObj[i]["zdzzl"]));
+					//17		zbzl	整备质量	String		
+					wcscpy_s(sTestLog.wchUnladenMass , JsonValueToCString(arrayObj[i]["zbzl"]));
+					//18		sfyOBD	是否有OBD	String		0否、1是
+					wcscpy_s(sTestLog.wchHasOBD ,JsonValueToCString(arrayObj[i]["sfyOBD"]));
+					//19		count	当前返回总条数	String
+					lsTestLog.push_back(sTestLog);
+				}
+
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetAccInfo(const CStringW& jylsh, TESTLOG& sTestLog, VEHICLEINFO& sVehInfo, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	对同一检验机构，此检验流水号必须唯一，下同
+	root["data"]["jylsh"] = TCharToUTF8(jylsh.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y08）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y08", root, wstrRet);
+
+#ifdef _DEBUG
+	nRet = 0;
+
+	wstrRet = L"{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"jyjgbh\":\"43070312\",\"jylsh\":\"4307031221070800003\",\"jycs\":\"1\",\"hphm\":\"测SDS202\",\"hpzl\":\"02\",\
+			   \"hpys\":\"0\",\"clsbdh\":\"L345545\",\"slsj\":\"2021-07-08 09:09:56\",\"jyff\":\"HA\",\"clcp\":\"东风日产牌\",\"sfyOBD\":\"1\",\"fdjxh\":\"HR16\",\"fdjbh\":\"213\",\
+			   \"cllx\":\"K33\",\"clxh\":\"DFL7168VAK1\",\"csys\":\"B\",\"syxz\":\"A\",\"ccdjrq\":\"2021-07-05\",\"djrq\":\"\",\"czxm\":\"5555\",\"dwmc\":\"\",\"czdh\":\"555555\",\
+			   \"czdz\":\"\",\"czsfzh\":\"\",\"ccrq\":\"2021-06-05\",\"clyt\":\"P1\",\"ytsx\":\"2\",\"xszbh\":\"\",\"jyhgbzbh\":\"\",\"xzqh\":\"\",\"zsxzqh\":\"\",\"zzxzqh\":\"\",\
+			   \"sgcssbwqk\":\"\",\"sfmj\":\"\",\"bmjyy\":\"\",\"pfbz\":\"5\",\"bsqxs\":\"\",\"jqfs\":\"01\",\"rllb\":\"A\",\"gyfs\":\"\",\"qdxs\":\"02\",\"zdzzl\":\"1660\",\
+			   \"jzzl\":\"1337\",\"zbzl\":\"1237\",\"dczz\":\"\",\"fdjpl\":\"1598\",\"fdjedzs\":\"5000\",\"fdjedgl\":\"93\",\"sfyegr\":\"\",\"sfthclzs\":\"\",\"hclzl\":\"\",\
+			   \"hclzzxh\":\"\",\"sfdk\":\"\",\"lcbds\":\"23000\",\"qgs\":\"\",\"cswdzz\":\"\",\"dpxh\":\"\",\"qdltqy\":\"\",\"ryzfkzzz\":\"\",\"chzhq\":\"\",\"chzhqxh\":\"\",\
+			   \"rygg\":\"\",\"hbflbz\":\"\",\"dws\":\"\",\"yxqz\":\"\",\"qzbfqz\":\"\",\"fzjg\":\"\",\"glbm\":\"\",\"bxzzrq\":\"\",\"jdczt\":\"\",\"hbdbqk\":\"\",\"pfpdyj\":\"\",\
+			   \"ddjxh\":\"\",\"cnzzxh\":\"\",\"dcrl\":\"\",\"sfydpf\":\"\",\"dpfxh\":\"\",\"sfyscr\":\"\",\"scrxh\":\"\",\"hdzkrs\":\"5\",\"clzs\":\"2\",\"qdzw\":\"\",\"bz\":\"\"}}";
+#endif
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y08）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+
+				//1		jyjgbh	检验机构编号	String		
+				wcscpy_s(sTestLog.wchStationNumber , JsonValueToCString(root["data"]["jyjgbh"]));
+				//2		jylsh	检验流水号	String		
+				wcscpy_s(sTestLog.wchReportNumber , JsonValueToCString(root["data"]["jylsh"]));
+				//3		jycs	检验次数	String		
+				wcscpy_s(sTestLog.wchNumberOfTestPeriod , JsonValueToCString(root["data"]["jycs"]));
+				//4		hphm	号牌号码	String		
+				wcscpy_s(sTestLog.wchPlateNumber , JsonValueToCString(root["data"]["hphm"]));
+				wcscpy_s(sVehInfo.wchPlateNumber , JsonValueToCString(root["data"]["hphm"]));
+				//5		hpzl	号牌种类	String		见附录3.1
+				wcscpy_s(sTestLog.wchPlateTypeCodeGA , JsonValueToCString(root["data"]["hpzl"]));
+				wcscpy_s(sVehInfo.wchPlateTypeCodeGA , JsonValueToCString(root["data"]["hpzl"]));
+				//6		hpys	号牌颜色	String		
+				wcscpy_s(sTestLog.wchPlateTypeCode ,JsonValueToCString(root["data"]["hpys"]));
+				wcscpy_s(sTestLog.wchPlateType ,PlateTypeCodeToName(sTestLog.wchPlateTypeCode));
+				wcscpy_s(sVehInfo.wchPlateTypeCode , sTestLog.wchPlateTypeCode);
+				wcscpy_s(sVehInfo.wchPlateType , sTestLog.wchPlateType);
+				//7		clsbdh	车辆识别代号	String		
+				wcscpy_s(sTestLog.wchVIN , JsonValueToCString(root["data"]["clsbdh"]));
+				wcscpy_s(sVehInfo.wchVIN , JsonValueToCString(root["data"]["clsbdh"]));
+				//8		clcp	车辆厂牌	String		
+				wcscpy_s(sTestLog.wchModel , JsonValueToCString(root["data"]["clcp"]));
+				wcscpy_s(sVehInfo.wchModel , JsonValueToCString(root["data"]["clcp"]));
+				//9		slsj	受理时间	String		yyyy-mm-dd hh24:mi:ss
+				wcscpy_s(sTestLog.wchReserved2 , JsonValueToCString(root["data"]["slsj"]));
+				wcscpy_s(sVehInfo.wchReserved2 , JsonValueToCString(root["data"]["slsj"]));
+				//10		jyff	检验方法	String		见附录3.10
+				wcscpy_s(sTestLog.wchTestType , TestTypeCodeToName(JsonValueToCString(root["data"]["jyff"])));
+				//11		sfyOBD	是否有OBD	String		0否、1是
+				wcscpy_s(sTestLog.wchHasOBD ,JsonValueToCString(root["data"]["sfyOBD"]));
+				wcscpy_s(sVehInfo.wchHasOBD ,JsonValueToCString(root["data"]["sfyOBD"]));
+				//12		fdjxh	发动机型号	String		
+				wcscpy_s(sTestLog.wchEngineModel ,JsonValueToCString(root["data"]["fdjxh"]));
+				wcscpy_s(sVehInfo.wchEngineModel ,JsonValueToCString(root["data"]["fdjxh"]));
+				//13		fdjbh	发动机编号	String		
+				wcscpy_s(sTestLog.wchEngineNumber ,JsonValueToCString(root["data"]["fdjbh"]));
+				wcscpy_s(sVehInfo.wchEngineNumber ,JsonValueToCString(root["data"]["fdjbh"]));
+				//14		cllx	车辆类型	String		见附录3.18
+				wcscpy_s(sTestLog.wchVehicleType ,JsonValueToCString(root["data"]["cllx"]));
+				wcscpy_s(sVehInfo.wchVehicleType ,JsonValueToCString(root["data"]["cllx"]));
+				//15		csys	车身颜色	String		见附录3.12
+				//16		syxz	使用性质	String		见附录3.13
+				wcscpy_s(sTestLog.wchUseCharacter ,JsonValueToCString(root["data"]["syxz"]));
+				wcscpy_s(sVehInfo.wchUseCharacter ,JsonValueToCString(root["data"]["syxz"]));
+				//17		ccdjrq	初次登记日期	String		
+				wcscpy_s(sTestLog.wchRegistrationDate ,JsonValueToCString(root["data"]["ccdjrq"]));
+				wcscpy_s(sVehInfo.wchRegistrationDate ,JsonValueToCString(root["data"]["ccdjrq"]));
+				//18		djrq	最近定检日期	String		
+				//19		czxm	车主姓名	String		
+				wcscpy_s(sTestLog.wchOwner ,JsonValueToCString(root["data"]["czxm"]));
+				wcscpy_s(sVehInfo.wchOwner ,JsonValueToCString(root["data"]["czxm"]));
+				//20		czdh	车主电话	String		
+				wcscpy_s(sTestLog.wchPhone ,JsonValueToCString(root["data"]["czdh"]));
+				wcscpy_s(sVehInfo.wchPhone ,JsonValueToCString(root["data"]["czdh"]));
+				//21		czdz	车主地址	String		
+				wcscpy_s(sTestLog.wchAddress ,JsonValueToCString(root["data"]["czdz"]));
+				wcscpy_s(sVehInfo.wchAddress ,JsonValueToCString(root["data"]["czdz"]));
+				//22		czsfzh	车主身份证号	String		
+				//23		ccrq	出厂日期	String		
+				wcscpy_s(sTestLog.wchProductionDate ,JsonValueToCString(root["data"]["ccrq"]));
+				wcscpy_s(sVehInfo.wchProductionDate ,JsonValueToCString(root["data"]["ccrq"]));
+				//24		clyt	车辆用途	String		见附录3.14
+				//25		ytsx	用途属性	String		见附录3.15
+				//26		sfmj	是否免检	String		1-免检 2-不免检
+				//27		bmjyy	不免检原因	String		
+				//28		pfbz	排放标准	String		见附录3.4
+				//29		bsqxs	变速器型式	String		
+				wcscpy_s(sTestLog.wchGearBoxType ,JsonValueToCString(root["data"]["bsqxs"]));
+				wcscpy_s(sVehInfo.wchGearBoxType ,JsonValueToCString(root["data"]["bsqxs"]));
+				//30		jqfs	进气方式	String		见附录3.5
+				wcscpy_s(sTestLog.wchAirIntakeMode ,AirIntakeModeCodeToName(JsonValueToCString(root["data"]["jqfs"])));
+				wcscpy_s(sVehInfo.wchAirIntakeMode ,AirIntakeModeCodeToName(JsonValueToCString(root["data"]["jqfs"])));
+				//31		rllb	燃料类别	String		见附录3.6
+				wcscpy_s(sTestLog.wchFuelType ,FuleCodeToName(JsonValueToCString(root["data"]["rllb"])));
+				wcscpy_s(sVehInfo.wchFuelType ,FuleCodeToName(JsonValueToCString(root["data"]["rllb"])));
+				//32		gyfs	供油方式	String		见附录3.7
+				wcscpy_s(sTestLog.wchOilSupplyMode ,OilSupplyModeCodeToName(JsonValueToCString(root["data"]["gyfs"])));
+				wcscpy_s(sVehInfo.wchOilSupplyMode ,OilSupplyModeCodeToName(JsonValueToCString(root["data"]["gyfs"])));
+				//33		qdxs	驱动型式	String		见附录3.8
+				wcscpy_s(sTestLog.wchDriveType ,DriveTypeCodeToName(JsonValueToCString(root["data"]["qdxs"])));
+				wcscpy_s(sVehInfo.wchDriveType ,DriveTypeCodeToName(JsonValueToCString(root["data"]["qdxs"])));
+				//34		zdzzl	  最大总质量	String		千克（kg）
+				wcscpy_s(sTestLog.wchMaximumTotalMass ,(JsonValueToCString(root["data"]["zdzzl"])));
+				wcscpy_s(sVehInfo.wchMaximumTotalMass ,(JsonValueToCString(root["data"]["zdzzl"])));
+				//35		jzzl	基准质量	String		千克（kg）
+				//36		zbzl	整备质量	String		单位kg
+				wcscpy_s(sTestLog.wchUnladenMass ,(JsonValueToCString(root["data"]["zbzl"])));
+				wcscpy_s(sVehInfo.wchUnladenMass ,(JsonValueToCString(root["data"]["zbzl"])));
+				//37		dczz	单车轴重	String		单位kg
+				//38		fdjpl	发动机排量	String		
+				wcscpy_s(sTestLog.wchDisplacement ,(JsonValueToCString(root["data"]["fdjpl"])));
+				wcscpy_s(sVehInfo.wchDisplacement ,(JsonValueToCString(root["data"]["fdjpl"])));
+				//39		fdjedzs	发动机额定转速	String		
+				wcscpy_s(sTestLog.wchRatedRev ,(JsonValueToCString(root["data"]["fdjedzs"])));
+				wcscpy_s(sVehInfo.wchRatedRev ,(JsonValueToCString(root["data"]["fdjedzs"])));
+				//40		fdjedgl	发动机额定功率	String		
+				wcscpy_s(sTestLog.wchRatedPower ,(JsonValueToCString(root["data"]["fdjedgl"])));
+				wcscpy_s(sVehInfo.wchRatedPower ,(JsonValueToCString(root["data"]["fdjedgl"])));
+				//41		lcbds	里程表读数	String		公里
+				wcscpy_s(sTestLog.wchTravelledDistance ,(JsonValueToCString(root["data"]["lcbds"])));
+				wcscpy_s(sVehInfo.wchTravelledDistance ,(JsonValueToCString(root["data"]["lcbds"])));
+				//42		qgs	气缸数	String		
+				wcscpy_s(sTestLog.wchNumberOfCylinder ,(JsonValueToCString(root["data"]["qgs"])));
+				wcscpy_s(sVehInfo.wchNumberOfCylinder ,(JsonValueToCString(root["data"]["qgs"])));
+				//43		qdltqy	驱动轮胎气压	String		kPa
+				wcscpy_s(sTestLog.wchTyrePressure ,(JsonValueToCString(root["data"]["qdltqy"])));
+				wcscpy_s(sVehInfo.wchTyrePressure ,(JsonValueToCString(root["data"]["qdltqy"])));
+				//44		rygg	燃油规格	String		见附录3.9
+				wcscpy_s(sTestLog.wchFuelMark ,FuelMarkCodeToName(JsonValueToCString(root["data"]["rygg"])));
+				wcscpy_s(sVehInfo.wchFuelMark ,FuelMarkCodeToName(JsonValueToCString(root["data"]["rygg"])));
+				//45		dws	档位数	String		
+				wcscpy_s(sTestLog.wchNumberOfGears ,(JsonValueToCString(root["data"]["dws"])));
+				wcscpy_s(sVehInfo.wchNumberOfGears ,(JsonValueToCString(root["data"]["dws"])));
+				//46		ddjxh	电动机型号	String		
+				wcscpy_s(sTestLog.wchMotorModel ,(JsonValueToCString(root["data"]["ddjxh"])));
+				wcscpy_s(sVehInfo.wchMotorModel ,(JsonValueToCString(root["data"]["ddjxh"])));
+				//47		cnzzxh	储能装置型号	String		
+				wcscpy_s(sTestLog.wchEnergyStorageDeviceModel ,(JsonValueToCString(root["data"]["cnzzxh"])));
+				wcscpy_s(sVehInfo.wchEnergyStorageDeviceModel ,(JsonValueToCString(root["data"]["cnzzxh"])));
+				//48		dcrl	电池容量	String		
+				wcscpy_s(sTestLog.wchBatteryCapacity ,(JsonValueToCString(root["data"]["dcrl"])));
+				wcscpy_s(sVehInfo.wchBatteryCapacity ,(JsonValueToCString(root["data"]["dcrl"])));
+				//49		sfydpf	是否有DPF	String		
+				wcscpy_s(sTestLog.wchHasDPF ,(JsonValueToCString(root["data"]["sfydpf"])));
+				wcscpy_s(sVehInfo.wchHasDPF ,(JsonValueToCString(root["data"]["sfydpf"])));
+				//50		dpfxh	DPF型号	String		
+				wcscpy_s(sTestLog.wchDPFModel ,(JsonValueToCString(root["data"]["dpfxh"])));
+				wcscpy_s(sVehInfo.wchDPFModel ,(JsonValueToCString(root["data"]["dpfxh"])));
+				//51		sfyscr	是否有SCR	String		
+				wcscpy_s(sTestLog.wchHasSCR ,(JsonValueToCString(root["data"]["sfyscr"])));
+				wcscpy_s(sVehInfo.wchHasSCR ,(JsonValueToCString(root["data"]["sfyscr"])));
+				//52		scrxh	SCR型号	String		
+				wcscpy_s(sTestLog.wchSCRModel ,(JsonValueToCString(root["data"]["scrxh"])));
+				wcscpy_s(sVehInfo.wchSCRModel ,(JsonValueToCString(root["data"]["scrxh"])));
+				//53		hdzkrs	核定载客人数	String		
+				wcscpy_s(sTestLog.wchRatedPassengerCapacity ,(JsonValueToCString(root["data"]["hdzkrs"])));
+				wcscpy_s(sVehInfo.wchRatedPassengerCapacity ,(JsonValueToCString(root["data"]["hdzkrs"])));
+				//54		clzs	车辆轴数	String		
+				wcscpy_s(sTestLog.wchSCRModel ,(JsonValueToCString(root["data"]["scrxh"])));
+				wcscpy_s(sVehInfo.wchSCRModel ,(JsonValueToCString(root["data"]["scrxh"])));
+				//55		qdzw	驱动轴位	String		见附录3.19
+				//56		bz	备注	String		
+
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::GetVehFailPass(const CStringW& jylsh, const CStringW& jycs, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	对同一检验机构，此检验流水号必须唯一，下同
+	root["data"]["jylsh"] = TCharToUTF8(jylsh.GetString());
+	//2		jycs	检验次数	String	不可空	
+	root["data"]["jycs"] = TCharToUTF8(jycs.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y09）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = QueryCutl(L"90Y09", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y09）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+
+int CZYHttp_PAI::QueryCutl(const std::wstring wstrJkid, Json::Value &root, std::wstring& wstrRet)
+{
+
+	root["jkid"] = Json::Value(TCharToUTF8(wstrJkid.c_str()));
+	root["yhxlh"] = Json::Value(TCharToUTF8(wstryhxlh.c_str()));
+	root["jyjgbh"] = Json::Value(TCharToUTF8(wstrjyjgbh.c_str()));
+
+	Json::StyledWriter sw;
+
+	std::wstring wstrPostData = UTF8ToTChar(sw.write(root).c_str());
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, wstrQURL.c_str(), wstrJkid.c_str(), wstrPostData.c_str());
+
+	return CCurlHttp_API::CurlPost(wstrQURL, wstrPostData, wstrRet);
+}
+
+// 查询类接口 结束
+
+// 写入类接口 开始
+
+bool CZYHttp_PAI::SetVehItemStart(const CStringW& jylsh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	
+	root["data"]["jylsh"] = TCharToUTF8(jylsh.GetString());
+	//2		jcxdh	检测线代号	String	不可空	H01，H02，H03…
+	root["data"]["jcxdh"] = TCharToUTF8(wstrjcxdh.c_str());
+	//3		jycs	检验次数	String	不可空	
+	root["data"]["jycs"] = TCharToUTF8(jycs.GetString());
+	//4		jyxm	检验项目	String	不可空	见附录3.11
+	root["data"]["jyxm"] = TCharToUTF8(jyxm.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y24）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = WriteCutl(L"90Y24", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y24）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::SetVehItemEnd(const CStringW& jylsh, const CStringW& jycs, const CStringW& jyxm, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	
+	root["data"]["jylsh"] = TCharToUTF8(jylsh.GetString());
+	//2		jcxdh	检测线代号	String	不可空	H01，H02，H03…
+	root["data"]["jcxdh"] = TCharToUTF8(wstrjcxdh.c_str());
+	//3		jycs	检验次数	String	不可空	
+	root["data"]["jycs"] = TCharToUTF8(jycs.GetString());
+	//4		jyxm	检验项目	String	不可空	见附录3.11
+	root["data"]["jyxm"] = TCharToUTF8(jyxm.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y25）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = WriteCutl(L"90Y25", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y25）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::SetTestingSignalInfo(const CStringW& jylsh, const CStringW& jycs, const CStringW& jygcbs, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	
+	root["data"]["jylsh"] = TCharToUTF8(jylsh.GetString());
+	//2		jcxdh	检测线代号	String	不可空	H01，H02，H03…
+	root["data"]["jcxdh"] = TCharToUTF8(wstrjcxdh.c_str());
+	//3		jycs	检验次数	String	不可空	
+	root["data"]["jycs"] = TCharToUTF8(jycs.GetString());
+	//4		jygcbs	检验过程标识	String	不可空	见下表详细说明
+	root["data"]["jygcbs"] = TCharToUTF8(jygcbs.GetString());
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y26）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = WriteCutl(L"90Y26", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y26）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
+
+bool CZYHttp_PAI::SetOBDItemEnd(const TestLog &sTestLog, const SResultOfOBD &sResultData, SHBMsg& sHBMsg)
+{
+	bool bRet(false);
+
+
+	//根节点
+	Json::Value root;
+
+	//1		jylsh	检验流水号	String	不可空	
+	root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+	//2		jcxdh	检测线代号	String	不可空	H01，H02，H03…
+	root["data"]["jcxdh"] = TCharToUTF8(wstrjcxdh.c_str());
+	//3		jycs	检验次数	String	不可空	
+	root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+	//1		jyy	检验员	String	不可空	
+	root["data"]["jyy"] = TCharToUTF8(sResultData.strOperator.c_str());
+	//2		jyysfzh	检验员身份证号	String	不可空	
+	root["data"]["jyysfzh"] = TCharToUTF8(L"123456200001010101");
+	//3		clljxslc	车辆累计行驶  里程	String	不可空	车辆累计行驶里程（MIL灯点亮后），单位：km
+	root["data"]["clljxslc"] = TCharToUTF8(sResultData.strMileage.c_str());
+	//4		OBDgzzsqsfdl	OBD故障指示器是否点亮	String	不可空	OBD故障指示器是否点亮（1是，0 否）
+	root["data"]["OBDgzzsqsfdl"] = TCharToUTF8(L"0");
+	//5		txsfcg	通信是否成功	String	不可空	通信是否成功，（1是，0 否）
+	root["data"]["txsfcg"] = TCharToUTF8(L"1");
+	//6		txbcgyy	通信不成功原因	String	不可空	通信不成功原因：01表示接口损坏，02 表示找不到接口，03 连接后不能通讯
+	root["data"]["txbcgyy"] = TCharToUTF8(L"0");
+	//7		OBDgzzsqsfhg	OBD故障指示器是否合格	String	不可空	OBD故障指示器是否合格：1 合格、2不合格，汽油车是。
+	root["data"]["OBDgzzsqsfhg"] = TCharToUTF8(L"1");
+	//8		OBDgzzsqbjjgzm	是否有OBD故障指示器报警及故障码	String	不可空	是否有OBD系统故障指示器报警及故障码：0 表示无，1 表示有
+	root["data"]["OBDgzzsqbjjgzm"] = TCharToUTF8(L"0");
+	//9		gzdmjgzxx	故障代码及故障信息（若故障码指示器报警）	String	可空	如有故障信息，必须上传
+	root["data"]["gzdmjgzxx"] = TCharToUTF8(L"");
+	//10		jxwwcxm	就绪未完成项目	String	可空	就绪未完成项目:01 SCR,02 POC,03 DOC,04 DPF， 05废气再循环EGR，  06催化器， 07氧传感器 ，08氧传感器加热器， 09可变气门VVT
+	root["data"]["jxwwcxm"] = TCharToUTF8(L"");
+	//11		fdjcalid	发动机控制单元CAL ID	String	不可空	
+	root["data"]["fdjcalid"] = TCharToUTF8(sResultData.strEngineCALID.c_str());
+	//12		fdjcvn	发动机控制单元CVN	String	不可空	
+	root["data"]["fdjcvn"] = TCharToUTF8(sResultData.strEngineCVN.c_str());
+	//13		hclcalid	后处理控制单元CAL ID	String	不可空	
+	root["data"]["hclcalid"] = TCharToUTF8(sResultData.strPostProcessingCALID.c_str());
+	//14		hclcvn	后处理控制单元CVN	String	不可空	
+	root["data"]["hclcvn"] = TCharToUTF8(sResultData.strPostProcessingCVN.c_str());
+	//15		qtcalid	其他控制单元 CAL ID	String	不可空	
+	root["data"]["qtcalid"] = TCharToUTF8(sResultData.strOtherCALID.c_str());
+	//16		qtcvn	其他控制单元CVN	String	不可空	
+	root["data"]["qtcvn"] = TCharToUTF8(sResultData.strOtherCVN.c_str());
+	//17		ztsfyz	仪表盘上的故障指示器状态与OBD诊断仪获取状态是否一致	String	不可空	仪表盘上的故障指示器状态与OBD诊断仪获取状态是否一致：0 否，1 是
+	root["data"]["ztsfyz"] = TCharToUTF8(L"1");
+	//18		xsjysdOBDyq	型式检验时的OBD要求	String	不可空	EOBD、OBDⅡ、CN-OBD-6等，按照读取到的信息上传
+	root["data"]["xsjysdOBDyq"] = TCharToUTF8(sResultData.strOBDType.c_str());
+	//19		OBDjyjg	OBD检验结果	String	不可空0-未检，1-合格，2-不合格
+	root["data"]["OBDjyjg"] = TCharToUTF8(L"1");
+
+	Json::StyledWriter sw;
+
+	CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y27）", L"上传参数",UTF8ToTChar(sw.write(root).c_str()));
+
+	std::wstring wstrRet;
+	int nRet = WriteCutl(L"90Y27", root, wstrRet);
+
+	// 联网成功
+	if (nRet == 0)
+	{
+		CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y27）", L"返回参数", wstrRet.c_str());
+
+		Json::Reader reader;
+		root.clear();
+
+		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
+		{
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
+
+			if (sHBMsg.code == L"200")
+			{
+				bRet = true;
+			}
+		}
+	}
+
+	return bRet;
+}
 
 
 bool CZYHttp_PAI::SetGasConstLoad(SHBMsg& sHBMsg)
@@ -195,14 +1064,9 @@ bool CZYHttp_PAI::SetGasConstLoad(SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -311,14 +1175,9 @@ bool CZYHttp_PAI::SetGasPLHP(SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -625,14 +1484,9 @@ bool CZYHttp_PAI::SetDieConstLoad(SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -816,14 +1670,9 @@ bool CZYHttp_PAI::SetDiePLHP(SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -942,14 +1791,9 @@ bool CZYHttp_PAI::SetGasCheck(const CStringW& strjclx, SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1149,14 +1993,9 @@ bool CZYHttp_PAI::SetDieCheck(const CStringW& strjclx, SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1209,14 +2048,9 @@ bool CZYHttp_PAI::SetLeakCheck(const CStringW& sblx, const CStringW& jyy, const 
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1307,14 +2141,9 @@ bool CZYHttp_PAI::SetOpaCheck(SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1400,14 +2229,9 @@ bool CZYHttp_PAI::SetParaCheck(const SEnvPara& sEnvPara, SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1504,14 +2328,9 @@ bool CZYHttp_PAI::SetSpeCheck(const STachometer& sTachometer, SHBMsg& sHBMsg)
 
 		if (reader.parse(TCharToUTF8(wstrRet.c_str()), root))
 		{
-			//返回结果code
-			CString strCode;
-			strCode.Format(L"%d", root["code"].asInt());
-			sHBMsg.code = strCode.GetString();
-
-			sHBMsg.msg = UTF8ToTChar(root["msg"].asString().c_str());
-
-			sHBMsg.data = UTF8ToTChar(root["data"].asString().c_str());
+			sHBMsg.code = JsonValueToCString(root["code"]);
+			sHBMsg.msg = JsonValueToCString(root["msg"]);
+			sHBMsg.data = JsonValueToCString(root["data"]);
 
 			if (sHBMsg.code == L"200")
 			{
@@ -1540,22 +2359,7 @@ int CZYHttp_PAI::WriteCutl(const std::wstring wstrJkid, Json::Value &root, std::
 
 	return CCurlHttp_API::CurlPost(wstrWURL, wstrPostData, wstrRet);
 }
-
-int CZYHttp_PAI::QueryCutl(const std::wstring wstrJkid, Json::Value &root, std::wstring& wstrRet)
-{
-
-	root["jkid"] = Json::Value(TCharToUTF8(wstrJkid.c_str()));
-	root["yhxlh"] = Json::Value(TCharToUTF8(wstryhxlh.c_str()));
-	root["jyjgbh"] = Json::Value(TCharToUTF8(wstrjyjgbh.c_str()));
-
-	Json::StyledWriter sw;
-
-	std::wstring wstrPostData = UTF8ToTChar(sw.write(root).c_str());
-
-	CNHLogAPI::WriteLogEx(m_strLogFilePath, wstrWURL.c_str(), wstrJkid.c_str(), wstrPostData.c_str());
-
-	return CCurlHttp_API::CurlPost(wstrQURL, wstrPostData, wstrRet);
-}
+// 写入类接口 结束
 
 void CZYHttp_PAI::GenLogFile(void)
 {
@@ -1609,4 +2413,665 @@ void CZYHttp_PAI::LoadConfig(void)
 	// 检测线编号
 	wstrjcxdh = si.GetString(L"NetConfig", L"jcxdh", L"");
 
+}
+
+CString CZYHttp_PAI::JsonValueToCString(Json::Value root)
+{
+	CString strRet(L"");
+
+	if (root.type() == Json::nullValue)
+	{
+		strRet.Format(L"%s", L"");
+	}
+	if (root.type() == Json::stringValue)
+	{
+		strRet.Format(L"%s", UTF8ToTChar(root.asString().c_str()));
+	}
+	else if (root.type() == Json::booleanValue)
+	{
+		strRet.Format(L"%s", UTF8ToTChar(root.asString().c_str()));
+	}
+	else if (root.type() == Json::realValue)
+	{
+		strRet.Format(L"%f", root.asDouble());
+	}
+	else if (root.type() == Json::uintValue)
+	{
+		strRet.Format(L"%hu", root.asUInt());
+	}
+	else if (root.type() == Json::intValue)
+	{
+		strRet.Format(L"%d", root.asInt());
+	}
+	else if (root.type() == Json::arrayValue || root.type() == Json::objectValue)
+	{
+		Json::StyledWriter sw;
+		strRet.Format(L"%s", UTF8ToTChar(sw.write(root).c_str()));
+	}
+
+	return strRet;
+}
+
+
+CStringW CZYHttp_PAI::TestTypeNameToCode(const CString strTestTypeName)
+{
+	CString strCode(L"HA");
+	if (L"稳态" == strTestTypeName)
+	{
+		strCode = (L"HA");
+	}
+	else if (L"简易瞬态" == strTestTypeName)
+	{
+		strCode = (L"HV");
+	}
+	else if (L"加载减速" == strTestTypeName)
+	{
+		strCode = (L"HJ");
+	}
+	else if (L"双怠速" == strTestTypeName)
+	{
+		strCode = (L"HS");
+	}
+	else if (L"不透光自由加速" == strTestTypeName)
+	{
+		strCode = (L"HY");
+	}
+	else if (L"滤纸式自由加速" == strTestTypeName)
+	{
+		strCode = (L"HY");
+	}
+	else if (L"农用车自由加速" == strTestTypeName)
+	{
+		strCode = (L"HP");
+	}
+	else
+	{
+		strCode = (L"HA");
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::TestTypeCodeToName(const CString strTestTypeCode)
+{
+	CString strName(L"1");
+	if (L"HA" == strTestTypeCode)
+	{
+		strName = (L"1");
+	}
+	else if (L"HV" == strTestTypeCode)
+	{
+		strName = (L"2");
+	}
+	else if (L"HJ" == strTestTypeCode)
+	{
+		strName = (L"3");
+	}
+	else if (L"HS" == strTestTypeCode)
+	{
+		strName = (L"4");
+	}
+	else if (L"HY" == strTestTypeCode)
+	{
+		strName = (L"5");
+	}
+	else if (L"HP" == strTestTypeCode)
+	{
+		strName = (L"7");
+	}
+	else
+	{
+		strName = (L"1");
+	}
+
+	return strName;
+}
+
+CStringW CZYHttp_PAI::PlateTypeNameToCode(const CString strName)
+{
+	CString strCode(L"0");
+	if (strName.Find(L"蓝") != -1)
+	{
+		strCode = L"0";
+	}
+	else if (strName.Find(L"黄") != -1)
+	{
+		strCode = L"1";
+	}
+	else if (strName.Find(L"白") != -1)
+	{
+		strCode = L"2";
+	}
+	else if (strName.Find(L"黑") != -1)
+	{
+		strCode = L"3";
+	}
+	else if (strName.Find(L"新能源") != -1)
+	{
+		strCode = L"4";
+	}
+	else if (strName.Find(L"其他") != -1)
+	{
+		strCode = L"5";
+	}
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::PlateTypeCodeToName(const CString strCode)
+{
+	CString strName(L"蓝牌");
+	if (strCode.Find(L"0") != -1)
+	{
+		strName = L"蓝牌";
+	}
+	else if (strCode.Find(L"1") != -1)
+	{
+		strName = L"黄牌";
+	}
+	else if (strCode.Find(L"2") != -1)
+	{
+		strName = L"白牌";
+	}
+	else if (strCode.Find(L"3") != -1)
+	{
+		strName = L"黑牌";
+	}
+	else if (strCode.Find(L"4") != -1)
+	{
+		strName = L"新能源";
+	}
+	else if (strCode.Find(L"5") != -1)
+	{
+		strName = L"其他";
+	}
+	return strName;
+}
+
+CStringW CZYHttp_PAI::FuleNameToCode(const CString strName)
+{
+	CString strCode(L"汽油");
+	if (strName.Find(L"汽油") != -1)
+	{
+		strCode = L"A";
+	}
+	else if (strName.Find(L"柴油") != -1)
+	{
+		strCode = L"B";
+	}
+	else if (strName.Find(L"电") != -1)
+	{
+		strCode = L"C";
+	}
+	else if (strName.Find(L"混合油") != -1)
+	{
+		strCode = L"D";
+	}
+	else if (strName.Find(L"天然气") != -1)
+	{
+		strCode = L"E";
+	}
+	else if (strName.Find(L"液化石油气") != -1)
+	{
+		strCode = L"F";
+	}
+	else if (strName.Find(L"甲醇") != -1)
+	{
+		strCode = L"L";
+	}
+	else if (strName.Find(L"太阳能") != -1)
+	{
+		strCode = L"N";
+	}
+	else if (strName.Find(L"氢") != -1)
+	{
+		strCode = L"P";
+	}
+	else if (strName.Find(L"无") != -1)
+	{
+		strCode = L"Y";
+	}
+	else if (strName.Find(L"乙醇") != -1)
+	{
+		strCode = L"M";
+	}
+	else if (strName.Find(L"混合动力") != -1)
+	{
+		strCode = L"O";
+	}
+	else if (strName.Find(L"生物燃料") != -1)
+	{
+		strCode = L"Q";
+	}
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::FuleCodeToName(const CString strCode)
+{
+	CString strName(L"汽油");
+	if (strCode.Find(L"A") != -1)
+	{
+		strName = L"汽油";
+	}
+	else if (strCode.Find(L"B") != -1)
+	{
+		strName = L"柴油";
+	}
+	else if (strCode.Find(L"C") != -1)
+	{
+		strName = L"电";
+	}
+	else if (strCode.Find(L"D") != -1)
+	{
+		strName = L"混合油";
+	}
+	else if (strCode.Find(L"E") != -1)
+	{
+		strName = L"天然气";
+	}
+	else if (strCode.Find(L"F") != -1)
+	{
+		strName = L"液化石油气";
+	}
+	else if (strCode.Find(L"L") != -1)
+	{
+		strName = L"甲醇";
+	}
+	else if (strCode.Find(L"N") != -1)
+	{
+		strName = L"太阳能";
+	}
+	else if (strCode.Find(L"P") != -1)
+	{
+		strName = L"氢";
+	}
+	else if (strCode.Find(L"Y") != -1)
+	{
+		strName = L"无";
+	}
+	else if (strCode.Find(L"M") != -1)
+	{
+		strName = L"乙醇";
+	}
+	else if (strCode.Find(L"O") != -1)
+	{
+		strName = L"混合动力";
+	}
+	else if (strCode.Find(L"Q") != -1)
+	{
+		strName = L"生物燃料";
+	}
+	return strName;
+}
+
+CStringW CZYHttp_PAI::VehColourNameToCode(const CString strName)
+{
+	CString strCode(L"");
+	if (strName.Find(L"白") != -1)
+	{
+		strCode += L"A";
+	}
+	if (strName.Find(L"灰") != -1)
+	{
+		strCode += L"B";
+	}
+	if (strName.Find(L"黄") != -1)
+	{
+		strCode += L"C";
+	}
+	if (strName.Find(L"粉") != -1)
+	{
+		strCode += L"D";
+	}
+	if (strName.Find(L"红") != -1)
+	{
+		strCode += L"E";
+	}
+	if (strName.Find(L"紫") != -1)
+	{
+		strCode += L"F";
+	}
+	if (strName.Find(L"绿") != -1)
+	{
+		strCode += L"G";
+	}
+	if (strName.Find(L"蓝") != -1)
+	{
+		strCode += L"H";
+	}
+	if (strName.Find(L"棕") != -1)
+	{
+		strCode += L"I";
+	}
+	if (strName.Find(L"黑") != -1)
+	{
+		strCode += L"J";
+	}
+	if (strName.Find(L"其他") != -1)
+	{
+		strCode += L"Z";
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::VehColourCodeToName(const CString strCode)
+{
+	CString strName(L"");
+	if (strCode.Find(L"A") != -1)
+	{
+		strName += L"白";
+	}
+	if (strCode.Find(L"B") != -1)
+	{
+		strName += L"灰";
+	}
+	if (strCode.Find(L"C") != -1)
+	{
+		strName += L"黄";
+	}
+	if (strCode.Find(L"D") != -1)
+	{
+		strName += L"粉";
+	}
+	if (strCode.Find(L"E") != -1)
+	{
+		strName += L"红";
+	}
+	if (strCode.Find(L"F") != -1)
+	{
+		strName += L"紫";
+	}
+	if (strCode.Find(L"G") != -1)
+	{
+		strName += L"绿";
+	}
+	if (strCode.Find(L"H") != -1)
+	{
+		strName += L"蓝";
+	}
+	if (strCode.Find(L"I") != -1)
+	{
+		strName += L"棕";
+	}
+	if (strCode.Find(L"J") != -1)
+	{
+		strName += L"黑";
+	}
+	if (strCode.Find(L"Z") != -1)
+	{
+		strName += L"其他";
+	}
+
+	return strName;
+}
+
+CStringW CZYHttp_PAI::AirIntakeModeNameToCode(const CString strName)
+{
+	CString strCode(L"01");
+	if (strName.Find(L"自然吸附") != -1)
+	{
+		strCode = L"01";
+	}
+	else if (strName.Find(L"涡轮增压") != -1)
+	{
+		strCode = L"02";
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::AirIntakeModeCodeToName(const CString strCode)
+{
+	CString strName(L"自然吸附");
+	if (strCode.Find(L"01") != -1)
+	{
+		strName = L"自然吸附";
+	}
+	else if (strCode.Find(L"02") != -1)
+	{
+		strName = L"涡轮增压";
+	}
+	
+	return strName;
+}
+
+CStringW CZYHttp_PAI::OilSupplyModeNameToCode(const CString strName)
+{
+	CString strCode(L"01");
+	if (strName.Find(L"化油器") != -1)
+	{
+		strCode = L"01";
+	}
+	else if (strName.Find(L"闭环电喷") != -1)
+	{
+		strCode = L"02";
+	}
+	else if (strName.Find(L"开环电喷") != -1)
+	{
+		strCode = L"03";
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::OilSupplyModeCodeToName(const CString strCode)
+{
+	CString strName(L"化油器");
+	if (strCode.Find(L"01") != -1)
+	{
+		strName = L"化油器";
+	}
+	else if (strCode.Find(L"02") != -1)
+	{
+		strName = L"闭环电喷";
+	}
+	else if (strCode.Find(L"03") != -1)
+	{
+		strName = L"开环电喷";
+	}
+
+	return strName;
+}
+
+CStringW CZYHttp_PAI::DriveTypeNameToCode(const CString strName)
+{
+	CString strCode(L"02");
+	if (strName.Find(L"4x2后驱后驻车") != -1)
+	{
+		strCode = L"01";
+	}
+	else if (strName.Find(L"4x2前驱后驻车") != -1)
+	{
+		strCode = L"02";
+	}
+	else if (strName.Find(L"4x2前驱前驻车") != -1)
+	{
+		strCode = L"03";
+	}
+	else if (strName.Find(L"4x4全驱后驻车") != -1)
+	{
+		strCode = L"04";
+	}
+	else if (strName.Find(L"4x4全连驱后驻车") != -1)
+	{
+		strCode = L"05";
+	}
+	else if (strName.Find(L"6x2双后浮动桥中驻车") != -1)
+	{
+		strCode = L"06";
+	}
+	else if (strName.Find(L"6x2中驱中驻车半挂") != -1)
+	{
+		strCode = L"07";
+	}
+	else if (strName.Find(L"6x4双后驱双后驻车") != -1)
+	{
+		strCode = L"08";
+	}
+	else if (strName.Find(L"6x4双后连驱双后驻车") != -1)
+	{
+		strCode = L"09";
+	}
+	else if (strName.Find(L"6x6全连驱双后驻车") != -1)
+	{
+		strCode = L"10";
+	}
+	else if (strName.Find(L"8x2中驱中驻车半挂") != -1)
+	{
+		strCode = L"11";
+	}
+	else if (strName.Find(L"8x2后驱后驻车全挂") != -1)
+	{
+		strCode = L"12";
+	}
+	else if (strName.Find(L"8x4双后驱双后驻车") != -1)
+	{
+		strCode = L"13";
+	}
+	else if (strName.Find(L"10x2中驱中驻车半挂") != -1)
+	{
+		strCode = L"14";
+	}
+	else if (strName.Find(L"10x6三后驱三后驻车") != -1)
+	{
+		strCode = L"15";
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::DriveTypeCodeToName(const CString strCode)
+{
+	CString strName(L"4x2前驱后驻车");
+	if (strCode.Find(L"01") != -1)
+	{
+		strName = L"4x2后驱后驻车";
+	}
+	else if (strCode.Find(L"02") != -1)
+	{
+		strName = L"4x2前驱后驻车";
+	}
+	else if (strCode.Find(L"03") != -1)
+	{
+		strName = L"4x2前驱前驻车";
+	}
+	else if (strCode.Find(L"04") != -1)
+	{
+		strName = L"4x4全驱后驻车";
+	}
+	else if (strCode.Find(L"05") != -1)
+	{
+		strName = L"4x4全连驱后驻车";
+	}
+	else if (strCode.Find(L"06") != -1)
+	{
+		strName = L"6x2双后浮动桥中驻车";
+	}
+	else if (strCode.Find(L"07") != -1)
+	{
+		strName = L"6x2中驱中驻车半挂";
+	}
+	else if (strCode.Find(L"08") != -1)
+	{
+		strName = L"6x4双后驱双后驻车";
+	}
+	else if (strCode.Find(L"09") != -1)
+	{
+		strName = L"6x4双后连驱双后驻车";
+	}
+	else if (strCode.Find(L"10") != -1)
+	{
+		strName = L"6x6全连驱双后驻车";
+	}
+	else if (strCode.Find(L"11") != -1)
+	{
+		strName = L"8x2中驱中驻车半挂";
+	}
+	else if (strCode.Find(L"12") != -1)
+	{
+		strName = L"8x2后驱后驻车全挂";
+	}
+	else if (strCode.Find(L"13") != -1)
+	{
+		strName = L"8x4双后驱双后驻车";
+	}
+	else if (strCode.Find(L"14") != -1)
+	{
+		strName = L"10x2中驱中驻车半挂";
+	}
+	else if (strCode.Find(L"15") != -1)
+	{
+		strName = L"10x6三后驱三后驻车";
+	}
+	return strName;
+}
+
+CStringW CZYHttp_PAI::FuelMarkNameToCode(const CString strName)
+{
+	CString strCode(L"02");
+	if (strName.Find(L"89号") != -1)
+	{
+		strCode = L"01";
+	}
+	else if (strName.Find(L"90号") != -1)
+	{
+		strCode = L"02";
+	}
+	else if (strName.Find(L"92号") != -1)
+	{
+		strCode = L"03";
+	}
+	else if (strName.Find(L"95号") != -1)
+	{
+		strCode = L"04";
+	}
+	else if (strName.Find(L"97号") != -1)
+	{
+		strCode = L"05";
+	}
+	else if (strName.Find(L"98号") != -1)
+	{
+		strCode = L"06";
+	}
+	else if (strName.Find(L"0号柴油") != -1)
+	{
+		strCode = L"07";
+	}
+
+	return strCode;
+}
+
+CStringW CZYHttp_PAI::FuelMarkCodeToName(const CString strCode)
+{
+	CString strName(L"92号");
+	if (strCode.Find(L"01") != -1)
+	{
+		strName = L"89号";
+	}
+	else if (strCode.Find(L"02") != -1)
+	{
+		strName = L"90号";
+	}
+	else if (strCode.Find(L"03") != -1)
+	{
+		strName = L"92号";
+	}
+	else if (strCode.Find(L"04") != -1)
+	{
+		strName = L"95号";
+	}
+	else if (strCode.Find(L"05") != -1)
+	{
+		strName = L"97号";
+	}
+	else if (strCode.Find(L"06") != -1)
+	{
+		strName = L"98号";
+	}
+	else if (strCode.Find(L"07") != -1)
+	{
+		strName = L"0号柴油";
+	}
+
+	return strName;
 }

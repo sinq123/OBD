@@ -236,53 +236,6 @@ typedef struct UseInfo
 	UseInfo(){ZeroMemory(this, sizeof(UseInfo));}
 }USERINFO,*PUSERINFO;
 
-// 开单信息<BillInfo>
-//typedef struct BillInfo
-//{
-//	wchar_t wchAutoID[NH_INT_TO_WCHART];
-//	wchar_t wchRunningNumber[50];
-//	wchar_t wchPlateNumber[50];
-//	wchar_t wchPlateType[50];
-//	wchar_t wchTestType[NH_INT_TO_WCHART];
-//	wchar_t wchIsRetest[NH_BOOL_TO_WCHART];
-//	wchar_t wchIsFuelTypeNeedTest[NH_BOOL_TO_WCHART];
-//	wchar_t wchIsFuelType2NeedTest[NH_BOOL_TO_WCHART];
-//	wchar_t wchBillDate[NH_TIME_TO_WCHART];
-//	wchar_t wchBiller[50];
-//	wchar_t wchShroff[50];
-//	wchar_t wchDriver[50];
-//	wchar_t wchAssessor[50];
-//	wchar_t wchChargeState[NH_INT_TO_WCHART];
-//	wchar_t wchInitialMoney[NH_FLOAT_TO_WCHART];
-//	wchar_t wchChangedMoney[NH_FLOAT_TO_WCHART];
-//	wchar_t wchReceivableMoney[NH_FLOAT_TO_WCHART];
-//	wchar_t wchActualMoney[NH_FLOAT_TO_WCHART];
-//	wchar_t wchTestCharacter[50];
-//	wchar_t wchTestLocation[50];
-//	wchar_t wchTestState[NH_INT_TO_WCHART];
-//	wchar_t wchLineNumber[50];
-//	wchar_t wchStartProcessingTime[NH_TIME_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodASM[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodVMAS[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodLUGDOWN[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodDIS[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodFSUNHT[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodFSUYD[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodAVFSU[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodMI[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriodMDIS[NH_INT_TO_WCHART];
-//	wchar_t wchNumberOfTestPeriod[NH_INT_TO_WCHART];
-//	wchar_t wchTestPeriodUsed[NH_INT_TO_WCHART];
-//	wchar_t wchQuitReason[50];
-//	wchar_t wchRemark[1024];
-//	wchar_t wchReserved1[50];
-//	wchar_t wchReserved2[50];
-//	wchar_t wchReserved3[50];
-//
-//	BillInfo(){ZeroMemory(this, sizeof(BillInfo));}
-//}BILLINFO,*PBILLINFO;
-
-// 车辆信息<VehicleInfo>
 typedef struct VehicleInfo
 {
 	wchar_t wchAutoID[NH_INT_TO_WCHART];

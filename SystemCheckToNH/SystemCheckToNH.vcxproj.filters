@@ -40,6 +40,12 @@
     <Filter Include="标定\滤纸式烟度计">
       <UniqueIdentifier>{a8aa263e-d48f-43ec-b280-5b7208448c10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="系统自检">
+      <UniqueIdentifier>{49f11c79-1db2-45fd-8a64-1b112540f1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="自检">
+      <UniqueIdentifier>{6412c910-4311-49ad-a8d0-34e1fcf2d893}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -126,6 +132,9 @@
     <ClInclude Include="SmoDlg.h">
       <Filter>标定\滤纸式烟度计</Filter>
     </ClInclude>
+    <ClInclude Include="NHSystemCheckDlg.h">
+      <Filter>自检</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SystemCheckToNH.cpp">
@@ -163,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="SmoDlg.cpp">
       <Filter>标定\滤纸式烟度计</Filter>
+    </ClCompile>
+    <ClCompile Include="NHSystemCheckDlg.cpp">
+      <Filter>自检</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -136,6 +136,9 @@ public:
 	CString GetOBDType(const int& nType, const CString& strFulType);
 	void GetEngineCALID(const CString& strOBDType, const CString& strFulType, CString& strEngineCALID, CString& strEngineCVN);
 
+	bool UpOBDStart(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
+		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg);
+
 	bool UpOBDReaust(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
 		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg);
 	//bool UpOBDIURP(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg);
@@ -146,4 +149,6 @@ public:
 
 	bool UPRealTimeData(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg);
 	bool UPTestSignal(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg);
+
+
 };

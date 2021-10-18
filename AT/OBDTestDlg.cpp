@@ -483,7 +483,6 @@ void COBDTestDlg::SetTestLogAndVehDB(const CString& strItemOBD, const CString& s
 		{
 			strMsg.AppendFormat(L"修改数据库->VehicleInfo表失败");
 		}
-
 	}
 }
 

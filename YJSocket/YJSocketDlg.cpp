@@ -650,6 +650,18 @@ void CYJSocketDlg::OnLvnItemchangedLstVehicle(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
+bool CYJSocketDlg::UpOBDStart(const CString& strInspectionNum, const CStringW& strStationNum, const CStringW& strLineNum)
+{
+	CString strJsonData(L"{");
+	strJsonData.AppendFormat(L"\"InspectionNum\":\"%s\",", strInspectionNum);
+	strJsonData.AppendFormat(L"\"StationCode\":\"%s\",", strStationNum);
+	strJsonData.AppendFormat(L"\"SceneCode\":\"%s\",", strLineNum);
+	strJsonData.AppendFormat(L"\"Time\":\"%s\",", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+	strJsonData.AppendFormat(L"\"Code\":\"%s\"}", L"start");
+
+	std::wstring strRecv;
+	return SendAndRecvPacket(L"HJ04", strStationNum, strLineNum, GenerateInsNum(), strJsonData, strRecv);
+}
 
 void CYJSocketDlg::OnBnClickedBtnUpinter()
 {
@@ -665,6 +677,7 @@ void CYJSocketDlg::OnBnClickedBtnUpinter()
 	COleDateTimeSpan odts;
 	odts.SetDateTimeSpan(0, 0, 0, 40);
 	COleDateTime odtSartTime = odtCurTime - odts;
+
 
 
 	CString strJsonData(L"{");
@@ -727,7 +740,8 @@ void CYJSocketDlg::OnBnClickedBtnUpinter()
 	strJsonData.AppendFormat(L"}");
 
 	std::wstring strRecv;
-
+	
+	UpOBDStart(m_sHJ03.strInspectionNum.c_str(), strStationNum, strLineNum);
 	bool bRet = SendAndRecvPacket(L"HJ05", strStationNum, strLineNum, GenerateInsNum(), strJsonData, strRecv);
 	// πÿ±’¡¨Ω”
 	CloseConnect();

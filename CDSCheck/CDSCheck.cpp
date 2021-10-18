@@ -82,13 +82,15 @@ BOOL CCDSCheckApp::InitInstance()
 		MessageBox(NULL,strMsg.c_str(), L"", MB_ICONWARNING|MB_OK);
 		return FALSE;
 	}
-#endif
 
 	CInfoTestingPerSonnel InfoDlg;
 	if (InfoDlg.DoModal() != IDOK)
 	{
 		return FALSE;
 	}
+#endif
+
+	
 
 	CCDSCheckDlg dlg;
 	m_pMainWnd = &dlg;

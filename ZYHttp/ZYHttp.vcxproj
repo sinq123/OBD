@@ -100,6 +100,7 @@
     <None Include="ZYHttp.def" />
     <None Include="真远科技\ZYConfig.ini" />
     <None Include="真远科技\新机动车尾气检验监管系统接口使用手册.docx" />
+    <None Include="真远科技\机动车尾气检验监管系统接口使用手册3.0.4(1)(1)(1).docx" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

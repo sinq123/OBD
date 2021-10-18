@@ -115,6 +115,7 @@
     <ClInclude Include="DynDlg.h" />
     <ClInclude Include="FloDlg.h" />
     <ClInclude Include="NHDailyDemarcationDlg.h" />
+    <ClInclude Include="NHSystemCheckDlg.h" />
     <ClInclude Include="NOxDlg.h" />
     <ClInclude Include="ObdDlg.h" />
     <ClInclude Include="OpaDlg.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="DynDlg.cpp" />
     <ClCompile Include="FloDlg.cpp" />
     <ClCompile Include="NHDailyDemarcationDlg.cpp" />
+    <ClCompile Include="NHSystemCheckDlg.cpp" />
     <ClCompile Include="NOxDlg.cpp" />
     <ClCompile Include="ObdDlg.cpp" />
     <ClCompile Include="OpaDlg.cpp" />
@@ -149,4 +151,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="SystemCheckToNH.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

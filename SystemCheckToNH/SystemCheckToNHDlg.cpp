@@ -7,6 +7,8 @@
 #include "SystemCheckToNHDlg.h"
 #include "afxdialogex.h"
 #include "NHDailyDemarcationDlg.h"
+#include "NHSystemCheckDlg.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -164,6 +166,14 @@ void CSystemCheckToNHDlg::OnBnClickedBtnSystemManagement()
 
 void CSystemCheckToNHDlg::OnBnClickedBtnSystemCheck()
 {
+	GetLocalTime(&m_sCurrencyTime);
+	SetDboLineInfoLineState(m_sIniNHClient.wchLineNumber, EQU_SYSTEMCHECK, &m_sCurrencyTime);
+
+	CNHSystemCheckDlg dlg;
+	const DWORD dwReturn = (DWORD)dlg.DoModal();
+
+	GetLocalTime(&m_sCurrencyTime);
+	SetDboLineInfoLineState(m_sIniNHClient.wchLineNumber, EQU_FREE, &m_sCurrencyTime);
 }
 
 void CSystemCheckToNHDlg::OnBnClickedBtnTrainingPresentation()
