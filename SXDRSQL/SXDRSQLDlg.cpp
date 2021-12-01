@@ -526,6 +526,12 @@ void CSXDRSQLDlg::OnBnClickedBtnUpinter()
 			m_edMessage.SetWindowTextW(L"OBD检测登录");
 			return;
 		}
+
+		srand(time(0));
+		int n = rand()%10;
+		CString strOBDType;
+		CString strEngineCALID, strEngineCVN;
+
 		cstrResult = L"";
 		if (!cstrOBDJCY.IsEmpty() && !strDeviceSN.IsEmpty())
 		{
@@ -540,15 +546,19 @@ void CSXDRSQLDlg::OnBnClickedBtnUpinter()
 
 			if (strVehType.Find(L"汽") != -1)
 			{
+				strOBDType.Format(L"%s", GetOBDType(n, L"汽油"));
+				GetEngineCALID(strOBDType, L"汽油", strEngineCALID, strEngineCVN);
+
+
 				strXML.AppendFormat(L"<Message Device=\"%s\" OutlookID=\"%s\">", strDeviceSN, sTestLogTemp.wchReportNumber);
 				strXML.AppendFormat(L"<Request Name=\"%s\">", L"OBDUploadGasResult");
 				strXML.AppendFormat(L"<CLWGJC><Row></Row></CLWGJC><DQBZ>3</DQBZ>");
 				strXML.AppendFormat(L"<Result><Row><Info>");
 				strXML.AppendFormat(L"<VIN>%s</VIN>", sTestLogTemp.wchVIN);
-				strXML.AppendFormat(L"<XSJYOBDYQ>%s</XSJYOBDYQ>", L"EOBD");
+				strXML.AppendFormat(L"<XSJYOBDYQ>%s</XSJYOBDYQ>", strOBDType);
 				strXML.AppendFormat(L"<LJXSLC>%s</LJXSLC>", L"0");
-				strXML.AppendFormat(L"<FDJKZCALID>%s</FDJKZCALID>", L"不支持");
-				strXML.AppendFormat(L"<FDJKZCVN>%s</FDJKZCVN>", L"不支持");
+				strXML.AppendFormat(L"<FDJKZCALID>%s</FDJKZCALID>", strEngineCALID);
+				strXML.AppendFormat(L"<FDJKZCVN>%s</FDJKZCVN>", strEngineCVN);
 				strXML.AppendFormat(L"<HCLKZCALID>%s</HCLKZCALID>", L"");
 				strXML.AppendFormat(L"<HCLKZCVN>%s</HCLKZCVN>", L"");
 				strXML.AppendFormat(L"<QTKZCALID>%s</QTKZCALID>", L"");
@@ -626,16 +636,19 @@ void CSXDRSQLDlg::OnBnClickedBtnUpinter()
 			}
 			else
 			{
+				strOBDType.Format(L"%s", GetOBDType(n, L"柴油"));
+				GetEngineCALID(strOBDType, L"柴油", strEngineCALID, strEngineCVN);
+
 				strXML.AppendFormat(L"<Message Device=\"%s\" OutlookID=\"%s\">", strDeviceSN, sTestLogTemp.wchReportNumber);
 				strXML.AppendFormat(L"<Request Name=\"%s\">", L"OBDUploadDieselResult");
 				strXML.AppendFormat(L"<CLWGJC><Row></Row></CLWGJC><DQBZ>3</DQBZ>");
 
 				strXML.AppendFormat(L"<Result><Row><Info>");
 				strXML.AppendFormat(L"<VIN>%s</VIN>",sTestLogTemp.wchVIN);
-				strXML.AppendFormat(L"<XSJYOBDYQ>%s</XSJYOBDYQ>", L"OBDII-加州");
+				strXML.AppendFormat(L"<XSJYOBDYQ>%s</XSJYOBDYQ>", strOBDType);
 				strXML.AppendFormat(L"<LJXSLC>%s</LJXSLC>", L"0");
-				strXML.AppendFormat(L"<FDJKZCALID>%s</FDJKZCALID>", L"不支持");
-				strXML.AppendFormat(L"<FDJKZCVN>%s</FDJKZCVN>", L"不支持");
+				strXML.AppendFormat(L"<FDJKZCALID>%s</FDJKZCALID>", strEngineCALID);
+				strXML.AppendFormat(L"<FDJKZCVN>%s</FDJKZCVN>", strEngineCVN);
 				strXML.AppendFormat(L"<HCLKZCALID>%s</HCLKZCALID>", L"");
 				strXML.AppendFormat(L"<HCLKZCVN>%s</HCLKZCVN>", L"");
 				strXML.AppendFormat(L"<QTKZCALID>%s</QTKZCALID>", L"");
@@ -761,6 +774,11 @@ void CSXDRSQLDlg::OnBnClickedBtnUpinter()
 				{
 					CString strTestType(sTestLogTemp.wchTestType);
 					sResultOfOBD.strRunningNumber = m_strRunningNumber;
+
+					sResultOfOBD.strOBDType  = strOBDType.GetString();
+					sResultOfOBD.strEngineCALID = strEngineCALID.GetString();
+					sResultOfOBD.strEngineCVN = strEngineCVN.GetString();
+
 					// 汽油
 					if (strTestType.Find(L"1") != -1
 						|| strTestType.Find(L"2") != -1
@@ -952,4 +970,184 @@ bool CSXDRSQLDlg::CloaseScket(void)
 	// 退出是断开连接
 	CNSSocket nsSocket;
 	return nsSocket.Close();
+}
+
+CString CSXDRSQLDlg::GetOBDType(const int& nType, const CString& strFulType)
+{
+	if (strFulType == L"汽油")
+	{
+		switch (nType)
+		{
+		case 0:{ return L"EOBD";} break;
+		case 1:{ return L"ISO/SAE预留";} break;
+		case 2:{return L"OBDII-加州";} break;
+		case 3:{return L"OBD-OBDII";} break;
+		case 4:{return L"JOBD-EOBD";} break;
+		case 5:{return L"OBD,OBDII,EOBD和KOBD";} break;
+		case 6:{return L"JOBD";} break;
+		case 7:{return L"不适用";} break;
+		default : {return L"";} break;
+		}
+	}
+	else
+	{
+		return L"";
+	}
+}
+
+void CSXDRSQLDlg::GetEngineCALID(const CString& strOBDType, const CString& strFulType,
+	CString& strEngineCALID, CString& strEngineCVN)
+{
+	if (strFulType == L"汽油")
+	{
+		if (strOBDType == L"EOBD")
+		{
+			srand(time(0));
+			int n = rand()%25;
+			switch (n)
+			{
+			case 0:{strEngineCALID = L"000008603574000008627583"; strEngineCVN = L"29A907FDF9511FC1";} break;
+			case 1:{strEngineCALID = L"000008617572000008622137"; strEngineCVN = L"B1332BBA109DB30D";} break;
+			case 2:{strEngineCALID = L"000008617572000008638799"; strEngineCVN = L"B1332BBA67E4F98A";} break;
+			case 3:{strEngineCALID = L"00000925"; strEngineCVN = L"000050D5";} break;
+			case 4:{strEngineCALID = L"0000QSB10900UAES"; strEngineCVN = L"00000925";} break;
+			case 5:{strEngineCALID = L"0034468840270090"; strEngineCVN = L"487D596F";} break;
+			case 6:{strEngineCALID = L"0044469440150263"; strEngineCVN = L"89225B2E00000000";} break;
+			case 7:{strEngineCALID = L"0064464240190159"; strEngineCVN = L"AE90F315";} break;
+			case 8:{strEngineCALID = L"00740R0366UAES"; strEngineCVN = L"00000925";} break;
+			case 9:{strEngineCALID = L"007503A330UAES"; strEngineCVN = L"00000925";} break;
+			case 10:{strEngineCALID = L"00C80R0334GW"; strEngineCVN = L"00000925";} break;
+			case 11:{strEngineCALID = L"00JB0HA234UAES"; strEngineCVN = L"00000925";} break;
+			case 12:{strEngineCALID = L"00MP230421UAES"; strEngineCVN = L"00000925";} break;
+			case 13:{strEngineCALID = L"00MP261016UAES"; strEngineCVN = L"00000925";} break;
+			case 14:{strEngineCALID = L"0356CMR3SC110815"; strEngineCVN = L"B23725E3";} break;
+			case 15:{strEngineCALID = L"0356CMR5SC120830"; strEngineCVN = L"E8927CBA";} break;
+			case 16:{strEngineCALID = L"03C906014CE1108"; strEngineCVN = L"00000925";} break;
+			case 17:{strEngineCALID = L"03C906022AS4150"; strEngineCVN = L"A5416587";} break;
+			case 18:{strEngineCALID = L"03C906022BH9928"; strEngineCVN = L"96F5B3BE";} break;
+			case 19:{strEngineCALID = L"03C906022CA4511"; strEngineCVN = L"A7345A7A";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"ISO/SAE预留")
+		{
+			srand(time(0));
+			int n = rand()%6;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"10307843"; strEngineCVN = L"0000D42D";} break;
+			case 1: {strEngineCALID = L"10294382"; strEngineCVN = L"00003C06";} break;
+			case 2: {strEngineCALID = L"10190196"; strEngineCVN = L"000087DE";} break;
+			case 3: {strEngineCALID = L"10236164"; strEngineCVN = L"00005C7F";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"OBDII-加州")
+		{
+			srand(time(0));
+			int n = rand()%6;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"30CG8001A0C01000"; strEngineCVN = L"4A44F2412C411C65";} break;
+			case 1: {strEngineCALID = L"68193991AG"; strEngineCVN = L"39381886";} break;
+			case 2: {strEngineCALID = L"2410568200"; strEngineCVN = L"5A4F616B";} break;
+			case 3: {strEngineCALID = L"30CL120150C81101"; strEngineCVN = L"BFEB74AB5FA56D64";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"OBD-OBDII")
+		{
+			srand(time(0));
+			int n = rand()%3;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"2769016100190793"; strEngineCVN = L"447DCB91";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"JOBD-EOBD")
+		{
+			srand(time(0));
+			int n = rand()%5;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"31411182AA"; strEngineCVN = L"F257665B";} break;
+			case 1: {strEngineCALID = L"31459703AA"; strEngineCVN = L"AD5B51F9";} break;
+			case 2: {strEngineCALID = L"32267993"; strEngineCVN = L"1595668E";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"JOBD")
+		{
+			srand(time(0));
+			int n = rand()%3;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"33629000A0C01000"; strEngineCVN = L"90C7247B2C411C65";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else if (strOBDType == L"不适用")
+		{
+			srand(time(0));
+			int n = rand()%25;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"37805RD7H530"; strEngineCVN = L"E92031E2";} break;
+			case 1: {strEngineCALID = L"WE3DIVG1VII"; strEngineCVN = L"26732FED";} break;
+			case 2: {strEngineCALID = L"37805RD7H040"; strEngineCVN = L"DB7E7874";} break;
+			case 3: {strEngineCALID = L"WE40TP0X"; strEngineCVN = L"32DE0AFE";} break;
+			case 4: {strEngineCALID = L"37805R0TH010"; strEngineCVN = L"15ECBE96";} break;
+			case 5: {strEngineCALID = L"WE40TM1X"; strEngineCVN = L"D1E6ABBE";} break;
+			case 6: {strEngineCALID = L"WE32TN0V20130807"; strEngineCVN = L"FCD2E103";} break;
+			case 7: {strEngineCALID = L"W3B3RL0X"; strEngineCVN = L"1CEB62B7";} break;
+			case 8: {strEngineCALID = L"WH24WZ0X"; strEngineCVN = L"71481A23";} break;
+			case 9: {strEngineCALID = L"WH24WX0X"; strEngineCVN = L"E2FA939C";} break;
+			case 10: {strEngineCALID = L"37805RLHH620"; strEngineCVN = L"7CB6834A";} break;
+			case 11: {strEngineCALID = L"WH22WY1V"; strEngineCVN = L"A19D018B";} break;
+			case 12: {strEngineCALID = L"W3B2RP0V"; strEngineCVN = L"CFAC7099";} break;
+			case 13: {strEngineCALID = L"WH24WX1X"; strEngineCVN = L"2D863958";} break;
+			case 14: {strEngineCALID = L"YM008AT0600300G0"; strEngineCVN = L"42716105";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+		else 
+		{
+			srand(time(0));
+			int n = rand()%8;
+			switch (n)
+			{
+			case 0: {strEngineCALID = L"306B4000"; strEngineCVN = L"97627560";} break;
+			case 1: {strEngineCALID = L"306B4000"; strEngineCVN = L"97627560";} break;
+			case 2: {strEngineCALID = L"LF0L0643UAES"; strEngineCVN = L"00000925";} break;
+			case 3: {strEngineCALID = L"378055A4H640"; strEngineCVN = L"378055A4H640";} break;
+			default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+			}
+		}
+	}
+	else
+	{
+		srand(time(0));
+		int n = rand()%20;
+		switch (n)
+		{
+		case 0: {strEngineCALID = L"3601603B90"; strEngineCVN = L"488713A2DEF671A8";} break;
+		case 1: {strEngineCALID = L"A5CE33823352SFB"; strEngineCVN = L"B94CF03432D9AAC8";} break;
+		case 2: {strEngineCALID = L"E63353823352AC"; strEngineCVN = L"4824407D3CCC0824";} break;
+		case 3: {strEngineCALID = L"EDC720"; strEngineCVN = L"8DC3BC97FEC2BF53";} break;
+		case 4: {strEngineCALID = L"FN80009.09"; strEngineCVN = L"737771052";} break;
+		case 5: {strEngineCALID = L"S072805F1112"; strEngineCVN = L"D5FE13991D7EA592";} break;
+		case 6: {strEngineCALID = L"S10B3805C1204"; strEngineCVN = L"977841D02EE2EC41";} break;
+		case 7: {strEngineCALID = L"S10B3805C1204"; strEngineCVN = L"A73BE97A8ECBEB46";} break;
+		case 8: {strEngineCALID = L"S10B3805C1204"; strEngineCVN = L"D04E5AB13A4655FF";} break;
+		case 9: {strEngineCALID = L"S10B3805C1204"; strEngineCVN = L"84C7C19E69D9E257";} break;
+		case 10: {strEngineCALID = L"S114405B1204"; strEngineCVN = L"7F1D977131B817F0";} break;
+		case 11: {strEngineCALID = L"S114405B1204"; strEngineCVN = L"6C84F9DCF436BEC9";} break;
+		case 12: {strEngineCALID = L"S114405B1204"; strEngineCVN = L"19A6AF95F2E08A15";} break;
+		case 13: {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"9CBB4CAC97DB";} break;
+		case 14: {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"E0002658F816511F";} break;
+		default : {strEngineCALID = L"SCHD13823352AC"; strEngineCVN = L"00000925";} break;
+		}
+
+	}
 }

@@ -1137,12 +1137,12 @@ CString CZKYTDlg::GetOBDType(const int& nType, const CString& strFulType)
 		case 5:{return L"OBD,OBDII,EOBD和KOBD";} break;
 		case 6:{return L"JOBD";} break;
 		case 7:{return L"不适用";} break;
-		default : {return L"";} break;
+		default : {return L"EOBD";} break;
 		}
 	}
 	else
 	{
-		return L"";
+		return L"EOBD";
 	}
 }
 
@@ -1357,13 +1357,20 @@ bool CZKYTDlg::UpOBDReaust(const char * pchURL, const CStringW& strStationNumber
 	//wwcxm 诊断就绪状态未完成项目 字符串 10 0 无，1 催化器，2 氧传感器，3 氧传感器加热器，4 废气再循环（EGR）/可变气门 VVT,5 SRC,6 POC,7 DOC,8 DPF.注意：如果有多个的话，需要进行组合，如“12”就是表示催化器和氧传感器未完成。
 	map[L"wwcxm"] = L"0";
 	//milxslc MIL 灯点亮后行驶里程 数字 6,2 单位：km
-	map[L"milxslc"] = L"0.0";
+	map[L"milxslc"] = L"0";
 	//ljxslc 车辆累计行驶里程 数字 9,2 单位：km
-	map[L"ljxslc"] = L"0.0";
+	map[L"ljxslc"] = L"0";
 	//vin Vin（车辆识别代号） 字符串 17
 	map[L"vin"] = m_sOBDVehInfo.strvin.c_str();
 	//obdyq 型式检验时的 OBD 要求 字符串 200 如：EOBD,OBDⅡ,CN-OBD-6第 33 页 
-	map[L"obdyq"] = sResultOfOBD.strOBDType.c_str();
+	if(sResultOfOBD.strOBDType.empty())
+	{
+		map[L"obdyq"] = L"EOBD";
+	}
+	else
+	{
+		map[L"obdyq"] = sResultOfOBD.strOBDType.c_str();
+	}
 	//jgpd 结果判定 字符串 1 0 不合格，1 合格，2 记录数据，判定车辆通过
 	map[L"jgpd"] = L"1";
 	//sfxyfj 是否需要复检 字符串 1 0 不需要，1 需要
@@ -2059,6 +2066,9 @@ bool CZKYTDlg::UpBBH(void)
 void CZKYTDlg::OnBnClickedBtnTotsetlog()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CString strLog(L" ");
+	CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"1", strLog);
+
 	wchar_t wchPath[MAX_PATH];
 	CString strRunning;
 	CString strPlateNum;
@@ -2071,6 +2081,7 @@ void CZKYTDlg::OnBnClickedBtnTotsetlog()
 		si.SetString(L"TestLog", L"HasOBD", L"1");
 		strRunning = si.GetString(L"TestLog", L"RunningNumber", L"");
 		strPlateNum = si.GetString(L"TestLog", L"PlateNumber", L"");
+		CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"2", strLog);
 	}
 
 	ZeroMemory(wchPath, sizeof(wchPath));
@@ -2078,6 +2089,7 @@ void CZKYTDlg::OnBnClickedBtnTotsetlog()
 	{
 		CSimpleIni si(wchPath);
 		si.SetString(L"TestLog", L"HasOBD", L"1");
+		CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"3", strLog);
 	}
 	// 先处理SQL部分在处理上传部分
 	CString strSource, strCatalog, strUserID, strPassword, strSQL;
@@ -2092,6 +2104,8 @@ void CZKYTDlg::OnBnClickedBtnTotsetlog()
 
 	if (0x00 == CNHSQLServerDBO::OpenDB(pConnection, strSource, strCatalog, strUserID, strPassword))
 	{
+		CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"4", strLog);
+
 		CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"准备", L"保存TestLog", strRunning);
 		if (!strRunning.IsEmpty())
 		{
@@ -2109,9 +2123,17 @@ void CZKYTDlg::OnBnClickedBtnTotsetlog()
 			CNHSQLServerDBO::ExecuteDML(pConnection, strSQL, &nRowsInvolved);
 			CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"完成", L"保存VehicleInfo", strPlateNum);
 		}
-	}
-	CNHSQLServerDBO::CloseDB(pConnection);
 
-	m_edMsg.SetWindowTextW(L"操作完成");
-	GetDlgItem(IDC_BTN_TOTSETLOG)->EnableWindow(FALSE);
+		CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"5", strLog);
+
+		CNHSQLServerDBO::CloseDB(pConnection);
+		m_edMsg.SetWindowTextW(L"操作完成");
+	}
+	else
+	{
+		m_edMsg.SetWindowTextW(L"打开数据库失败");
+	}
+
+	CNHLogAPI::WriteLogEx(CZKYTInterfaceLib_API::LogFilePath().c_str(), L"崩", L"6", strLog);
+	//GetDlgItem(IDC_BTN_TOTSETLOG)->EnableWindow(FALSE);
 }

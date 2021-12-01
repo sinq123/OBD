@@ -237,7 +237,7 @@ bool CSocketLib_API::UploadGasDynCoastdown(std::wstring &strResult, std::wstring
 		strJsonData.AppendFormat(L"\"SlideTimeStart\":\"%s\",", otd1.Format(L"%Y-%m-%d %H:%M:%S").GetString());
 	}
 	//5.		DIW	基本惯量	是	数字(5)	单位：kg
-	strTemp.Format(L"%.0f", _wtof(si.GetString(L"ResultOfDynPLHP", L"DIW", L"0")));
+	strTemp.Format(L"%.0f", _wtof(si.GetString(L"LowerRangeLoadConst", L"DIW", L"0")));
 	strJsonData.AppendFormat(L"\"DIW\":\"%d\",", _wtoi(strTemp.GetString()));
 
 	//6.		IHP2540	IHP2540设置功率	是	数字(4)	单位：kW

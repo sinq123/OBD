@@ -75,6 +75,7 @@ BOOL CZKYTApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
+#ifndef _DEBUG
 	std::wstring strMsg, strDLMM;
 	if (!CRJYZ::IsYZ(strMsg, strDLMM))
 	{
@@ -88,6 +89,7 @@ BOOL CZKYTApp::InitInstance()
 	{
 		return FALSE;
 	}
+#endif
 
 	CZKYTDlg dlg;
 	m_pMainWnd = &dlg;

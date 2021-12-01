@@ -2543,11 +2543,11 @@ void CNHNOxCheckDlg::RandomError(short& sHC, float& fCO, float& fCO2, float& fO2
 	int n;
 	if (m_nCO2NominalValue > 999)
 	{
-		n = rand()%10 + 150;
+		n = rand()%6 + 5;
 	}
 	else
 	{
-		n = rand()%10 + 20;
+		n = rand()%5 + 10;
 	}
 	if ((n%2) == 0)
 	{

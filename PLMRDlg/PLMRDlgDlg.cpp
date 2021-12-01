@@ -912,7 +912,7 @@ CString CPLMRDlgDlg::GetOBDType(const int& nType, const CString& strFulType)
 	}
 	else
 	{
-		return L"";
+		return L"JOBD";
 	}
 }
 
@@ -1115,13 +1115,20 @@ bool CPLMRDlgDlg::UpOBDReaust(const char * pchURL, const CStringW& strStationNum
 	//wwcxm 诊断就绪状态未完成项目 字符串 10 0 无，1 催化器，2 氧传感器，3 氧传感器加热器，4 废气再循环（EGR）/可变气门 VVT,5 SRC,6 POC,7 DOC,8 DPF.注意：如果有多个的话，需要进行组合，如“12”就是表示催化器和氧传感器未完成。
 	map[L"wwcxm"] = L"0";
 	//milxslc MIL 灯点亮后行驶里程 数字 6,2 单位：km
-	map[L"milxslc"] = L"0.0";
+	map[L"milxslc"] = L"0";
 	//ljxslc 车辆累计行驶里程 数字 9,2 单位：km
-	map[L"ljxslc"] = L"0.0";
+	map[L"ljxslc"] = L"0";
 	//vin Vin（车辆识别代号） 字符串 17
 	map[L"vin"] = m_sTestLog.wchVIN;
 	//obdyq 型式检验时的 OBD 要求 字符串 200 如：EOBD,OBDⅡ,CN-OBD-6第 33 页 
-	map[L"obdyq"] = sResultOfOBD.strOBDType.c_str();
+	if (sResultOfOBD.strOBDType.empty())
+	{
+		map[L"obdyq"] = L"OBDⅡ";
+	}
+	else
+	{
+		map[L"obdyq"] = sResultOfOBD.strOBDType.c_str();
+	}
 	//jgpd 结果判定 字符串 1 0 不合格，1 合格，2 记录数据，判定车辆通过
 	map[L"jgpd"] = L"1";
 	//sfxyfj 是否需要复检 字符串 1 0 不需要，1 需要

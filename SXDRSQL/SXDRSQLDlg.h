@@ -98,5 +98,8 @@ public:
 	bool SendAndRecvPacket(LPCTSTR szXML, std::wstring &strRecv);
 	
 	bool CloaseScket(void);
+
+	CString GetOBDType(const int& nType, const CString& strFulType);
+	void GetEngineCALID(const CString& strOBDType, const CString& strFulType, CString& strEngineCALID, CString& strEngineCVN);
 	
 };
