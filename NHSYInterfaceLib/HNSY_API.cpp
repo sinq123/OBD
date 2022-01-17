@@ -38,7 +38,7 @@ DWORD CHNSY_API::SetLogFilePath(const std::wstring& strLogFilePath)
 {
 	if (strLogFilePath.empty())
 	{
-		return 0x01;
+		m_strLogFilePath = LogFilePath();
 	}
 	else
 	{

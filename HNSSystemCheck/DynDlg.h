@@ -46,14 +46,6 @@ private:
 private:
 	// 上传加载滑行数据
 	static bool UpConstLoad(void);
-	// 上传加载滑行数据(重型)
-	static bool UpConstLoadHeavy(void);
-	// 上传寄生功率
-	static bool UpPLHP(void);
-	// 上传寄生功率(重型)
-	static bool UpPLHPHeavy(void);
-	// 上传检查过程记录
-	static bool UpEqulChk(const int& njclx);
 
 private:
 	// 删除上传的临时文件.ini文件

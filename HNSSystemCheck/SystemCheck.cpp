@@ -23,11 +23,9 @@ END_MESSAGE_MAP()
 
 CSystemCheckApp::CSystemCheckApp()
 	: m_pchURL(NULL)
-	, m_strkey(L"")
 	, m_StationNum(L"")
+	, m_LicenseCode(L"")
 	, m_LineNum(L"")
-	, m_strIntLogFilePath(L"")
-	, m_RegistCode(L"")
 {
 	// 支持重新启动管理器
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
@@ -90,10 +88,12 @@ BOOL CSystemCheckApp::InitInstance()
 	}
 
 #endif
-	m_RegistCode.Format(L"%s", this->m_lpCmdLine);
 	GetConfig();
-	GetLogFilePath();
-
+	if (!GetAccessToken())
+	{
+		MessageBox(NULL, L"获取令牌失败", L"联网", MB_ICONWARNING|MB_OK);
+		return FALSE;
+	}
 
 	CSystemCheckDlg dlg;
 	m_pMainWnd = &dlg;
@@ -124,13 +124,13 @@ void CSystemCheckApp::GetConfig(void)
 {
 	wchar_t wchPath[MAX_PATH];
 	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 == CNHCommonAPI::GetFilePathEx(L"Config", L"WebConfig.ini", wchPath))
+	if (0x00 == CNHCommonAPI::GetFilePathEx(L"Config", L"ZZWDConfig.ini", wchPath))
 	{
 		CSimpleIni si(wchPath);
 
 		CString strTemp;
 
-		strTemp = si.GetString(L"NetSet", L"URL", L"");
+		strTemp = si.GetString(L"WebService", L"URL", L"");
 		if (NULL != m_pchURL)
 		{
 			free(m_pchURL);
@@ -140,34 +140,61 @@ void CSystemCheckApp::GetConfig(void)
 		{
 			m_pchURL = CNHCommonAPI::UnicodeToANSI(strTemp);
 		}
-		m_StationNum = si.GetString(L"NetSet", L"StationNum", L"");
-		m_LineNum = si.GetString(L"NetSet", L"LineNum", L"");
+		m_StationNum = si.GetString(L"WebService", L"StationNumber", L"");
 	}
+
 	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"UserInfo.ini", wchPath))
+	if (0x00 == CNHCommonAPI::GetFilePathEx(L"Config", L"NHClient.ini", wchPath))
 	{
 		CSimpleIni si(wchPath);
-		m_strkey = si.GetString(L"UserInfo", L"NetKey", L"");
-		m_strName = si.GetString(L"UserInfo", L"Name", L"");
+
+		CString strTemp;
+
+		m_LineNum = si.GetString(L"System", L"LineNumber", L"");
 	}
 }
 
-void CSystemCheckApp::GetLogFilePath(void)
+bool CSystemCheckApp::GetAccessToken(void)
 {
-	// 日志文件所在文件夹路径
-	wchar_t wchLogFileFolderPath[MAX_PATH] = {0};
-	CNHCommonAPI::GetCDFilePath(L"", wchLogFileFolderPath, true);
+	bool bRet(false);
 
-	COleDateTime odtNow(COleDateTime::GetCurrentTime());
+	CHNSY_API::SetLogFilePath(L"");
 
-	CStringW strFileName;
-	strFileName.Format(L"衡阳SystemCheck%s.log", odtNow.Format(L"%Y-%m-%d"));
+	if (!m_StationNum.IsEmpty())
+	{
+		std::wstring strRetStr;
+		
+		int nRet = CHNSY_API::getAccessToken(m_pchURL, m_LineNum.GetString(), strRetStr);
 
-	CStringW strLogFilePath;
-	strLogFilePath = wchLogFileFolderPath;
-	strLogFilePath += strFileName;
+		if (nRet == 0)
+		{
+			CXmlReader xmlReader;
+			if (xmlReader.Parse(strRetStr.c_str()))
+			{
+				std::wstring strCode, strAccessToken;
+				// 1 result
+				if (xmlReader.OpenNode(L"root/result"))
+				{
+					xmlReader.GetNodeContent(strCode);
+				}
 
-	m_strIntLogFilePath = strLogFilePath;
+				if (strCode.find(L"1") != std::string::npos)
+				{
+					if (xmlReader.OpenNode(L"root/info/accessToken"))
+					{
+						xmlReader.GetNodeContent(strAccessToken);
+					}
+					if (strAccessToken != L"")
+					{
+						m_LicenseCode = strAccessToken.c_str();
+						bRet = true;
+					}
+				}
+			}
+		}
+	}
+
+	return bRet;
 }
 
 int CSystemCheckApp::ExitInstance()

@@ -9,8 +9,6 @@
 #endif
 
 #include "resource.h"		// 主符号
-#include "md5.h"
-#include "HNSY_API.h"
 #include <algorithm>
 
 #include "..\NHLib\NHLib.h"
@@ -56,11 +54,11 @@
 #pragma comment(lib, "..\\Release\\NHModeServerDB.lib")
 #endif
 
-#include "..\HYInterfaceLib\HYInterfaceLib.h"
+#include "..\NHSYInterfaceLib\NHSYInterfaceLib.h"
 #ifdef _DEBUG
-#pragma comment(lib, "..\\Debug\\HYInterfaceLib_D.lib")
+#pragma comment(lib, "..\\Debug\\NHSYInterfaceLib_D.lib")
 #else
-#pragma comment(lib, "..\\Release\\HYInterfaceLib.lib")
+#pragma comment(lib, "..\\Release\\NHSYInterfaceLib.lib")
 #endif
 
 #ifndef CS_NO_YZ
@@ -86,16 +84,14 @@ public:
 
 public:
 	char* m_pchURL;
-	CStringW m_strkey;
 	CStringW m_StationNum;
+	CStringW m_LicenseCode;
 	CStringW m_LineNum;
-	CStringW m_strName;
-	CStringW m_RegistCode;
 	// 获取配置信息
 	void GetConfig(void);
-	// 生成日志文件
-	CStringW m_strIntLogFilePath;
-	void GetLogFilePath(void);
+
+	// 获取联网令牌
+	bool GetAccessToken(void);
 
 };
 

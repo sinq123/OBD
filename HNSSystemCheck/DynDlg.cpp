@@ -8,8 +8,8 @@
 
 IMPLEMENT_DYNAMIC(CDynDlg, CDialogZoom)
 
-// 标定是否Pass
-bool CDynDlg::m_bDemarcationPass = false;
+	// 标定是否Pass
+	bool CDynDlg::m_bDemarcationPass = false;
 
 CDynDlg::CDynDlg(CWnd* pParent /*=NULL*/)
 	: CDialogZoom(CDynDlg::IDD, pParent)
@@ -66,7 +66,7 @@ BOOL CDynDlg::OnInitDialog()
 	CDialogZoom::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	
+
 	InitCtrls();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -266,7 +266,7 @@ DWORD CDynDlg::WriteDemarcationLogFile(int nDemarcationItem)
 	LINEINFO sLineInfo;
 	ZeroMemory(&sLineInfo, sizeof(sLineInfo));
 	GetIniLineInfo(&sLineInfo);	
-	
+
 	// 获取操作员
 	USERINFO sUserInfo;
 	ZeroMemory(&sUserInfo, sizeof(sUserInfo));
@@ -305,7 +305,7 @@ DWORD CDynDlg::WriteDemarcationLogFile(int nDemarcationItem)
 	oleDateTime.ParseDateTime(strDemarcationDate);
 	CString strDemarcationNumber;
 	strDemarcationNumber.Format(L"%s-%s-%s", sStationInfo.wchStationNumber, sLineInfo.wchLineNumber, oleDateTime.Format(L"%Y%m%d%H%M%S"));
-	
+
 	// 写入DemarcationLog.ini
 	DEMARCATIONLOG sDemarcationLog;
 	ZeroMemory(&sDemarcationLog, sizeof(sDemarcationLog));
@@ -366,7 +366,7 @@ DWORD CDynDlg::WriteDemarcationResultOfDynConstLoadFile(void)
 	DEMARCATIONRESULTOFDYNCONSTLOAD sResultOfDynConstLoad;
 	ZeroMemory(&sResultOfDynConstLoad, sizeof(DEMARCATIONRESULTOFDYNCONSTLOAD));
 	GetIniResultOfDynConstLoad(&sResultOfDynConstLoad);
-	
+
 	// 合并数据
 	CString strData,strError;
 	strData.Format(L"ACDT=%sms,CCDT=%sms", sResultOfDynConstLoad.wchACDT, sResultOfDynConstLoad.wchCCDT);
@@ -425,7 +425,7 @@ DWORD CDynDlg::WriteDemarcationResultOfDynPLHPFile(void)
 	DEMARCATIONRESULTOFDYNPLHP sResultOfDynPLHP;
 	ZeroMemory(&sResultOfDynPLHP, sizeof(DEMARCATIONRESULTOFDYNPLHP));
 	GetIniResultOfDynPLHP(&sResultOfDynPLHP);
-	
+
 	// 合并数据
 	CString strData,strError;
 	if (wcscmp(sResultOfDynPLHP.wchPLHPType, L"1") == 0)	//	ASM寄生功率
@@ -496,7 +496,7 @@ DWORD CDynDlg::WriteDemarcationResultOfDynForceCalFile(void)
 	DEMARCATIONRESULTOFDYNFORCECAL sResultOfDynForceCal;
 	ZeroMemory(&sResultOfDynForceCal, sizeof(DEMARCATIONRESULTOFDYNFORCECAL));
 	GetIniResultOfDynForceCal(&sResultOfDynForceCal);
-	
+
 	// 合并数据
 	CString strData,strError;
 	strData.Format(L"");
@@ -555,7 +555,7 @@ DWORD CDynDlg::WriteDemarcationResultOfDynForceChkFile(void)
 	DEMARCATIONRESULTOFDYNFORCECHK sResultOfDynForceChk;
 	ZeroMemory(&sResultOfDynForceChk, sizeof(DEMARCATIONRESULTOFDYNFORCECHK));
 	GetIniResultOfDynForceChk(&sResultOfDynForceChk);
-	
+
 	// 合并数据
 	CString strData,strError;
 	strData.Format(L"");
@@ -653,7 +653,7 @@ DWORD CDynDlg::WriteDynConstLoadData(void)
 
 	// 写EquCalChkInfo表
 	WriteEquCalChkInfo();
-	
+
 	// 写DemarcationLog表
 	WriteDemarcationLog();
 
@@ -708,29 +708,7 @@ DWORD CDynDlg::WriteDynConstLoadData(void)
 	//DeleteFile(L"ResultOfDynConstLoad.ini");
 
 	// 上传部分
-	bool bRet(false);
-	// 获取文件路径
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfDynConstLoad.ini", wchPath, false))
-	{
-		// 暂时不做其它操作
-	}
-	CSimpleIni si(wchPath);
-
-	CString str = si.GetString(L"LowerRangeLoadConst", L"RangeLoadConstType", L"1");
-	if (L"3" == str) // LUGDOWN
-	{
-		bRet = UpConstLoadHeavy();
-	}
-	else // 
-	{
-		bRet = UpConstLoad();
-	}
-	if (bRet)
-	{
-		bRet = UpEqulChk(1);
-	}
+	UpConstLoad();
 
 	return 0x00;
 }
@@ -744,10 +722,10 @@ DWORD CDynDlg::WriteDynPLHPData(void)
 
 	// 写EquCalChkInfo表
 	WriteEquCalChkInfo();
-	
+
 	// 写DemarcationLog表
 	WriteDemarcationLog();
-	
+
 	// 写DemarcationResultOfDynPLHP表
 	WriteDemarcationResultOfDynPLHP();
 
@@ -798,27 +776,27 @@ DWORD CDynDlg::WriteDynPLHPData(void)
 	//DeleteFile(L"DemarcationLog.ini");
 	//DeleteFile(L"ResultOfDynPLHP.ini");
 
-	// 上传部分
-	bool bRet(false);
-	// 获取文件路径
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfDynPLHP.ini", wchPath, false))
-	{
-		// 暂时不做其它操作
-	}
-	CSimpleIni si(wchPath);
+	//// 上传部分
+	//bool bRet(false);
+	//// 获取文件路径
+	//wchar_t wchPath[MAX_PATH];
+	//ZeroMemory(wchPath, sizeof(wchPath));
+	//if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfDynPLHP.ini", wchPath, false))
+	//{
+	//	// 暂时不做其它操作
+	//}
+	//CSimpleIni si(wchPath);
 
-	CString str = si.GetString(L"ResultOfDynPLHP", L"PLHPType", L"0");
-	if (L"3" == str) // 柴油
-	{
-		bRet = UpPLHPHeavy();
-	}
-	else // 汽油
-	{
-		bRet = UpPLHP();
-	}
-	bRet = UpEqulChk(2);
+	//CString str = si.GetString(L"ResultOfDynPLHP", L"PLHPType", L"0");
+	//if (L"3" == str) // 柴油
+	//{
+	//	bRet = UpPLHPHeavy();
+	//}
+	//else // 汽油
+	//{
+	//	bRet = UpPLHP();
+	//}
+	//bRet = UpEqulChk(2);
 
 	return 0x00;
 }
@@ -832,13 +810,13 @@ DWORD CDynDlg::WriteDynForceCalData(void)
 
 	// 写EquCalChkInfo表
 	WriteEquCalChkInfo();
-	
+
 	// 写DemarcationLog表
 	WriteDemarcationLog();
-	
+
 	// 写DemarcationResultOfDynForceCal表
 	WriteDemarcationResultOfDynForceCal();
-	
+
 	if (m_bDemarcationPass)
 	{
 		// 标定Pass
@@ -897,13 +875,13 @@ DWORD CDynDlg::WriteDynForceChkData(void)
 
 	// 写EquCalChkInfo表
 	WriteEquCalChkInfo();
-	
+
 	// 写DemarcationLog表
 	WriteDemarcationLog();
-	
+
 	// 写DemarcationResultOfDynForceChk表
 	WriteDemarcationResultOfDynForceChk();
-	
+
 	if (m_bDemarcationPass)
 	{
 		// 标定Pass
@@ -1096,19 +1074,15 @@ void CDynDlg::OnBnClickedButtonVarLoadJjf()
 	ShowNHCVarLoadDlg();
 }
 
-
 bool CDynDlg::UpConstLoad(void)
 {
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
 	// 读取加载滑行结果文件
 	wchar_t wchPath[MAX_PATH];
 	ZeroMemory(wchPath, sizeof(wchPath));
 	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfDynConstLoad.ini", wchPath, false))
 	{
 		// 文件不存在
-		AfxMessageBox(L"上传加载滑行文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"上传加载滑行文件INI不在");
+		AfxMessageBox(L"加载滑行检查文件INI不在");
 		return false;
 	}
 	CSimpleIni si(wchPath);
@@ -1122,180 +1096,86 @@ bool CDynDlg::UpConstLoad(void)
 		|| strHigherRangeLoadConstFinish != L"1"
 		)
 	{
-		//AfxMessageBox(L"其中一个区间未完成");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"其中一个区间未完成");
 		return false;
 	}
 
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//hxjckssj	滑行检查开始时间
-	// 上传最短时间的哪个
-	COleDateTime otd1, otd2;
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd1.ParseDateTime(strTemp))
+	struct Scgjzj
 	{
-		otd1 = COleDateTime::GetCurrentTime();
-	}
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd2.ParseDateTime(strTemp))
-	{
-		otd2 = COleDateTime::GetCurrentTime();
-	}
-	if (otd1 > otd2)
-	{
-		strData.AppendFormat(L"<hxjckssj>%s</hxjckssj>", otd2.Format(L"%Y%m%d%H%M%S"));
-	}
-	else
-	{
-		strData.AppendFormat(L"<hxjckssj>%s</hxjckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
-	}
-	//jbgl	基本惯量
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"DIW", L"0");
-	strData.AppendFormat(L"<jbgl>%s</jbgl>", strTemp);
-	//ihpgl1	IHP2540设置功率
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"PowerStandardValue", L"10");
-	strData.AppendFormat(L"<ihpgl1>%s</ihpgl1>", strTemp);
-	//fjssgl1	40km/h时的附加损失功率
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"InternalDamage", L"0.2");
-	strData.AppendFormat(L"<fjssgl1>%s</fjssgl1>", strTemp);
-	//sjhxsj1	50-30km/h实际滑行时间
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"ACDT", L"");
-	strData.AppendFormat(L"<sjhxsj1>%s</sjhxsj1>", strTemp);
-	//myhxsj1	50-30km/h名义滑行时间
+		//accessToken	访问令牌	字符串	50	根据检测线编号调用获取
+		std::wstring accessToken;
+		//gsjzllsj	高速加载滑行理论时间
+		std::wstring gsjzllsj;
+		//gsjzsjsj	高速加载滑行实际时间
+		std::wstring gsjzsjsj;
+		//dsjzllsj	低速加载滑行理论时间
+		std::wstring dsjzllsj;
+		//dsjzsjsj	低速加载滑行实际时间
+		std::wstring dsjzsjsj;
+		//gsjzns	高速加载滑行内损功率
+		std::wstring gsjzns;
+		//dsjzns	低速加载滑行内损功率
+		std::wstring dsjzns;
+		//gsjzhxgl	高速加载滑行指示功率
+		std::wstring gsjzhxgl;
+		//dsjzhxgl	低速加载滑行指示功率
+		std::wstring dsjzhxgl;
+		//jbgl	基本惯量
+		std::wstring jbgl;
+		//gsjzjcjg	高速加载滑行结果
+		std::wstring gsjzjcjg;
+		//dsjzjcjg	低速加载滑行结果
+		std::wstring dsjzjcjg;
+		//jcjg	检查结果
+		std::wstring jcjg;
+		//kssj	检查开始时间
+		std::wstring kssj;
+		//jssj	检查结束时间
+		std::wstring jssj;
+		//bz	备注
+		std::wstring bz;
+
+		Scgjzj() {ZeroMemory(this, sizeof(Scgjzj));}
+	};
+	Scgjzj scgjzj;
+
+	CStringW strTemp;
+
+	//accessToken	访问令牌	字符串	50	根据检测线编号调用获取
+	scgjzj.accessToken = theApp.m_LicenseCode.GetString();
+	//gsjzllsj	高速加载滑行理论时间
 	strTemp = si.GetString(L"HigherRangeLoadConst", L"CCDT", L"");
-	strData.AppendFormat(L"<myhxsj1>%s</myhxsj1>", strTemp);
-	//ihpgl2	IHP5025设置功率
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"PowerStandardValue", L"8");
-	strData.AppendFormat(L"<ihpgl2>%s</ihpgl2>", strTemp);
-	//fjssgl2	25km/h时的附加损失功率
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"InternalDamage", L"0.2");
-	strData.AppendFormat(L"<fjssgl2>%s</fjssgl2>", strTemp);
-	//sjhxsj2	35-15km/h实际滑行时间
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"ACDT", L"");
-	strData.AppendFormat(L"<sjhxsj2>%s</sjhxsj2>", strTemp);
-	//myhxsj2	35-15km/h名义滑行时间
+	scgjzj.gsjzllsj = strTemp.GetString();
+	//gsjzsjsj	高速加载滑行实际时间
+	strTemp = si.GetString(L"HigherRangeLoadConst", L"ACDT", L"");
+	scgjzj.gsjzsjsj = strTemp.GetString();
+	//dsjzllsj	低速加载滑行理论时间
 	strTemp = si.GetString(L"LowerRangeLoadConst", L"CCDT", L"");
-	strData.AppendFormat(L"<myhxsj2>%s</myhxsj2>", strTemp);
-	//hxjcjg1	50-30km/h滑行检查结果
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"Pass", L"1");
-	strData.AppendFormat(L"<hxjcjg1>%s</hxjcjg1>", strTemp);
-	strPass = strTemp;
-	//hxjcjg2	35-15km/h滑行检查结果
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"Pass", L"1");
-	strData.AppendFormat(L"<hxjcjg2>%s</hxjcjg2>", strTemp);
-	//pdjg	判定结果
-	if (strPass == L"1"
-		&& strTemp == L"1"
-		)
-	{
-		strData.AppendFormat(L"<pdjg>%s</pdjg>", L"1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<pdjg>%s</pdjg>", L"0");
-	}
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W01", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
-		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-
-	return true;
-}
-
-bool CDynDlg::UpConstLoadHeavy(void)
-{
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfDynConstLoad.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"上传加载滑行文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"上传加载滑行文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
-
-	CString strLowerRangeLoadConstFinish, strHigherRangeLoadConstFinish;
-
-	strLowerRangeLoadConstFinish = si.GetString(L"LowerRangeLoadConst", L"LowerRangeLoadConstFinish", L"0");
-	strHigherRangeLoadConstFinish = si.GetString(L"HigherRangeLoadConst", L"HigherRangeLoadConstFinish", L"0");
-
-	if (strLowerRangeLoadConstFinish != L"1" 
-		|| strHigherRangeLoadConstFinish != L"1"
-		)
-	{
-		//AfxMessageBox(L"其中一个区间未完成");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"其中一个区间未完成");
-		return false;
-	}
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号	字符
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 	数值
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期	日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//hxjckssj	滑行检查开始时间	时间
+	scgjzj.dsjzllsj = strTemp.GetString();
+	//dsjzsjsj	低速加载滑行实际时间
+	strTemp = si.GetString(L"LowerRangeLoadConst", L"ACDT", L"");
+	scgjzj.dsjzsjsj = strTemp.GetString();
+	//gsjzns	高速加载滑行内损功率
+	strTemp.Format(L"%.1f", _wtof(si.GetString(L"HigherRangeLoadConst", L"InternalDamage", L"0.2")));
+	scgjzj.gsjzns = strTemp.GetString();
+	//dsjzns	低速加载滑行内损功率
+	strTemp.Format(L"%.1f", _wtof(si.GetString(L"LowerRangeLoadConst", L"InternalDamage", L"0.2")));
+	scgjzj.dsjzns = strTemp.GetString();
+	//gsjzhxgl	高速加载滑行指示功率
+	strTemp.Format(L"%.1f", _wtof(si.GetString(L"HigherRangeLoadConst", L"PowerStandardValue", L"10")));
+	scgjzj.gsjzhxgl = strTemp.GetString();
+	//dsjzhxgl	低速加载滑行指示功率
+	strTemp.Format(L"%.1f", _wtof(si.GetString(L"LowerRangeLoadConst", L"PowerStandardValue", L"8")));
+	scgjzj.dsjzhxgl = strTemp.GetString();
+	//jbgl	基本惯量
+	strTemp = si.GetString(L"LowerRangeLoadConst", L"DIW", L"0");
+	scgjzj.jbgl= strTemp.GetString();
+	//gsjzjcjg	高速加载滑行结果
+	scgjzj.gsjzjcjg = L"1";
+	//dsjzjcjg	低速加载滑行结果
+	scgjzj.dsjzjcjg = L"1";
+	//jcjg	检查结果
+	scgjzj.jcjg = L"1";
+	//kssj	检查开始时间
 	COleDateTime otd1, otd2;
 	strTemp = si.GetString(L"LowerRangeLoadConst", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
 	if (!otd1.ParseDateTime(strTemp))
@@ -1309,754 +1189,61 @@ bool CDynDlg::UpConstLoadHeavy(void)
 	}
 	if (otd1 > otd2)
 	{
-		strData.AppendFormat(L"<hxjckssj>%s</hxjckssj>", otd2.Format(L"%Y%m%d%H%M%S"));
+		strTemp.Format(L"%s",otd2.Format(L"%Y-%m-%d %H-%M-%S"));
 	}
 	else
 	{
-		strData.AppendFormat(L"<hxjckssj>%s</hxjckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
+		strTemp.Format(L"%s",otd1.Format(L"%Y-%m-%d %H-%M-%S"));
 	}
-	//jbgl	基本惯量	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"DIW", L"0");
-	strData.AppendFormat(L"<jbgl>%s</jbgl>", strTemp);
-
-	//sjhxsj301	IHP30kw 100-80km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT300", L"0");
-	strData.AppendFormat(L"<sjhxsj301>%s</sjhxsj301>", strTemp);
-	//sjhxsj302	IHP30kw 90-70km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT301", L"0");
-	strData.AppendFormat(L"<sjhxsj302>%s</sjhxsj302>", strTemp);
-	//sjhxsj303	IHP30kw 80-60km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT302", L"0");
-	strData.AppendFormat(L"<sjhxsj303>%s</sjhxsj303>", strTemp);
-	//sjhxsj304	IHP30kw 70-50km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT303", L"0");
-	strData.AppendFormat(L"<sjhxsj304>%s</sjhxsj304>", strTemp);
-	//sjhxsj305	IHP30kw 60-40km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT304", L"0");
-	strData.AppendFormat(L"<sjhxsj305>%s</sjhxsj305>", strTemp);
-	//sjhxsj306	IHP30kw 50-30km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT305", L"0");
-	strData.AppendFormat(L"<sjhxsj306>%s</sjhxsj306>", strTemp);
-	//sjhxsj307	IHP30kw 40-20km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT306", L"0");
-	strData.AppendFormat(L"<sjhxsj307>%s</sjhxsj307>", strTemp);
-	//sjhxsj308	IHP30kw 30-10km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT307", L"0");
-	strData.AppendFormat(L"<sjhxsj308>%s</sjhxsj308>", strTemp);
-	//myhxsj301	IHP30kw 100-80km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT300", L"0");
-	strData.AppendFormat(L"<myhxsj301>%s</myhxsj301>", strTemp);
-	//myhxsj302	IHP30kw 90-70km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT301", L"0");
-	strData.AppendFormat(L"<myhxsj302>%s</myhxsj302>", strTemp);
-	//myhxsj303	IHP30kw 80-60km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT302", L"0");
-	strData.AppendFormat(L"<myhxsj303>%s</myhxsj303>", strTemp);
-	//myhxsj304	IHP30kw 70-50km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT303", L"0");
-	strData.AppendFormat(L"<myhxsj304>%s</myhxsj304>", strTemp);
-	//myhxsj305	IHP30kw 60-40km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT304", L"0");
-	strData.AppendFormat(L"<myhxsj305>%s</myhxsj305>", strTemp);
-	//myhxsj306	IHP30kw 50-30km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT305", L"0");
-	strData.AppendFormat(L"<myhxsj306>%s</myhxsj306>", strTemp);
-	//myhxsj307	IHP30kw 40-20km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT306", L"0");
-	strData.AppendFormat(L"<myhxsj307>%s</myhxsj307>", strTemp);
-	//myhxsj308	IHP30kw 30-10km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT307", L"0");
-	strData.AppendFormat(L"<myhxsj308>%s</myhxsj308>", strTemp);
-	//sjhxsj201	IHP20kw 100-80km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT200", L"0");
-	strData.AppendFormat(L"<sjhxsj201>%s</sjhxsj201>", strTemp);
-	//sjhxsj202	IHP20kw 80-60km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT201", L"0");
-	strData.AppendFormat(L"<sjhxsj202>%s</sjhxsj202>", strTemp);
-	//sjhxsj203	IHP20kw 70-50km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT202", L"0");
-	strData.AppendFormat(L"<sjhxsj203>%s</sjhxsj203>", strTemp);
-	//sjhxsj204	IHP20kw 60-40km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT203", L"0");
-	strData.AppendFormat(L"<sjhxsj204>%s</sjhxsj204>", strTemp);
-	//sjhxsj205	IHP20kw 50-30km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT204", L"0");
-	strData.AppendFormat(L"<sjhxsj205>%s</sjhxsj205>", strTemp);
-	//sjhxsj206	IHP20kw 40-20km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT205", L"0");
-	strData.AppendFormat(L"<sjhxsj206>%s</sjhxsj206>", strTemp);
-	//sjhxsj207	IHP20kw 30-10km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT206", L"0");
-	strData.AppendFormat(L"<sjhxsj207>%s</sjhxsj207>", strTemp);
-	//sjhxsj208	IHP20kw 30-10km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT207", L"0");
-	strData.AppendFormat(L"<sjhxsj208>%s</sjhxsj208>", strTemp);
-	//myhxsj201	IHP20kw 100-80km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT200", L"0");
-	strData.AppendFormat(L"<myhxsj201>%s</myhxsj201>", strTemp);
-	//myhxsj202	IHP20kw 90-70km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT201", L"0");
-	strData.AppendFormat(L"<myhxsj202>%s</myhxsj202>", strTemp);
-	//myhxsj203	IHP20kw 80-60km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT202", L"0");
-	strData.AppendFormat(L"<myhxsj203>%s</myhxsj203>", strTemp);
-	//myhxsj204	IHP20kw 70-50km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT203", L"0");
-	strData.AppendFormat(L"<myhxsj204>%s</myhxsj204>", strTemp);
-	//myhxsj205	IHP20kw 60-40km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT204", L"0");
-	strData.AppendFormat(L"<myhxsj205>%s</myhxsj205>", strTemp);
-	//myhxsj206	IHP20kw 50-30km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT205", L"0");
-	strData.AppendFormat(L"<myhxsj206>%s</myhxsj206>", strTemp);
-	//myhxsj207	IHP20kw 40-20km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT206", L"0");
-	strData.AppendFormat(L"<myhxsj207>%s</myhxsj207>", strTemp);
-	//myhxsj208	IHP20kw 30-10km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT207", L"0");
-	strData.AppendFormat(L"<myhxsj208>%s</myhxsj208>", strTemp);
-	//sjhxsj101	IHP10kw 100-80km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT100", L"0");
-	strData.AppendFormat(L"<sjhxsj101>%s</sjhxsj101>", strTemp);
-	//sjhxsj102	IHP10kw 90-70km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT101", L"0");
-	strData.AppendFormat(L"<sjhxsj102>%s</sjhxsj102>", strTemp);
-	//sjhxsj103	IHP10kw 80-60km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT102", L"0");
-	strData.AppendFormat(L"<sjhxsj103>%s</sjhxsj103>", strTemp);
-	//sjhxsj104	IHP10kw 70-50km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT103", L"0");
-	strData.AppendFormat(L"<sjhxsj104>%s</sjhxsj104>", strTemp);
-	//sjhxsj105	IHP10kw 60-40km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT104", L"0");
-	strData.AppendFormat(L"<sjhxsj105>%s</sjhxsj105>", strTemp);
-	//sjhxsj106	IHP10kw 50-30km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT105", L"0");
-	strData.AppendFormat(L"<sjhxsj106>%s</sjhxsj106>", strTemp);
-	//sjhxsj107	IHP10kw 40-20km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT106", L"0");
-	strData.AppendFormat(L"<sjhxsj107>%s</sjhxsj107>", strTemp);
-	//sjhxsj108	IHP10kw 30-10km/h实际滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeCCDT107", L"0");
-	strData.AppendFormat(L"<sjhxsj108>%s</sjhxsj108>", strTemp);
-	//myhxsj101	IHP10kw 100-80km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT100", L"0");
-	strData.AppendFormat(L"<myhxsj101>%s</myhxsj101>", strTemp);
-	//myhxsj102	IHP10kw 90-70km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT101", L"0");
-	strData.AppendFormat(L"<myhxsj102>%s</myhxsj102>", strTemp);
-	//myhxsj103	IHP10kw 80-60km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT102", L"0");
-	strData.AppendFormat(L"<myhxsj103>%s</myhxsj103>", strTemp);
-	//myhxsj104	IHP10kw 70-50km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT103", L"0");
-	strData.AppendFormat(L"<myhxsj104>%s</myhxsj104>", strTemp);
-	//myhxsj105	IHP10kw 60-40km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT104", L"0");
-	strData.AppendFormat(L"<myhxsj105>%s</myhxsj105>", strTemp);
-	//myhxsj106	IHP10kw 50-30km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT105", L"0");
-	strData.AppendFormat(L"<myhxsj106>%s</myhxsj106>", strTemp);
-	//myhxsj107	IHP10kw 40-20km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT106", L"0");
-	strData.AppendFormat(L"<myhxsj107>%s</myhxsj107>", strTemp);
-	//myhxsj108	IHP10kw 30-10km/h名义滑行时间	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownRangeACDT107", L"0");
-	strData.AppendFormat(L"<myhxsj108>%s</myhxsj108>", strTemp);
-	//fjssgl1	90km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP0", L"0");
-	strData.AppendFormat(L"<fjssgl1>%s</fjssgl1>", strTemp);
-	//fjssgl2	80km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP1", L"0");
-	strData.AppendFormat(L"<fjssgl2>%s</fjssgl2>", strTemp);
-	//fjssgl3	70km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP2", L"0");
-	strData.AppendFormat(L"<fjssgl3>%s</fjssgl3>", strTemp);
-	//fjssgl4	60km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP3", L"0");
-	strData.AppendFormat(L"<fjssgl4>%s</fjssgl4>", strTemp);
-	//fjssgl5	50km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP4", L"0");
-	strData.AppendFormat(L"<fjssgl5>%s</fjssgl5>", strTemp);
-	//fjssgl6	40km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP5", L"0");
-	strData.AppendFormat(L"<fjssgl6>%s</fjssgl6>", strTemp);
-	//fjssgl7	30km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP6", L"0");
-	strData.AppendFormat(L"<fjssgl7>%s</fjssgl7>", strTemp);
-	//fjssgl8	20km/h附加损失功率	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"LugdownPLHP7", L"0");
-	strData.AppendFormat(L"<fjssgl8>%s</fjssgl8>", strTemp);
-	//hxjcjg1	100-10km/h滑行检查结果	数值
-	strTemp = si.GetString(L"HigherRangeLoadConst", L"Pass", L"1");
-	strData.AppendFormat(L"<hxjcjg1>%s</hxjcjg1>", strTemp);
-	strPass = strTemp;
-	//hxjcjg2	80-10km/h滑行检查结果	数值
-	strTemp = si.GetString(L"LowerRangeLoadConst", L"Pass", L"1");
-	strData.AppendFormat(L"<hxjcjg2>%s</hxjcjg2>", strTemp);
-	//pdjg	判定结果	数值
-	if (strPass == L"1"
-		&& strTemp == L"1"
-		)
-	{
-		strData.AppendFormat(L"<pdjg>%s</pdjg>", L"1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<pdjg>%s</pdjg>", L"0");
-	}
-	//jcry	检查人员	字符
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-
-	strData.AppendFormat(L"</zj></root>");
+	scgjzj.kssj = strTemp.GetString();
+	//jssj	检查结束时间
+	scgjzj.jssj = COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S").GetString();
+	//bz	备注
+	scgjzj.bz = L"";
 
 	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W03", strData.GetString(), strRet);
+	int nRet = CHNSY_API:: cgjzj(theApp.m_pchURL, scgjzj.accessToken.c_str(), scgjzj.gsjzllsj.c_str(), scgjzj.gsjzsjsj.c_str(), scgjzj.dsjzllsj.c_str(), scgjzj.dsjzsjsj.c_str(), 
+		scgjzj.gsjzns.c_str(), scgjzj.dsjzns.c_str(), scgjzj.gsjzhxgl.c_str(), scgjzj.dsjzhxgl.c_str(), scgjzj.jbgl.c_str(), scgjzj.gsjzjcjg.c_str(),scgjzj.dsjzjcjg.c_str(),
+		scgjzj.jcjg.c_str(), scgjzj.kssj.c_str(), scgjzj.jssj.c_str(), scgjzj.bz.c_str(), strRet);
 
 	if (nRet == 0)
 	{
 		CXmlReader xmlReader;
 		if (xmlReader.Parse(strRet.c_str()))
 		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
+			std::wstring wstrCode, wstrContent;
+			if (xmlReader.OpenNode(L"root/result"))
 			{
-				xmlReader.GetNodeContent(strCode);
+				xmlReader.GetNodeContent(wstrCode);
 			}
-			if (strCode != L"1")
+
+			if (wstrCode != L"1")
 			{
-				if (xmlReader.OpenNode(L"root/head/message"))
+				if (xmlReader.OpenNode(L"root/info"))
 				{
-					xmlReader.GetNodeContent(strContent);
+					xmlReader.GetNodeContent(wstrContent);
 				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
+				wstrContent = L"上传失败：" + wstrContent;
+				AfxMessageBox(wstrContent.c_str(), MB_ICONWARNING|MB_OK);
 				return false;
 			}
 			else
 			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
+				AfxMessageBox(L"上传成功", MB_ICONWARNING|MB_OK);
+				return true;
 			}
 		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-	return true;
-}
-
-bool CDynDlg::UpPLHP(void)
-{
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfDynPLHP.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"上传加载滑行文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"寄生功率上传", L"上传寄生功率文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//fjsssj	附加损失开始时间
-	COleDateTime otd;
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd.ParseDateTime(strTemp))
-	{
-		otd = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<fjsssj>%s</fjsssj>", otd.Format(L"%Y%m%d%H%M%S"));
-	//hxjcjssj	滑行检查结束时间
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd.ParseDateTime(strTemp))
-	{
-		otd = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<hxjcjssj>%s</hxjcjssj>", otd.Format(L"%Y%m%d%H%M%S"));
-	//jbgl	基本惯量
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"DIW", L"0");
-	strData.AppendFormat(L"<jbgl>%s</jbgl>", strTemp);
-
-	for (int i=0; i<9; i++)
-	{
-		CString str;
-		str.Format(L"LowerVelocity%d",i);
-		strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-		if (strTemp == L"30")
+		else
 		{
-			//sjhxsj1	50-30km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			strData.AppendFormat(L"<sjhxsj1>%s</sjhxsj1>", strTemp);
-			//fjssgl1	40km/h时的附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			strData.AppendFormat(L"<fjssgl1>%s</fjssgl1>", strTemp);
-		}
-		if (strTemp == L"20" || strTemp == L"15")
-		{
-			//sjhxsj2	35-15km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			strData.AppendFormat(L"<sjhxsj2>%s</sjhxsj2>", strTemp);
-			//fjssgl2	25km/h时附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			strData.AppendFormat(L"<fjssgl2>%s</fjssgl2>", strTemp);
-		}
-	}
-	//odjg	判定结果
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"Pass", L"1");
-	strData.AppendFormat(L"<odjg>%s</odjg>", strTemp);
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W02", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
-		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-
-	return true;
-}
-
-bool CDynDlg::UpPLHPHeavy(void)
-{
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfDynPLHP.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"上传加载滑行文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"寄生功率上传", L"上传寄生功率文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//fjsssj	附加损失开始时间
-	COleDateTime otd;
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd.ParseDateTime(strTemp))
-	{
-		otd = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<fjsssj>%s</fjsssj>", otd.Format(L"%Y%m%d%H%M%S"));
-	//hxjcjssj	滑行检查结束时间
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd.ParseDateTime(strTemp))
-	{
-		otd = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<hxjcjssj>%s</hxjcjssj>", otd.Format(L"%Y%m%d%H%M%S"));
-
-	float fV820(0.0f), fPL(0.0f);
-	for (int i=0; i<9; i++)
-	{
-		CString str;
-		str.Format(L"LowerVelocity%d",i);
-		strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-		if (strTemp == L"60")
-		{
-			//sjhxsj1	80-60km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj1>%s</sjhxsj1>", strTemp);
-			//fjssgl2	70km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl2>%s</fjssgl2>", strTemp);
-		}
-		if (strTemp == L"50")
-		{
-			//sjhxsj2	70-50km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj2>%s</sjhxsj2>", strTemp);
-			//fjssgl3	60km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl3>%s</fjssgl3>", strTemp);
-		}
-		if (strTemp == L"40")
-		{
-			//sjhxsj3	60-40km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj3>%s</sjhxsj3>", strTemp);
-			//fjssgl4	50km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl4>%s</fjssgl4>", strTemp);
-		}
-		if (strTemp == L"30")
-		{
-			//sjhxsj4	50-30km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj4>%s</sjhxsj4>", strTemp);
-			//fjssgl5	40km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl5>%s</fjssgl5>", strTemp);
-		}
-		if (strTemp == L"20")
-		{
-			//sjhxsj5	40-20km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj5>%s</sjhxsj5>", strTemp);
-			//fjssgl6	30km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl6>%s</fjssgl6>", strTemp);
-		}
-		if (strTemp == L"10")
-		{
-			//sjhxsj6	30-10km/h实际滑行时间
-			str.Format(L"PLHPTime%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fV820 += _wtof(strTemp);
-			strData.AppendFormat(L"<sjhxsj6>%s</sjhxsj6>", strTemp);
-			//fjssgl7	20km/h附加损失功率
-			str.Format(L"PLHP%d", i);
-			strTemp = si.GetString(L"ResultOfDynPLHP", str, L"0");
-			fPL += _wtof(strTemp);
-			strData.AppendFormat(L"<fjssgl7>%s</fjssgl7>", strTemp);
-		}
-	}
-	//sjhxsj7	20-80km/h实际滑行时间
-	strTemp.Format(L"%.0f", fV820);
-	strData.AppendFormat(L"<sjhxsj7>%s</sjhxsj7>", strTemp);
-	//fjssgl1	80km/h附加损失功率
-	strTemp.Format(L"%.0f", fPL);
-	strData.AppendFormat(L"<fjssgl1>%s</fjssgl1>", strTemp);
-
-	//jbgl	基本惯量
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"DIW", L"0");
-	strData.AppendFormat(L"<jbgl>%s</jbgl>", strTemp);
-
-	//odjg	判定结果
-	strTemp = si.GetString(L"ResultOfDynPLHP", L"Pass", L"1");
-	strData.AppendFormat(L"<odjg>%s</odjg>", strTemp);
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W04", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
-		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-
-	return true;
-}
-
-bool CDynDlg::UpEqulChk(const int& njclx)
-{
-	COleDateTime odtStart, odtEnd;
-	switch(njclx)
-	{
-	case 1:
-		{
-			// 加载滑行
-			// 读取加载滑行结果文件
-			wchar_t wchPath[MAX_PATH];
-			ZeroMemory(wchPath, sizeof(wchPath));
-			if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"UpResultOfDynConstLoad.ini", wchPath, false))
-			{
-				// 文件不存在
-				AfxMessageBox(L"上传加载滑行文件INI不在");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"上传加载滑行文件INI不在");
-				return false;
-			}
-			CSimpleIni si(wchPath);
-
-			COleDateTime otd1, otd2;
-			CString strTemp;
-			strTemp = si.GetString(L"LowerRangeLoadConst", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!otd1.ParseDateTime(strTemp))
-			{
-				otd1 = COleDateTime::GetCurrentTime();
-			}
-			strTemp = si.GetString(L"HigherRangeLoadConst", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!otd2.ParseDateTime(strTemp))
-			{
-				otd2 = COleDateTime::GetCurrentTime();
-			}
-			if (otd1 > otd2)
-			{
-				odtStart = otd2;
-			}
-			else
-			{
-				odtStart = otd1;
-			}
-
-			strTemp = si.GetString(L"LowerRangeLoadConst", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!otd1.ParseDateTime(strTemp))
-			{
-				otd1 = COleDateTime::GetCurrentTime();
-			}
-			strTemp = si.GetString(L"HigherRangeLoadConst", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!otd2.ParseDateTime(strTemp))
-			{
-				otd2 = COleDateTime::GetCurrentTime();
-			}
-			if (otd1 > otd2)
-			{
-				odtEnd = otd2;
-			}
-			else
-			{
-				odtEnd = otd1;
-			}
-		}
-		break;
-	case 2:
-		{
-			// 读取加载滑行结果文件
-			wchar_t wchPath[MAX_PATH];
-			ZeroMemory(wchPath, sizeof(wchPath));
-			if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfDynPLHP.ini", wchPath, false))
-			{
-				// 文件不存在
-				AfxMessageBox(L"上传加载滑行文件INI不在");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"寄生功率上传", L"上传寄生功率文件INI不在");
-				return false;
-			}
-			CSimpleIni si(wchPath);
-
-			CString strTemp;
-			strTemp = si.GetString(L"ResultOfDynPLHP", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!odtStart.ParseDateTime(strTemp))
-			{
-				odtStart = COleDateTime::GetCurrentTime();
-			}
-
-			strTemp = si.GetString(L"ResultOfDynPLHP", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-			if (!odtEnd.ParseDateTime(strTemp))
-			{
-				odtEnd = COleDateTime::GetCurrentTime();
-			}
-		}
-		break;
-	default:
-		{
-			AfxMessageBox(L"未知的检查类型");
-			CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", L"未知的检查类型");
+			AfxMessageBox(L"解析失败", MB_ICONWARNING|MB_OK);
 			return false;
 		}
-		break;
-	}
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//sbjclx	设备检查类型 1-加载滑行 2-附加损失 3-单点检查（低标气）4-单点检查（零气）5-单点检查（高标气） 6-五点检查
-	strData.AppendFormat(L"<sbjclx>%d</sbjclx>", njclx);
-	//jckssj	检查开始时间
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", odtStart.Format(L"%Y%m%d%H%M%S"));
-	//jcjssj	检查结束时间
-	strData.AppendFormat(L"<jcjssj>%s</jcjssj>", odtEnd.Format(L"%Y%m%d%H%M%S"));
-	//cysx	采样时序
-	strData.AppendFormat(L"<cysx>%s</cysx>", L"1");
-	//zgzs	转鼓转速
-	strData.AppendFormat(L"<zgzs>%s</zgzs>", L"");
-	//cgjjzfh	测功机加载负荷
-	strData.AppendFormat(L"<cgjjzfh>%s</cgjjzfh>", L"");
-	//hc	HC浓度
-	strData.AppendFormat(L"<hc>%s</hc>", L"");
-	//co	CO浓度
-	strData.AppendFormat(L"<co>%s</co>", L"");
-	//no	NO浓度
-	strData.AppendFormat(L"<no>%s</no>", L"");
-	//no2	NO2浓度
-	strData.AppendFormat(L"<no2>%s</no2>", L"");
-	//co2	CO2浓度
-	strData.AppendFormat(L"<co2>%s</co2>", L"");
-	//o2	O2浓度
-	strData.AppendFormat(L"<o2>%s</o2>", L"");
-
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W11", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", str);
-			}
-		}
 	}
 	else
 	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", L"联网失败");
+		AfxMessageBox(L"联网失败", MB_ICONWARNING|MB_OK);
 		return false;
 	}
 
-	return true;
+
 }

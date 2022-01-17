@@ -91,6 +91,10 @@ void COBDTestDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_ITEM, m_lsItem);
 	DDX_Control(pDX, IDC_COMBO_PROTOCOL, m_cbProtocol);
 	DDX_Control(pDX, IDC_STATIC_MSG_INFO, m_lbMsgInfo);
+
+	DDX_Control(pDX, ID_ED_CALID, m_edCALID);
+	DDX_Control(pDX, ID_ED_CVN, m_edCVN);
+	DDX_Control(pDX, ID_ED_OBDTYPE, m_edOBDType);
 }
 
 
@@ -275,6 +279,19 @@ void COBDTestDlg::InitCtrls(void)
 
 void COBDTestDlg::StartItem(void)
 {
+	CString strMsg(L"");
+	SHBMsg sHBMsg;
+
+	if (!CZYHttp_PAI::GetInstance().SetVehItemStart(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HO", sHBMsg))
+	{
+		strMsg.Empty();
+		strMsg.Format(L"上传失败\r\n%s\r\n%s", sHBMsg.code.c_str(), sHBMsg.msg.c_str());
+		MessageBox(strMsg, L"上传失败", MB_ICONWARNING|MB_OK);
+		strMsg.Format(L"上传失败:%s:%s", sHBMsg.code.c_str(), sHBMsg.msg.c_str());
+		m_lbInfo.SetWindowTextW(strMsg);
+		return;
+	}
+
 	bool bRet(false);
 	// 先生成OBD结果
 
@@ -284,6 +301,30 @@ void COBDTestDlg::StartItem(void)
 	sResultOfOBD.strOperator = m_sTestLog.wchDriver;
 	sResultOfOBD.strFuelType = m_sTestLog.wchFuelType;
 	bRet = SetOBDLOG(sResultOfOBD);
+
+	CString strCVN, strCALID, strOBDType;
+	m_edCALID.GetWindowTextW(strCALID);
+	m_edCVN.GetWindowTextW(strCVN);
+	m_edOBDType.GetWindowTextW(strOBDType);
+
+	if (!strCALID.IsEmpty())
+	{
+		sResultOfOBD.strEngineCALID = strCALID.GetString();
+		m_edCALID.SetWindowTextW(L"");
+	}
+
+	if (!strCVN.IsEmpty())
+	{
+		sResultOfOBD.strEngineCVN = strCVN.GetString();
+		m_edCVN.SetWindowTextW(L"");
+	}
+
+	if (!strOBDType.IsEmpty())
+	{
+		sResultOfOBD.strOBDType = strOBDType.GetString();
+		m_edOBDType.SetWindowTextW(L"");
+	}
+
 
 	if (!bRet)
 	{
@@ -296,8 +337,6 @@ void COBDTestDlg::StartItem(void)
 	// 写入临时文件
 	SetIniResultOfOBD(sResultOfOBD);
 
-	CString strMsg(L"");
-
 	SetTestLogAndVehDB(L"4", L"1", strMsg);
 
 	if (!strMsg.IsEmpty())
@@ -309,9 +348,9 @@ void COBDTestDlg::StartItem(void)
 
 	m_lbInfo.SetWindowTextW(L"修改数据库和临时文件完成，正在上传");
 
-	SHBMsg sHBMsg;
+	sHBMsg = SHBMsg();
 
-	if (!CZYHttp_PAI::GetInstance().SetOBDItemEnd(m_sTestLog, sResultOfOBD, sHBMsg))
+	if (CZYHttp_PAI::GetInstance().SetOBDItemEnd(m_sTestLog, sResultOfOBD, sHBMsg))
 	{
 		m_lbInfo.SetWindowTextW(L"上传成功。南华进入OBD检测后直接点击下一步排放检测");
 	}
@@ -325,6 +364,17 @@ void COBDTestDlg::StartItem(void)
 		return;
 	}
 
+	sHBMsg = SHBMsg();
+
+	if (!CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HO", sHBMsg))
+	{
+		strMsg.Empty();
+		strMsg.Format(L"上传失败\r\n%s\r\n%s", sHBMsg.code.c_str(), sHBMsg.msg.c_str());
+		MessageBox(strMsg, L"上传失败", MB_ICONWARNING|MB_OK);
+		strMsg.Format(L"上传失败:%s:%s", sHBMsg.code.c_str(), sHBMsg.msg.c_str());
+		m_lbInfo.SetWindowTextW(strMsg);
+		return;
+	}
 }
 
 //初始化一个以微秒为单位的时间种子

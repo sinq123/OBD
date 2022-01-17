@@ -208,35 +208,35 @@ void CNHEuqController::Init(void)
 		m_bNOxThreadAttach = false;
 	}
 	
-	BYTE bObdPort = (BYTE)_wtoi(si.GetString(L"OBDParams", L"Port", L"99"));
-	std::wstring strServerIP = si.GetString(L"OBDParams", L"ServerIP", L"127.0.0.1");
-	int nServerPort = _wtoi(si.GetString(L"OBDParams", L"ServerPort", L"10055"));
-	CString strObdProtocol = si.GetString(_T("OBDParams"), _T("Protocol"), _T("ZHENGDE"));
-	m_strObdPath = si.GetString(_T("OBDParams"), _T("Path"), _T(""));
-	if (_wcsicmp(strObdProtocol, L"ZENYUAN") == 0)
-	{
-		m_pOBDThread->Open(bObdPort, NULL, strObdProtocol);
-	}
-	else
-	{
-		// 启动exe
-		if (_wcsicmp(strObdProtocol, L"ZHENGDE") == 0)
-		{
-			CString strPara;
-			strPara.Format(L" -com %d -port %d ", bObdPort, nServerPort);
-			if (m_strObdPath != L"")
-			{
-				ShellExecute(NULL, NULL, m_strObdPath, strPara, NULL, SW_MINIMIZE);			
-			}
-		}
-		else if (_wcsicmp(strObdProtocol, L"NHWS") == 0)
-		{
-#ifdef DEBUG
-			PDAServiceLibAPI::GetInstance().SetRunningNumber(L"123456789");
-#endif
-		}
-		m_pOBDThread->Open(strServerIP, nServerPort, strObdProtocol);
-	}
+//	BYTE bObdPort = (BYTE)_wtoi(si.GetString(L"OBDParams", L"Port", L"99"));
+//	std::wstring strServerIP = si.GetString(L"OBDParams", L"ServerIP", L"127.0.0.1");
+//	int nServerPort = _wtoi(si.GetString(L"OBDParams", L"ServerPort", L"10055"));
+//	CString strObdProtocol = si.GetString(_T("OBDParams"), _T("Protocol"), _T("ZHENGDE"));
+//	m_strObdPath = si.GetString(_T("OBDParams"), _T("Path"), _T(""));
+//	if (_wcsicmp(strObdProtocol, L"ZENYUAN") == 0)
+//	{
+//		m_pOBDThread->Open(bObdPort, NULL, strObdProtocol);
+//	}
+//	else
+//	{
+//		// 启动exe
+//		if (_wcsicmp(strObdProtocol, L"ZHENGDE") == 0)
+//		{
+//			CString strPara;
+//			strPara.Format(L" -com %d -port %d ", bObdPort, nServerPort);
+//			if (m_strObdPath != L"")
+//			{
+//				ShellExecute(NULL, NULL, m_strObdPath, strPara, NULL, SW_MINIMIZE);			
+//			}
+//		}
+//		else if (_wcsicmp(strObdProtocol, L"NHWS") == 0)
+//		{
+//#ifdef DEBUG
+//			PDAServiceLibAPI::GetInstance().SetRunningNumber(L"123456789");
+//#endif
+//		}
+//		m_pOBDThread->Open(strServerIP, nServerPort, strObdProtocol);
+//	}
 	
 	// 获取通讯端口
 	BYTE bParaPort = (BYTE)_wtoi(si.GetString(L"ParaParams", L"Port", L"99"));

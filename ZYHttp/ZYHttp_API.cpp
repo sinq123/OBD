@@ -888,7 +888,7 @@ bool CZYHttp_PAI::SetOBDItemEnd(const TestLog &sTestLog, const SResultOfOBD &sRe
 	//2		jyysfzh	检验员身份证号	String	不可空	
 	root["data"]["jyysfzh"] = TCharToUTF8(L"123456200001010101");
 	//3		clljxslc	车辆累计行驶  里程	String	不可空	车辆累计行驶里程（MIL灯点亮后），单位：km
-	root["data"]["clljxslc"] = TCharToUTF8(sResultData.strMileage.c_str());
+	root["data"]["clljxslc"] = TCharToUTF8(sResultData.strMileage.empty()? L"0": sResultData.strMileage.c_str());
 	//4		OBDgzzsqsfdl	OBD故障指示器是否点亮	String	不可空	OBD故障指示器是否点亮（1是，0 否）
 	root["data"]["OBDgzzsqsfdl"] = TCharToUTF8(L"0");
 	//5		txsfcg	通信是否成功	String	不可空	通信是否成功，（1是，0 否）
@@ -2343,6 +2343,102 @@ bool CZYHttp_PAI::SetSpeCheck(const STachometer& sTachometer, SHBMsg& sHBMsg)
 }
 
 
+bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
+{
+
+	//根节点
+	Json::Value root;
+
+	switch (_wtoi(sTestLog.wchTestType))
+	{
+	case 1:
+		{
+			// 稳态
+			std::vector<SRealTimeDataOfASM> vt;
+			GetIniRealTimeDataOfASMEx(vt);
+			for(int i=0; i<vt.size(); i++)
+			{
+				//1		jylsh	检验流水号	String	不可空
+				root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+				//2		jycs	检验次数	String	不可空
+				root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+				//3		xslcs	行驶里程数	String	不可空
+				root["data"]["xslcs"] = TCharToUTF8(sTestLog.wchTravelledDistance);
+				//4		cysx	采样时序	String	不可空
+				root["data"]["cysx"] = i + 1;
+				//5		cysj	采样时间	String	不可空
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime);
+				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				//7		jsfhz	计算负荷值（%）	String	不可空
+				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				//9		glkqxs	过量空气系数（λ）	String	不可空
+				//10		jqyl	进气压力（kPa）	String	不可空
+				//11		ymkd	油门开度（%）	String	不可空
+				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				//13		zyyl	增压压力（kPa）	String	不可空
+				//14		hyl	耗油量（L/100km）	String	不可空
+				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				//17		pqwd	排气温度（℃）	String	不可空
+				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				//19		egrkd	EGR开度（%）	String	不可空
+				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				//21		cs	车速（km/h）	String	不可空
+				//22		fdjzs	发动机转速（r/min）	String	不可空
+				//23		jql	进气量（g/s）	String	不可空
+
+
+			}
+		}
+		break;
+	case 2:
+		{
+			// 简易瞬态
+			std::vector<SRealTimeDataOfVMAS> vt;
+			GetIniRealTimeDataOfVMASEx(vt);
+			for(int i=0; i<vt.size(); i++)
+			{
+			}
+		}
+		break;
+	case 3:
+		{
+			// 加载减速
+			std::vector<SRealTimeDataOfLUGDOWN> vt;
+			GetIniRealTimeDataOfLUGDOWNEx(vt);
+			for(int i=0; i<vt.size(); i++)
+			{
+			}
+		}
+		break;
+	case 4:
+		{
+			// 双怠速
+			std::vector<SRealTimeDataOfDIS> vt;
+			GetIniRealTimeDataOfDISEx(vt);
+			for(int i=0; i<vt.size(); i++)
+			{
+			}
+		}
+		break;
+	case 5:
+		{
+			// 不透光
+			std::vector<SRealTimeDataOfFSUNHT> vt;
+			GetIniRealTimeDataOfFSUNHTEx(vt);
+			for(int i=0; i<vt.size(); i++)
+			{
+			}
+		}
+		break;
+	default:{}
+			break;
+
+	}
+
+	return true;
+}
+
 int CZYHttp_PAI::WriteCutl(const std::wstring wstrJkid, Json::Value &root, std::wstring& wstrRet)
 {
 
@@ -2831,7 +2927,7 @@ CStringW CZYHttp_PAI::AirIntakeModeCodeToName(const CString strCode)
 	{
 		strName = L"涡轮增压";
 	}
-	
+
 	return strName;
 }
 

@@ -369,20 +369,9 @@ DWORD CAnaDlg::WriteAnaGasChkData(void)
 	}
 	CSimpleIni si(wchPath);
 
-	CString str = si.GetString(L"ResultOfAnaGasChk", L"Type", L"1");
 
-	UpGasCheck(L"13W08");
-	UpEqulChk(6);
-	if (str.Find(L"4") != -1)
-	{
-		UpGasCheck13W07();
-		UpEqulChk(5);
-	}
-	else
-	{
-		UpGasCheck(L"13W05");
-		UpEqulChk(3);
-	}
+	UpIntwqfxybd();
+	
 	// 本次EquCalChkInfo.ini文件使用完毕，需要删除
 	DeleteEquCalChkInfoFile();
 	return 0x00;
@@ -619,512 +608,170 @@ void CAnaDlg::OnBnClickedButtonGasResponseTime()
 	LoadNHAGasResponseTimeDlg();
 }
 
-bool CAnaDlg::UpGasCheck(const CStringW& strJKID/* = L"13W05"*/)
+bool CAnaDlg::UpIntwqfxybd(void)
 {
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfAnaGasChk.ini", wchPath, false))
+	if (!theApp.m_LicenseCode.IsEmpty())
 	{
-		// 文件不存在
-		AfxMessageBox(L"分析仪其他检查文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"分析仪上传", L"分析仪其他检查文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
+		struct Swqfxybd
+		{
+			//accessToken	访问令牌	字符串	50	根据检测线编号调用获取
+			std::wstring accessToken;
+			//bqlb	标气类别	字符串	1	1表示高标气体；2表示低标气体
+			std::wstring bqlb;
+			//bzCO2	CO2标气浓度值	数字	8,4	单位：%vol
+			std::wstring bzCO2;
+			//sjCO2	CO2实测浓度值	数字	8,4	单位：%vol
+			std::wstring sjCO2;
+			//bzCO	CO标气浓度值	数字	8,4	单位：%vol
+			std::wstring bzCO;
+			//sjCO	CO实测浓度值	数字	8,4	单位：%vol
+			std::wstring sjCO;
+			//bzNO	NO标气浓度值	数字	8,4	单位：10-6vol
+			std::wstring bzNO;
+			//sjNO	NO实测浓度值	数字	8,4	单位：10-6vol
+			std::wstring sjNO;
+			//bzHC	HC标气浓度值	数字	8,4	单位：10-6vol
+			std::wstring bzHC;
+			//sjHC	HC实测浓度值	数字	8,4	单位：10-6vol
+			std::wstring sjHC;
+			//bzO2	O2标气浓度值	数字	8,4	单位：%vol
+			std::wstring bzO2;
+			//sjO2	O2实测浓度值	数字	8,4	单位：%vol
+			std::wstring sjO2;
+			//sjPEF	名义丙烷当量系数	数字	8,4	
+			std::wstring sjPEF;
+			//bzC3H8	标气丙烷浓度值	数字	8,4	单位：10-6vol
+			std::wstring bzC3H8;
+			//jcjg	校准结果	字符串	1	1表示成功，0表示失败
+			std::wstring jcjg;
+			//kssj	校准开始时间	字符串	19	yyyy-MM-dd HH:mm:ss
+			std::wstring kssj;
+			//jssj	校准结束时间	字符串	19	yyyy-MM-dd HH:mm:ss
+			std::wstring jssj;
+			//bz	备注	字符串	100	
+			std::wstring bz;
 
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
+			Swqfxybd() {ZeroMemory(this, sizeof(Swqfxybd));}
+		};
+		Swqfxybd swqfxybd;
 
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//jckssj	检查开始时间
-	COleDateTime otd1;
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd1.ParseDateTime(strTemp))
-	{
-		otd1 = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
-	if (strJKID.Find(L"13W08") != -1)
-	{
-		//lx	类型
+		// 读取加载滑行结果文件
+		wchar_t wchPath[MAX_PATH];
+		ZeroMemory(wchPath, sizeof(wchPath));
+		if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfAnaGasChk.ini", wchPath, false))
+		{
+			// 文件不存在
+			AfxMessageBox(L"分析仪检查文件INI不在");
+			return false;
+		}
+		CSimpleIni si(wchPath);
+
+		CStringW strTemp;
+		//accessToken	访问令牌	字符串	50	根据检测线编号调用获取
+		swqfxybd.accessToken = theApp.m_LicenseCode.GetString();
+		//bqlb	标气类别	字符串	1	1表示高标气体；2表示低标气体
 		strTemp = si.GetString(L"ResultOfAnaGasChk", L"Type", L"1");
-		strData.AppendFormat(L"<lx>%s</lx>", strTemp);
-	}
-	//c3h8	标准气C3H8浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"C3H8StandardValue", L"0");
-	strData.AppendFormat(L"<c3h8>%d</c3h8>", _wtoi(strTemp));
-	//co	标准气CO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COStandardValue", L"0.00");
-	strData.AppendFormat(L"<co>%.2f</co>", _wtof(strTemp));
-	//co2	标准气CO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2StandardValue", L"0.00");
-	strData.AppendFormat(L"<co2>%.2f</co2>", _wtof(strTemp));
-	//no	标准气NO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOStandardValue", L"0");
-	strData.AppendFormat(L"<no>%d</no>", _wtoi(strTemp));
-	//no2	标准气NO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2StandardValue", L"0");
-	strData.AppendFormat(L"<no2>%d</no2>", _wtoi(strTemp));
-	//o2	标准气O2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2StandardValue", L"0.00");
-	strData.AppendFormat(L"<o2>%.2f</o2>", _wtof(strTemp));
-	//hcjcjg	HC检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"HCMeasuredValue", L"0");
-	strData.AppendFormat(L"<hcjcjg>%d</hcjcjg>", _wtoi(strTemp));
-	//cojcjg	CO检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COMeasuredValue", L"0.00");
-	strData.AppendFormat(L"<cojcjg>%.2f</cojcjg>", _wtof(strTemp));
-	//co2jcjg	CO2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2MeasuredValue", L"0.00");
-	strData.AppendFormat(L"<co2jcjg>%.2f</co2jcjg>", _wtof(strTemp));
-	//nojcjg	NO检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOMeasuredValue", L"0");
-	strData.AppendFormat(L"<nojcjg>%d</nojcjg>", _wtoi(strTemp));
-	//no2jcjg	NO2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2MeasuredValue", L"0");
-	strData.AppendFormat(L"<no2jcjg>%d</no2jcjg>", _wtoi(strTemp));
-	//o2jcjg	O2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2MeasuredValue", L"0.00");
-	strData.AppendFormat(L"<o2jcjg>%.2f</o2jcjg>", _wtof(strTemp));
-	//pef	PEF值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"PEFMeasuredValue", L"0.3");
-	strData.AppendFormat(L"<pef>%.3f</pef>", _wtof(strTemp));
-	//jcjg	检查结果
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"Pass", L"1");
-	strData.AppendFormat(L"<jcjg>%s</jcjg>", strTemp);
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), strJKID.GetString(), strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
+		if (strTemp == L"4" || strTemp == L"3")
 		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
+			swqfxybd.bqlb = L"1";
+		}
+		else
+		{
+			swqfxybd.bqlb = L"2";
+		}
+		//bzCO2	CO2标气浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2StandardValue", L"0.00");
+		swqfxybd.bzCO2 = strTemp.GetString();
+		//sjCO2	CO2实测浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2MeasuredValue", L"0.00");
+		swqfxybd.sjCO2 = strTemp.GetString();
+		//bzCO	CO标气浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"COStandardValue", L"0.00");
+		swqfxybd.bzCO = strTemp.GetString();
+		//sjCO	CO实测浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"COMeasuredValue", L"0.00");
+		swqfxybd.sjCO = strTemp.GetString();
+		//bzNO	NO标气浓度值	数字	8,4	单位：10-6vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOStandardValue", L"0");
+		swqfxybd.bzNO = strTemp.GetString();
+		//sjNO	NO实测浓度值	数字	8,4	单位：10-6vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOMeasuredValue", L"0");
+		swqfxybd.sjNO = strTemp.GetString();
+		//bzHC	HC标气浓度值	数字	8,4	单位：10-6vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"HCStandardValue", L"0");
+		swqfxybd.bzHC = strTemp.GetString();
+		//sjHC	HC实测浓度值	数字	8,4	单位：10-6vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"HCMeasuredValue", L"0");
+		swqfxybd.sjHC = strTemp.GetString();
+		//bzO2	O2标气浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2StandardValue", L"0.00");
+		swqfxybd.bzO2 = strTemp.GetString();
+		//sjO2	O2实测浓度值	数字	8,4	单位：%vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2MeasuredValue", L"0.00");
+		swqfxybd.sjO2 = strTemp.GetString();
+		//sjPEF	名义丙烷当量系数	数字	8,4	
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"PEFMeasuredValue", L"0.3");
+		swqfxybd.sjPEF = strTemp.GetString();
+		//bzC3H8	标气丙烷浓度值	数字	8,4	单位：10-6vol
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"C3H8StandardValue", L"0");
+		swqfxybd.bzC3H8 = strTemp.GetString();
+		//jcjg	校准结果	字符串	1	1表示成功，0表示失败
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"Pass", L"1");
+		swqfxybd.jcjg = strTemp.GetString();
+		//kssj	校准开始时间	字符串	19	yyyy-MM-dd HH:mm:ss
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+		swqfxybd.kssj = strTemp.GetString();
+		//jssj	校准结束时间	字符串	19	yyyy-MM-dd HH:mm:ss
+		strTemp = si.GetString(L"ResultOfAnaGasChk", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+		swqfxybd.kssj = strTemp.GetString();
+		//bz	备注	字符串	100	
+		swqfxybd.bz = L"";
+
+		std::wstring strRet;
+		int nRet = CHNSY_API:: wqfxybd(theApp.m_pchURL, swqfxybd.accessToken.c_str(), swqfxybd.bqlb.c_str(), swqfxybd.bzCO2.c_str(), swqfxybd.sjCO2.c_str(), 
+			 swqfxybd.bzCO.c_str(), swqfxybd.sjCO.c_str(), swqfxybd.bzNO.c_str(), swqfxybd.sjNO.c_str(), swqfxybd.bzHC.c_str(), swqfxybd.sjHC.c_str(),
+			 swqfxybd.bzO2.c_str(), swqfxybd.sjO2.c_str(), swqfxybd.sjPEF.c_str(), swqfxybd.bzC3H8.c_str(), swqfxybd.jcjg.c_str(),
+			 swqfxybd.kssj.c_str(), swqfxybd.jssj.c_str(), swqfxybd.bz.c_str(), strRet);
+
+		if (nRet == 0)
+		{
+			CXmlReader xmlReader;
+			if (xmlReader.Parse(strRet.c_str()))
 			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
+				std::wstring wstrCode, wstrContent;
+				if (xmlReader.OpenNode(L"root/result"))
 				{
-					xmlReader.GetNodeContent(strContent);
+					xmlReader.GetNodeContent(wstrCode);
 				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
+
+				if (wstrCode != L"1")
+				{
+					if (xmlReader.OpenNode(L"root/info"))
+					{
+						xmlReader.GetNodeContent(wstrContent);
+					}
+					wstrContent = L"上传失败：" + wstrContent;
+					AfxMessageBox(wstrContent.c_str(), MB_ICONWARNING|MB_OK);
+					return false;
+				}
+				else
+				{
+					AfxMessageBox(L"上传成功", MB_ICONWARNING|MB_OK);
+					return true;
+				}
 			}
 			else
 			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
-		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-
-	return true;
-}
-
-bool CAnaDlg::UpEqulChk(const int& njclx)
-{
-	COleDateTime odtStart, odtEnd;
-
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfAnaGasChk.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"分析仪其他检查文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"分析仪上传", L"分析仪其他检查文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
-
-	CString strTemp;
-
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!odtStart.ParseDateTime(strTemp))
-	{
-		odtStart = COleDateTime::GetCurrentTime();
-	}
-
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"EndTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!odtEnd.ParseDateTime(strTemp))
-	{
-		odtEnd = COleDateTime::GetCurrentTime();
-	}
-
-	CStringW strData, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号 
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//sbjclx	设备检查类型 1-加载滑行 2-附加损失 3-单点检查（低标气）4-单点检查（零气）5-单点检查（高标气） 6-五点检查
-	strData.AppendFormat(L"<sbjclx>%d</sbjclx>", njclx);
-	//jckssj	检查开始时间
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", odtStart.Format(L"%Y%m%d%H%M%S"));
-	//jcjssj	检查结束时间
-	strData.AppendFormat(L"<jcjssj>%s</jcjssj>", odtEnd.Format(L"%Y%m%d%H%M%S"));
-	//cysx	采样时序
-	strData.AppendFormat(L"<cysx>%s</cysx>", L"1");
-	//zgzs	转鼓转速
-	strData.AppendFormat(L"<zgzs>%s</zgzs>", L"");
-	//cgjjzfh	测功机加载负荷
-	strData.AppendFormat(L"<cgjjzfh>%s</cgjjzfh>", L"");
-	//hc	HC浓度
-	strData.AppendFormat(L"<hc>%s</hc>", L"");
-	//co	CO浓度
-	strData.AppendFormat(L"<co>%s</co>", L"");
-	//no	NO浓度
-	strData.AppendFormat(L"<no>%s</no>", L"");
-	//no2	NO2浓度
-	strData.AppendFormat(L"<no2>%s</no2>", L"");
-	//co2	CO2浓度
-	strData.AppendFormat(L"<co2>%s</co2>", L"");
-	//o2	O2浓度
-	strData.AppendFormat(L"<o2>%s</o2>", L"");
-
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W11", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", str);
-				AfxMessageBox(str);
+				AfxMessageBox(L"解析失败", MB_ICONWARNING|MB_OK);
 				return false;
 			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", str);
-			}
 		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"检查记录上传", L"联网失败");
-		return false;
-	}
-
-	return true;
-}
-
-bool CAnaDlg::UpGasCheck13W06(void)
-{
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfAnaGasChk.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"分析仪检查文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"分析仪上传", L"分析仪检查文件INI不在");
-		return false;
-	}
-	CSimpleIni si(wchPath);
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//jckssj	检查开始时间
-	COleDateTime otd1;
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd1.ParseDateTime(strTemp))
-	{
-		otd1 = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
-	//c3h8	标准气C3H8浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"C3H8StandardValue", L"0");
-	strData.AppendFormat(L"<c3h8>%d</c3h8>", _wtoi(strTemp));
-	//co	标准气CO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COStandardValue", L"0.00");
-	strData.AppendFormat(L"<co>%.2f</co>", _wtof(strTemp));
-	//co2	标准气CO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2StandardValue", L"0.00");
-	strData.AppendFormat(L"<co2>%.2f</co2>", _wtof(strTemp));
-	//no	标准气NO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOStandardValue", L"0");
-	strData.AppendFormat(L"<no>%d</no>", _wtoi(strTemp));
-	//no2	标准气NO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2StandardValue", L"0");
-	strData.AppendFormat(L"<no2>%d</no2>", _wtoi(strTemp));
-	//o2	标准气O2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2StandardValue", L"0.00");
-	strData.AppendFormat(L"<o2>%.2f</o2>", _wtof(strTemp));
-	//hcjcjg	HC检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"HCMeasuredValue", L"0");
-	strData.AppendFormat(L"<hcjcjg>%d</hcjcjg>", _wtoi(strTemp));
-	//cojcjg	CO检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COMeasuredValue", L"0.00");
-	strData.AppendFormat(L"<cojcjg>%.2f</cojcjg>", _wtof(strTemp));
-	//co2jcjg	CO2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2MeasuredValue", L"0.00");
-	strData.AppendFormat(L"<co2jcjg>%.2f</co2jcjg>", _wtof(strTemp));
-	//nojcjg	NO检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOMeasuredValue", L"0");
-	strData.AppendFormat(L"<nojcjg>%d</nojcjg>", _wtoi(strTemp));
-	//no2jcjg	NO2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2MeasuredValue", L"0");
-	strData.AppendFormat(L"<no2jcjg>%d</no2jcjg>", _wtoi(strTemp));
-	//o2jcjg	O2检查结果值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2MeasuredValue", L"0.00");
-	strData.AppendFormat(L"<o2jcjg>%.2f</o2jcjg>", _wtof(strTemp));
-	//pef	PEF值
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"PEFMeasuredValue", L"0.3");
-	strData.AppendFormat(L"<pef>%.3f</pef>", _wtof(strTemp));
-	//jcjg	检查结果
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"Pass", L"1");
-	strData.AppendFormat(L"<jcjg>%s</jcjg>", strTemp);
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W06", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
+		else
 		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
+			AfxMessageBox(L"联网失败", MB_ICONWARNING|MB_OK);
+			return false;
 		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
 
-	return true;
-}
-
-bool CAnaDlg::UpGasCheck13W07(void)
-{
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
-	wchar_t wchPath[MAX_PATH];
-	ZeroMemory(wchPath, sizeof(wchPath));
-	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfAnaGasChk.ini", wchPath, false))
-	{
-		// 文件不存在
-		AfxMessageBox(L"分析仪检查文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"分析仪上传", L"分析仪检查文件INI不在");
-		return false;
 	}
-	CSimpleIni si(wchPath);
-
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//jckssj	检查开始时间
-	COleDateTime otd1;
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd1.ParseDateTime(strTemp))
-	{
-		otd1 = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
-	//c3h8	标准气C3H8浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"C3H8StandardValue", L"0");
-	strData.AppendFormat(L"<c3h8>%d</c3h8>", _wtoi(strTemp));
-	//co	标准气CO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COStandardValue", L"0.00");
-	strData.AppendFormat(L"<co>%.2f</co>", _wtof(strTemp));
-	//co2	标准气CO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"CO2StandardValue", L"0.00");
-	strData.AppendFormat(L"<co2>%.2f</co2>", _wtof(strTemp));
-	//no	标准气NO浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOStandardValue", L"0");
-	strData.AppendFormat(L"<no>%d</no>", _wtoi(strTemp));
-	//no2	标准气NO2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2StandardValue", L"0");
-	strData.AppendFormat(L"<no2>%d</no2>", _wtoi(strTemp));
-	//o2	标准气O2浓度
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2StandardValue", L"0.00");
-	strData.AppendFormat(L"<o2>%.2f</o2>", _wtof(strTemp));
-	//	noxysj1	NO响应时间（T90）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOT90Limit", L"0.00");
-	strData.AppendFormat(L"<noxysj1>%.2f</noxysj1>", _wtof(strTemp));
-	//	no2xysj1	NO2响应时间（T90）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2T90Limit", L"0.00");
-	strData.AppendFormat(L"<no2xysj1>%.2f</no2xysj1>", _wtof(strTemp));
-	//coxysj1	CO响应时间（T90）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COT90Limit", L"0.00");
-	strData.AppendFormat(L"<coxysj1>%.2f</coxysj1>", _wtof(strTemp));
-	//o2xysj1	O2响应时间（T90）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2T90Limit", L"0.00");
-	strData.AppendFormat(L"<o2xysj1>%.2f</o2xysj1>", _wtof(strTemp));
-	//noxysj2	NO响应时间（T10）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NOT10Limit", L"0.00");
-	strData.AppendFormat(L"<noxysj2>%.2f</noxysj2>", _wtof(strTemp));
-	//no2xysj2	NO2响应时间（T10）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"NO2T10Limit", L"0.00");
-	strData.AppendFormat(L"<no2xysj2>%.2f</no2xysj2>", _wtof(strTemp));
-	//coxysj2	CO响应时间（T10）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"COT10Limit", L"0.00");
-	strData.AppendFormat(L"<coxysj2>%.2f</coxysj2>", _wtof(strTemp));
-	//o2xysj2	O2响应时间（T10）
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"O2T10Limit", L"0.00");
-	strData.AppendFormat(L"<o2xysj2>%.2f</o2xysj2>", _wtof(strTemp));
-	//jcjg	检查结果
-	strTemp = si.GetString(L"ResultOfAnaGasChk", L"Pass", L"1");
-	strData.AppendFormat(L"<jcjg>%s</jcjg>", strTemp);
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
-
-	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W07", strData.GetString(), strRet);
-
-	if (nRet == 0)
-	{
-		CXmlReader xmlReader;
-		if (xmlReader.Parse(strRet.c_str()))
-		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
-			{
-				xmlReader.GetNodeContent(strCode);
-			}
-			if (strCode != L"1")
-			{
-				if (xmlReader.OpenNode(L"root/head/message"))
-				{
-					xmlReader.GetNodeContent(strContent);
-				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
-				return false;
-			}
-			else
-			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-			}
-		}
-	}
-	else
-	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
-		return false;
-	}
-
-	return true;
+	return false;
 }

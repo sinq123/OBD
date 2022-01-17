@@ -100,6 +100,10 @@ private:
 	CButton m_edchkSQL;
 	CButton m_edIntet;
 	CButton m_btnSocket;
+
+	CEdit m_edCALID;
+	CEdit m_edCVN;
+	CEdit m_edOBDType;
 public:
 	// 获取配置信息
 	void SetConfig(void);
@@ -151,4 +155,5 @@ public:
 	bool UPTestSignal(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, const SResultOfOBD& sResultOfOBD, CString& strMsg);
 
 
+	afx_msg void OnBnClickedBtnTestlog();
 };

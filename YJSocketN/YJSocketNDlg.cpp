@@ -51,6 +51,10 @@ void CYJSocketNDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RA_SQL, m_edchkSQL);
 	DDX_Control(pDX, IDC_RA_INTET, m_edIntet);
 	DDX_Control(pDX, IDC_BTN_SOCKET, m_btnSocket);
+
+	DDX_Control(pDX, ID_ED_CALID, m_edCALID);
+	DDX_Control(pDX, ID_ED_CVN, m_edCVN);
+	DDX_Control(pDX, ID_ED_OBDTYPE, m_edOBDType);
 }
 
 BEGIN_MESSAGE_MAP(CYJSocketNDlg, CDialogEx)
@@ -63,6 +67,7 @@ BEGIN_MESSAGE_MAP(CYJSocketNDlg, CDialogEx)
 	ON_NOTIFY(NM_DBLCLK, IDC_LST_VEHICLE, &CYJSocketNDlg::OnLvnItemchangedLstVehicle)
 	ON_BN_CLICKED(IDC_BTN_UP, &CYJSocketNDlg::OnBnClickedBtnUp)
 	ON_BN_CLICKED(IDC_BTN_UP_TELET, &CYJSocketNDlg::OnBnClickedBtnUpTelet)
+	ON_BN_CLICKED(IDC_BTN_TESTLOG, &CYJSocketNDlg::OnBnClickedBtnTestlog)
 END_MESSAGE_MAP()
 
 
@@ -710,7 +715,9 @@ void CYJSocketNDlg::OnBnClickedBtnSocket()
 		}
 		else
 		{
-			m_edMsg.SetWindowTextW(L"连接失败");
+			CString strTemp;
+			strTemp.Format(L"%s-%s", L"连接失败", strMsg.c_str());
+			m_edMsg.SetWindowTextW(strTemp);
 		}
 	}
 	else if (str.Find(L"断开") != -1)
@@ -803,7 +810,7 @@ void CYJSocketNDlg::OnBnClickedBtnUp()
 
 	strSQL.Format(L"SELECT TOP(1)* FROM TestLog WHERE RunningNumber='%s'", m_strRunningNumber);
 	TESTLOG sTestLog;
-	
+
 	if (0x01 != GetDboTestLog(strSQL, &sTestLog))
 	{
 		m_edMsg.SetWindowTextW(L"获取数据库检测日志失败");
@@ -825,6 +832,30 @@ void CYJSocketNDlg::OnBnClickedBtnUp()
 		m_edMsg.SetWindowTextW(L"更新OBD数据失败");
 		return;
 	}
+
+	CString strCVN, strCALID, strOBDType;
+	m_edCALID.GetWindowTextW(strCALID);
+	m_edCVN.GetWindowTextW(strCVN);
+	m_edOBDType.GetWindowTextW(strOBDType);
+
+	if (!strCALID.IsEmpty())
+	{
+		sResultOfOBD.strEngineCALID = strCALID.GetString();
+		m_edCALID.SetWindowTextW(L"");
+	}
+
+	if (!strCVN.IsEmpty())
+	{
+		sResultOfOBD.strEngineCVN = strCVN.GetString();
+		m_edCVN.SetWindowTextW(L"");
+	}
+
+	if (!strOBDType.IsEmpty())
+	{
+		sResultOfOBD.strOBDType = strOBDType.GetString();
+		m_edOBDType.SetWindowTextW(L"");
+	}
+	
 	// 写入数据库
 	SetDboResultOfOBD(sResultOfOBD);
 	// 写入临时文件
@@ -876,57 +907,85 @@ void CYJSocketNDlg::OnBnClickedBtnUp()
 	{
 		m_strStationNum = strStationNum;
 		m_strLineNum = strLineNum;
-		if (m_edIntet.GetCheck() == 1)
-		{
-			wchar_t wchPath[MAX_PATH];
-			ZeroMemory(wchPath, sizeof(wchPath));
-			if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"TestLog.ini", wchPath))
-			{
-				CSimpleIni si(wchPath);
-				si.SetString(L"TestLog", L"ItemOBD", L"0");
-			}
-			ZeroMemory(wchPath, sizeof(wchPath));
-			if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"VehicleInfo.ini", wchPath))
-			{
-				CSimpleIni si(wchPath);
-				si.SetString(L"VehicleInfo", L"HasOBD", L"0");
-			}
 
-			wcscpy_s(sTestLog.wchItemOBD, L"0");
-			if (0x00 != SetDboTestLog(sTestLog))
+		_ConnectionPtr pConnection;
+		if (0x00 == CNHSQLServerDBO::OpenDB(pConnection, strSource, strCatalog, strUserID, strPassword))
+		{
+			CString strSql;
+			strSql.Format(L"update TestLog set TestLog.ItemOBD = null where TestLog.RunningNumber = '%s' ", sTestLog.wchRunningNumber);
+
+			int nRowsInvolved(0);
+			CNHSQLServerDBO::ExecuteDML(pConnection, strSql.GetString(), &nRowsInvolved);
+			if (nRowsInvolved >= 0)
 			{
-				strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库失败");
+				strTempMsg.AppendFormat(L"%s-%s\r\n", L"修改成功", sTestLog.wchRunningNumber);
 				m_edMsg.SetWindowTextW(strTempMsg);
 			}
 			else
 			{
-				strTempMsg.AppendFormat(L"%s\r\n", L"请更新列表后，在点击下一步继续排放检测！");
+				strTempMsg.AppendFormat(L"%s-%s\r\n", L"修改失败", sTestLog.wchRunningNumber);
 				m_edMsg.SetWindowTextW(strTempMsg);
-				GetDlgItem(IDC_BTN_UP_TELET)->EnableWindow(TRUE);
 			}
+
+			CNHSQLServerDBO::CloseDB(pConnection);
 		}
 		else
 		{
-			wchar_t wchPath[MAX_PATH];
-			ZeroMemory(wchPath, sizeof(wchPath));
-			if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"TestLog.ini", wchPath))
-			{
-				CSimpleIni si(wchPath);
-				si.SetString(L"TestLog", L"ItemOBD", L"4");
-			}
-
-			wcscpy_s(sTestLog.wchItemOBD, L"4");
-			if (0x00 != SetDboTestLog(sTestLog))
-			{
-				strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库失败");
-				m_edMsg.SetWindowTextW(strTempMsg);
-			}
-			else
-			{
-				strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库成功");
-				m_edMsg.SetWindowTextW(strTempMsg);
-			}
+			strTempMsg.AppendFormat(L"%s\r\n", L"打开数据库失败");
+			m_edMsg.SetWindowTextW(strTempMsg);
 		}
+
+		//if (m_edIntet.GetCheck() == 1)
+		//{
+		//	//wchar_t wchPath[MAX_PATH];
+		//	//ZeroMemory(wchPath, sizeof(wchPath));
+		//	//if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"TestLog.ini", wchPath))
+		//	//{
+		//	//	CSimpleIni si(wchPath);
+		//	//	si.SetString(L"TestLog", L"ItemOBD", L"0");
+		//	//}
+		//	//ZeroMemory(wchPath, sizeof(wchPath));
+		//	//if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"VehicleInfo.ini", wchPath))
+		//	//{
+		//	//	CSimpleIni si(wchPath);
+		//	//	si.SetString(L"VehicleInfo", L"HasOBD", L"0");
+		//	//}
+
+		//	wcscpy_s(sTestLog.wchItemOBD, L"");
+		//	if (0x00 != SetDboTestLog(sTestLog))
+		//	{
+		//		strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库失败");
+		//		m_edMsg.SetWindowTextW(strTempMsg);
+		//	}
+		//	else
+		//	{
+		//		strTempMsg.AppendFormat(L"%s\r\n", L"请更新列表后，在点击下一步继续排放检测！");
+		//		m_edMsg.SetWindowTextW(strTempMsg);
+		//		GetDlgItem(IDC_BTN_UP_TELET)->EnableWindow(TRUE);
+		//	}
+		//}
+		//else
+		//{
+		//	//wchar_t wchPath[MAX_PATH];
+		//	//ZeroMemory(wchPath, sizeof(wchPath));
+		//	//if (0x00 == CNHCommonAPI::GetFilePathEx(L"App_Data", L"TestLog.ini", wchPath))
+		//	//{
+		//	//	CSimpleIni si(wchPath);
+		//	//	si.SetString(L"TestLog", L"ItemOBD", L"4");
+		//	//}
+
+		//	wcscpy_s(sTestLog.wchItemOBD, L"");
+		//	if (0x00 != SetDboTestLog(sTestLog))
+		//	{
+		//		strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库失败");
+		//		m_edMsg.SetWindowTextW(strTempMsg);
+		//	}
+		//	else
+		//	{
+		//		strTempMsg.AppendFormat(L"%s\r\n", L"写入数据库成功");
+		//		m_edMsg.SetWindowTextW(strTempMsg);
+		//	}
+		//}
 	}
 }
 
@@ -943,7 +1002,8 @@ bool CYJSocketNDlg::SetOBDLOG(const TESTLOG& sTestLog, SResultOfOBD& sResultOfOB
 
 	sResultOfOBD.strDetBegTime = odtSartTime.Format(L"%Y-%m-%d %H:%M:%S");
 	sResultOfOBD.strDetEndTime = odtCurTime.Format(L"%Y-%m-%d %H:%M:%S");
-
+	sResultOfOBD.strVIN = sTestLog.wchVIN;
+	//sResultOfOBD.strOBDProtocol = L"04";
 	if (strFulType.Find(L"柴") != -1)
 	{
 		CString strOBDType;
@@ -1281,7 +1341,7 @@ void CYJSocketNDlg::GetEngineCALID(const CString& strOBDType, const CString& str
 }
 
 bool CYJSocketNDlg::UpOBDStart(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
-		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
+	const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
 {
 	bool bRet(false);
 
@@ -1307,7 +1367,7 @@ bool CYJSocketNDlg::UpOBDStart(const CStringW& strStationNum, const CStringW& st
 }
 
 bool CYJSocketNDlg::UpOBDReaust(const CStringW& strStationNum, const CStringW& strLineNum, const TESTLOG& sTestLog, 
-		const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
+	const SResultOfOBD& sResultOfOBD, const VEHICLEINFO& sVehInfo, CString& strMsg)
 {
 	bool bRet(false);
 	CString strTemp;
@@ -1456,7 +1516,7 @@ void CYJSocketNDlg::OnBnClickedBtnUpTelet()
 		return;
 	}
 
-	
+
 	CString strSQL;
 	// 获取OBD数据
 	strSQL.Format(L"SELECT * FROM ResultOfOBD WHERE RunningNumber = '%s'", m_strRunningNumber);
@@ -1950,4 +2010,66 @@ bool CYJSocketNDlg::UPTestSignal(const CStringW& strStationNum, const CStringW& 
 		strMsg.Format(L"上传失败：%s", strRecv.c_str());
 	}
 	return bRet;
+}
+
+
+void CYJSocketNDlg::OnBnClickedBtnTestlog()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	TESTLOG sTestLog;
+	GetIniTestLog(&sTestLog);
+
+	SResultOfOBD sResultOfOBD;
+	GetIniResultOfOBD(&sResultOfOBD);
+	if (wcscmp(sTestLog.wchRunningNumber, L"") == 0)
+	{
+		// 南华不写App_data, 改用其他方式获取
+		m_edMsg.SetWindowTextW(L"\r\n");
+		//if (IDOK == MessageBox(L"获取App_Data失败", L"失败", MB_OKCANCEL))
+		{
+			CString strSQL;
+			strSQL.Format(L"SELECT TOP(1)* FROM TestLog WHERE RunningNumber='%s'", sResultOfOBD.strRunningNumber.c_str());
+			GetDboTestLog(strSQL, &sTestLog);
+		}
+		//else
+		//{
+		//	return;
+		//}
+	}
+
+	// 获取OBD的临时文件更新日志编号后重新保存和写入
+	//sResultOfOBD.strRunningNumber = sTestLog.wchRunningNumber;
+	SetDboResultOfOBD(sResultOfOBD);
+	SetIniResultOfOBD(sResultOfOBD);
+
+	CString strTemp;
+	strTemp.Format(L"%s-%s-%s\r\n", sResultOfOBD.strRunningNumber.c_str(), sTestLog.wchRunningNumber, sResultOfOBD.strJudge.c_str());
+	m_edMsg.SetWindowTextW(strTemp);
+
+	_ConnectionPtr pConnection;
+	if (0x00 == CNHSQLServerDBO::OpenDB(pConnection))
+	{
+		CString strSql;
+		strSql.Format(L"update TestLog set TestLog.ItemOBD = null where TestLog.RunningNumber = '%s' ", sTestLog.wchRunningNumber);
+
+		int nRowsInvolved(0);
+		CNHSQLServerDBO::ExecuteDML(pConnection, strSql.GetString(), &nRowsInvolved);
+		//if (nRowsInvolved >= 0)
+		//{
+		//	strTempMsg.AppendFormat(L"%s-%s\r\n", L"修改成功", sTestLog.wchRunningNumber);
+		//	m_edMsg.SetWindowTextW(strTempMsg);
+		//}
+		//else
+		//{
+		//	strTempMsg.AppendFormat(L"%s-%s\r\n", L"修改失败", sTestLog.wchRunningNumber);
+		//	m_edMsg.SetWindowTextW(strTempMsg);
+		//}
+
+		CNHSQLServerDBO::CloseDB(pConnection);
+	}
+	else
+	{/*
+	 strTempMsg.AppendFormat(L"%s\r\n", L"打开数据库失败");
+	 m_edMsg.SetWindowTextW(strTempMsg);*/
+	}
 }

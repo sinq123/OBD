@@ -43,12 +43,6 @@
     <Filter Include="标定\滤纸式烟度计">
       <UniqueIdentifier>{cb75c999-a6f3-4068-83ee-9910453d5f31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API">
-      <UniqueIdentifier>{d5646561-60fb-44bb-b622-a2379f493e4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gsoap">
-      <UniqueIdentifier>{34b21ffe-f5bf-4673-a315-53de8a092d37}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -93,9 +87,6 @@
     </None>
     <None Include="res\shundown.ico">
       <Filter>资源文件</Filter>
-    </None>
-    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap">
-      <Filter>gsoap</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -144,24 +135,6 @@
     <ClInclude Include="SmoDlg.h">
       <Filter>标定\滤纸式烟度计</Filter>
     </ClInclude>
-    <ClInclude Include="md5.h">
-      <Filter>API</Filter>
-    </ClInclude>
-    <ClInclude Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.h">
-      <Filter>gsoap</Filter>
-    </ClInclude>
-    <ClInclude Include="gsoap\soapH.h">
-      <Filter>gsoap</Filter>
-    </ClInclude>
-    <ClInclude Include="gsoap\soapStub.h">
-      <Filter>gsoap</Filter>
-    </ClInclude>
-    <ClInclude Include="gsoap\stdsoap2.h">
-      <Filter>gsoap</Filter>
-    </ClInclude>
-    <ClInclude Include="HNSY_API.h">
-      <Filter>API</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SystemCheck.cpp">
@@ -203,30 +176,10 @@
     <ClCompile Include="SmoDlg.cpp">
       <Filter>标定\滤纸式烟度计</Filter>
     </ClCompile>
-    <ClCompile Include="md5.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
-    <ClCompile Include="gsoap\soapC.cpp">
-      <Filter>gsoap</Filter>
-    </ClCompile>
-    <ClCompile Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.cpp">
-      <Filter>gsoap</Filter>
-    </ClCompile>
-    <ClCompile Include="gsoap\stdsoap2.cpp">
-      <Filter>gsoap</Filter>
-    </ClCompile>
-    <ClCompile Include="HNSY_AP.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemCheck.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="gsoap\sjjk.wsdl">
-      <Filter>gsoap</Filter>
-    </CustomBuild>
   </ItemGroup>
 </Project>

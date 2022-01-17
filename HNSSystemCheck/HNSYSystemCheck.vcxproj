@@ -98,7 +98,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="gsoap\DeviceSwapIfaceImplServiceSoapBinding.nsmap" />
     <None Include="ReadMe.txt" />
     <None Include="res\DailyDemarcation.png" />
     <None Include="res\DataManagement.png" />
@@ -119,12 +118,6 @@
     <ClInclude Include="AnaDlg.h" />
     <ClInclude Include="DynDlg.h" />
     <ClInclude Include="FloDlg.h" />
-    <ClInclude Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.h" />
-    <ClInclude Include="gsoap\soapH.h" />
-    <ClInclude Include="gsoap\soapStub.h" />
-    <ClInclude Include="gsoap\stdsoap2.h" />
-    <ClInclude Include="HNSY_API.h" />
-    <ClInclude Include="md5.h" />
     <ClInclude Include="NHDailyDemarcationDlg.h" />
     <ClInclude Include="NOxDlg.h" />
     <ClInclude Include="ObdDlg.h" />
@@ -142,20 +135,6 @@
     <ClCompile Include="AnaDlg.cpp" />
     <ClCompile Include="DynDlg.cpp" />
     <ClCompile Include="FloDlg.cpp" />
-    <ClCompile Include="gsoap\soapC.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="gsoap\soapDeviceSwapIfaceImplServiceSoapBindingProxy.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="gsoap\stdsoap2.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="HNSY_AP.cpp" />
-    <ClCompile Include="md5.cpp" />
     <ClCompile Include="NHDailyDemarcationDlg.cpp" />
     <ClCompile Include="NOxDlg.cpp" />
     <ClCompile Include="ObdDlg.cpp" />
@@ -172,9 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemCheck.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="gsoap\sjjk.wsdl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

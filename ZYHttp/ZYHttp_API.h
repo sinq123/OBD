@@ -156,7 +156,7 @@ public:
 	bool SetOBDItemEnd(const TestLog &sTestLog, const SResultOfOBD &sResultData, SHBMsg& sHBMsg);
 	// 90Y28-OBD系统检验过程数据上报
 	// OBD系统检查结束后上报监管平台
-	bool SetOBDProData(SHBMsg& sHBMsg);
+	bool SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg);
 	// 90Y29-稳态工况法检验结果信息上报
 	// 稳态工况法检测结束后上报监管平台
 	bool SetASMItemEnd(SHBMsg& sHBMsg);
@@ -237,6 +237,7 @@ public:
 	// 90Y53-转速传感器检查信息上报
 	// 正式检测前，设备每日或按需检查结果实时上报监管平台。。
 	bool SetSpeCheck(const STachometer& sTachometer, SHBMsg& sHBMsg);
+
 	// 写入类接口 结束
 private:
 	int WriteCutl(const std::wstring wstrJkid, Json::Value &root, std::wstring& wstrRet);
@@ -273,6 +274,7 @@ private:
 	// 3.9 燃油规格
 	CStringW FuelMarkNameToCode(const CString strName);
 	CStringW FuelMarkCodeToName(const CString strCode);
+
 private:
 	// URL写入地址
 	std::wstring wstrWURL;

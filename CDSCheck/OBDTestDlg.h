@@ -64,6 +64,10 @@ private:
 
 	CLabel m_lbMsgInfo;
 
+	CEdit m_edCALID;
+	CEdit m_edCVN;
+	CEdit m_edOBDType;
+
 private:
 	// ³õÊ¼»¯¿Ø¼þ
 	void InitCtrls(void);

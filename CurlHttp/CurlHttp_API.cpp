@@ -43,7 +43,7 @@ int CCurlHttp_API::CurlPost(const std::wstring &wstrURL, const std::wstring &wst
 	curl = curl_easy_init();    // ³õÊ¼»¯
 
 	headerlist = curl_slist_append(headerlist, "Expect:");
-	headerlist = curl_slist_append(headerlist, "Content-Type:application/json");
+	headerlist = curl_slist_append(headerlist, "Content-Type:application/json; charset=utf-8");
 
 	if (curl)
 	{

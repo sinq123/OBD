@@ -82,12 +82,5 @@ public:
 	afx_msg void OnBnClickedButtonGasResponseTime();
 
 private:
-	// 上传检查（低标气）记录
-	static bool UpGasCheck(const CStringW& strJKID = L"13W05");
-	// 上传检查过程记录
-	static bool UpEqulChk(const int& njclx);
-	// 2.15上传单点检查（零气）记录13W06
-	static bool UpGasCheck13W06(void);
-	// 2.16上传单点检查（高标气）记录13W07
-	static bool UpGasCheck13W07(void);
+	static bool UpIntwqfxybd(void);
 };

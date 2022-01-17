@@ -11,7 +11,7 @@ IMPLEMENT_DYNAMIC(COpaDlg, CDialogZoom)
 // 标定是否Pass
 bool COpaDlg::m_bDemarcationPass = false;
 
-COpaDlg::COpaDlg(CWnd* pParent /*=NULL*/)
+COpaDlg::COpaDlg(CWnd* pParent /*=NULL*/) 
 	: CDialogZoom(COpaDlg::IDD, pParent)
 {
 	// 针对1280*1024分辨率进行开发
@@ -343,100 +343,123 @@ DWORD  COpaDlg::ProcessCtrlCallBack(const DWORD dwStatus, const void* pBuf/*=NUL
 
 bool COpaDlg::UpGasCheck(void)
 {
-	// 设定联网配置文件日志
-	CHYInterfaceLib_API::SetLogFilePath(theApp.m_strIntLogFilePath.GetString());
-	// 读取加载滑行结果文件
+	// 读取不透光结果文件
 	wchar_t wchPath[MAX_PATH];
 	ZeroMemory(wchPath, sizeof(wchPath));
+
 	if (0x00 != CNHCommonAPI::GetFilePathEx(L"App_Data", L"ResultOfOpaCalChk.ini", wchPath, false))
 	{
 		// 文件不存在
 		AfxMessageBox(L"不透光检查文件INI不在");
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"不透光上传", L"不透光检查文件INI不在");
 		return false;
 	}
 	CSimpleIni si(wchPath);
+	
 
-	CStringW strData, strTemp, strPass;
-	strData.AppendFormat(L"<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-	strData.AppendFormat(L"<root><zj>");
-
-	//tsNo	检测机构编号
-	strData.AppendFormat(L"<tsNo>%s</tsNo>", theApp.m_StationNum);
-	//testLineNo	检测线编号
-	strData.AppendFormat(L"<testLineNo>%s</testLineNo>", theApp.m_LineNum);
-	//jcrq	检查日期
-	strData.AppendFormat(L"<jcrq>%s</jcrq>", COleDateTime::GetCurrentTime().Format(L"%Y%m%d"));
-	//jckssj	检查开始时间
-	COleDateTime otd1;
-	strTemp = si.GetString(L"ResultOfOpaCalChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
-	if (!otd1.ParseDateTime(strTemp))
+	struct Sydjzj
 	{
-		otd1 = COleDateTime::GetCurrentTime();
-	}
-	strData.AppendFormat(L"<jckssj>%s</jckssj>", otd1.Format(L"%Y%m%d%H%M%S"));
-	//gxsxswc	光吸收系数误差
-	strTemp = si.GetString(L"ResultOfOpaCalChk", L"AE1", L"0.0");
-	strData.AppendFormat(L"<gxsxswc>%s</gxsxswc>", strTemp);
-	//xysj	响应时间
-	strData.AppendFormat(L"<xysj>%s</xysj>", L"304");
-	//yqwdszwc	烟气温度示值误差
-	strData.AppendFormat(L"<yqwdszwc>%s</yqwdszwc>", L"");
+		//accessToken	访问令牌	字符串	50	根据检测线编号调用获取
+		std::wstring accessToken;
+		//ldjcjg	不透光烟度计零点检查结果
+		std::wstring ldjcjg;
+		//lgpz1	不透光烟度计1滤光片值
+		std::wstring lgpz1;
+		//lgpz2	不透光烟度计2滤光片值
+		std::wstring lgpz2;
+		//jcz1	不透光烟度计1检查值
+		std::wstring jcz1;
+		//jcz2	不透光烟度计2检查值
+		std::wstring jcz2;
+		//wcl1	不透光烟度计1误差率
+		std::wstring wcl1;
+		//wcl2	不透光烟度计2误差率
+		std::wstring wcl2;
+		//jcjg	检查结果
+		std::wstring jcjg;
+		//kssj	检查开始时间
+		std::wstring kssj;
+		//jssj	检查结束时间
+		std::wstring jssj;
+		//bz	备注
+		std::wstring bz;
+
+		Sydjzj() {ZeroMemory(this, sizeof(Sydjzj));}
+	};
+	Sydjzj sydjzj;
+
+	CStringW strTemp;
+
+	//accessToken	访问令牌
+	sydjzj.accessToken = theApp.m_LicenseCode.GetString();
+	//ldjcjg	不透光烟度计零点检查结果
+	sydjzj.ldjcjg = L"1";
+	//lgpz1	不透光烟度计1滤光片值
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"StandardValue1", L"0.00")));
+	sydjzj.lgpz1 = strTemp.GetString();
+	//lgpz2	不透光烟度计2滤光片值
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"StandardValue2", L"0.00")));
+	sydjzj.lgpz2 = strTemp.GetString();
+	//jcz1	不透光烟度计1检查值
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"MeasuredValue1", L"0.00")));
+	sydjzj.jcz1 = strTemp.GetString();
+	//jcz2	不透光烟度计2检查值
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"MeasuredValue2", L"0.00")));
+	sydjzj.jcz2 = strTemp.GetString();
+	//wcl1	不透光烟度计1误差率
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"RE1", L"0.00")));
+	sydjzj.wcl1 = strTemp.GetString();
+	//wcl2	不透光烟度计2误差率
+	strTemp.Format(L"%.2f", _wtof(si.GetString(L"ResultOfOpaCalChk", L"RE2", L"0.00")));
+	sydjzj.wcl2 = strTemp.GetString();
 	//jcjg	检查结果
-	strTemp = si.GetString(L"ResultOfOpaCalChk", L"Pass", L"1");
-	strData.AppendFormat(L"<jcjg>%s</jcjg>", strTemp);
-	//bhgsm	不合格说明
-	strData.AppendFormat(L"<bhgsm>%s</bhgsm>", L"");
-	//jcry	检查人员
-	if (theApp.m_strName.IsEmpty())
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", L"GXCZ1");
-	}
-	else
-	{
-		strData.AppendFormat(L"<jcry>%s</jcry>", theApp.m_strName);
-	}
-	strData.AppendFormat(L"</zj></root>");
+	sydjzj.jcjg = L"1";
+	//kssj	检查开始时间
+	sydjzj.kssj = strTemp = si.GetString(L"ResultOfOpaCalChk", L"StartTime", COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S"));
+	//jssj	检查结束时间
+	sydjzj.jssj = COleDateTime::GetCurrentTime().Format(L"%Y-%m-%d %H:%M:%S").GetString();
+	//bz	备注
+	sydjzj.bz = L"";
 
 	std::wstring strRet;
-
-	int nRet = CHYInterfaceLib_API::ObjectOut(theApp.m_pchURL, theApp.m_strkey.GetString(), L"13W10", strData.GetString(), strRet);
+	int nRet = CHNSY_API:: ydjzj(theApp.m_pchURL, sydjzj.accessToken.c_str(), sydjzj.ldjcjg.c_str(), sydjzj.lgpz1.c_str(),sydjzj.lgpz2.c_str(), sydjzj.jcz1.c_str(), 
+		sydjzj.jcz2.c_str(), sydjzj.wcl1.c_str(),sydjzj.wcl2.c_str(), sydjzj.jcjg.c_str(), sydjzj.kssj.c_str(), sydjzj.jssj.c_str(), sydjzj.bz.c_str(), strRet);
 
 	if (nRet == 0)
 	{
 		CXmlReader xmlReader;
 		if (xmlReader.Parse(strRet.c_str()))
 		{
-			std::wstring strCode, strContent;
-			if (xmlReader.OpenNode(L"root/head/code"))
+			std::wstring wstrCode, wstrContent;
+			if (xmlReader.OpenNode(L"root/result"))
 			{
-				xmlReader.GetNodeContent(strCode);
+				xmlReader.GetNodeContent(wstrCode);
 			}
-			if (strCode != L"1")
+
+			if (wstrCode != L"1")
 			{
-				if (xmlReader.OpenNode(L"root/head/message"))
+				if (xmlReader.OpenNode(L"root/info"))
 				{
-					xmlReader.GetNodeContent(strContent);
+					xmlReader.GetNodeContent(wstrContent);
 				}
-				CString str;
-				str.AppendFormat(L"%s,%s, 上传失败", strCode.c_str(), strContent.c_str());
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
-				AfxMessageBox(str);
+				wstrContent = L"上传失败：" + wstrContent;
+				AfxMessageBox(wstrContent.c_str(), MB_ICONWARNING|MB_OK);
 				return false;
 			}
 			else
 			{
-				CString str;
-				str.AppendFormat(L"%s,%s", strCode.c_str(), L"上传成功");
-				CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", str);
+				AfxMessageBox(L"上传成功", MB_ICONWARNING|MB_OK);
+				return true;
 			}
+		}
+		else
+		{
+			AfxMessageBox(L"解析失败", MB_ICONWARNING|MB_OK);
+			return false;
 		}
 	}
 	else
 	{
-		CNHLogAPI::WriteLogEx(theApp.m_strIntLogFilePath, L"记录", L"加载滑行上传", L"联网失败");
+		AfxMessageBox(L"联网失败", MB_ICONWARNING|MB_OK);
 		return false;
 	}
-
-	return true;
 }
