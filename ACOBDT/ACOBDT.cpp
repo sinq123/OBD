@@ -79,19 +79,19 @@ BOOL CACOBDTApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	//std::wstring strMsg, strDLMM;
-	//if (!CRJYZ::IsYZ(strMsg, strDLMM))
-	//{
-	//	MessageBox(NULL,strMsg.c_str(), L"", MB_ICONWARNING|MB_OK);
-	//	return FALSE;
-	//}
+	std::wstring strMsg, strDLMM;
+	if (!CRJYZ::IsYZ(strMsg, strDLMM))
+	{
+		MessageBox(NULL,strMsg.c_str(), L"", MB_ICONWARNING|MB_OK);
+		return FALSE;
+	}
 
-	//CLogIn LogInDlg;
-	//LogInDlg.m_strDLMM = strDLMM.c_str();
-	//if (LogInDlg.DoModal() == IDCANCEL)
-	//{
-	//	return FALSE;
-	//}
+	CLogIn LogInDlg;
+	LogInDlg.m_strDLMM = strDLMM.c_str();
+	if (LogInDlg.DoModal() == IDCANCEL)
+	{
+		return FALSE;
+	}
 
 	GetLogFilePath();
 	GetConfig();

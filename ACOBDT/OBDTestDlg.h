@@ -62,6 +62,10 @@ public:
 
 	CLabel m_lbDynInfo;
 
+	CEdit m_edCALID;
+	CEdit m_edCVN;
+	CEdit m_edOBDType;
+
 public:
 	// ³õÊ¼»¯¿Ø¼þ
 	void InitCtrls(void);
@@ -117,4 +121,6 @@ private:
 	void SetTestLogAndVehDB(const CString& strItemOBD, const CString& strHasOBD, CString& strstrMsg);
 
 	void UpOBDStrat(CString& strMsg);
+
+	CString OBDIURT(const SResultOfOBD& sResultOfOBD);
 };

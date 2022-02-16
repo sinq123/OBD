@@ -99,6 +99,10 @@ void COBDTestDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_ITEM, m_lsItem);
 	DDX_Control(pDX, IDC_COMBO_PROTOCOL, m_cbProtocol);
 	DDX_Control(pDX, IDC_STATIC_DYN_INFO, m_lbDynInfo);
+
+	DDX_Control(pDX, ID_ED_CALID, m_edCALID);
+	DDX_Control(pDX, ID_ED_CVN, m_edCVN);
+	DDX_Control(pDX, ID_ED_OBDTYPE, m_edOBDType);
 }
 
 
@@ -254,7 +258,7 @@ void COBDTestDlg::InitCtrls(void)
 
 	m_lbDynInfo.SetTextColor(RGB(255, 0, 0));
 	//m_lbDynInfo.AutoFitFont();
-	m_lbDynInfo.SetFontSize(40);
+	m_lbDynInfo.SetFontSize(25);
 	m_lbDynInfo.SetFontName(L"黑体");
 	OperationHint(L"请确认信息，点击开始上传按钮.");
 }
@@ -327,13 +331,19 @@ void COBDTestDlg::SetTestLogAndVehDB(const CString& strItemOBD, const CString& s
 			strMsg.AppendFormat(L"修改数据库->TestLog表失败");
 		}
 
+		strSQL.Format(_T("Update TestLog set ItemOBD = '%s', HasOBD = '%s' where ReportNumber = '%s'"), strItemOBD, strHasOBD, m_strRunningNumber);
+		nRowsInvolved = 0;
+		if (0x00 != CNHSQLServerDBO::ExecuteDML(m_pConnection, strSQL, &nRowsInvolved))
+		{
+			strMsg.AppendFormat(L"修改数据库->TestLog表失败");
+		}
+
 		strSQL.Format(_T("Update VehicleInfo set HasOBD = '%s' where PlateNumber = '%s'"), strHasOBD, m_strPlateNumber);
 		nRowsInvolved = 0;
 		if (0x00 != CNHSQLServerDBO::ExecuteDML(m_pConnection, strSQL, &nRowsInvolved))
 		{
 			strMsg.AppendFormat(L"修改数据库->VehicleInfo表失败");
 		}
-
 	}
 }
 
@@ -375,11 +385,36 @@ void COBDTestDlg::StartItem(void)
 	sResultOfOBD.strOperator = m_strOperator.GetString();
 	sResultOfOBD.strFuelType = m_strFuelType.GetString();
 	bRet = SetOBDLOG(sResultOfOBD);
+
+	CString strCVN, strCALID, strOBDType;
+	m_edCALID.GetWindowTextW(strCALID);
+	m_edCVN.GetWindowTextW(strCVN);
+	m_edOBDType.GetWindowTextW(strOBDType);
+
+	if (!strCALID.IsEmpty())
+	{
+		sResultOfOBD.strEngineCALID = strCALID.GetString();
+		m_edCALID.SetWindowTextW(L"");
+	}
+
+	if (!strCVN.IsEmpty())
+	{
+		sResultOfOBD.strEngineCVN = strCVN.GetString();
+		m_edCVN.SetWindowTextW(L"");
+	}
+
+	if (!strOBDType.IsEmpty())
+	{
+		sResultOfOBD.strOBDType = strOBDType.GetString();
+		m_edOBDType.SetWindowTextW(L"");
+	}
+
 	if (!bRet)
 	{
 		OperationHint(L"生成OBD结果数据失败");
 		return;
 	}
+
 	// 写入数据库
 	SetDboResultOfOBD(sResultOfOBD);
 	// 写入临时文件
@@ -418,7 +453,7 @@ void COBDTestDlg::StartItem(void)
 				SetTestLogAndVehDB(L"4", L"1", strMsg);
 				if (strMsg.IsEmpty())
 				{
-					OperationHint(L"修改完成, 可以正常操作");
+					OperationHint(L"OBD诊断完毕");
 				}
 				else
 				{
@@ -800,34 +835,66 @@ void COBDTestDlg::UpOBDReaust(const SResultOfOBD& sResultOfOBD, CString& strMsg)
 	strXmlDoc.AppendFormat(L"<jkid>%s</jkid>", L"JC011");
 	strXmlDoc.AppendFormat(L"<sjc>%s</sjc>", strsjc);
 	strXmlDoc.AppendFormat(L"</head><body><vehispara>");
+
+
+	//1		jylsh	varchar2(50)	not null	检验流水号(主键)	检测站编号(8位)+年月日(yymmdd 6位)+当日累计流水(5位)
 	strXmlDoc.AppendFormat(L"<jylsh>%s</jylsh>", sResultOfOBD.strRunningNumber.c_str());
+	//2		registCode	varchar2(50)	Not null	启动授权码	启动时环保软件传递的参数授权码
+	strXmlDoc.AppendFormat(L"<registCode>%s</registCode>",  theApp.m_strLineNum);
+	//3		businessId	varchar2(50)	Not null	检测业务标示	
 	strXmlDoc.AppendFormat(L"<businessId>%s</businessId>", sResultOfOBD.strRunningNumber.c_str());
+	//4		testtimes	number(3)	not null	检验次数(主键)	本检验周期内检验次数，免检为0
 	strXmlDoc.AppendFormat(L"<testtimes>%d</testtimes>", m_ntesttimes == 0 ? 1: m_ntesttimes);
 	strXmlDoc.AppendFormat(L"<tsno>%s</tsno>", theApp.m_strStationNum);
+	//5		jyksrq	date	null	检验开始时间	yyyy-mm-dd 24h:mi:ss
 	strXmlDoc.AppendFormat(L"<jyksrq>%s</jyksrq>", sResultOfOBD.strDetBegTime.c_str());
+	//6		jyjsrq	date	null	检验结束时间	yyyy-mm-dd 24h:mi:ss
 	strXmlDoc.AppendFormat(L"<jyjsrq>%s</jyjsrq>", sResultOfOBD.strDetEndTime.c_str());
+	//7		jyy	varchar2(20)	null	检验员	
 	strXmlDoc.AppendFormat(L"<jyy>%s</jyy>", (sResultOfOBD.strOperator.empty() ? L"刘家成" : sResultOfOBD.strOperator.c_str()));
+	//8		jyjg	varchar2(1)	null	检验结果	0-不通过 1-通过
 	strXmlDoc.AppendFormat(L"<jyjg>%s</jyjg>", L"1");
+	//9		obdzdyscqy	varchar2(100)	null	OBD 诊断仪生产企业	
 	strXmlDoc.AppendFormat(L"<obdzdyscqy>%s</obdzdyscqy>", L"佛山市南华仪器有限公司");
+	//10		obdzdyxh	varchar2(100)	null	OBD 诊断仪型号	
 	strXmlDoc.AppendFormat(L"<obdzdyxh>%s</obdzdyxh>", L"NHOBD-1");
+	//11		vin	varchar2(30)	null	车辆识别代号 VIN	OBD读取
 	strXmlDoc.AppendFormat(L"<vin>%s</vin>", sResultOfOBD.strVIN.c_str());
+	//12		obdyq	varchar2(30)	null	型式检验时的 OBD 要求	EOBD,OBDII,CN-OBD-6
 	strXmlDoc.AppendFormat(L"<obdyq>%s</obdyq>", sResultOfOBD.strOBDType.c_str());
+	//13		gzjg	varchar2(1)	null	OBD 系统故障指示器 	0-不合格 1-合格
 	strXmlDoc.AppendFormat(L"<gzjg>%s</gzjg>", L"1");
+	//14		tx	varchar2(1)	null	OBD通讯	0-不成功 1-成功
 	strXmlDoc.AppendFormat(L"<tx>%s</tx>", L"1");
+	//15		txbz	varchar2(200)	null	OBD通讯不成功原因	1-接口损坏  2-接口找不到  3-接口连接后不能通讯
 	strXmlDoc.AppendFormat(L"<txbz>%s</txbz>", L"");
+	//16		bj	varchar2(1)	null	OBD 系统故障指示器报警	0-有 1-无
 	strXmlDoc.AppendFormat(L"<bj>%s</bj>", L"1");
+	//17		bjbz	varchar2(200)	null	故障代码及故障信息	
 	strXmlDoc.AppendFormat(L"<bjbz>%s</bjbz>", L"");
+	//18		jxxm	varchar2(1)	null	就绪状态未完成项目	0-有 1-无
 	strXmlDoc.AppendFormat(L"<jxxm>%s</jxxm>", L"1");
+	//19		jxxmbz	varchar2(200)	null	就绪状态未完成项目明细	汽油：催化器、氧传感器 、氧传感器加热器 、废气再循环(EGR)/可变气门 VVT   柴油：SCR 、POC 、DOC 、DPF 、EGR
 	strXmlDoc.AppendFormat(L"<jxxmbz>%s</jxxmbz>", L"");
+	//20		odometer         	number(8)	null	里程表读数	km
 	strXmlDoc.AppendFormat(L"<odometer>%s</odometer>", L"0");
-	strXmlDoc.AppendFormat(L"<odomil>%s</odomil>", L"");
+	//21		odomil	number(8)	null	MIL 灯点亮后的行驶里程	km
+	strXmlDoc.AppendFormat(L"<odomil>%s</odomil>", L"0");
+	//22		enginecalid	varchar2(64)	null	发动机控制单元CAL ID 	
 	strXmlDoc.AppendFormat(L"<enginecalid>%s</enginecalid>", sResultOfOBD.strEngineCALID.c_str());
+	//23		enginecvn	varchar2(64)	null	发动机控制单元CVN	
 	strXmlDoc.AppendFormat(L"<enginecvn>%s</enginecvn>", sResultOfOBD.strEngineCVN.c_str());
+	//24		hclcalid	varchar2(64)	null	后处理控制单元CAL ID 	
 	strXmlDoc.AppendFormat(L"<hclcalid>%s</hclcalid>", L"");
+	//25		hclcvn	varchar2(64)	null	后处理控制单元CVN	
 	strXmlDoc.AppendFormat(L"<hclcvn>%s</hclcvn>", L"");
+	//26		calid	varchar2(64)	null	其他控制单元CAL ID 	
 	strXmlDoc.AppendFormat(L"<calid>%s</calid>", L"");
+	//27		cvn	varchar2(64)	null	其他控制单元CVN	
 	strXmlDoc.AppendFormat(L"<cvn>%s</cvn>", L"");
+	//28		iupr	varchar2(2000)	null		XML数据格式,以iuprs节点包含下面定义的iupr节点所定义的内容，如<iuprs><iupr>..</iupr></iuprs>
 	//strXmlDoc.AppendFormat(L"<iupr>%s</iupr>", L"");
+	strXmlDoc.AppendFormat(L"<iupr>%s</iupr>", OBDIURT(sResultOfOBD));
 	strXmlDoc.AppendFormat(L"</vehispara></body></root>");
 
 	std::wstring strRetStr;
@@ -940,5 +1007,290 @@ void COBDTestDlg::UpOBDStrat(CString& strMsg)
 	{
 		strMsg.Format(L"获取返回：\r\n%d\r\n%s", nRet, L"接口访问失败");
 	}
+}
+
+
+CString COBDTestDlg::OBDIURT(const SResultOfOBD& sResultOfOBD)
+{
+	CString strXMLDoc;
+
+	strXMLDoc.AppendFormat(L"<iuprs>");
+
+	CString strTemp, strTemp1;
+	//1-NMHC 催化器 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"NMHC催化器");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_NMHCC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_NMHCEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCCB1.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCECB1.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_CMCECB1.c_str()))/(_wtof(sResultOfOBD.strIUPR_CMCCB1.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//2-NOX 催化器 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"NOX催化器");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_NOXCC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_NOXCEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_NOXCC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_NOXCEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_NOXCEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_NOXCC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//3-NOX 吸附器 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"NOX吸附器");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_NOXAC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_NOXAEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_NOXAC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_NOXAEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_NOXAEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_NOXAC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//4-颗粒捕集器 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"颗粒捕集器");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_PMC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_PMEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_PMC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_PMEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_PMEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_PMC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//5-废气传感器 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"废气传感器");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_WSC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_WSEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_WSC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_WSEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_WSEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_WSC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//6-ERG和VVT
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"ERG和VVT");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_EGRC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_EGREC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_EGRC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_EGREC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_EGREC.c_str()))/(_wtof(sResultOfOBD.strIUPR_EGRC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//7-增压压力
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"增压压力");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_PPC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_PPEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_PPC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_PPEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_PPEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_PPC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	// 8-催化器组1
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"催化器组1");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_CMCCB1.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_CMCECB1.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCCB1.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCECB1.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_CMCECB1.c_str()))/(_wtof(sResultOfOBD.strIUPR_CMCCB1.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//9-催化器组 2 
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"催化器组2");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_CMCCB2.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_CMCECB2.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCCB2.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_CMCECB2.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_CMCECB2.c_str()))/(_wtof(sResultOfOBD.strIUPR_CMCCB2.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//10-前氧传感 器组 1
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"前氧传感器组1");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_O2SMCCB1.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_O2SMCECB1.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_O2SMCCB1.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_O2SMCECB1.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_O2SMCECB1.c_str()))/(_wtof(sResultOfOBD.strIUPR_O2SMCCB1.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//11- 前氧传感器组 2
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"前氧传感器组2");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_O2SMCCB2.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_O2SMCECB2.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_O2SMCCB2.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_O2SMCECB2.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_O2SMCECB2.c_str()))/(_wtof(sResultOfOBD.strIUPR_O2SMCCB2.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//12-后氧传感器组 1
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"后氧传感器组1");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_RO2SMCCB1.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_RO2SMCECB1.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_RO2SMCCB1.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_RO2SMCECB1.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_RO2SMCECB1.c_str()))/(_wtof(sResultOfOBD.strIUPR_RO2SMCCB1.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//13- 后氧传感器组 2
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"后氧传感器组2");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_RO2SMCCB2.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_RO2SMCECB2.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_RO2SMCCB2.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_RO2SMCECB2.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_RO2SMCECB2.c_str()))/(_wtof(sResultOfOBD.strIUPR_RO2SMCCB2.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//14-EVAP
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"EVAP");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_EVAPC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_EVAPEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_EVAPC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_EVAPEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_EVAPEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_EVAPC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//16-GPF 组 1
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"GPF组1");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_GPFC1.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_GPFEC1.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_GPFC1.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_GPFEC1.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_GPFEC1.c_str()))/(_wtof(sResultOfOBD.strIUPR_GPFC1.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//17-GPF 组 2
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"GPF组2");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_GPFC2.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_GPFEC2.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_GPFC2.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_GPFEC2.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_GPFEC2.c_str()))/(_wtof(sResultOfOBD.strIUPR_GPFC2.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+	//18-二次空气喷射系统
+	strXMLDoc.AppendFormat(L"<iupr>");
+	strXMLDoc.AppendFormat(L"<jcxmmc>%s</jcxmmc>", L"二次空气喷射系统");
+	strXMLDoc.AppendFormat(L"<jcwccs>%s</jcwccs>", sResultOfOBD.strIUPR_AMCCC.c_str());
+	strXMLDoc.AppendFormat(L"<fhjctjcs>%s</fhjctjcs>", sResultOfOBD.strIUPR_AMCEC.c_str());
+	strTemp.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_AMCCC.c_str()));
+	strTemp1.Format(L"%d", _wtoi(sResultOfOBD.strIUPR_AMCEC.c_str()));
+	if (strTemp == L"0" || strTemp1 == L"0")
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%s</iuprl>", L"0");
+	}
+	else
+	{
+		strXMLDoc.AppendFormat(L"<iuprl>%.2f</iuprl>", ((_wtof(sResultOfOBD.strIUPR_AMCEC.c_str()))/(_wtof(sResultOfOBD.strIUPR_AMCCC.c_str()))));
+	}
+	strXMLDoc.AppendFormat(L"</iupr>");
+
+	strXMLDoc.AppendFormat(L"</iuprs>");
+	return strXMLDoc;
 }
 

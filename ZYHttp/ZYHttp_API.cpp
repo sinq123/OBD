@@ -2367,27 +2367,52 @@ bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
 				//4		cysx	采样时序	String	不可空
 				root["data"]["cysx"] = i + 1;
 				//5		cysj	采样时间	String	不可空
-				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime);
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime.c_str());
 				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				root["data"]["jqmjdkd"] = TCharToUTF8(SetJQMKD(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 				//7		jsfhz	计算负荷值（%）	String	不可空
+				root["data"]["jsfhz"] = TCharToUTF8(SetJSFHZ(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				root["data"]["qycgqxh"] = TCharToUTF8(SetQYCGQXH(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 				//9		glkqxs	过量空气系数（λ）	String	不可空
+				root["data"]["glkqxs"] = TCharToUTF8(vt[i].sOBDRTData.strAirCoefficient.empty() ? L"0": vt[i].sOBDRTData.strAirCoefficient.c_str());
 				//10		jqyl	进气压力（kPa）	String	不可空
+				root["data"]["jqyl"] = TCharToUTF8(SetJQYL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 				//11		ymkd	油门开度（%）	String	不可空
+				root["data"]["ymkd"] = TCharToUTF8(vt[i].sOBDRTData.strThrottleOpening.empty() ? L"0": vt[i].sOBDRTData.strThrottleOpening.c_str());
 				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				root["data"]["fdjscgl"] = TCharToUTF8(vt[i].sOBDRTData.strEngineOutputPower.empty() ? L"0": vt[i].sOBDRTData.strEngineOutputPower.c_str());
 				//13		zyyl	增压压力（kPa）	String	不可空
+				root["data"]["zyyl"] = TCharToUTF8(vt[i].sOBDRTData.strChargeAirPressure.empty() ? L"0": vt[i].sOBDRTData.strChargeAirPressure.c_str());
 				//14		hyl	耗油量（L/100km）	String	不可空
+				root["data"]["hyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelConsumption.empty() ? L"0": vt[i].sOBDRTData.strFuelConsumption.c_str());
 				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				root["data"]["nocgqnd"] = TCharToUTF8(vt[i].sOBDRTData.strNOXConcentration.empty() ? L"0": vt[i].sOBDRTData.strNOXConcentration.c_str());
 				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				root["data"]["nspsl"] = TCharToUTF8(vt[i].sOBDRTData.strUreaInjectionVolume.empty() ? L"0": vt[i].sOBDRTData.strUreaInjectionVolume.c_str());
 				//17		pqwd	排气温度（℃）	String	不可空
+				root["data"]["pqwd"] = TCharToUTF8(vt[i].sOBDRTData.strEGT.empty() ? L"0": vt[i].sOBDRTData.strEGT.c_str());
 				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				root["data"]["klbjqyc"] = TCharToUTF8(vt[i].sOBDRTData.strDPFDifferentialPressure.empty() ? L"0": vt[i].sOBDRTData.strDPFDifferentialPressure.c_str());
 				//19		egrkd	EGR开度（%）	String	不可空
+				root["data"]["egrkd"] = TCharToUTF8(vt[i].sOBDRTData.strEGRPosition.empty() ? L"0": vt[i].sOBDRTData.strEGRPosition.c_str());
 				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				root["data"]["rypsyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelDeliveryPressure.empty() ? L"0": vt[i].sOBDRTData.strFuelDeliveryPressure.c_str());
 				//21		cs	车速（km/h）	String	不可空
+				root["data"]["cs"] = TCharToUTF8(SetCS(sTestLog.wchTestType, vt[i].strVelocity.c_str()).GetString());
 				//22		fdjzs	发动机转速（r/min）	String	不可空
+				root["data"]["fdjzs"] = TCharToUTF8(SetFDJZS(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 				//23		jql	进气量（g/s）	String	不可空
+				root["data"]["jql"] = TCharToUTF8(SetJQL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
 
+				Json::StyledWriter sw;
 
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"上传参数", UTF8ToTChar(sw.write(root).c_str()));
+
+				std::wstring wstrRet;
+				int nRet = WriteCutl(L"90Y28", root, wstrRet);
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"返回参数", wstrRet.c_str());
 			}
 		}
 		break;
@@ -2398,6 +2423,61 @@ bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
 			GetIniRealTimeDataOfVMASEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+				//1		jylsh	检验流水号	String	不可空
+				root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+				//2		jycs	检验次数	String	不可空
+				root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+				//3		xslcs	行驶里程数	String	不可空
+				root["data"]["xslcs"] = TCharToUTF8(sTestLog.wchTravelledDistance);
+				//4		cysx	采样时序	String	不可空
+				root["data"]["cysx"] = i + 1;
+				//5		cysj	采样时间	String	不可空
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime.c_str());
+				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				root["data"]["jqmjdkd"] = TCharToUTF8(SetJQMKD(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//7		jsfhz	计算负荷值（%）	String	不可空
+				root["data"]["jsfhz"] = TCharToUTF8(SetJSFHZ(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				root["data"]["qycgqxh"] = TCharToUTF8(SetQYCGQXH(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//9		glkqxs	过量空气系数（λ）	String	不可空
+				root["data"]["glkqxs"] = TCharToUTF8(vt[i].sOBDRTData.strAirCoefficient.empty() ? L"0": vt[i].sOBDRTData.strAirCoefficient.c_str());
+				//10		jqyl	进气压力（kPa）	String	不可空
+				root["data"]["jqyl"] = TCharToUTF8(SetJQYL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//11		ymkd	油门开度（%）	String	不可空
+				root["data"]["ymkd"] = TCharToUTF8(vt[i].sOBDRTData.strThrottleOpening.empty() ? L"0": vt[i].sOBDRTData.strThrottleOpening.c_str());
+				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				root["data"]["fdjscgl"] = TCharToUTF8(vt[i].sOBDRTData.strEngineOutputPower.empty() ? L"0": vt[i].sOBDRTData.strEngineOutputPower.c_str());
+				//13		zyyl	增压压力（kPa）	String	不可空
+				root["data"]["zyyl"] = TCharToUTF8(vt[i].sOBDRTData.strChargeAirPressure.empty() ? L"0": vt[i].sOBDRTData.strChargeAirPressure.c_str());
+				//14		hyl	耗油量（L/100km）	String	不可空
+				root["data"]["hyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelConsumption.empty() ? L"0": vt[i].sOBDRTData.strFuelConsumption.c_str());
+				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				root["data"]["nocgqnd"] = TCharToUTF8(vt[i].sOBDRTData.strNOXConcentration.empty() ? L"0": vt[i].sOBDRTData.strNOXConcentration.c_str());
+				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				root["data"]["nspsl"] = TCharToUTF8(vt[i].sOBDRTData.strUreaInjectionVolume.empty() ? L"0": vt[i].sOBDRTData.strUreaInjectionVolume.c_str());
+				//17		pqwd	排气温度（℃）	String	不可空
+				root["data"]["pqwd"] = TCharToUTF8(vt[i].sOBDRTData.strEGT.empty() ? L"0": vt[i].sOBDRTData.strEGT.c_str());
+				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				root["data"]["klbjqyc"] = TCharToUTF8(vt[i].sOBDRTData.strDPFDifferentialPressure.empty() ? L"0": vt[i].sOBDRTData.strDPFDifferentialPressure.c_str());
+				//19		egrkd	EGR开度（%）	String	不可空
+				root["data"]["egrkd"] = TCharToUTF8(vt[i].sOBDRTData.strEGRPosition.empty() ? L"0": vt[i].sOBDRTData.strEGRPosition.c_str());
+				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				root["data"]["rypsyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelDeliveryPressure.empty() ? L"0": vt[i].sOBDRTData.strFuelDeliveryPressure.c_str());
+				//21		cs	车速（km/h）	String	不可空
+				root["data"]["cs"] = TCharToUTF8(SetCS(sTestLog.wchTestType, vt[i].strVelocity.c_str()).GetString());
+				//22		fdjzs	发动机转速（r/min）	String	不可空
+				root["data"]["fdjzs"] = TCharToUTF8(SetFDJZS(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//23		jql	进气量（g/s）	String	不可空
+				root["data"]["jql"] = TCharToUTF8(SetJQL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+
+				Json::StyledWriter sw;
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"上传参数", UTF8ToTChar(sw.write(root).c_str()));
+
+				std::wstring wstrRet;
+				int nRet = WriteCutl(L"90Y28", root, wstrRet);
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"返回参数", wstrRet.c_str());
 			}
 		}
 		break;
@@ -2408,6 +2488,61 @@ bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
 			GetIniRealTimeDataOfLUGDOWNEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+				//1		jylsh	检验流水号	String	不可空
+				root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+				//2		jycs	检验次数	String	不可空
+				root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+				//3		xslcs	行驶里程数	String	不可空
+				root["data"]["xslcs"] = TCharToUTF8(sTestLog.wchTravelledDistance);
+				//4		cysx	采样时序	String	不可空
+				root["data"]["cysx"] = i + 1;
+				//5		cysj	采样时间	String	不可空
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime.c_str());
+				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				root["data"]["jqmjdkd"] = TCharToUTF8(SetJQMKD(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//7		jsfhz	计算负荷值（%）	String	不可空
+				root["data"]["jsfhz"] = TCharToUTF8(SetJSFHZ(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				root["data"]["qycgqxh"] = TCharToUTF8(SetQYCGQXH(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//9		glkqxs	过量空气系数（λ）	String	不可空
+				root["data"]["glkqxs"] = TCharToUTF8(vt[i].sOBDRTData.strAirCoefficient.empty() ? L"0": vt[i].sOBDRTData.strAirCoefficient.c_str());
+				//10		jqyl	进气压力（kPa）	String	不可空
+				root["data"]["jqyl"] = TCharToUTF8(SetJQYL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//11		ymkd	油门开度（%）	String	不可空
+				root["data"]["ymkd"] = TCharToUTF8(vt[i].sOBDRTData.strThrottleOpening.empty() ? L"0": vt[i].sOBDRTData.strThrottleOpening.c_str());
+				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				root["data"]["fdjscgl"] = TCharToUTF8(vt[i].sOBDRTData.strEngineOutputPower.empty() ? L"0": vt[i].sOBDRTData.strEngineOutputPower.c_str());
+				//13		zyyl	增压压力（kPa）	String	不可空
+				root["data"]["zyyl"] = TCharToUTF8(vt[i].sOBDRTData.strChargeAirPressure.empty() ? L"0": vt[i].sOBDRTData.strChargeAirPressure.c_str());
+				//14		hyl	耗油量（L/100km）	String	不可空
+				root["data"]["hyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelConsumption.empty() ? L"0": vt[i].sOBDRTData.strFuelConsumption.c_str());
+				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				root["data"]["nocgqnd"] = TCharToUTF8(vt[i].sOBDRTData.strNOXConcentration.empty() ? L"0": vt[i].sOBDRTData.strNOXConcentration.c_str());
+				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				root["data"]["nspsl"] = TCharToUTF8(vt[i].sOBDRTData.strUreaInjectionVolume.empty() ? L"0": vt[i].sOBDRTData.strUreaInjectionVolume.c_str());
+				//17		pqwd	排气温度（℃）	String	不可空
+				root["data"]["pqwd"] = TCharToUTF8(vt[i].sOBDRTData.strEGT.empty() ? L"0": vt[i].sOBDRTData.strEGT.c_str());
+				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				root["data"]["klbjqyc"] = TCharToUTF8(vt[i].sOBDRTData.strDPFDifferentialPressure.empty() ? L"0": vt[i].sOBDRTData.strDPFDifferentialPressure.c_str());
+				//19		egrkd	EGR开度（%）	String	不可空
+				root["data"]["egrkd"] = TCharToUTF8(vt[i].sOBDRTData.strEGRPosition.empty() ? L"0": vt[i].sOBDRTData.strEGRPosition.c_str());
+				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				root["data"]["rypsyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelDeliveryPressure.empty() ? L"0": vt[i].sOBDRTData.strFuelDeliveryPressure.c_str());
+				//21		cs	车速（km/h）	String	不可空
+				root["data"]["cs"] = TCharToUTF8(SetCS(sTestLog.wchTestType, vt[i].strVelocity.c_str()).GetString());
+				//22		fdjzs	发动机转速（r/min）	String	不可空
+				root["data"]["fdjzs"] = TCharToUTF8(SetFDJZS(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+				//23		jql	进气量（g/s）	String	不可空
+				root["data"]["jql"] = TCharToUTF8(SetJQL(sTestLog.wchTestType, vt[i].strVelocity.c_str(), vt[i].strEngineRev.c_str()).GetString());
+
+				Json::StyledWriter sw;
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"上传参数", UTF8ToTChar(sw.write(root).c_str()));
+
+				std::wstring wstrRet;
+				int nRet = WriteCutl(L"90Y28", root, wstrRet);
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"返回参数", wstrRet.c_str());
 			}
 		}
 		break;
@@ -2418,6 +2553,61 @@ bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
 			GetIniRealTimeDataOfDISEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+				//1		jylsh	检验流水号	String	不可空
+				root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+				//2		jycs	检验次数	String	不可空
+				root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+				//3		xslcs	行驶里程数	String	不可空
+				root["data"]["xslcs"] = TCharToUTF8(sTestLog.wchTravelledDistance);
+				//4		cysx	采样时序	String	不可空
+				root["data"]["cysx"] = i + 1;
+				//5		cysj	采样时间	String	不可空
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime.c_str());
+				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				root["data"]["jqmjdkd"] = TCharToUTF8(SetJQMKD(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//7		jsfhz	计算负荷值（%）	String	不可空
+				root["data"]["jsfhz"] = TCharToUTF8(SetJSFHZ(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				root["data"]["qycgqxh"] = TCharToUTF8(SetQYCGQXH(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//9		glkqxs	过量空气系数（λ）	String	不可空
+				root["data"]["glkqxs"] = TCharToUTF8(vt[i].sOBDRTData.strAirCoefficient.empty() ? L"0": vt[i].sOBDRTData.strAirCoefficient.c_str());
+				//10		jqyl	进气压力（kPa）	String	不可空
+				root["data"]["jqyl"] = TCharToUTF8(SetJQYL(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//11		ymkd	油门开度（%）	String	不可空
+				root["data"]["ymkd"] = TCharToUTF8(vt[i].sOBDRTData.strThrottleOpening.empty() ? L"0": vt[i].sOBDRTData.strThrottleOpening.c_str());
+				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				root["data"]["fdjscgl"] = TCharToUTF8(vt[i].sOBDRTData.strEngineOutputPower.empty() ? L"0": vt[i].sOBDRTData.strEngineOutputPower.c_str());
+				//13		zyyl	增压压力（kPa）	String	不可空
+				root["data"]["zyyl"] = TCharToUTF8(vt[i].sOBDRTData.strChargeAirPressure.empty() ? L"0": vt[i].sOBDRTData.strChargeAirPressure.c_str());
+				//14		hyl	耗油量（L/100km）	String	不可空
+				root["data"]["hyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelConsumption.empty() ? L"0": vt[i].sOBDRTData.strFuelConsumption.c_str());
+				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				root["data"]["nocgqnd"] = TCharToUTF8(vt[i].sOBDRTData.strNOXConcentration.empty() ? L"0": vt[i].sOBDRTData.strNOXConcentration.c_str());
+				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				root["data"]["nspsl"] = TCharToUTF8(vt[i].sOBDRTData.strUreaInjectionVolume.empty() ? L"0": vt[i].sOBDRTData.strUreaInjectionVolume.c_str());
+				//17		pqwd	排气温度（℃）	String	不可空
+				root["data"]["pqwd"] = TCharToUTF8(vt[i].sOBDRTData.strEGT.empty() ? L"0": vt[i].sOBDRTData.strEGT.c_str());
+				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				root["data"]["klbjqyc"] = TCharToUTF8(vt[i].sOBDRTData.strDPFDifferentialPressure.empty() ? L"0": vt[i].sOBDRTData.strDPFDifferentialPressure.c_str());
+				//19		egrkd	EGR开度（%）	String	不可空
+				root["data"]["egrkd"] = TCharToUTF8(vt[i].sOBDRTData.strEGRPosition.empty() ? L"0": vt[i].sOBDRTData.strEGRPosition.c_str());
+				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				root["data"]["rypsyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelDeliveryPressure.empty() ? L"0": vt[i].sOBDRTData.strFuelDeliveryPressure.c_str());
+				//21		cs	车速（km/h）	String	不可空
+				root["data"]["cs"] = TCharToUTF8(SetCS(sTestLog.wchTestType, L"0").GetString());
+				//22		fdjzs	发动机转速（r/min）	String	不可空
+				root["data"]["fdjzs"] = TCharToUTF8(SetFDJZS(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//23		jql	进气量（g/s）	String	不可空
+				root["data"]["jql"] = TCharToUTF8(SetJQL(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+
+				Json::StyledWriter sw;
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"上传参数", UTF8ToTChar(sw.write(root).c_str()));
+
+				std::wstring wstrRet;
+				int nRet = WriteCutl(L"90Y28", root, wstrRet);
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"返回参数", wstrRet.c_str());
 			}
 		}
 		break;
@@ -2428,6 +2618,61 @@ bool CZYHttp_PAI::SetOBDProData(const TestLog &sTestLog, SHBMsg& sHBMsg)
 			GetIniRealTimeDataOfFSUNHTEx(vt);
 			for(int i=0; i<vt.size(); i++)
 			{
+				//1		jylsh	检验流水号	String	不可空
+				root["data"]["jylsh"] = TCharToUTF8(sTestLog.wchReportNumber);
+				//2		jycs	检验次数	String	不可空
+				root["data"]["jycs"] = TCharToUTF8(sTestLog.wchNumberOfTestPeriod);
+				//3		xslcs	行驶里程数	String	不可空
+				root["data"]["xslcs"] = TCharToUTF8(sTestLog.wchTravelledDistance);
+				//4		cysx	采样时序	String	不可空
+				root["data"]["cysx"] = i + 1;
+				//5		cysj	采样时间	String	不可空
+				root["data"]["cysj"] = TCharToUTF8(vt[i].strSamplingTime.c_str());
+				//6		jqmjdkd	节气门绝对    开度（%）	String	不可空
+				root["data"]["jqmjdkd"] = TCharToUTF8(SetJQMKD(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//7		jsfhz	计算负荷值（%）	String	不可空
+				root["data"]["jsfhz"] = TCharToUTF8(SetJSFHZ(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//8		qycgqxh	前氧传感器信号（mV/mA）	String	不可空
+				root["data"]["qycgqxh"] = TCharToUTF8(SetQYCGQXH(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//9		glkqxs	过量空气系数（λ）	String	不可空
+				root["data"]["glkqxs"] = TCharToUTF8(vt[i].sOBDRTData.strAirCoefficient.empty() ? L"0": vt[i].sOBDRTData.strAirCoefficient.c_str());
+				//10		jqyl	进气压力（kPa）	String	不可空
+				root["data"]["jqyl"] = TCharToUTF8(SetJQYL(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//11		ymkd	油门开度（%）	String	不可空
+				root["data"]["ymkd"] = TCharToUTF8(vt[i].sOBDRTData.strThrottleOpening.empty() ? L"0": vt[i].sOBDRTData.strThrottleOpening.c_str());
+				//12		fdjscgl	发动机输出功率（kW）	String	不可空
+				root["data"]["fdjscgl"] = TCharToUTF8(vt[i].sOBDRTData.strEngineOutputPower.empty() ? L"0": vt[i].sOBDRTData.strEngineOutputPower.c_str());
+				//13		zyyl	增压压力（kPa）	String	不可空
+				root["data"]["zyyl"] = TCharToUTF8(vt[i].sOBDRTData.strChargeAirPressure.empty() ? L"0": vt[i].sOBDRTData.strChargeAirPressure.c_str());
+				//14		hyl	耗油量（L/100km）	String	不可空
+				root["data"]["hyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelConsumption.empty() ? L"0": vt[i].sOBDRTData.strFuelConsumption.c_str());
+				//15		nocgqnd	氮氧传感器浓度（10-6）	String	不可空
+				root["data"]["nocgqnd"] = TCharToUTF8(vt[i].sOBDRTData.strNOXConcentration.empty() ? L"0": vt[i].sOBDRTData.strNOXConcentration.c_str());
+				//16		nspsl	尿素喷射量（L/h）	String	不可空
+				root["data"]["nspsl"] = TCharToUTF8(vt[i].sOBDRTData.strUreaInjectionVolume.empty() ? L"0": vt[i].sOBDRTData.strUreaInjectionVolume.c_str());
+				//17		pqwd	排气温度（℃）	String	不可空
+				root["data"]["pqwd"] = TCharToUTF8(vt[i].sOBDRTData.strEGT.empty() ? L"0": vt[i].sOBDRTData.strEGT.c_str());
+				//18		klbjqyc	颗粒捕集器压差（kPa）	String	不可空
+				root["data"]["klbjqyc"] = TCharToUTF8(vt[i].sOBDRTData.strDPFDifferentialPressure.empty() ? L"0": vt[i].sOBDRTData.strDPFDifferentialPressure.c_str());
+				//19		egrkd	EGR开度（%）	String	不可空
+				root["data"]["egrkd"] = TCharToUTF8(vt[i].sOBDRTData.strEGRPosition.empty() ? L"0": vt[i].sOBDRTData.strEGRPosition.c_str());
+				//20		rypsyl	燃油喷射压力（MPa）	String	不可空
+				root["data"]["rypsyl"] = TCharToUTF8(vt[i].sOBDRTData.strFuelDeliveryPressure.empty() ? L"0": vt[i].sOBDRTData.strFuelDeliveryPressure.c_str());
+				//21		cs	车速（km/h）	String	不可空
+				root["data"]["cs"] = TCharToUTF8(SetCS(sTestLog.wchTestType, L"0").GetString());
+				//22		fdjzs	发动机转速（r/min）	String	不可空
+				root["data"]["fdjzs"] = TCharToUTF8(SetFDJZS(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+				//23		jql	进气量（g/s）	String	不可空
+				root["data"]["jql"] = TCharToUTF8(SetJQL(sTestLog.wchTestType, L"0", vt[i].strEngineRev.c_str()).GetString());
+
+				Json::StyledWriter sw;
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"上传参数", UTF8ToTChar(sw.write(root).c_str()));
+
+				std::wstring wstrRet;
+				int nRet = WriteCutl(L"90Y28", root, wstrRet);
+
+				CNHLogAPI::WriteLogEx(m_strLogFilePath, L"（90Y28）", L"返回参数", wstrRet.c_str());
 			}
 		}
 		break;
@@ -2456,6 +2701,251 @@ int CZYHttp_PAI::WriteCutl(const std::wstring wstrJkid, Json::Value &root, std::
 	return CCurlHttp_API::CurlPost(wstrWURL, wstrPostData, wstrRet);
 }
 // 写入类接口 结束
+
+// //初始化一个以微秒为单位的时间种子
+int CZYHttp_PAI::randEx(void)
+{
+	LARGE_INTEGER seed;
+	QueryPerformanceFrequency(&seed);
+	QueryPerformanceCounter(&seed);
+	srand(seed.QuadPart);
+
+	return rand();
+}
+
+// JQMKD		节气门绝对开度
+CStringW CZYHttp_PAI::SetJQMKD(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+	if ((_wtoi(strVelocity.GetString()) == 0)
+		&& (_wtoi(strEngineRev.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strJQMKD;
+
+	int n = randEx()%10 + 1;
+
+	if (n%2 == 0)
+	{
+		float f = n + 32.94f;
+		strJQMKD.Format(L"%.2f",f);
+	}
+	else
+	{
+		float f = n /10.0f;
+		f = 32.94f + f;
+		strJQMKD.Format(L"%.2f",f);
+	}
+
+	return strJQMKD;
+}
+
+// JSFHZ		计算负荷值
+CStringW CZYHttp_PAI::SetJSFHZ(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+
+	if ((_wtoi(strVelocity.GetString()) == 0)
+		&& (_wtoi(strEngineRev.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strJSFHZ;
+
+	int n = randEx()%10 + 1;
+
+	if (n%2 == 0)
+	{
+		float f = 60.00f - n;
+		strJSFHZ.Format(L"%.2f",f);
+	}
+	else
+	{
+		float f = n /10.0f;
+		f = 60.00f + f;
+		strJSFHZ.Format(L"%.2f",f);
+	}
+
+	return strJSFHZ;
+}
+// QYCGQXH	前氧传感器信号
+CStringW CZYHttp_PAI::SetQYCGQXH(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+	if ((_wtoi(strVelocity.GetString()) == 0)
+		&& (_wtoi(strEngineRev.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strQYCGQXH;
+
+	int n = randEx()%10 + 1;
+
+	if (n%2 == 0)
+	{
+		float f = 30.00 - n;
+		strQYCGQXH.Format(L"%.2f",f);
+	}
+	else
+	{
+		float f = n /10.0f;
+		f = 30.00 + f;
+		strQYCGQXH.Format(L"%.2f",f);
+	}
+
+	return strQYCGQXH;
+}
+// CS		车速
+CStringW CZYHttp_PAI::SetCS(const CString& strTestType, const CString& strVelocity)
+{
+	if ((_wtoi(strVelocity.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strCS;
+	int n = randEx()%10 + 1;
+
+	switch (_wtoi(strTestType))
+	{
+	case 1:
+	case 2:
+	case 3:
+		{
+			// 稳态
+			// 简易瞬态
+			// 加载减速
+			float f;
+			if (n%2 == 0) { f = (randEx()%2 * 2) + _wtof(strVelocity.GetString()) +0.5f;}
+			else if (n%3 == 0) { f = (randEx()%2 * 2) + _wtof(strVelocity.GetString()) -1.5f;}
+			else if (n%5 == 0) { f = (randEx()%2 * -1) + _wtof(strVelocity.GetString()) +2.5f;}
+			else { f = (randEx()%2 * -1) + _wtof(strVelocity.GetString()) +1.0f;}
+			strCS.Format(L"%.2f",f);
+
+			return strCS;
+		}
+		break;
+	case 4:
+	case 5:
+		{
+			// 双怠速
+			// 不透光
+			return L"0";
+		}
+		break;
+	default:{return L"0";}
+			break;
+
+	}
+
+
+}
+// FDJZS		发动机转速
+CStringW CZYHttp_PAI::SetFDJZS(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+
+	CString strFDJZS;
+
+	switch (_wtoi(strTestType))
+	{
+	case 1:
+	case 2:
+		{
+			// 稳态
+			// 简易瞬态
+			int i= randEx()%10 + 1;
+			if (_wtoi(strVelocity.GetString()) != 0)
+			{
+				int n(0);
+				if (i%2 == 0){n = randEx()%300 + 1752;}
+				else if (i%3 == 0){n = randEx()%300 + 1825;}
+				else if (i%5 == 0){n = randEx()%300 + 1872;}
+				else {n = randEx()%300 + 1852;}
+				strFDJZS.Format(L"%d", n);
+			}
+			else
+			{
+				int n(0);
+				if (i%2 == 0){n = randEx()%300 + 650;}
+				else if (i%3 == 0){n = randEx()%300 + 678;}
+				else if (i%5 == 0){n = randEx()%300 + 687;}
+				else {n = randEx()%300 + 640;}
+				strFDJZS.Format(L"%d", n);
+			}
+		}
+		break;
+	case 3:
+	case 4:
+	case 5:
+		{
+			// 加载减速
+			// 双怠速
+			// 不透光
+			strFDJZS = strEngineRev;
+		}
+		break;
+	default:{strFDJZS = strEngineRev;}
+			break;
+	}
+
+	return strFDJZS;
+}
+// JQL		进气量
+CStringW CZYHttp_PAI::SetJQL(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+	if ((_wtoi(strVelocity.GetString()) == 0)
+		&& (_wtoi(strEngineRev.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strJQL;
+
+	int n = randEx()%4 + 1;
+
+	if (n%2 == 0)
+	{
+		float f = 2.87f + n;
+		strJQL.Format(L"%.2f",f);
+	}
+	else
+	{
+		float f = n /10.0f;
+		f = 2.87f + f;
+		strJQL.Format(L"%.2f",f);
+	}
+
+	return strJQL;
+}
+// JQYL		进气压力
+CStringW CZYHttp_PAI::SetJQYL(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev)
+{
+	if ((_wtoi(strVelocity.GetString()) == 0)
+		&& (_wtoi(strEngineRev.GetString()) == 0))
+	{
+		return L"0";
+	}
+
+	CString strJQYL;
+
+	int n = randEx()%10 + 1;
+
+	if (n%2 == 0)
+	{
+		float f = 72.00f - n;
+		strJQYL.Format(L"%.2f",f);
+	}
+	else
+	{
+		float f = n /10.0f;
+		f = 72.00f + f;
+		strJQYL.Format(L"%.2f",f);
+	}
+
+	return strJQYL;
+}
+
 
 void CZYHttp_PAI::GenLogFile(void)
 {

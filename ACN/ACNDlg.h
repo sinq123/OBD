@@ -94,6 +94,11 @@ public:
 	CButton m_edchkSQL;
 	CButton m_edIntet;
 
+
+	CEdit m_edCALID;
+	CEdit m_edCVN;
+	CEdit m_edOBDType;
+
 public:
 	// 获取配置信息
 	void SetConfig(void);

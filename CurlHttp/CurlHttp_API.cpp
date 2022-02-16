@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CurlHttp_API.h"
 #include "kutfconv.h"
+#include <iostream>
 
 #define CURL_STATICLIB
 #include "libcURL\include\curl.h"
@@ -23,12 +24,92 @@ static size_t GetPageString(void *ptr, size_t size, size_t nmemb, void *userdata
 	return (size * nmemb);
 }
 
+static size_t DownFile(void * ptr, size_t size, size_t nmemb, FILE *stream)
+{
+	//参数stream是存放数据的指针  其他三个获取内容
+	size_t written = fwrite(ptr, size, nmemb, stream);
+	return written;
+}
+
 CCurlHttp_API::CCurlHttp_API(void)
 {
 }
 
 CCurlHttp_API::~CCurlHttp_API(void)
 {
+}
+
+int CCurlHttp_API::download_file(const std::wstring &wstrURL, const std::wstring &wstrFilePath)
+{
+	int nRet(99);
+
+	CURL *curl;
+	FILE *fp;
+	CURLcode nRetCode;
+	/*   调用curl_global_init()初始化libcurl  */
+	nRetCode = curl_global_init(CURL_GLOBAL_ALL);
+
+	if (CURLE_OK != nRetCode)
+	{
+		printf("init libcurl failed.");
+		curl_global_cleanup();
+		return -1;
+	}
+
+	/*  调用curl_easy_init()函数得到 easy interface型指针  */
+	curl = curl_easy_init();
+
+	if (curl)
+	{
+		std::string strFilePath = TCharToANSI(wstrFilePath.c_str());
+		fopen_s(&fp, strFilePath.c_str(),"wb");
+		// 设置地址
+		std::string strURL = TCharToANSI(wstrURL.c_str());
+		nRetCode = curl_easy_setopt(curl, CURLOPT_URL, strURL.c_str());
+		if (nRetCode != CURLE_OK)
+		{
+			fclose(fp);
+			curl_easy_cleanup(curl);
+			return -1;
+		}
+		/*  根据curl_easy_setopt()设置的传输选项，实现回调函数以完成用户特定任务  */
+		nRetCode = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, DownFile);
+		if (nRetCode != CURLE_OK)
+		{
+			fclose(fp);
+			curl_easy_cleanup(curl);
+			return -1;
+		}
+		/*  根据curl_easy_setopt()设置的传输选项，实现回调函数以完成用户特定任务  */
+		nRetCode = curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+		if (nRetCode != CURLE_OK)
+		{
+			fclose(fp);
+			curl_easy_cleanup(curl);
+			return -1;
+		}
+
+		nRetCode = curl_easy_perform(curl);
+		// 调用curl_easy_perform()函数完成传输任务
+		fclose(fp);
+		/* Check for errors */
+		if(nRetCode != CURLE_OK)
+		{
+			fprintf(stderr, "curl_easy_perform() failed: %s\n",curl_easy_strerror(nRetCode));
+			curl_easy_cleanup(curl);
+			return -1;
+		}
+
+		curl_easy_cleanup(curl);
+		// 调用curl_easy_cleanup()释放内存
+		curl_global_cleanup();
+	}
+	else
+	{
+		//wstrRet = L"CURL 初始化失败";
+	}
+
+	return nRet;
 }
 
 int CCurlHttp_API::CurlPost(const std::wstring &wstrURL, const std::wstring &wstrPostData, std::wstring &wstrRet)

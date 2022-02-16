@@ -270,6 +270,12 @@ void CACOBDTDlg::OnBnClickedBtnNext()
 		return;
 	}
 
+	if (m_pConnection == NULL)
+	{
+		AfxMessageBox(L"未连接数据库不允许操作");
+		return;
+	}
+
 	COBDTestDlg dlg;
 	CString str;
 
@@ -888,14 +894,20 @@ void CACOBDTDlg::UpdateVehicleList(short const siTestType/* = 0*/, CString strFi
 	std::wstring strRetStr(L"");
 	int nRet;
 	//nRet = CACInterfaceLib_API::QueryObjectOut(m_pchURL, strXmlDoc.GetString(), strRetStr);
+#ifndef _DEBUG
 	nRet = CACHBIntLib_API::QueryObjectOut(theApp.m_pchURL, strXmlDoc.GetString(), strRetStr);
-
+#else
+	nRet = 0;
+#endif
 	if (nRet == 0)
 	{
-		strRetStr = (LPCTSTR)theApp.DecodeURI(strRetStr.c_str());
-
+		//strRetStr = (LPCTSTR)theApp.DecodeURI(strRetStr.c_str());
 		CXmlReader xmlReader;
+#ifndef _DEBUG
 		if (xmlReader.Parse(strRetStr.c_str()))
+#else
+		if (xmlReader.LoadFile(L"F:\\程序\\OBD\\OBD\\ACOBDT\\GetObd.xml"))
+#endif
 		{
 			std::wstring strCode, strContent, str;
 			if (xmlReader.OpenNode(L"root/head/code"))
@@ -912,8 +924,7 @@ void CACOBDTDlg::UpdateVehicleList(short const siTestType/* = 0*/, CString strFi
 				if (xmlReader.OpenNode(L"root/body/vehispara"))
 				{
 					int nItem(0);
-					std::wstring strNodeName, strName, strContent;
-
+					std::wstring strNodeName, strName;
 					do
 					{
 						CString str;
@@ -923,6 +934,7 @@ void CACOBDTDlg::UpdateVehicleList(short const siTestType/* = 0*/, CString strFi
 						xmlReader.EnterNode();
 						do
 						{
+							xmlReader.GetNodeName(strNodeName);
 							// 车牌号码
 							if(L"jcCarBrandNumber"==strNodeName)  
 							{ 

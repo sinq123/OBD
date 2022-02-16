@@ -94,6 +94,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="GC011.xml" />
+    <None Include="GetObd.xml" />
     <None Include="ReadMe.txt" />
     <None Include="res\ACOBDT.ico" />
     <None Include="res\ACOBDT.rc2" />

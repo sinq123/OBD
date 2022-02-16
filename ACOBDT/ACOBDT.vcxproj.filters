@@ -34,6 +34,8 @@
     <None Include="res\ACOBDT.ico">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="GetObd.xml" />
+    <None Include="GC011.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ACOBDT.h">

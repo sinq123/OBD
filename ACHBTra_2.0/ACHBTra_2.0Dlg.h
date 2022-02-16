@@ -115,7 +115,7 @@ private:
 
 	//修改
 public:
-	std::wstring ModXml(const std::wstring* strUTF8XmlDoc);
+	std::wstring ModXml(const std::wstring* strUTF8XmlDoc, bool& bMod);
 
 	/* strJQMKD		节气门绝对开度
 	   strJSFHZ		计算负荷值

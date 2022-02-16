@@ -162,6 +162,44 @@ void COBDTestDlg::OnBnClickedButtonStopTest()
 void COBDTestDlg::OnBnClickedButtonFinish()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	SHBMsg sHBMsg;
+	CZYHttp_PAI::GetInstance().SetOBDProData(m_sTestLog, sHBMsg);
+
+	switch (_wtoi(m_sTestLog.wchTestType))
+	{
+	case 1:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HA", sHBMsg);
+		}
+	break;
+	case 2:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HV", sHBMsg);
+		}
+	break;
+	case 3:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HJ", sHBMsg);
+		}
+	break;
+	case 4:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HS", sHBMsg);
+		}
+	break;
+	case 5:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HY", sHBMsg);
+		}
+	break;
+	case 6:
+		{
+			CZYHttp_PAI::GetInstance().SetVehItemEnd(m_sTestLog.wchReportNumber, m_sTestLog.wchNumberOfTestPeriod, L"HP", sHBMsg);
+		}
+	break;
+	}
+	
+
 }
 
 
@@ -375,6 +413,16 @@ void COBDTestDlg::StartItem(void)
 		m_lbInfo.SetWindowTextW(strMsg);
 		return;
 	}
+
+	if (IDYES == MessageBox(L"是否修正过程数据的操作？？", L"过程数据", MB_YESNO))
+	{
+		SetTestLogAndVehDB(L"0", L"0", strMsg);
+		GetDlgItem(IDC_BUTTON_FINISH)->SetWindowTextW(L"上传过程数据");
+		GetDlgItem(IDC_BUTTON_FINISH)->EnableWindow(TRUE);
+		m_lbInfo.SetWindowTextW(L"请排放检测完成后，点击过程数据上传按钮");
+	}
+
+
 }
 
 //初始化一个以微秒为单位的时间种子

@@ -39,6 +39,10 @@ void CACNDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LST_VEHICLE, m_lstVehicle);
 	DDX_Control(pDX, IDC_RA_SQL, m_edchkSQL);
 	DDX_Control(pDX, IDC_RA_INTET, m_edIntet);
+
+	DDX_Control(pDX, ID_ED_CALID, m_edCALID);
+	DDX_Control(pDX, ID_ED_CVN, m_edCVN);
+	DDX_Control(pDX, ID_ED_OBDTYPE, m_edOBDType);
 }
 
 BEGIN_MESSAGE_MAP(CACNDlg, CDialogEx)
@@ -596,6 +600,30 @@ void CACNDlg::OnBnClickedBtnUp()
 		m_edMsg.SetWindowTextW(L"更新OBD数据失败");
 		return;
 	}
+
+	CString strCVN, strCALID, strOBDType;
+	m_edCALID.GetWindowTextW(strCALID);
+	m_edCVN.GetWindowTextW(strCVN);
+	m_edOBDType.GetWindowTextW(strOBDType);
+
+	if (!strCALID.IsEmpty())
+	{
+		sResultOfOBD.strEngineCALID = strCALID.GetString();
+		m_edCALID.SetWindowTextW(L"");
+	}
+
+	if (!strCVN.IsEmpty())
+	{
+		sResultOfOBD.strEngineCVN = strCVN.GetString();
+		m_edCVN.SetWindowTextW(L"");
+	}
+
+	if (!strOBDType.IsEmpty())
+	{
+		sResultOfOBD.strOBDType = strOBDType.GetString();
+		m_edOBDType.SetWindowTextW(L"");
+	}
+
 	// 写入数据库
 	SetDboResultOfOBD(sResultOfOBD);
 	// 写入临时文件

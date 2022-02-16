@@ -537,8 +537,9 @@ std::wstring CACHBTra_20Dlg::LogFilePath(void)
 	return strLogFilePath.GetString();
 }
 
-std::wstring CACHBTra_20Dlg::ModXml(const std::wstring* strUTF8XmlDoc)
+std::wstring CACHBTra_20Dlg::ModXml(const std::wstring* strUTF8XmlDoc, bool& bMod)
 {
+	bMod = false;
 	// 中文处理成URL
 	//CURLCode::EncodeW();
 	// URL处理成中文
@@ -570,6 +571,7 @@ std::wstring CACHBTra_20Dlg::ModXml(const std::wstring* strUTF8XmlDoc)
 			// 是OBD过程数据才处理
 			if (strJkid == L"GC011")
 			{
+				bMod = true;
 				CString strTemp = strXml.c_str();
 				std::wstring strCon;
 				int ncyds(0);
@@ -1066,18 +1068,27 @@ int __ns1__write(struct soap*, ns1__write *ns1__write_, ns1__writeResponse &ns1_
 	soap_set_mode(&soapClient, SOAP_C_UTFSTRING);
 
 	std::wstring strXmlDoc2;
-	strXmlDoc2 = g_pCACHBTraDlg->ModXml(ns1__write_->xmlDoc);
+	bool bMod;
+	strXmlDoc2 = g_pCACHBTraDlg->ModXml(ns1__write_->xmlDoc, bMod);
 	ns1__write_->xmlDoc = & strXmlDoc2;
 
-	if (g_pCACHBTraDlg->m_bIsLog)
+	if (g_pCACHBTraDlg->m_bIsLog && bMod)
 	{
 		CString strLog;
-		strLog.Format(L"%s->", ns1__write_->xmlDoc->c_str());
+		strLog.Format(L"%s", ns1__write_->xmlDoc->c_str());
 
-		CNHLogAPI::WriteLogEx(g_pCACHBTraDlg->LogFilePath().c_str(), L"接收", L"ns1__write_", strLog);
+		CNHLogAPI::WriteLogEx(g_pCACHBTraDlg->LogFilePath().c_str(), L"接收", L"ns1__write", strLog);
 	}
 
 	int nRet = soap_call___ns1__write(&soapClient, g_pCACHBTraDlg->m_chGAURL, NULL, ns1__write_, ns1__writeResponse_);
+
+	if (g_pCACHBTraDlg->m_bIsLog && bMod)
+	{
+		CString strLog;
+		strLog.Format(L"%s", ns1__writeResponse_.return_->c_str());
+
+		CNHLogAPI::WriteLogEx(g_pCACHBTraDlg->LogFilePath().c_str(), L"接收", L"ns1__writeResponse_", strLog);
+	}
 
 	//soap_destroy(&soapClient);
 	soap_end(&soapClient);
@@ -1120,10 +1131,11 @@ int __ns1__write_(struct soap*, ns1__write *ns1__write_, ns1__writeResponse &ns1
 	soap_set_mode(&soapClient, SOAP_C_UTFSTRING);
 
 	std::wstring strXmlDoc2;
-	strXmlDoc2 = g_pCACHBTraDlg->ModXml(ns1__write_->xmlDoc);
+	bool bMod;;
+	strXmlDoc2 = g_pCACHBTraDlg->ModXml(ns1__write_->xmlDoc, bMod);
 	ns1__write_->xmlDoc = & strXmlDoc2;
 
-	if (g_pCACHBTraDlg->m_bIsLog)
+	if (g_pCACHBTraDlg->m_bIsLog && bMod)
 	{
 		CString strLog;
 		strLog.Format(L"%s->", ns1__write_->xmlDoc->c_str());
@@ -1132,6 +1144,14 @@ int __ns1__write_(struct soap*, ns1__write *ns1__write_, ns1__writeResponse &ns1
 	}
 
 	int nRet = soap_call___ns1__write_(&soapClient, g_pCACHBTraDlg->m_chGAURL, NULL, ns1__write_, ns1__writeResponse_);
+
+	if (g_pCACHBTraDlg->m_bIsLog && bMod)
+	{
+		CString strLog;
+		strLog.Format(L"%s", ns1__writeResponse_.return_->c_str());
+
+		CNHLogAPI::WriteLogEx(g_pCACHBTraDlg->LogFilePath().c_str(), L"接收", L"ns1__writeResponse_", strLog);
+	}
 
 	//soap_destroy(&soapClient);
 	soap_end(&soapClient);

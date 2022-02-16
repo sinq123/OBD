@@ -17,6 +17,9 @@ private:
 
 
 public:
+	// 文件下载接口
+	static int download_file(const std::wstring &wstrURL, const std::wstring &wstrFilePath);
+
 	// post方法
 	static int CurlPost(const std::wstring &wstrURL, const std::wstring &wstrPostData, std::wstring &wstrRet);
 	// get方法

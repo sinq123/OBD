@@ -301,5 +301,20 @@ private:
 	// 初始化数据
 	void InitData(void);
 
-
+private:
+	int randEx(void);
+	// JQMKD		节气门绝对开度
+	CStringW SetJQMKD(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
+	// JSFHZ		计算负荷值
+	CStringW SetJSFHZ(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
+	// QYCGQXH	前氧传感器信号
+	CStringW SetQYCGQXH(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
+	// CS		车速
+	CStringW SetCS(const CString& strTestType, const CString& strVelocity);
+	// FDJZS		发动机转速
+	CStringW SetFDJZS(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
+	// JQL		进气量
+	CStringW SetJQL(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
+	// JQYL		进气压力
+	CStringW SetJQYL(const CString& strTestType, const CString& strVelocity, const CString& strEngineRev);
 };
