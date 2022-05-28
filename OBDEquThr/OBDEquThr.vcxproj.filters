@@ -247,6 +247,12 @@
     <ClCompile Include="NanhuaNHF1.cpp">
       <Filter>分析仪</Filter>
     </ClCompile>
+    <ClCompile Include="JinBenTengOBD.cpp">
+      <Filter>OBD</Filter>
+    </ClCompile>
+    <ClCompile Include="XinChengDyn.cpp">
+      <Filter>测功机</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -446,6 +452,12 @@
     </ClInclude>
     <ClInclude Include="NanhuaNHF1.h">
       <Filter>分析仪</Filter>
+    </ClInclude>
+    <ClInclude Include="JinBenTengOBD.h">
+      <Filter>OBD</Filter>
+    </ClInclude>
+    <ClInclude Include="XinChengDyn.h">
+      <Filter>测功机</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

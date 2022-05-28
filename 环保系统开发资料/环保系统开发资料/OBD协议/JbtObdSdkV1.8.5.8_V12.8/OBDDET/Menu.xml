@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+
+<!--汽油-->
+<menu caption="ID_STR_ISO_OBD_GAS">
+  <menu caption="ID_STR_ISO_OBD_00" vw_key='scan' scan_vin='OBD00000000000000'>
+  </menu>
+  <!-- 手动选择 -->
+  <menu caption="ID_STR_ISO_OBD_01">
+  	<menu caption="ID_STR_ISO_OBD_15765"        path="GAS/15765" />
+  	<menu caption="ID_STR_ISO_OBD_14230"        path="GAS/14230" />
+  	<menu caption="ID_STR_ISO_OBD_14230_Add"    path="GAS/14230_Add" />
+  	<menu caption="ID_STR_ISO_OBD_PWM"          path="GAS/J1850_PWM" />
+  	<menu caption="ID_STR_ISO_OBD_VPW"          path="GAS/J1850_VPW" />
+  	<menu caption="ID_STR_ISO_OBD_9141"         path="GAS/9141" />
+  	<menu caption="ID_STR_OBD_DSL_07"           path="GAS/J1939" />
+  	<menu caption="ID_STR_ISO_OBD_15765_AT"     path="GAS/15765_AT" />
+  	<menu caption="ID_STR_ISO_OBD_14230_ELSE"   path="GAS/14230_ELSE" />
+  </menu>
+</menu>
+
+
+<!--柴油-->
+<menu caption="ID_STR_ISO_OBD_DSL">
+  <menu caption="ID_STR_ISO_OBD_00" vw_key='scan' scan_vin='OBD11111111111111'>
+  </menu>
+  <!-- 手动选择 -->
+	<menu caption="ID_STR_ISO_OBD_01">
+  	<menu caption="ID_STR_OBD_DSL_16"               path="DSL/ISO_27145_29BIT_250K"/>
+  	<menu caption="ID_STR_OBD_DSL_12"               path="DSL/ISO_15765_29BIT_250K"/>
+  	<menu caption="ID_STR_OBD_DSL_14"               path="DSL/ISO_27145_11BIT_250K"/>
+  	<menu caption="ID_STR_OBD_DSL_10"               path="DSL/ISO_15765_11BIT_250K"/>
+  	<menu caption="ID_STR_OBD_DSL_17"               path="DSL/ISO_27145_29BIT_500K"/>
+  	<menu caption="ID_STR_OBD_DSL_13"               path="DSL/ISO_15765_29BIT_500K"/>
+  	<menu caption="ID_STR_OBD_DSL_15"               path="DSL/ISO_27145_11BIT_500K"/>
+  	<menu caption="ID_STR_OBD_DSL_11"               path="DSL/ISO_15765_11BIT_500K"/>
+  	<menu caption="ID_STR_OBD_DSL_02"               path="DSL/ISO_14230_4_KWP_FAST"/>
+  	<menu caption="ID_STR_OBD_DSL_03"               path="DSL/ISO_14230_4_KWP_Add"/>
+  	<menu caption="ID_STR_OBD_DSL_04"               path="DSL/ISO_9141_2_686A"/>
+  	<menu caption="ID_STR_OBD_DSL_05"               path="DSL/SAE_J1850_PWM"/>
+  	<menu caption="ID_STR_OBD_DSL_06"               path="DSL/SAE_J1850_VPW"/>
+  	<menu caption="ID_STR_OBD_DSL_07"               path="DSL/SAE_J1939"/>
+  	<menu caption="ID_STR_OBD_DSL_07"               path="DSL/SAE_J1939_REQ"/>
+  	<menu caption="ID_STR_OBD_DSL_18"               path="DSL/ISO_CAN_Frame"/>
+  	<menu caption="ID_STR_OBD_DSL_19"               path="DSL/ISO_15765_ELSE"/>
+  </menu>
+</menu>
+
+<!--menu caption="ID_STR_ISO_OBD_SCR">
+</menu-->
+
+  <default_keyword>OBD检测,诊断桩特别版</default_keyword>
+
+</root>

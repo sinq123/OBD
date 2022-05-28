@@ -124,6 +124,11 @@ void COBDAdapterThread::InitializeInstrument(const wchar_t *szProtocol)
 		m_pAdapter = new CNanHuaWSOBD();
 		m_emInstrumentModel = IM_NHWS;
 	}
+	else if (_wcsicmp(szProtocol, L"JINBENTENG") == 0)
+	{
+		m_pAdapter = new CJinBenTengOBD();
+		m_emInstrumentModel = IM_JINBENTENG;
+	}
 	else
 	{
 		// 无匹配
@@ -170,6 +175,19 @@ DWORD COBDAdapterThread::Open(std::wstring strIP, const int nPort, const wchar_t
 		)
 	{
 		return m_pAdapter->Open(strIP, nPort);
+	}
+	return COM_OPEN_FAIL;
+}
+
+DWORD COBDAdapterThread::Open(const BYTE bPort, const wchar_t* wchPath, const wchar_t *szProtocol)
+{
+	m_bComPort = bPort;
+	*m_wchPath = *wchPath;
+
+	InitializeInstrument(szProtocol);
+	if (m_emInstrumentModel == IM_JINBENTENG)
+	{
+		return m_pAdapter->Open(bPort, wchPath);
 	}
 	return COM_OPEN_FAIL;
 }
@@ -246,6 +264,26 @@ void COBDAdapterThread::OnInit(WPARAM wParam, LPARAM lParam)
 {
 	DWORD dwProtocol = (DWORD)wParam;
 	bool bRet = Init(dwProtocol, m_nFuelType);
+
+	// 金奔腾需要获取进度来获取Protocol的值
+	if (m_emInstrumentModel == IM_JINBENTENG)
+	{
+		if (bRet)
+	{
+		while(1)
+		{
+			std::wstring strProgress;
+			bRet = GetScanStartTest(strProgress, dwProtocol);
+
+			if ((_wtoi(strProgress.c_str()) >= 100) || !bRet)
+			{
+				// 当进度大于等于100 或返回false时，结束循环
+				break;
+			}
+		}
+	}
+	}
+	
 	if (NULL != (HWND)lParam)
 	{
 		::PostMessage((HWND)lParam, WM_OBD_INIT, (WPARAM)bRet, (LPARAM)dwProtocol);
@@ -415,4 +453,19 @@ bool COBDAdapterThread::UnInit(void)
 std::wstring COBDAdapterThread::GetOBDProtocolName(DWORD dwProtocol)
 {
 	return m_pAdapter->GetOBDProtocolName(dwProtocol);
+}
+
+int COBDAdapterThread::JBT_OBDDiagnosisInit(void)
+{
+	return m_pAdapter->JBT_OBDDiagnosisInit();
+}
+
+int COBDAdapterThread::JBT_CommInit(void)
+{
+	return m_pAdapter->JBT_CommInit();
+}
+
+bool COBDAdapterThread::GetScanStartTest(std::wstring& strProgress, DWORD &dwProtocol)
+{
+	return m_pAdapter->GetScanStartTest(strProgress, dwProtocol);
 }

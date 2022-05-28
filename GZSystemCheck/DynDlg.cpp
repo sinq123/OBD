@@ -1160,6 +1160,10 @@ bool CDynDlg::UpConstLoad(void)
 			strDvitualTime.GetString(), strDrealTime.GetString(), theApp.m_RegistCode.GetString(), strALSpower.GetString(),
 			strBLSpower.GetString(), strCLSpower.GetString(), strDLSpower.GetString(), strcheckResult.GetString(),
 			strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
+
+			CGZWebServic_API::cgjSelfcheck(theApp.m_pchURL, theApp.m_RegistCode.GetString(),  strAvitualTime.GetString(), strArealTime.GetString(),
+				strDvitualTime.GetString(), strDrealTime.GetString(), strALSpower.GetString(), strDLSpower.GetString(), strcheckResult.GetString(),
+				strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
 	}
 	else
 	{
@@ -1168,11 +1172,33 @@ bool CDynDlg::UpConstLoad(void)
 			strBvitualTime.GetString(), strBrealTime.GetString(), theApp.m_RegistCode.GetString(), strALSpower.GetString(),
 			strBLSpower.GetString(), strALSpower.GetString(), strBLSpower.GetString(), strcheckResult.GetString(),
 			strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
+
+		CGZWebServic_API::cgjSelfcheck(theApp.m_pchURL, theApp.m_RegistCode.GetString(),  strAvitualTime.GetString(), strArealTime.GetString(),
+				strBvitualTime.GetString(), strBrealTime.GetString(), strALSpower.GetString(), strBLSpower.GetString(), strcheckResult.GetString(),
+				strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
 	}
 
 	if (nRet == 0)
 	{
 		AfxMessageBox(strRet.c_str());
 	}
+
+	if (IDYES == AfxMessageBox(L"是否上传负荷精度？？", MB_YESNO))
+	{
+		if (bDieselOil)
+		{
+			CGZWebServic_API::cgjLASelfcheck(theApp.m_pchURL, theApp.m_RegistCode.GetString(), strAvitualTime.GetString(), strArealTime.GetString(),
+			strBvitualTime.GetString(), strBrealTime.GetString(), strCvitualTime.GetString(), strCrealTime.GetString(),strDvitualTime.GetString(), 
+			strDrealTime.GetString(), strcheckResult.GetString(), strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
+		}
+		else
+		{
+			CGZWebServic_API::cgjLASelfcheck(theApp.m_pchURL, strAvitualTime.GetString(), strArealTime.GetString(), 
+				strBvitualTime.GetString(), strBrealTime.GetString(),strAvitualTime.GetString(), strArealTime.GetString(),
+				strBvitualTime.GetString(), strBrealTime.GetString(),strBLSpower.GetString(), strcheckResult.GetString(),
+				strStartTime.GetString(), strEnd.GetString(), theApp.m_strVersion.GetString(), strRet);
+		}
+	}
+
 	return true;
 }

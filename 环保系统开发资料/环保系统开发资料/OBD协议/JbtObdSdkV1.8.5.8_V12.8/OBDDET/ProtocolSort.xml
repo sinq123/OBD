@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+	<dsl>
+		<!--柴油车辆协议扫描顺序尽量不要修改，这是苏工推荐的最优方案-->
+		<protocol code="01">ISO_14230_4_KWP_FAST</protocol>
+		<protocol code="29">ISO_CAN_Frame</protocol>
+		<protocol code="08">SAE_J1939</protocol>
+		<!--protocol code="30">ISO_15765_ELSE</protocol-->
+		<protocol code="25">ISO_27145_29BIT_250K</protocol>
+		<protocol code="23">ISO_15765_29BIT_250K</protocol>
+		<protocol code="27">ISO_27145_11BIT_250K</protocol>
+		<protocol code="21">ISO_15765_11BIT_250K</protocol>
+		<protocol code="26">ISO_27145_29BIT_500K</protocol>
+		<protocol code="24">ISO_15765_29BIT_500K</protocol>
+		<protocol code="28">ISO_27145_11BIT_500K</protocol>
+		<protocol code="22">ISO_15765_11BIT_500K</protocol>
+		<protocol code="43">ISO_CAN_Frame_3</protocol>
+		<protocol code="35">ISO_27145_29BIT_250K_3</protocol>
+		<protocol code="36">ISO_15765_29BIT_250K_3</protocol>
+		<protocol code="37">ISO_27145_11BIT_250K_3</protocol>
+		<protocol code="38">ISO_15765_11BIT_250K_3</protocol>
+		<protocol code="39">ISO_27145_29BIT_500K_3</protocol>
+		<protocol code="40">ISO_15765_29BIT_500K_3</protocol>
+		<protocol code="41">ISO_27145_11BIT_500K_3</protocol>
+		<protocol code="42">ISO_15765_11BIT_500K_3</protocol>
+		<protocol code="34">SAE_J1939_REQ</protocol>
+		<protocol code="02">ISO_14230_4_KWP_Add</protocol>
+		<protocol code="07">SAE_J1850_PWM</protocol>
+		<protocol code="06">SAE_J1850_VPW</protocol>
+		<protocol code="03">ISO_9141_2_686A</protocol>
+	</dsl>
+	<gas>
+		<protocol code="51">GAS_CAN_Frame</protocol>
+		<protocol code="04">15765_11_500K</protocol>
+		<protocol code="44">15765_29_500K</protocol>
+		<protocol code="45">15765_11_250K</protocol>
+		<protocol code="46">15765_29_250K</protocol>
+		<protocol code="47">27145_11_500K</protocol>
+		<protocol code="48">27145_29_500K</protocol>
+		<protocol code="49">27145_11_250K</protocol>
+		<protocol code="50">27145_29_250K</protocol>
+		<protocol code="01">14230</protocol>
+		<protocol code="02">14230_Add</protocol>
+		<protocol code="07">J1850_PWM</protocol>
+		<protocol code="06">J1850_VPW</protocol>
+		<protocol code="03">9141</protocol>
+		<protocol code="31">J1939</protocol>
+		<protocol code="33">15765_AT</protocol>
+		<protocol code="32">14230_ELSE</protocol>
+	</gas>
+</root>

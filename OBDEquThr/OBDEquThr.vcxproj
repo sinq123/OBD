@@ -132,6 +132,7 @@
     <ClCompile Include="FuLiFLV1000.cpp" />
     <ClCompile Include="FuLiVMT2000.cpp" />
     <ClCompile Include="HuaGongVTET1000.cpp" />
+    <ClCompile Include="JinBenTengOBD.cpp" />
     <ClCompile Include="MahaASMP.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="MingQuanML100.cpp" />
@@ -177,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="Tac.cpp" />
     <ClCompile Include="TacThread.cpp" />
+    <ClCompile Include="XinChengDyn.cpp" />
     <ClCompile Include="ZenYuanOBD.cpp" />
     <ClCompile Include="ZhengDeOBD.cpp" />
   </ItemGroup>
@@ -201,6 +203,7 @@
     <ClInclude Include="FuLiFLV1000.h" />
     <ClInclude Include="FuLiVMT2000.h" />
     <ClInclude Include="HuaGongVTET1000.h" />
+    <ClInclude Include="JinBenTengOBD.h" />
     <ClInclude Include="MahaASMP.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="MingQuanML100.h" />
@@ -245,6 +248,7 @@
     <ClInclude Include="Tac.h" />
     <ClInclude Include="TacThread.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="XinChengDyn.h" />
     <ClInclude Include="ZenYuanOBD.h" />
     <ClInclude Include="ZhengDeOBD.h" />
   </ItemGroup>

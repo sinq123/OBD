@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="pthreads">
+      <UniqueIdentifier>{12685a70-ea55-4434-90e9-01e4c2fa0ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\DLL">
+      <UniqueIdentifier>{bd05ca78-82a5-40b2-87d2-de37ed6e78af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Include">
+      <UniqueIdentifier>{b4ee4c91-be23-4532-af65-0dd0daf6de0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pthreads\Lib">
+      <UniqueIdentifier>{6150161d-7d61-49aa-b951-7dd27baea16b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ini">
+      <UniqueIdentifier>{6321a068-268a-48e1-8496-0e13fc0880e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsoap">
+      <UniqueIdentifier>{7a7ae900-b33c-4c24-877b-2857d44566c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="验证">
+      <UniqueIdentifier>{fbfd9dfb-582a-429f-bd08-6012d2c3bfd7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\NHOBDPDA.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\NHOBDPDA.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="pthreadGC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadGCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVC2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVCE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="pthreadVSE2.dll">
+      <Filter>pthreads\DLL</Filter>
+    </None>
+    <None Include="libpthreadGC2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="libpthreadGCE2.a">
+      <Filter>pthreads\Lib</Filter>
+    </None>
+    <None Include="NHOBDPDA.ini">
+      <Filter>Ini</Filter>
+    </None>
+    <None Include="gSoap\NHOBD.nsmap">
+      <Filter>gsoap</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NHOBDPDA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NHOBDPDADlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pthread.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="sched.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="semaphore.h">
+      <Filter>pthreads\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="gSoap\NHOBD.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gSoap\soapH.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gSoap\soapStub.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="gSoap\stdsoap2.h">
+      <Filter>gsoap</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+    <ClInclude Include="RJYZ.h">
+      <Filter>验证</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NHOBDPDA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NHOBDPDADlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gSoap\soapC.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gSoap\soapClient.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gSoap\soapServer.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="gSoap\stdsoap2.cpp">
+      <Filter>gsoap</Filter>
+    </ClCompile>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+    <ClCompile Include="RJYZ.cpp">
+      <Filter>验证</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NHOBDPDA.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="pthreadVC2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVCE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+    <Library Include="pthreadVSE2.lib">
+      <Filter>pthreads\Lib</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="gSoap\NHOBD.wsdl">
+      <Filter>gsoap</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

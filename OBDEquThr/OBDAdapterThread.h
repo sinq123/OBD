@@ -4,7 +4,7 @@
 #include "ZenYuanOBD.h"
 #include "ZhengDeOBD.h"
 #include "NanHuaWSOBD.h"
-
+#include "JinBenTengOBD.h"
 
 class AFX_EXT_CLASS COBDAdapterThread : public CWinThread
 {
@@ -29,12 +29,14 @@ public:
 		IM_ZENYUAN,
 		IM_ZHENGDE,
 		IM_NHWS,
+		IM_JINBENTENG,
 	};
 
 public:
 	// 打开串口
 	DWORD Open(const BYTE bPort, const int nBaudRate, const wchar_t *szProtocol);
 	DWORD Open(std::wstring strIP, const int nPort, const wchar_t *szProtocol);
+	DWORD Open(const BYTE bPort, const wchar_t* wchPath, const wchar_t *szProtocol);
 	DWORD ReOpen(void);
 
 	// 关闭串口
@@ -124,6 +126,9 @@ public:
 	// 取OBD总线协议
 	std::wstring GetOBDProtocolName(DWORD dwProtocol);
 
+	int JBT_OBDDiagnosisInit(void);
+	int JBT_CommInit(void);
+	bool GetScanStartTest(std::wstring& strProgress, DWORD &dwProtocol);
 private:
 	afx_msg void OnInit(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnGetSystemCheck(WPARAM wParam, LPARAM lParam);
@@ -188,6 +193,9 @@ private:
 	std::wstring m_strServerIP;
 	// 服务器端口号
 	unsigned short m_usServerPort;
+
+	// 动态库路径
+	wchar_t* m_wchPath;
 	
 	// 上次操作时刻
 	clock_t m_LastOPTime;

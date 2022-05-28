@@ -134,6 +134,7 @@ public:
 	// COM_OPEN_FAIL
 	DWORD Open(const BYTE bPort, const int nBaudRate = CBR_115200){ return COM_OPEN_FAIL;}
 	DWORD Open(std::wstring strIP, const int nPort);
+	DWORD Open(const BYTE bPort, const wchar_t* wchPath){ return COM_OPEN_FAIL;}
 	// 关闭串口
 	// 自动识别是否有可以不关闭的串口资源
 	// 返回：
@@ -183,6 +184,10 @@ public:
 	bool UnInit(void);
 	// 取OBD总线协议
 	std::wstring GetOBDProtocolName(DWORD dwProtocol);
+
+	int JBT_OBDDiagnosisInit(void){return 99;}
+	int JBT_CommInit(void){return 99;}
+	bool GetScanStartTest(std::wstring& strProgress, DWORD &dwProtocol){return true;}
 
 private:
 	bool SendAndRecvPacket(ZDPacket sZYPSend, ZDPacket &sZYPRecv);

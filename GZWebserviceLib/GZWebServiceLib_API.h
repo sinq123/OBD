@@ -28,6 +28,17 @@ public:
 		const std::wstring& strBLSpower, const std::wstring& strCLSpower, const std::wstring& strDLSpower, const std::wstring& strcheckResult, 
 		const std::wstring& strcheckTimeStart, const std::wstring& strcheckTimeEnd, const std::wstring& strremark, std::wstring& strRetStr);
 
+	static int cgjSelfcheck(const char * pchURL, const std::wstring& strregistCode, const std::wstring strHVitualTime, const std::wstring strHrealTime,
+		const std::wstring& strLvitualTime, const std::wstring strLrealTime, const std::wstring strHpower, const std::wstring strLpower,
+		const std::wstring& strcheckResult, const std::wstring strcheckTimeStart, const std::wstring strcheckTimeEnd, const std::wstring strremark,
+		std::wstring& strRetStr);
+
+	static int cgjLASelfcheck(const char * pchURL, const std::wstring& strregistCode, const std::wstring strAvitualTime, const std::wstring strArealTime,
+		const std::wstring& strBvitualTime, const std::wstring strBrealTime, const std::wstring strCvitualTime, const std::wstring strCrealTime,
+		const std::wstring& strDvitualTime, const std::wstring strDrealTime, const std::wstring strcheckResult, const std::wstring strcheckTimeStart,
+		const std::wstring strcheckTimeEnd, const std::wstring strremark, std::wstring& strRetStr);
+
+
 	static int getSatate(const char * pchURL, const std::wstring& strregistCode, std::wstring& strRetStr);
 
 	// »’÷æŒª÷√

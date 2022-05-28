@@ -1,0 +1,160 @@
+<Message Device="0000000571" OutlookID="005001804571">
+
+  <Respond Name="VehicleInfo">
+
+    <Row>
+
+      <Vehicle>
+
+        <License>新CB7561</License>
+
+        <Vin>LJDLAA29XC0069096</Vin>
+
+        <RegisterDate>2012-03-20</RegisterDate>
+
+        <VehicleType>K33</VehicleType>
+
+        <Model>YQZ7142</Model>
+
+        <GearBoxType>0</GearBoxType>
+
+        <AdmissionMode>0</AdmissionMode>
+
+        <Volume>1.4</Volume>
+
+        <Odometer>92235.0</Odometer>
+
+        <FuelType>0</FuelType>
+
+        <SupplyMode>2</SupplyMode>
+
+        <RatedRev>5000.0</RatedRev>
+
+        <RatedPower>78.0</RatedPower>
+
+        <DriveMode>0</DriveMode>
+
+        <Owner>魏龙</Owner>
+
+        <Address>新疆石河子14小区22栋312号</Address>
+
+        <MaxMass>1460.0</MaxMass>
+
+        <RefMass>1139.0</RefMass>
+
+        <Phone>15199577778</Phone>
+
+        <HasPurge>1</HasPurge>
+
+        <IsEFI />
+
+        <MaxLoad>5.0</MaxLoad>
+
+        <CarOrTruck>K</CarOrTruck>
+
+        <Cylinder>4.0</Cylinder>
+
+        <YellowToGreen>B</YellowToGreen>
+
+        <SignType>1</SignType>
+
+        <StandardID>4</StandardID>
+
+        <ccrq>2012-01-02</ccrq>
+
+      </Vehicle>
+
+      <LimitValue>
+
+        <IsUsed>1</IsUsed>
+
+        <AmbientCOUp>0.1</AmbientCOUp>
+
+        <AmbientCO2Up>16.0</AmbientCO2Up>
+
+        <AmbientHCUp>100.0</AmbientHCUp>
+
+        <AmbientNOUp>100.0</AmbientNOUp>
+
+        <BackgroundCOUp>0.02</BackgroundCOUp>
+
+        <BackgroundCO2Up>16.0</BackgroundCO2Up>
+
+        <BackgroundHCUp>15.0</BackgroundHCUp>
+
+        <BackgroundNOUp>25.0</BackgroundNOUp>
+
+        <ResidualHCUp>7.0</ResidualHCUp>
+
+        <CO5025>0.5</CO5025>
+
+        <HC5025>90.0</HC5025>
+
+        <NO5025>700.0</NO5025>
+
+        <CO2540>0.4</CO2540>
+
+        <HC2540>80.0</HC2540>
+
+        <NO2540>650.0</NO2540>
+
+        <COAndCO2 />
+
+        <VmasCO>0.0</VmasCO>
+
+        <VmasHC />
+
+        <VmasNOX />
+
+        <VmasHCNOX />
+
+        <UPVALUEL>1.05</UPVALUEL>
+
+        <DOWNVALUEL>0.95</DOWNVALUEL>
+
+        <HighIdleCO>0.3</HighIdleCO>
+
+        <HighIdleHC>50.0</HighIdleHC>
+
+        <HighIdleRevUp />
+
+        <HighIdleRevBelow />
+
+        <LowIdleCO>0.6</LowIdleCO>
+
+        <LowIdleHC>80.0</LowIdleHC>
+
+        <IdleCO>0.6</IdleCO>
+
+        <IdleHC>80.0</IdleHC>
+
+        <LowIdleRevUp />
+
+        <LowIdleRevBelow />
+
+        <FASmokeK />
+
+        <FARev />
+
+        <SmokeK />
+
+        <SmokeHSU />
+
+        <SmokeNO />
+
+        <DieselRevUp />
+
+        <DieselRevBelow />
+
+        <MaxPower />
+
+        <SmokeRb />
+
+        <ccrq>2012-01-02</ccrq>
+
+      </LimitValue>
+
+    </Row>
+
+  </Respond>
+</Message>

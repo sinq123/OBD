@@ -114,7 +114,7 @@ public:
 	// COM_OPEN_FAIL
 	virtual DWORD Open(const BYTE bPort, const int nBaudRate = CBR_2400) = 0;
 	virtual DWORD Open(std::wstring strIP, const int nPort) = 0;
-
+	virtual DWORD Open(const BYTE bPort, const wchar_t* wchPath) = 0;
 	// 关闭串口
 	// 自动识别是否有可以不关闭的串口资源
 	// 返回：
@@ -188,6 +188,19 @@ public:
 	virtual bool UnInit(void) = 0;
 	// 取OBD总线协议
 	virtual std::wstring GetOBDProtocolName(DWORD dwProtocol) = 0;
+
+	//////////////////////////////////////////////////////////////////////////////////////// 金奔腾操作流程
+	// 初始化诊断接口
+	/*
+	返回：int，参见前面的接口返回值定义
+	参数：char*：诊断程序保存目录
+	*/
+	virtual int JBT_OBDDiagnosisInit(void) = 0;
+	// 初始化Comm接口
+	virtual int JBT_CommInit(void) = 0;
+
+	virtual bool GetScanStartTest(std::wstring& strProgress, DWORD &dwProtocol) = 0;
+	////////////////////////////////////////////////////////////////////////////////////////金奔腾操作流程
 	//////////////////////////////////////////////////////////////////////////////////////// 仪器操作 end
 
 protected:

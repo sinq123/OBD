@@ -1,0 +1,1 @@
+<Message Device="0000000571">  <Respond Name="OBDVerify">    <Row>      <Result>1</Result>      <ErrorMessage>OBD检测登录成功！</ErrorMessage>    </Row>  </Respond></Message>

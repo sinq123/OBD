@@ -525,14 +525,7 @@ bool COBDTestDlg::SetOBDLOG(SResultOfOBD& sResultOfOBD)
 	}
 	else
 	{
-		CString strOBDType;
-		srand(time(0));
-		int n = rand()%10;
-		strOBDType.Format(L"%s", GetOBDType(n, L"ÆûÓÍ")); 
-		CString strEngineCALID, strEngineCVN;
-		Sleep(1000);
-		GetEngineCALID(strOBDType, L"ÆûÓÍ", strEngineCALID, strEngineCVN);
-
+		
 		sResultOfOBD.strOBDType  = strOBDType.GetString();
 		sResultOfOBD.strEngineCALID = strEngineCALID.GetString();
 		sResultOfOBD.strEngineCVN = strEngineCVN.GetString();

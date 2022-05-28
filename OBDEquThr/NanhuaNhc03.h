@@ -357,6 +357,157 @@ public:
 	DWORD GetResponseTimeData( float *const pfV=NULL, float *const pfF=NULL, const int nLength =10);
 	////////////////////////////////////// 响应时间有关end
 
+		///////////////////////////////////// 新城的控制设置Begin
+
+	// 设置IGBT的pwm波占空比(%)
+	// 设置pwm占空比为50%：
+	// XSI +0x00+0x20+0x7a+0x44+ 和校验码＋C
+	DWORD XC_SetConstantIGBT(const float fpwm){return DYN_NOT_SUPPORT;}
+
+	// 设置选用的力通道（通道1，通道2，通道3）
+	// 默认值为通道1：如设置为通道1/2/3，该条命令直接用第一个数据字节来表示选用的通道。
+	// XSI +0+0+0+1/2/3+ 和校验码＋C
+	DWORD XC_SetConstantForceChannel(const int nChannel){return DYN_NOT_SUPPORT;}
+
+	// 力清零
+	//对目前设置使用的通道进行清零：
+	// XSZ+0+0+0+0+ 和校验码＋C
+	DWORD XC_SetConstantForceClearing(void){return DYN_NOT_SUPPORT;}
+
+	// 清除按键值
+	DWORD XC_ClearKeyValue(void){return DYN_NOT_SUPPORT;}
+
+	// 设置滚筒直径(cm)：
+	// 如滚筒直径为14.736cm：
+	//XCS +0xa8+0xc6+0x6b+0x41+ 和校验码＋C
+	DWORD XC_SetConstantRollerDiameter(const int nRollerDim){return DYN_NOT_SUPPORT;}
+
+	// 设置编码器脉冲数(每圈)
+	// 如编码器脉冲数为1000：
+	//XCS +0x00+0x00+0x7a+0x44+ 和校验码＋C
+	DWORD XC_SetConstantEncoderPulNum(const int nEnPulNum){return DYN_NOT_SUPPORT;}
+
+	// 设置通道1力标定系数b[0]：force=b[0]*(ad_value-c[0])
+	// 设置系数b[0]=1158.4：
+	// XCA +0xcd+0xcc+0x90+0x44+ 和校验码＋C
+	DWORD XC_SetConstantForceCailFac_B1(const float fb){return DYN_NOT_SUPPORT;}
+
+	//设置通道1力标定系数c[0]：	
+	// 设置系数c[0]=0.01：
+	//XCB +0x0a+0xd7+0x23+0x3c+ 和校验码＋C
+	DWORD XC_SetConstantForceCailFac_C1(const float fc){return DYN_NOT_SUPPORT;}
+
+	//设置通道2力标定系数b[1]：	
+	//设置系数b[1]=1158.4：
+	//XCC +0xcd+0xcc+0x90+0x44+ 和校验码＋C
+	DWORD XC_SetConstantForceCailFac_B2(const float fb){return DYN_NOT_SUPPORT;}
+
+	//设置通道2力标定系数c[1]：	
+	//设置系数c[1]=0.01：
+	//XCD +0x0a+0xd7+0x23+0x3c + 和校验码＋C
+	DWORD XC_SetConstantForceCailFac_C2(const float fc){return DYN_NOT_SUPPORT;}
+
+	//设置通道3力标定系数b[2]：	
+	//设置系数b[2]=1158.4：
+	//XCE +0xcd+0xcc+0x90+0x44 + 和校验码＋C
+	DWORD XC_SetConstantForceCailFac_B3(const float fb){return DYN_NOT_SUPPORT;}
+
+	//设置通道3力标定系数c[2]：	
+	//设置系数c[2]=0.01：
+	//XCF +0x0a+0xd7+0x23+0x3c  +和校验码＋C
+	DWORD XC_SetConstantForceCailFac_C3(const float fc){return DYN_NOT_SUPPORT;}
+
+	//设置恒速控制PID控制比例系数kp：	
+	//设置系数c[2]=0.01：
+	//XCH +0x0a+0xd7+0x23+0x3c  +和校验码＋C
+	DWORD XC_SetConstantSpeedControl_P(const float fkp){return DYN_NOT_SUPPORT;}
+
+	//设置恒速控制PID控制积分系数ki：	
+	//设置系数c[2]=0.01：
+	//XCI +0x0a+0xd7+0x23+0x3c +和校验码＋C
+	DWORD XC_SetConstantSpeedControl_I(const float fki){return DYN_NOT_SUPPORT;}
+
+	//设置恒速控制PID控制微分系数kd：	
+	//设置系数c[2]=0.01：
+	//XCJ+0x0a+0xd7+0x23+0x3c +和校验码＋C
+	DWORD XC_SetConstantSpeedControl_D(const float fkd){return DYN_NOT_SUPPORT;}
+
+	//设置恒力控制PID控制比例系数kp_force：	
+	//设置系数c[2]=0.01：
+	//XCK +0x0a+0xd7+0x23+0x3c  +和校验码＋C
+	DWORD XC_SetConstantForceControl_P(const float fkp){return DYN_NOT_SUPPORT;}
+
+	//设置恒力控制PID控制比例系数 ki_force：	
+	//设置系数c[2]=0.01：
+	//XCL +0x0a+0xd7+0x23+0x3c +和校验码＋C
+	DWORD XC_SetConstantForceControl_I(const float fki){return DYN_NOT_SUPPORT;}
+
+	//设置恒力控制PID控制比例系数 kd_force：	
+	//设置系数c[2]=0.01：
+	//XCM +0x0a+0xd7+0x23+0x3c +和校验码＋C
+	DWORD XC_SetConstantForceControl_D(const float fkd){return DYN_NOT_SUPPORT;}
+
+	//启动恒速度控制	XBS + 0+0+0+0+ 和校验码 ＋ C
+	//启动恒扭距控制	XBF + 0+0+0+0+ 和校验码 ＋ C
+	//启动恒功率控制	XBP + 0+0+ 0+0+ 和校验码 ＋ C
+
+	//启动输出设定pwm值	XBI + 0+0+ 0+0+ 和校验码 ＋ C
+	DWORD XC_StartSetPWN(const float fPWN){return DYN_NOT_SUPPORT;}
+
+	//停止控制,pwm输出0	XBS + 0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_StopPWN(void){return DYN_NOT_SUPPORT;}
+
+	//起动电机	XEB + 0+0+0+0+ 和校验码 ＋ C
+	//停止电机	XES + 0+0+0+0+ 和校验码 ＋ C
+	//打开指定继电器（LH1/LH2/LH3）	（LH1/LH2/LH3）分别对应数据1/2/3：如打开继电器LH1: XEO + 0+0+0+1+ 和校验码 ＋ C
+	DWORD XC_OpenRelay(const int nLH){return DYN_NOT_SUPPORT;}
+
+	//关闭指定继电器（LH1/LH2/LH3）	（LH1/LH2/LH3）分别对应数据1/2/3：如打开继电器LH3: XEF + 0+0+0+3+ 和校验码 ＋ C
+	DWORD XC_CloseRelay(const int nLH){return DYN_NOT_SUPPORT;}
+
+	//举升器上升	XJU+ 0+0+0+0+ 和校验码 ＋ C
+	//举升器下降	XJD +0+0+0+0+ 和校验码 ＋ C
+	//进入标定状态	XDF +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_EnterCaliSta(void){return DYN_NOT_SUPPORT;}
+
+	//退出标定状态	 XDS +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ExitCaliSta(void){return DYN_NOT_SUPPORT;}
+
+	//读取环境参数	 XRT +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ReadEnvPar(float *const pfET=NULL, float *const pfAP=NULL, float *const pfRH=NULL){return DYN_NOT_SUPPORT;}
+
+	//读取力标定系数b,c	XRF +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ReadForCalFac(float *const pfb=NULL, float *const pfc=NULL, float *const pfb1=NULL, float *const pfc1=NULL, float *const pfb2=NULL, float *const pfc2=NULL){return DYN_NOT_SUPPORT;}
+
+	//读取力通道	XRC +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ReadForCha(int *const pnCha=NULL){return DYN_NOT_SUPPORT;}
+
+	//读取恒速PID系数	XRs +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ReadConSpeed(float *const pfP=NULL, float *const pfI=NULL, float *const pfD=NULL){return DYN_NOT_SUPPORT;}
+
+	//读取恒力PID系数	XRf +0+0+0+0+ 和校验码 ＋ C	
+	DWORD XC_ReadConForce(float *const pfP=NULL, float *const pfI=NULL, float *const pfD=NULL){return DYN_NOT_SUPPORT;}
+
+	//读取滚筒直径和编码器脉冲	 XRS +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_ReadRollerAndEncoder(int *const pnDia=NULL, int *const pnPul=NULL){return DYN_NOT_SUPPORT;}
+
+	//将3个通道的标定系数固化到ROM中	 XMA +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_SolCalFac(void){return DYN_NOT_SUPPORT;}
+
+	//将滚筒直径和编码器脉冲固化到ROM中	XMS +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_SolRollerAndEncoder(void){return DYN_NOT_SUPPORT;}
+
+	//将力通道的选择固化到ROM中	XMC +0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_SolForCha(void){return DYN_NOT_SUPPORT;}
+
+	//将恒速控制的PID系数固化到ROM中	XMD + 0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_SolConSheepPID(void){return DYN_NOT_SUPPORT;}
+
+	//将恒力控制的PID系数固化到ROM中	XME + 0+0+0+0+ 和校验码 ＋ C
+	DWORD XC_SolConForcePID(void){return DYN_NOT_SUPPORT;}
+
+	///////////////////////////////////// 新城的控制设置End
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 仪器操作end 
 
 private:

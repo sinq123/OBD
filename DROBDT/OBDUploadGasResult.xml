@@ -1,0 +1,15 @@
+<Message Device="0000000571">
+
+  <Respond Name="OBDUploadGasResult">
+
+    <Row>
+
+      <Result>1</Result>
+
+      <ErrorMessage>数据上传成功！</ErrorMessage>
+
+    </Row>
+
+  </Respond>
+
+</Message>

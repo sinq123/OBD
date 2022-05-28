@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NHOBD"
+ targetNamespace="urn:NHOBD/NHOBD.wsdl"
+ xmlns:tns="urn:NHOBD/NHOBD.wsdl"
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:ns="urn:NHOBD"
+ xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
+ xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+ xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+ xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+ <schema targetNamespace="urn:NHOBD"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="urn:NHOBD"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ </schema>
+
+</types>
+
+<message name="queryObjectOutRequest">
+ <part name="jkid" type="xsd:string"/><!-- ns__queryObjectOut::_jkid -->
+ <part name="QueryXmlDoc" type="xsd:string"/><!-- ns__queryObjectOut::_QueryXmlDoc -->
+</message>
+
+<message name="queryObjectOutResponse">
+ <part name="queryObjectOutReturn" type="xsd:string"/><!-- ns__queryObjectOut::_queryObjectOutReturn -->
+</message>
+
+<portType name="NHOBDPortType">
+ <operation name="queryObjectOut">
+  <documentation>Service definition of function ns__queryObjectOut</documentation>
+  <input message="tns:queryObjectOutRequest"/>
+  <output message="tns:queryObjectOutResponse"/>
+ </operation>
+</portType>
+
+<binding name="NHOBD" type="tns:NHOBDPortType">
+ <SOAP:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+ <operation name="queryObjectOut">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:NHOBD" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:NHOBD" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+</binding>
+
+<service name="NHOBD">
+ <documentation>gSOAP 2.8.17r generated service definition</documentation>
+ <port name="NHOBD" binding="tns:NHOBD">
+  <SOAP:address location="http://127.0.0.1:8080"/>
+ </port>
+</service>
+
+</definitions>
