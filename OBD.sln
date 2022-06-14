@@ -331,6 +331,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ss", "ss\ss.vcxproj", "{C24
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketServer", "SocketServer\SocketServer.vcxproj", "{0AE38FAD-BE8B-4361-BFB1-B23510EB6D51}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XCDyn", "XCDyn\XCDyn.vcxproj", "{07860731-0D1D-493E-8180-4EB41EEDCCBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -847,6 +849,12 @@ Global
 		{0AE38FAD-BE8B-4361-BFB1-B23510EB6D51}.Release|Win32.ActiveCfg = Release|Win32
 		{0AE38FAD-BE8B-4361-BFB1-B23510EB6D51}.Release|Win32.Build.0 = Release|Win32
 		{0AE38FAD-BE8B-4361-BFB1-B23510EB6D51}.Release|x64.ActiveCfg = Release|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Debug|Win32.Build.0 = Debug|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Debug|x64.ActiveCfg = Debug|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Release|Win32.ActiveCfg = Release|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Release|Win32.Build.0 = Release|Win32
+		{07860731-0D1D-493E-8180-4EB41EEDCCBC}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
